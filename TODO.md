@@ -56,6 +56,13 @@
   other five certificates answer. Server-side; recheck later and, if it
   persists, try the search per sociedad in the browser to see whether the sede
   itself fails there too.
+- [!] **Re-propose to `awesome-spain`.** GeiserX/awesome-spain#45 was closed on
+  2026-09-26 by the maintainer, kindly: too new (no stars or visible use,
+  versions still shipping), it asks for the holder's certificate and acts on
+  AEAT/TGSS/DEHU with write paths still "plan only", and it is the engine of a
+  paid closed product. He invited a new proposal once it has use and stars and
+  the write side is closed. Unblock: a few months of use, then reopen with that
+  evidence.
 - [ ] **Sistema RED (FR101, RETC)** has Playwright-only walks in
       `~/p/wiki/tools/tgss/` (`sede-red*.mjs`, `fr101-walk.mjs`). Capture at
       HTTP level before a port.
