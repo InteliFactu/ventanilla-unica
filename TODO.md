@@ -98,9 +98,14 @@
       so the holder's certificate path fits the package. The message list page
       carries each message's subject and HTML body in a hidden `.jsonLinea` JSON
       per row (truncated for long bodies), so the inbox reads without opening a
-      message, which would mark it read. Next step: record the HTTP requests
-      behind
-      `moduloSeleccionado('preparar-acceso-aplicacion','SEGUIMIENTO_EDUCATIVO')`,
-      the message list (`COD_PAGINA=20000363`) and
-      `cambiaAlumnoDirecto.jsp?alumnoSalto=<id>` with a HAR, then port
-      read-only.
+      message, which would mark it read. The whole read path was replayed with
+      curl on 2026-09-29, so no HAR is needed: login POST, then
+      `seleccion-modulo` POST with
+      `aplicacionSeleccionada=SEGUIMIENTO_EDUCATIVO` returns an
+      `EntradaDirectaUsuario.jsp?token=...` URL whose GET answers JSON with
+      `nombreVentana`; every page is then
+      `segedu/jsp/Principal.jsp?COD_PAGINA=<c_ code from menu.html>&X_MENU=...&N_V_=<nombreVentana>`
+      (ISO-8859-1). Child switch is `cambiaAlumnoDirecto.jsp?alumnoSalto=<id>`;
+      attachments are `PrincipalPPL.jsp` `idPPL=DOCADJMEN` then
+      `EnviarFichero.jsp`. Endpoints and page names are in the brain page. Next
+      step: port the read-only commands on that flow.
