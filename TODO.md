@@ -87,3 +87,20 @@
       the AutoFirma bridge.
 - [ ] RED SARA REC general registry filing and the Junta STA registry.
 - [ ] BOE fixed-width modelo writer and validator.
+- [ ] **Rayuela (Educarex) portal:
+      `rayuela mensajes|horario|faltas|profesorado|calificaciones`.** Mapped
+      live on 2026-09-29 with the owner's parent account; the full flow is in
+      `~/p/wiki/brain/topics/rayuela-headless.md`. Login is a plain form POST
+      (`usuario`, `clave`, `tipo_acceso=NORMAL`, `nombre-pagina=identificacion`,
+      `nombre-pagina-destino=comprobar-usuario`) to
+      `modulo_acceso/controlador.rayuela;jsessionid=...`; certificate and Cl@ve
+      buttons also exist (`peticionCertificadoDigital()`, `peticionClavePIN()`),
+      so the holder's certificate path fits the package. The message list page
+      carries each message's subject and HTML body in a hidden `.jsonLinea` JSON
+      per row (truncated for long bodies), so the inbox reads without opening a
+      message, which would mark it read. Next step: record the HTTP requests
+      behind
+      `moduloSeleccionado('preparar-acceso-aplicacion','SEGUIMIENTO_EDUCATIVO')`,
+      the message list (`COD_PAGINA=20000363`) and
+      `cambiaAlumnoDirecto.jsp?alumnoSalto=<id>` with a HAR, then port
+      read-only.
