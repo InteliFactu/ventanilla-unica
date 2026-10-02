@@ -71,6 +71,26 @@
       Decide whether InteliFactu depends on `ventanilla-unica` or keeps its own,
       and file the result in both backlogs.
 
+- [ ] **STA registry filing: `caceres aportar` and `junta aportar` as gated
+      `write` commands.** Owner, 2026-10-02: sede filings like this one must go
+      through ventanilla-unica, not ad hoc Playwright. Two real filings exist as
+      the reference: Cáceres "Alojamiento en despachos" (ENT2026039187,
+      2026-09-30) and Cáceres "Aportación de documentación" (ENT2026040015,
+      2026-10-02), plus the Junta STA "Aporte documentación" (ENT20260825259).
+      The captured flow (form fields, `aportadoc_modo libre|req`,
+      `referenciaAporDoc`, the `documentSignSend.jsp` upload popup that calls
+      `MiniApplet.sign` with `Adobe PDF` per document and `XAdES` over
+      `Form.xml` at "Firmar y enviar", the hidden template row, the transient
+      `TimeoutException`, the justificante in `var docu`) is in
+      `~/p/wiki/tools/sede-caceres/README.md`; the Playwright originals are in
+      `ArchivoFiscal/Vibra Lab S.L./Subvenciones-Ayudas/2026/subsanacion-2026-10/_src/sede-caceres/`.
+      Smallest next step: capture the HTTP requests of one plan-mode run (upload
+      servlet, sign callback, final submit) and replay them on the existing
+      `sta` session with `firmar pdf`/`firmar xml`. Done when
+      `ventanilla-unica caceres aportar --referencia <registro> --doc <tipo>:<pdf>`
+      returns a plan without `--confirmar si` and the registro plus the
+      justificante with it.
+
 ## Documentation
 
 - [~] **Launch after `v0.1.0`.** Listing PR opened 2026-09-26:
@@ -85,7 +105,7 @@
       `facturae.py`, XAdES SHA-512 byte-compatible with AutoFirma through
       `afirma_bridge.py`). Port it here with the local XAdES signer rather than
       the AutoFirma bridge.
-- [ ] RED SARA REC general registry filing and the Junta STA registry.
+- [ ] RED SARA REC general registry filing.
 - [ ] BOE fixed-width modelo writer and validator.
 - [ ] **Rayuela (Educarex) portal:
       `rayuela mensajes|horario|faltas|profesorado|calificaciones`.** Mapped
