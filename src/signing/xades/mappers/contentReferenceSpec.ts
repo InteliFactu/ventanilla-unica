@@ -5,8 +5,8 @@ import type { XadesMode } from '../types/XadesMode'
 import { xadesUris } from '../xadesUris'
 
 /**
- * The Reference to the signed content: `URI=""` with the enveloped-signature
- * and C14N transforms; `#<object>` for enveloping (a base64 transform when the
+ * The Reference to the signed content: `URI=""` (or `#node` when one
+ * element is signed) with the enveloped-signature and C14N transforms; `#<object>` for enveloping (a base64 transform when the
  * content is not XML); the given URI over the raw bytes when detached.
  */
 export const contentReferenceSpec = (
@@ -16,12 +16,16 @@ export const contentReferenceSpec = (
   detachedUri: string | undefined,
 ): ReferenceSpec => {
   const id = context.ids.reference
+  const node = content.signedNodeId
   if (mode === 'enveloped')
     return {
       id,
-      uri: '',
+      uri: node === undefined ? '' : `#${node}`,
       transforms: [xadesUris.envelopedSignature, xadesUris.c14n],
-      target: { kind: 'enveloped' },
+      target:
+        node === undefined
+          ? { kind: 'enveloped' }
+          : { kind: 'enveloped', node },
     }
   if (mode === 'detached') {
     if (detachedUri === undefined)

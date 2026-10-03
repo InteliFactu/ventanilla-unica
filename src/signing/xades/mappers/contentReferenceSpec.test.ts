@@ -19,6 +19,19 @@ describe('contentReferenceSpec', () => {
       target: { kind: 'enveloped' },
     })
   })
+  it('signs one node by id when the context names it', () => {
+    expect(
+      contentReferenceSpec(
+        'enveloped',
+        context,
+        { ...xml, signedNodeId: 'root' },
+        undefined,
+      ),
+    ).toMatchObject({
+      uri: '#root',
+      target: { kind: 'enveloped', node: 'root' },
+    })
+  })
   it('points at the object when enveloping, through base64 for non-XML', () => {
     expect(
       contentReferenceSpec('enveloping', context, xml, undefined),

@@ -24,4 +24,10 @@ export type SignXmlOptions = {
   readonly mimeType?: string | undefined
   /** Reference URI of detached content; required in detached mode. */
   readonly detachedUri?: string | undefined
+  /**
+   * Enveloped only, AutoFirma's `nodeToSign`: sign the element with this id
+   * (`Id`, `ID` or `id`) by `URI="#id"` and put the signature inside it,
+   * instead of `URI=""` over the whole document.
+   */
+  readonly signedNodeId?: string | undefined
 }

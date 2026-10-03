@@ -29,6 +29,7 @@ export const signXml = (
   const content = {
     bytes,
     document: options.mode === 'detached' ? undefined : parseOptionalXml(bytes),
+    signedNodeId: options.signedNodeId,
   }
   const certificates = parseCertificateChain(identity.cert)
   const context = resolveSignatureContext(certificates, options, content)

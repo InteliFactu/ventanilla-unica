@@ -17,6 +17,15 @@ describe('placeSignature', () => {
     expect(placed).toBe(document)
     expect(placed.root.children.at(-1)).toBe(signature)
   })
+  it('appends the signature to the signed node when one is named', () => {
+    const document = parseXmlDocument('<a><b id="n"/></a>')
+    const placed = placeSignature(
+      'enveloped',
+      { bytes: Buffer.alloc(0), document, signedNodeId: 'n' },
+      signature,
+    )
+    expect(placed.root.children[0]).toMatchObject({ children: [signature] })
+  })
   it('makes the signature the root otherwise', () => {
     const content = { bytes: Buffer.alloc(0), document: undefined }
     expect(placeSignature('detached', content, signature).root).toBe(signature)

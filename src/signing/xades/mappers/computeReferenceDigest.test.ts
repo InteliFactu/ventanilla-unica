@@ -16,6 +16,21 @@ describe('computeReferenceDigest', () => {
       computeReferenceDigest(document, signature, { kind: 'enveloped' }),
     ).toBe(sha256Base64('<?p?>\n<r xmlns:n="u"><x Id="i">t</x></r>'))
   })
+  it('digests the signed node without the signature or the prolog', () => {
+    expect(
+      computeReferenceDigest(document, signature, {
+        kind: 'enveloped',
+        node: 'i',
+      }),
+    ).toBe(sha256Base64('<x xmlns:n="u" Id="i">t</x>'))
+    expect(
+      computeReferenceDigest(
+        parseXmlDocument('<?p?><r id="root"><a/><s/></r>'),
+        signature,
+        { kind: 'enveloped', node: 'root' },
+      ),
+    ).toBe(sha256Base64('<r id="root"><a></a><s></s></r>'))
+  })
   it('digests an element by Id in its namespace context', () => {
     expect(
       computeReferenceDigest(document, signature, { kind: 'id', id: 'i' }),

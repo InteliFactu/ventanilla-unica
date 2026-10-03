@@ -1,6 +1,6 @@
 /* eslint-disable security/detect-non-literal-fs-filename -- every path is a fixture or one this test built under its own temp dir */
 import { execFileSync } from 'node:child_process'
-import { verify } from 'node:crypto'
+import { createHash, verify } from 'node:crypto'
 import { existsSync, mkdtempSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -100,6 +100,29 @@ describe('signXml', () => {
       'Encoding="http://www.w3.org/2000/09/xmldsig#base64"',
     )
     expect(signedInfoVerifies(result.xml)).toBe(true)
+  })
+
+  it('signs one node by id, AutoFirma nodeToSign style, inside that node', () => {
+    const application = Buffer.from(
+      '<?xml version="1.0" encoding="ISO-8859-1"?>\n<?xml-stylesheet href="s.xsl"?><r:A xmlns:r="urn:r" id="root"><n>Secretar\u00eda</n></r:A>',
+      'latin1',
+    )
+    const { xml } = signXml(identity, application, {
+      mode: 'enveloped',
+      signedNodeId: 'root',
+    })
+    const text = xml.toString()
+    expect(text).toContain('URI="#root"')
+    expect(parseXmlDocument(xml).root.children.at(-1)).toMatchObject({
+      name: 'ds:Signature',
+    })
+    expect(signedInfoVerifies(xml)).toBe(true)
+    const digest = /URI="#root">[\s\S]*?<ds:DigestValue>([^<]+)</.exec(text)
+    expect(digest?.[1]).toBe(
+      createHash('sha256')
+        .update('<r:A xmlns:r="urn:r" id="root"><n>Secretar\u00eda</n></r:A>')
+        .digest('base64'),
+    )
   })
 
   it('refuses a key that does not belong to the certificate', () => {
