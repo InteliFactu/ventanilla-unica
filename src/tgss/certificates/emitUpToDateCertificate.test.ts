@@ -71,6 +71,16 @@ describe('emitUpToDateCertificate', () => {
     expect(request).not.toHaveBeenCalled()
   })
 
+  it('refuses the tender kind without the contracting entity before logging in', async () => {
+    const request = vi.fn<HttpClient['request']>()
+    const client: HttpClient = { request, cookie: () => 'S1' }
+
+    await expect(
+      emitUpToDateCertificate(client, 'B22903801', 'licitacion'),
+    ).rejects.toThrow(/contracting entity NIF/)
+    expect(request).not.toHaveBeenCalled()
+  })
+
   it('reports the portal message when the certificate is declined', async () => {
     const declined =
       '<MESSAGES><MESSAGE><TEXTO><![CDATA[Se ha superado en el día de hoy el número máximo de peticiones permitidas]]></TEXTO></MESSAGE></MESSAGES>'
@@ -123,7 +133,7 @@ describe('emitUpToDateCertificate', () => {
       client,
       '12345678Z',
       'subvenciones',
-      dir,
+      { outDir: dir },
     )
 
     expect(request.mock.calls[3]?.[1]?.form?.['certificado']).toBe('3')

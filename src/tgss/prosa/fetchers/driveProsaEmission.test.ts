@@ -48,6 +48,23 @@ describe('driveProsaEmission', () => {
     expect(form?.['SPM.ACC.CONTINUAR']).toBe('CONTINUAR')
   })
 
+  it('sends the extra fields an option needs with the first post', async () => {
+    const { client, request } = clientAnswering(
+      screen(
+        't1',
+        '<MESSAGES><MESSAGE><TEXTO><![CDATA[NO]]></TEXTO></MESSAGE></MESSAGES>',
+      ),
+    )
+
+    await driveProsaEmission(client, session, '2', {
+      nifEntidadContratante: 'S2817035E',
+    })
+
+    const form = request.mock.calls[0]?.[1]?.form
+    expect(form?.['nifEntidadContratante']).toBe('S2817035E')
+    expect(form?.['certificado']).toBe('2')
+  })
+
   it('falls back to a fixed message when the portal declines silently', async () => {
     const { client } = clientAnswering(screen('t1', '<ProsaXMLData/>'))
 

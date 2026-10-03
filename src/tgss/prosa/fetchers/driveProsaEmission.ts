@@ -11,7 +11,8 @@ import type { ProsaEmissionOutcome } from '../types/ProsaEmissionOutcome'
 
 /**
  * Drive the AECPSED1 emission of one document kind: POST the `certificado`
- * option with Continuar, then answer each confirmation screen (situation 68
+ * option (plus any field that option needs, such as
+ * `nifEntidadContratante`) with Continuar, then answer each confirmation screen (situation 68
  * warning, deferred execution) until Imprimir. Every emission counts against
  * the portal's per-subject daily cap. A screen with a message and no
  * document is the portal declining: no debt found, no CCC/NAF, not up to
@@ -21,12 +22,14 @@ export const driveProsaEmission = async (
   client: HttpClient,
   session: ProsaSession,
   certificado: string,
+  extraFields: Readonly<Record<string, string>> = {},
 ): Promise<ProsaEmissionOutcome> => {
   const maxConfirmationSteps = 4
   const url = tgssUrls.postForm(session.sessionId)
   const entryFields = {
     ...prosaCommonFields(session.ticket),
     certificado,
+    ...extraFields,
     'SPM.ACC.CONTINUAR': 'CONTINUAR',
   }
   const entryResponse = await client.request(url, {

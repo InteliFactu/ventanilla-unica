@@ -5,8 +5,8 @@ import { tgssCorriente } from './tgssCorriente'
 
 vi.mock('../../tgss/certificates/emitUpToDateCertificate', () => ({
   emitUpToDateCertificate: vi.fn(
-    async (_client: unknown, nif: unknown, kind: unknown, outDir: unknown) =>
-      Promise.resolve({ nif, kind, outDir }),
+    async (_client: unknown, nif: unknown, kind: unknown, options: unknown) =>
+      Promise.resolve({ nif, kind, options }),
   ),
 }))
 
@@ -16,7 +16,7 @@ describe('tgssCorriente', () => {
   it('describes itself as a tgss command', () => {
     expect(tgssCorriente.portal).toBe('tgss')
     expect(tgssCorriente.action).toBe('corriente')
-    expect(tgssCorriente.options).toEqual(['nif', 'tipo'])
+    expect(tgssCorriente.options).toEqual(['nif', 'tipo', 'entidad'])
   })
 
   it('requires --nif and a valid --tipo', async () => {
@@ -28,17 +28,18 @@ describe('tgssCorriente', () => {
     ).rejects.toThrow(/--tipo is required and must be one of/)
   })
 
-  it('passes the resolved kind and --out through', async () => {
+  it('passes the resolved kind, --out and --entidad through', async () => {
     const result = await tgssCorriente.run(client, {
       nif: '12345678Z',
       tipo: '2',
       out: '/tmp/x',
+      entidad: 'S2817035E',
     })
 
     expect(result).toEqual({
       nif: '12345678Z',
       kind: 'licitacion',
-      outDir: '/tmp/x',
+      options: { outDir: '/tmp/x', contractingEntityNif: 'S2817035E' },
     })
   })
 })

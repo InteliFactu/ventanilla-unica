@@ -8,4 +8,6 @@ export type CertificateKindInfo = {
   readonly purpose: string
   /** The portal asks for a reference date the package does not send yet. */
   readonly needsDate: boolean
+  /** The portal asks for the NIF of the contracting entity (`nifEntidadContratante`). */
+  readonly needsContractingEntity: boolean
 }
