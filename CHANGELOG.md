@@ -8,6 +8,17 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `junta presentar`: files a writ with PDF attachments in the Junta de
+  Extremadura's Registro Electrónico General (tramites.juntaex.es) in the
+  holder's own name. It drives the STA registry SPA's JSON API (`/sta/api/v1`):
+  draft, multipart uploads, the `sign` save, the AutoFirma exchange
+  (`AutofirmaDownload`/`AutofirmaUpload`) signed locally as XAdES, and the
+  submission; with `--out` it saves the justificante. Plan only without
+  `--confirmar si`.
+- `junta justificante`: saves the justificante PDF of a registry entry by its
+  CSV.
+- The HTTP client accepts a binary request body.
+
 - `aeat certificado-corriente`: emits the "certificado de estar al corriente de
   obligaciones tributarias" (procedure G304) for public-sector contracts, grants
   or a generic purpose (`--finalidad`), downloads the PDF and reports whether it

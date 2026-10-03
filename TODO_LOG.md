@@ -6,6 +6,19 @@
 
 ### 2026-10
 
+- [x] 2026-10-03 — **Backend:** `junta presentar` and `junta justificante`, the
+      Junta de Extremadura's Registro Electrónico General (STA registry SPA).
+  - Result: the SPA's JSON API (`/sta/api/v1`, `X-CSRF-TOKEN` from the `__csrf`
+    cookie) runs draft save, multipart uploads, the `sign` save, the AutoFirma
+    exchange over plain HTTP (`AutofirmaDownload` returns the `<REGIS>` form in
+    base64, signed locally as XAdES-BES enveloped, `AutofirmaUpload` takes it
+    back) and the `mode: ""` submission, which answers
+    `{id, date, document.cud}`. The justificante is
+    `/sta/Utils/DocumentCheck?ACTION=view`.
+  - Evidence: `pnpm check:ci` green (1186 tests); one live filing for 76048463K
+    to A11030071, registro ENT20260840512, CSV A11002926LMYLAE6JZLK,
+    justificante downloaded and its three SHA-256 match the uploads.
+
 - [x] 2026-10-03 — **Backend:** `aeat certificado-corriente`, the AEAT
       "certificado de estar al corriente de obligaciones tributarias" (G304).
   - Result: `ECOTInternetCiudadanosServlet` runs the same EMCE-JDIT flow as the

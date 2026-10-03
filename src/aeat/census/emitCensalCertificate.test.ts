@@ -32,7 +32,7 @@ const buildRequest = (bodies: string[]) =>
       return Promise.resolve(page('%PDF-1.4 certificate'))
     if (url.endsWith('/EMCE-JDIT/ServletSitCenInternet')) {
       if (options?.method !== 'POST') return Promise.resolve(page(entryHtml))
-      bodies.push(options.body ?? '')
+      bodies.push(String(options.body ?? ''))
       return Promise.resolve(
         page(bodies.length === 1 ? confirmationHtml : receiptHtml),
       )

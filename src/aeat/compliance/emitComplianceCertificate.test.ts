@@ -48,7 +48,7 @@ const buildRequest = (bodies: string[], sign: string) =>
       return Promise.resolve(certificatePdf(sign))
     if (url.endsWith('/EMCE-JDIT/ECOTInternetCiudadanosServlet')) {
       if (options?.method !== 'POST') return Promise.resolve(page(entryHtml))
-      bodies.push(options.body ?? '')
+      bodies.push(String(options.body ?? ''))
       return Promise.resolve(
         page(bodies.length === 1 ? confirmationHtml : 'CSV=ABCD1234EFGH5678'),
       )

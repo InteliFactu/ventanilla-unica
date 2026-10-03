@@ -111,6 +111,15 @@
       returns a plan without `--confirmar si` and the registro plus the
       justificante with it.
 
+- [ ] **Cáceres general registry.** `junta presentar` runs on the shared STA
+      registry SPA, but only the Junta's procedure id
+      (`generalRegistryProcedures`) is mapped. Next step: open
+      `sede.caceres.es/sta/reg` once and record its general-registry id, then
+      test a plan run.
+- [ ] **`src/index.ts` is at the 100-line lint limit.** The registry modules
+      (`fileStaRegistryEntry`, `downloadStaRegistryReceipt`) are not exported.
+      Next step: split the index by portal, then export them.
+
 ## Documentation
 
 - [~] **Launch after `v0.1.0`.** Listing PR opened 2026-09-26:

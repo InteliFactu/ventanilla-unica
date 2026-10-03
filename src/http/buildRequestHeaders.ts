@@ -7,7 +7,7 @@ export const buildRequestHeaders = (
   target: URL,
   jar: CookieJar,
   options: HttpRequestOptions,
-  body: string | undefined,
+  body: string | Buffer | undefined,
 ): Record<string, string> => {
   const headers: Record<string, string> = {
     'User-Agent': browserUserAgent,
