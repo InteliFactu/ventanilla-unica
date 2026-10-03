@@ -129,3 +129,13 @@
       attachments are `PrincipalPPL.jsp` `idPPL=DOCADJMEN` then
       `EnviarFichero.jsp`. Endpoints and page names are in the brain page. Next
       step: port the read-only commands on that flow.
+
+## Routed from `~/p/TODO.md` (2026-10-03)
+
+Moved verbatim from `~/p/TODO.md` on 2026-10-03; the routing table in
+`~/p/TODO_LOG.md` (entry of that date) records each move.
+
+- [ ] **CI red on `main`.** Every push run since 2026-09-27 failed (latest
+      2026-10-02 14:52 UTC, `gh run list -R InteliFactu/ventanilla-unica`); on
+      2026-09-28 the failing step was `check:quality`. Split out of a cross-repo
+      "Red CI" line in `~/p/TODO.md`.
