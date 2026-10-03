@@ -4,6 +4,19 @@
 
 ## 2026
 
+### 2026-10
+
+- [x] 2026-10-03 — **Backend:** `aeat certificado-corriente`, the AEAT
+      "certificado de estar al corriente de obligaciones tributarias" (G304).
+  - Result: `ECOTInternetCiudadanosServlet` runs the same EMCE-JDIT flow as the
+    census certificate (fIslw, fAccion=2 validation, firma básica with the
+    pre-filled `_fbNif`/`_fbNombre`, CSV, cotejo PDF), so that flow now lives in
+    `fetchEmceCertificate` and both commands call it. `--finalidad` maps
+    contratacion/subvenciones/generico to C1/B1/G1; `positive` comes from the
+    "tiene carácter (de) POSITIVO|NEGATIVO" sentence of the MotorPDF text.
+  - Evidence: `pnpm check:ci` green (1127 tests, clones unchanged at 10); one
+    live run for B22903801, contratacion: CSV issued, POSITIVO, no debts listed.
+
 ### 2026-09
 
 - [x] 2026-09-26 — **Backend:** The rest of the Junta Carpeta Ciudadana.

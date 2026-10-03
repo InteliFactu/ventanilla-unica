@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import type { HttpClient } from '../../../http/types/HttpClient'
-import { postCensalForm } from './postCensalForm'
+import { postEmceForm } from './postEmceForm'
 
-describe('postCensalForm', () => {
+describe('postEmceForm', () => {
   it('POSTs the pre-encoded body with a Latin-1 content type', async () => {
     const request = vi.fn<HttpClient['request']>(async () =>
       Promise.resolve({
@@ -16,7 +16,9 @@ describe('postCensalForm', () => {
     )
     const client: HttpClient = { request, cookie: () => undefined }
 
-    expect(await postCensalForm(client, 'a=1&b=%D1')).toBe('page')
+    expect(
+      await postEmceForm(client, 'ServletSitCenInternet', 'a=1&b=%D1'),
+    ).toBe('page')
     const [, options] = request.mock.calls[0] ?? []
     expect(options?.method).toBe('POST')
     expect(options?.body).toBe('a=1&b=%D1')

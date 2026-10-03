@@ -6,6 +6,14 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- `aeat certificado-corriente`: emits the "certificado de estar al corriente de
+  obligaciones tributarias" (procedure G304) for public-sector contracts, grants
+  or a generic purpose (`--finalidad`), downloads the PDF and reports whether it
+  came out POSITIVO or NEGATIVO (`positive`). It shares the EMCE-JDIT request
+  flow with `aeat certificado-censal`.
+
 ## [0.3.0] - 2026-09-26
 
 ### Added

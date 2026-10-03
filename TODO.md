@@ -98,6 +98,11 @@
   the final name and write layer and handed to the owner the same day. Done when
   the PR is merged and the post is published.
 
+- [ ] **`--help` column overflows.** `usageText` pads `portal action` to 24
+      characters, so `aeat certificado-censal` and `aeat certificado-corriente`
+      run into their description with no space (seen 2026-10-03). Smallest step:
+      pad to the longest command plus two, or always add one space.
+
 ## Future Ideas
 
 - [ ] FACe invoice submission. A production pipeline already exists in

@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import type { HttpClient } from '../../../http/types/HttpClient'
-import { fetchCensalEntryPage } from './fetchCensalEntryPage'
+import { fetchEmceEntryPage } from './fetchEmceEntryPage'
 
-describe('fetchCensalEntryPage', () => {
+describe('fetchEmceEntryPage', () => {
   it('GETs the servlet decoded as Latin-1', async () => {
     const request = vi.fn<HttpClient['request']>(async () =>
       Promise.resolve({
@@ -16,7 +16,7 @@ describe('fetchCensalEntryPage', () => {
     )
     const client: HttpClient = { request, cookie: () => undefined }
 
-    expect(await fetchCensalEntryPage(client)).toBe('ok')
+    expect(await fetchEmceEntryPage(client, 'ServletSitCenInternet')).toBe('ok')
     expect(request).toHaveBeenCalledWith(
       'https://www1.agenciatributaria.gob.es/wlpl/EMCE-JDIT/ServletSitCenInternet',
       { defaultCharset: 'iso-8859-1' },

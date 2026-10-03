@@ -1,14 +1,7 @@
 import type { HttpClient } from '../../http/types/HttpClient'
-import { fetchFilingPdf } from '../filings/fetchers/fetchFilingPdf'
-import { parseCsvCode } from '../filings/parsers/parseCsvCode'
 import { openAeatSession } from '../session/openAeatSession'
-import { fetchCensalEntryPage } from './fetchers/fetchCensalEntryPage'
-import { postCensalForm } from './fetchers/postCensalForm'
-import { encodeLatin1Form } from './mappers/encodeLatin1Form'
+import { fetchEmceCertificate } from './fetchers/fetchEmceCertificate'
 import { validationFields } from './mappers/validationFields'
-import { withSignatureFields } from './mappers/withSignatureFields'
-import { parseConfirmationFormFields } from './parsers/parseConfirmationFormFields'
-import { parseIslwToken } from './parsers/parseIslwToken'
 import type { CensalCertificateRequest } from './types/CensalCertificateRequest'
 import type { CensalCertificateResult } from './types/CensalCertificateResult'
 import { writeCensalCertificatePdf } from './writeCensalCertificatePdf'
@@ -29,24 +22,12 @@ export const emitCensalCertificate = async (
     'asked twice on the same day, AEAT answers the cached CSV of the first certificate',
   ]
   await openAeatSession(client)
-  const islw = parseIslwToken(await fetchCensalEntryPage(client))
-  if (islw === undefined)
-    throw new Error(
-      'AEAT: no fIslw token, the certificate did not authenticate',
-    )
-  const confirmation = await postCensalForm(
+  const { csv, pdf } = await fetchEmceCertificate(
     client,
-    encodeLatin1Form(validationFields(islw)),
+    'ServletSitCenInternet',
+    validationFields,
+    () => request,
   )
-  const signed = withSignatureFields(
-    parseConfirmationFormFields(confirmation),
-    request,
-  )
-  const receipt = await postCensalForm(client, encodeLatin1Form(signed))
-  const csv = parseCsvCode(receipt)
-  if (csv === undefined)
-    throw new Error('AEAT: the signed request came back without a CSV')
-  const pdf = await fetchFilingPdf(client, csv)
   const pdfPath =
     outDir === undefined
       ? undefined
