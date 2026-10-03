@@ -6,6 +6,27 @@
 
 ### 2026-10
 
+- [x] 2026-10-03 — **Backend:** `rolece solicitud --confirmar si` files the
+      Solicitud Simplificada.
+  - Result: "Firmar y Enviar Solicitud" answers the unsigned draft (files
+    nothing); its Firmar button calls `AutoScript.sign` on `campoXML` with
+    SHA256withRSA, `XADES`, `format=XAdES Enveloped`, `nodeToSign=root`, and
+    `firmaExito` posts `firma` (base64) and `xmlFirmado` (bytes) to
+    `firmaSolicitud!firmarSolicitud` in ISO-8859-1, with the token `body_load()`
+    writes. `signXml` gained `signedNodeId` (`URI="#root"`, the signature inside
+    that node); the command checks the draft's operator, address and province
+    and that the certificate represents the operator. "Descargar el Justificante
+    Electrónico" answers a ZIP (the registry's signed proof XML and its XSL),
+    not a PDF. Not reproduced from AutoFirma: `ds:KeyName` and the extra XPath
+    transform; the portal accepted it.
+  - Evidence: `pnpm check:ci` green (1200 tests); xmlsec1 verifies the signed
+    draft; one live filing for B22903801: Número de Registro
+    ROLECE2026E000070053, expediente 2026\020459, solicitud 2026\121716.
+    `rolece estado` then reads the check screen's "Ya existe una solicitud para
+    este operador económico pendiente de recibir los datos del Registro
+    Mercantil" as `pendingApplication: true`, and `solicitud` refuses to file
+    again.
+
 - [x] 2026-10-03 — **Backend:** `junta presentar` and `junta justificante`, the
       Junta de Extremadura's Registro Electrónico General (STA registry SPA).
   - Result: the SPA's JSON API (`/sta/api/v1`, `X-CSRF-TOKEN` from the `__csrf`

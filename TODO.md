@@ -11,18 +11,6 @@
 
 ## Blocked Tasks
 
-- [!] **ROLECE `solicitud` refuses `--confirmar si`.** Verified live on
-  2026-10-03 for B22903801: login (Cl@ve, certificate IdP), the inscription
-  check (`comprobarOEInscrito`) and the comunidad step answer the "Solicitud
-  Simplificada" for a sociedad mercantil (provincia, four e-mails, button
-  `method:enviarSolicitud` "Firmar y Enviar Solicitud"). That button was never
-  posted: per the user manual it answers the summary to sign with Autofirma,
-  then the justificante, and that exchange is not captured. The simplified path
-  has no upload at all; ROLECE inscribes from the nota registral the company
-  asks the Registro Mercantil to e-mail to
-  notasregistrales@patrimoniodelestado.es within 10 days. Unblock: the owner
-  files once in the browser with a HAR recording, or authorises one capture run
-  that stops at the signing screen.
 - [!] **PLACSP `pregunta` refuses `--confirmar si`.** The plan reads the public
   tender detail (expediente, órgano, estado, deadline, art. 138.3 date). The
   "Solicitar Información" tab, "Nueva Pregunta" and "Enviar" exist only with a
