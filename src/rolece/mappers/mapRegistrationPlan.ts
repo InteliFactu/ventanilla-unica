@@ -26,7 +26,7 @@ export const mapRegistrationPlan = (
     ),
     '  firma = <base64 of the signed XML>',
     '  xmlFirmado = <the signed XML bytes>',
-    'The portal answers the acuse de recibo; the page, the signed XML and the justificante PDF ("Descargar el Justificante Electrónico") are saved under --out.',
+    'The portal answers the acuse de recibo (Número de Registro, Número de Expediente); the page, the signed XML and the justificante electrónico ("Descargar el Justificante Electrónico", a ZIP of the signed proof) are saved under --out.',
     ...documents.map(
       (document) =>
         `Not attached: ${document.fileName} (${String(document.bytes)} bytes). The Solicitud Simplificada has no upload; ROLECE inscribes what the Registro Mercantil's nota registral says.`,

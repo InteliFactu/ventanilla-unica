@@ -2,14 +2,15 @@ import { htmlToText } from '../../html/htmlToText'
 import type { HttpResponse } from '../../http/types/HttpResponse'
 
 /**
- * What the signed post answered: the acuse de recibo of the application
- * (with the expediente number when the page names one), or anything else,
- * which the caller keeps for a human to read and never retries.
+ * What the signed post answered: the acuse de recibo of the application,
+ * with its "Número de Registro" and "Número de Expediente", or anything
+ * else, which the caller keeps for a human to read and never retries.
  */
 export const readFilingAnswer = (
   page: HttpResponse,
 ): {
   readonly filed: boolean
+  readonly registro: string | undefined
   readonly expediente: string | undefined
   readonly summary: string
 } => {
@@ -17,13 +18,11 @@ export const readFilingAnswer = (
   const text = htmlToText(
     page.text.replace(/^[\s\S]*?<div id="content"/i, '<div'),
   )
+  const registro = /n[úu]mero de registro\s*:\s*(\S+)/i.exec(text)?.[1]
+  const expediente = /n[úu]mero de expediente\s*:\s*(\S+)/i.exec(text)?.[1]
   const filed =
     page.status === 200 &&
-    /acuse de recibo|justificante/i.test(text) &&
-    !/pendiente de ser firmada/i.test(text)
-  const expediente =
-    /expediente[^A-Z0-9]{0,40}((?=[A-Z0-9/-]*\d)[A-Z0-9][A-Z0-9/-]{3,})/i.exec(
-      text,
-    )?.[1]
-  return { filed, expediente, summary: text.slice(0, summaryLength) }
+    /acuse de recibo/i.test(text) &&
+    registro !== undefined
+  return { filed, registro, expediente, summary: text.slice(0, summaryLength) }
 }

@@ -1,2 +1,7 @@
-/** A synthetic acuse de recibo with the justificante download button. */
-export const filingReceiptHtml = `<div id="menu">Inicio</div><div id="content"><h1>Acuse de Recibo de la Solicitud de Inscripción</h1><p>Número de Expediente: 2026/ROL/000123</p><form name="justificante" action="/rolece/comun/firmaSolicitud.action" method="post"><input type="hidden" name="idSolicitud" value="77"/><input type="submit" name="method:descargarJustificante" value="Descargar el Justificante Electrónico"/><input type="submit" name="method:volver" value="Volver"/></form></div>`
+/**
+ * A synthetic acuse de recibo, shaped like the one ROLECE answered on
+ * 2026-10-03: the registry and expediente numbers, and the
+ * `descargarJustificante` form with a commented-out Imprimir button.
+ */
+export const filingReceiptHtml = `<div id="menu">Inicio</div><div id="content"><h1>Justificante de Presentación de la Solicitud de Inscripción en el Registro</h1><p>ACUSE DE RECIBO DE LA SOLICITUD DE INSCRIPCI&Oacute;N EN EL REGISTRO</p><td><b>N&uacute;mero de Registro :	ROLECE2026E000000001</b></td><td>N&uacute;mero de Expediente :
+</td><td><b>2026\\000123</b></td><form id="descargarJustificante" name="descargarJustificante" action="/rolece/comun/descargarJustificante.action" method="post"><!-- <input type="submit" value="Imprimir" name="button.text.imprimir"/> --><input type="hidden" name="campoXML" value="&lt;p&gt;Secretar&iacute;a&lt;/p&gt;"/><input type="submit" value="Ver Justificante" name="method:verJustificante"/><input type="submit" value="Descargar el Justificante Electr&oacute;nico" name="method:descargaJustificante"/></form></div>`

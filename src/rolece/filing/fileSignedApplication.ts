@@ -9,8 +9,8 @@ import { writeFilingFiles } from './writeFilingFiles'
 
 /**
  * Post the signed application once, then keep the answer page, the signed
- * document and, when the acuse de recibo offers it, the justificante PDF as
- * `<stem>.html`, `<stem>-firmada.xml` and `<stem>.pdf`. Never posts twice:
+ * document and the justificante electrónico (a ZIP of the registry's signed
+ * proof) as `<stem>.html`, `<stem>-firmada.xml` and `<stem>.zip`. Never posts twice:
  * whatever the portal answers is returned and saved.
  */
 export const fileSignedApplication = async (
@@ -24,13 +24,13 @@ export const fileSignedApplication = async (
 }> => {
   const answer = await postSignedApplication(client, screen, signed)
   const read = readFilingAnswer(answer)
-  const pdf = read.filed
+  const justificante = read.filed
     ? await fetchJustificante(client, answer).catch(() => undefined)
     : undefined
   const files = await writeFilingFiles(output.outDir, output.stem, {
     '.html': answer.body,
     '-firmada.xml': signed.xml,
-    '.pdf': pdf,
+    '.zip': justificante,
   })
   return {
     receipt: { ...read, files: files.written },
@@ -40,9 +40,9 @@ export const fileSignedApplication = async (
         : [
             'The signed post did not answer an acuse de recibo; read the saved page. Do NOT file again before checking rolece estado.',
           ]),
-      ...(read.filed && pdf === undefined
+      ...(read.filed && justificante === undefined
         ? [
-            'The justificante PDF could not be downloaded automatically; the acuse de recibo page is saved.',
+            'The justificante electrónico (ZIP) could not be downloaded automatically; the acuse de recibo page is saved and its descargarJustificante form can be posted again.',
           ]
         : []),
       ...files.failed.map((failure) => `Not saved: ${failure}`),

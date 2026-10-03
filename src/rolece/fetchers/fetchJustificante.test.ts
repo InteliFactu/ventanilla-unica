@@ -11,10 +11,13 @@ const receipt = htmlResponse(
 )
 
 describe('fetchJustificante', () => {
-  it('answers the PDF, or undefined for anything else', async () => {
-    const pdf = { ...htmlResponse('u', ''), body: Buffer.from('%PDF-1.7') }
-    expect(await fetchJustificante(scriptedClient(pdf), receipt)).toEqual(
-      pdf.body,
+  it('answers the ZIP, or undefined for anything else', async () => {
+    const zip = {
+      ...htmlResponse('u', ''),
+      body: Buffer.from('PK\u0003\u0004'),
+    }
+    expect(await fetchJustificante(scriptedClient(zip), receipt)).toEqual(
+      zip.body,
     )
     expect(
       await fetchJustificante(

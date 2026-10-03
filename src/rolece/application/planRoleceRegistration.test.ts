@@ -68,14 +68,14 @@ describe('planRoleceRegistration', () => {
 
   it('files once, in ISO-8859-1, and keeps the acuse de recibo', async () => {
     const outDir = mkdtempSync(join(tmpdir(), 'ventanilla-unica-rolece-'))
-    const pdf = {
+    const zip = {
       ...htmlResponse(`${base}x`, ''),
-      body: Buffer.from('%PDF-1.4'),
+      body: Buffer.from('PK\u0003\u0004'),
     }
     const client = scriptedClient(
       ...walk(),
       htmlResponse(`${base}firmaSolicitud!firmarSolicitud`, filingReceiptHtml),
-      pdf,
+      zip,
     )
     const result = await planRoleceRegistration(
       client,
@@ -86,17 +86,21 @@ describe('planRoleceRegistration', () => {
     expect(result.executed).toBe(true)
     expect(result.receipt).toMatchObject({
       filed: true,
-      expediente: '2026/ROL/000123',
+      registro: 'ROLECE2026E000000001',
+      expediente: String.raw`2026\000123`,
     })
     expect(result.receipt?.files).toHaveLength(3)
     const [filing] = posts(client)
     expect(posts(client)).toHaveLength(1)
     expect(filing?.[1]?.body).toContain('Secretar%EDa')
     expect(filing?.[1]?.body).toContain('&token=onload-token&')
-    expect(client.request.mock.calls.at(-1)?.[1]?.form).toEqual({
-      idSolicitud: '77',
-      'method:descargarJustificante': 'Descargar el Justificante Electrónico',
-    })
+    const download = client.request.mock.calls.at(-1)?.[1]?.body ?? ''
+    expect(download).toContain('campoXML=%3Cp%3ESecretar%EDa%3C%2Fp%3E')
+    expect(download).toContain(
+      'method%3AdescargaJustificante=Descargar+el+Justificante+Electr%F3nico',
+    )
+    expect(download).not.toContain('verJustificante')
+    expect(download).not.toContain('imprimir')
   })
 
   it('refuses a draft for another operator or a certificate of another company', async () => {
