@@ -1,0 +1,2 @@
+/** A synthetic acuse de recibo with the justificante download button. */
+export const filingReceiptHtml = `<div id="menu">Inicio</div><div id="content"><h1>Acuse de Recibo de la Solicitud de Inscripción</h1><p>Número de Expediente: 2026/ROL/000123</p><form name="justificante" action="/rolece/comun/firmaSolicitud.action" method="post"><input type="hidden" name="idSolicitud" value="77"/><input type="submit" name="method:descargarJustificante" value="Descargar el Justificante Electrónico"/><input type="submit" name="method:volver" value="Volver"/></form></div>`

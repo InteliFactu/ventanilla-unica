@@ -11,4 +11,6 @@ export type RegistrationQuery = {
   readonly emailSolicitante: string
   readonly escritura?: string | undefined
   readonly poderes?: string | undefined
+  /** Where the acuse de recibo, the signed XML and the justificante are saved; required to file. */
+  readonly outDir?: string | undefined
 }

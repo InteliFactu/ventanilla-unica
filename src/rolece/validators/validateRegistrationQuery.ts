@@ -22,5 +22,6 @@ export const validateRegistrationQuery = (
     ...validateNotificationEmails(options),
     escritura: options['escritura'],
     poderes: options['poderes'],
+    outDir: options['out'],
   }
 }
