@@ -48,6 +48,8 @@ la administración en la contabilidad de sus clientes.
 | `ventanilla-unica sepe certificado --out d`                                                                            | SEPE                                                               | El certificado de situación de prestaciones en PDF (lo emite)                                                                                                            |
 | `ventanilla-unica cirbe informe --nacimiento DD-MM-AAAA --email e`                                                     | Banco de España (CIRBE)                                            | Pide tu informe de riesgos (lo emite)                                                                                                                                    |
 | `ventanilla-unica cirbe estado [--out d]`                                                                              | CIRBE                                                              | Lista tus peticiones y descarga los PDF listos                                                                                                                           |
+| `ventanilla-unica rolece estado --nif <NIF>`                                                                           | Registro Oficial de Licitadores (ROLECE)                           | Si la empresa está inscrita (búsqueda de certificados) y, si no, si le toca la solicitud inicial                                                                         |
+| `ventanilla-unica placsp estado --email e`                                                                             | Plataforma de Contratación del Sector Público (PLACSP)             | Si un e-mail ya tiene cuenta de operador (comprobación de disponibilidad; no crea nada)                                                                                  |
 
 ## Escritura
 
@@ -57,13 +59,15 @@ el plan: cada petición que enviarían, con sus valores. Con `--confirmar si` la
 ejecutan y devuelven el justificante. Se detienen antes del acto si algo no
 cuadra con lo leído (titular, importe, documento).
 
-| Comando                                                                                         | Sede | Trámite                                                                            |
-| ----------------------------------------------------------------------------------------------- | ---- | ---------------------------------------------------------------------------------- |
-| `ventanilla-unica aeat comparecer --nif <NIF> --id <n> [--out d]`                               | AEAT | Comparece en una notificación de la sede de la AEAT; los plazos empiezan ese día   |
-| `ventanilla-unica aeat carta-pago --nif <NIF> --clave K --importe n,nn [--out d]`               | AEAT | Genera una carta de pago parcial (modelo 010); pagarla es otro paso, en el banco   |
-| `ventanilla-unica aeat domicilio --nif <NIF> --codigo-postal ... --via ... [...]`               | AEAT | Presenta el 036 de cambio de domicilio fiscal (personas jurídicas)                 |
-| `ventanilla-unica tgss aplazamiento --nif <NIF> --plazos n --garantia exenta --documento f.pdf` | TGSS | Solicita un aplazamiento (XV207A01). De momento solo plan: falta capturar la firma |
-| `ventanilla-unica tgss adjuntar --expediente n --documento f.pdf --tipo t`                      | TGSS | Adjunta un documento a un expediente. De momento solo plan, por lo mismo           |
+| Comando                                                                                                   | Sede   | Trámite                                                                                                                                         |
+| --------------------------------------------------------------------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ventanilla-unica aeat comparecer --nif <NIF> --id <n> [--out d]`                                         | AEAT   | Comparece en una notificación de la sede de la AEAT; los plazos empiezan ese día                                                                |
+| `ventanilla-unica aeat carta-pago --nif <NIF> --clave K --importe n,nn [--out d]`                         | AEAT   | Genera una carta de pago parcial (modelo 010); pagarla es otro paso, en el banco                                                                |
+| `ventanilla-unica aeat domicilio --nif <NIF> --codigo-postal ... --via ... [...]`                         | AEAT   | Presenta el 036 de cambio de domicilio fiscal (personas jurídicas)                                                                              |
+| `ventanilla-unica tgss aplazamiento --nif <NIF> --plazos n --garantia exenta --documento f.pdf`           | TGSS   | Solicita un aplazamiento (XV207A01). De momento solo plan: falta capturar la firma                                                              |
+| `ventanilla-unica tgss adjuntar --expediente n --documento f.pdf --tipo t`                                | TGSS   | Adjunta un documento a un expediente. De momento solo plan, por lo mismo                                                                        |
+| `ventanilla-unica rolece solicitud --nif <NIF> --comunidad c --provincia p --email e [--escritura f.pdf]` | ROLECE | Presenta la inscripción inicial (Solicitud Simplificada). De momento solo plan: la pantalla de firma no está capturada                          |
+| `ventanilla-unica placsp pregunta --expediente <enlace\|idEvl> --texto-file f.txt`                        | PLACSP | Pregunta al órgano de contratación sobre una licitación publicada. De momento solo plan: requiere cuenta de operador y el formulario con sesión |
 
 ## Firma
 

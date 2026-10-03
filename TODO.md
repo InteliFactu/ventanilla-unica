@@ -11,6 +11,26 @@
 
 ## Blocked Tasks
 
+- [!] **ROLECE `solicitud` refuses `--confirmar si`.** Verified live on
+  2026-10-03 for B22903801: login (Cl@ve, certificate IdP), the inscription
+  check (`comprobarOEInscrito`) and the comunidad step answer the "Solicitud
+  Simplificada" for a sociedad mercantil (provincia, four e-mails, button
+  `method:enviarSolicitud` "Firmar y Enviar Solicitud"). That button was never
+  posted: per the user manual it answers the summary to sign with Autofirma,
+  then the justificante, and that exchange is not captured. The simplified path
+  has no upload at all; ROLECE inscribes from the nota registral the company
+  asks the Registro Mercantil to e-mail to
+  notasregistrales@patrimoniodelestado.es within 10 days. Unblock: the owner
+  files once in the browser with a HAR recording, or authorises one capture run
+  that stops at the signing screen.
+- [!] **PLACSP `pregunta` refuses `--confirmar si`.** The plan reads the public
+  tender detail (expediente, órgano, estado, deadline, art. 138.3 date). The
+  "Solicitar Información" tab, "Nueva Pregunta" and "Enviar" exist only with a
+  logged-in operator session, and operators log in with user id and password
+  only (no certificate, no Cl@ve). Vibra Lab has no account (`placsp estado` for
+  info@tieneslavibra.com: "Id usuario y email permitidos."). Unblock: the owner
+  self-registers at `/wps/portal/registrarse` (captcha, activation e-mail); then
+  capture the logged-in form read-only.
 - [!] **DEHU comparecencia.** Not implemented on purpose: the re-auth hop
   `.../aceptar/{ref}/login?authData=` and the accept call were never captured,
   and appearing is a legal act. Unblock: the owner records a browser HAR of one
@@ -105,6 +125,19 @@
 
 ## Future Ideas
 
+- [ ] **PLACSP bid submission ("Preparación y Presentación de ofertas"): design
+      note, not planned.** Evidence, Guía de licitación electrónica v9.1 and
+      Guía del Operador Económico v5.3: offers are prepared in a Java 1.8
+      desktop application launched by JNLP from the logged-in operator area,
+      with Autofirma; documents stay on the client until sent, each sobre is
+      encrypted client-side to the contracting body's key, the tool computes a
+      "huella electrónica" and the platform answers a signed justificante. It
+      requires an operator account with the additional company data filled in.
+      No HTTP or web-service API for submission is published (the open data and
+      the CODICE/sindicación feeds are read-only). Doing it over plain HTTP
+      would mean reverse-engineering that applet's upload, sobre encryption and
+      signature protocol, which no guide documents; the practical path is the
+      official tool. Revisit only if a published submission API appears.
 - [ ] FACe invoice submission. A production pipeline already exists in
       `~/p/wiki/tools/face/` (`face_client.py` SOAP with WS-Security,
       `facturae.py`, XAdES SHA-512 byte-compatible with AutoFirma through

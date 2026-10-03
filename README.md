@@ -46,6 +46,8 @@ administrations' side of its customers' books up to date.
 | `ventanilla-unica sepe certificado --out d`                                                                                      | SEPE                                                               | The "certificado de situacion" of benefits as PDF (emits it)                                                                                              |
 | `ventanilla-unica cirbe informe --nacimiento DD-MM-AAAA --email e`                                                               | Banco de España (CIRBE)                                            | Requests your own risk report (emits it)                                                                                                                  |
 | `ventanilla-unica cirbe estado [--out d]`                                                                                        | CIRBE                                                              | Lists your report requests and downloads the ready PDFs                                                                                                   |
+| `ventanilla-unica rolece estado --nif <NIF>`                                                                                     | Registro Oficial de Licitadores (ROLECE)                           | Whether the company is inscribed (certificate search) and, if not, whether it is due for an initial application                                           |
+| `ventanilla-unica placsp estado --email e`                                                                                       | Plataforma de Contratación del Sector Público (PLACSP)             | Whether an e-mail already has an operator account (availability check; creates nothing)                                                                   |
 
 ## Writing
 
@@ -55,13 +57,15 @@ plan: every request they would send, with its values. With `--confirmar si` they
 perform it and return the portal's receipt. Each one refuses before the act when
 anything does not match what the plan read (holder, amount, document).
 
-| Command                                                                                         | Portal | Act                                                                                         |
-| ----------------------------------------------------------------------------------------------- | ------ | ------------------------------------------------------------------------------------------- |
-| `ventanilla-unica aeat comparecer --nif <NIF> --id <n> [--out d]`                               | AEAT   | Appears at a notification in the AEAT's own sede; legal deadlines start that day            |
-| `ventanilla-unica aeat carta-pago --nif <NIF> --clave K --importe n,nn [--out d]`               | AEAT   | Generates a partial payment letter (modelo 010); paying is a separate step at the bank      |
-| `ventanilla-unica aeat domicilio --nif <NIF> --codigo-postal ... --via ... [...]`               | AEAT   | Files a modelo 036 change of tax address (legal entities)                                   |
-| `ventanilla-unica tgss aplazamiento --nif <NIF> --plazos n --garantia exenta --documento f.pdf` | TGSS   | Requests a deferral (XV207A01). Plan only for now: the signing exchange is not captured yet |
-| `ventanilla-unica tgss adjuntar --expediente n --documento f.pdf --tipo t`                      | TGSS   | Attaches a document to an expediente. Plan only for now, same reason                        |
+| Command                                                                                                   | Portal | Act                                                                                                                                |
+| --------------------------------------------------------------------------------------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `ventanilla-unica aeat comparecer --nif <NIF> --id <n> [--out d]`                                         | AEAT   | Appears at a notification in the AEAT's own sede; legal deadlines start that day                                                   |
+| `ventanilla-unica aeat carta-pago --nif <NIF> --clave K --importe n,nn [--out d]`                         | AEAT   | Generates a partial payment letter (modelo 010); paying is a separate step at the bank                                             |
+| `ventanilla-unica aeat domicilio --nif <NIF> --codigo-postal ... --via ... [...]`                         | AEAT   | Files a modelo 036 change of tax address (legal entities)                                                                          |
+| `ventanilla-unica tgss aplazamiento --nif <NIF> --plazos n --garantia exenta --documento f.pdf`           | TGSS   | Requests a deferral (XV207A01). Plan only for now: the signing exchange is not captured yet                                        |
+| `ventanilla-unica tgss adjuntar --expediente n --documento f.pdf --tipo t`                                | TGSS   | Attaches a document to an expediente. Plan only for now, same reason                                                               |
+| `ventanilla-unica rolece solicitud --nif <NIF> --comunidad c --provincia p --email e [--escritura f.pdf]` | ROLECE | Files the initial inscription (Solicitud Simplificada). Plan only for now: the signing screen is not captured yet                  |
+| `ventanilla-unica placsp pregunta --expediente <link\|idEvl> --texto-file f.txt`                          | PLACSP | Asks the contracting body a question about a published tender. Plan only for now: needs an operator account and the logged-in form |
 
 ## Signing
 
