@@ -28,6 +28,10 @@ import { juntaRegistros } from './commands/juntaRegistros'
 import { juntaRepresentados } from './commands/juntaRepresentados'
 import { juntaTasas } from './commands/juntaTasas'
 import { oargtRecibos } from './commands/oargtRecibos'
+import { placspEstado } from './commands/placspEstado'
+import { placspPregunta } from './commands/placspPregunta'
+import { roleceEstado } from './commands/roleceEstado'
+import { roleceSolicitud } from './commands/roleceSolicitud'
 import { sepeCertificado } from './commands/sepeCertificado'
 import { sepePrestacion } from './commands/sepePrestacion'
 import { tgssAdjuntar } from './commands/tgssAdjuntar'
@@ -85,6 +89,10 @@ export const commandRegistry: readonly Command[] = [
   sepeCertificado,
   cirbeInforme,
   cirbeEstado,
+  roleceEstado,
+  roleceSolicitud,
+  placspEstado,
+  placspPregunta,
   firmarPdf,
   firmarXml,
   validarNif,
