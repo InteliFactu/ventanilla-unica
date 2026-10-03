@@ -22,6 +22,10 @@ export const readSimplifiedApplication = async (
 }> => {
   const first = await fetchRegistrationCheck(client, query.nif)
   const check = readRegistrationCheck(first, query.nif)
+  if (check.pendingApplication)
+    throw new Error(
+      `ROLECE: an application for ${query.nif} is already pending (waiting for the nota registral); nothing was sent`,
+    )
   if (check.inscribed || !check.initialApplication)
     throw new Error(
       `ROLECE: ${query.nif} is already inscribed; a modification application is not captured`,

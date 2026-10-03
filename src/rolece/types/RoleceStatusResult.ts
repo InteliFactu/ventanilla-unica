@@ -7,6 +7,8 @@ export type RoleceStatusResult = {
   readonly registered: boolean
   /** True when the application screen would start an initial (first) inscription. */
   readonly initialApplication: boolean
+  /** True when a filed application waits for the Registro Mercantil's nota registral. */
+  readonly pendingApplication: boolean
   readonly certificate: {
     readonly rows: readonly RoleceCertificateRow[]
     /** Files written under `--out`; always empty for now (see notes). */

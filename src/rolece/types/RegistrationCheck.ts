@@ -7,4 +7,6 @@ export type RegistrationCheck = {
   readonly nif: string
   readonly inscribed: boolean
   readonly initialApplication: boolean
+  /** An application was filed and waits for the Registro Mercantil's nota registral. */
+  readonly pendingApplication: boolean
 }

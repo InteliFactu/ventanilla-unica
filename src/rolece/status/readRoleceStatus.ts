@@ -12,7 +12,8 @@ import type { RoleceStatusResult } from '../types/RoleceStatusResult'
  * (it names the operator, or says "NO INSCRITO EN EL REGISTRO"). For an
  * operator it does not know, the first screen of a legal-entity application
  * (a check that registers nothing) must agree that an initial application is
- * due; a disagreement is an error, not something to resolve by guessing.
+ * due, or say one is already pending; a disagreement is an error, not
+ * something to resolve by guessing.
  */
 export const readRoleceStatus = async (
   client: HttpClient,
@@ -26,11 +27,12 @@ export const readRoleceStatus = async (
   if (rows.length === 0)
     throw new Error(`ROLECE: the certificate search has no row for ${nif}`)
   const registered = rows.some((row) => row.inscribed)
-  const initialApplication = registered
-    ? false
+  const check = registered
+    ? undefined
     : readRegistrationCheck(await fetchRegistrationCheck(client, nif), nif)
-        .initialApplication
-  if (!registered && !initialApplication)
+  const initialApplication = check?.initialApplication ?? false
+  const pendingApplication = check?.pendingApplication ?? false
+  if (!registered && !initialApplication && !pendingApplication)
     throw new Error(
       `ROLECE: the certificate search says ${nif} is not inscribed, but the application screen does not offer an initial application`,
     )
@@ -38,7 +40,8 @@ export const readRoleceStatus = async (
     nif,
     registered,
     initialApplication,
+    pendingApplication,
     certificate: { rows, downloaded: [] },
-    notes: mapRoleceStatusNotes(registered, outDir),
+    notes: mapRoleceStatusNotes(registered, pendingApplication, outDir),
   }
 }

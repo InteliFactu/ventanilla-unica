@@ -16,15 +16,19 @@ const search = (name: string): ReturnType<typeof htmlResponse>[] => [
     certificateSearchHtml(nif, name),
   ),
 ]
-const check = (solicitudInicial: string): ReturnType<typeof htmlResponse>[] => [
+const check = (
+  solicitudInicial: string,
+  notice = '',
+): ReturnType<typeof htmlResponse>[] => [
   htmlResponse(`${base}/comun/inscripcionPersonaF!comprobarPJ.action`, '<p/>'),
   htmlResponse(
     `${base}/comun/inscripcionPersonaF.action`,
-    applicationFormHtml({
-      solicitudInicial,
-      numDocumento: nif,
-      inscrito: 'false',
-    }),
+    notice +
+      applicationFormHtml({
+        solicitudInicial,
+        numDocumento: nif,
+        inscrito: 'false',
+      }),
   ),
 ]
 
@@ -45,6 +49,24 @@ describe('readRoleceStatus', () => {
       numDocumento: nif,
       'method:comprobarOEInscrito': 'Siguiente',
     })
+  })
+
+  it('reports an application already pending', async () => {
+    const client = scriptedClient(
+      ...roleceLoginPages(),
+      ...search('NO INSCRITO EN EL REGISTRO'),
+      ...check(
+        '',
+        '<p>Ya existe una solicitud para este operador pendiente</p>',
+      ),
+    )
+    const result = await readRoleceStatus(client, nif)
+    expect(result).toMatchObject({
+      registered: false,
+      initialApplication: false,
+      pendingApplication: true,
+    })
+    expect(result.notes.join(' ')).toContain('Do not file again')
   })
 
   it('reports an inscribed operator without the application check', async () => {

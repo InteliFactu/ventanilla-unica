@@ -23,7 +23,23 @@ describe('readRegistrationCheck', () => {
         }),
         'B00000000',
       ),
-    ).toEqual({ nif: 'B00000000', inscribed: false, initialApplication: true })
+    ).toEqual({
+      nif: 'B00000000',
+      inscribed: false,
+      initialApplication: true,
+      pendingApplication: false,
+    })
+  })
+
+  it('reads an application already pending', () => {
+    const pending = htmlResponse(
+      'https://registrodelicitadores.gob.es/rolece/comun/inscripcionPersonaF.action',
+      `<p>Ya existe una solicitud para este operador econ&oacute;mico pendiente de recibir los datos del Registro Mercantil</p>${applicationFormHtml({ numDocumento: 'B00000000', solicitudInicial: '', inscrito: 'false' })}`,
+    )
+    expect(readRegistrationCheck(pending, 'B00000000')).toMatchObject({
+      initialApplication: false,
+      pendingApplication: true,
+    })
   })
 
   it('refuses an answer about another operator or a page without the form', () => {
