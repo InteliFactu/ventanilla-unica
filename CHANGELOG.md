@@ -8,6 +8,16 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `dgsfp reclamacion`: files a complaint (queja o reclamación, procedure TEL43)
+  at the Dirección General de Seguros y Fondos de Pensiones sede
+  (sededgsfp.gob.es) in the holder's own name. It logs in with the certificate
+  through Cl@ve, rebuilds the form values from the published schema, uploads the
+  PDFs (escrito, proof of the prior complaint to the entity's customer service,
+  policy terms, other documents), signs the request document locally as PAdES
+  and calls `registrarPresentacionTelematica`; with `--out` it saves the
+  justificante and the signed request. Plan only without `--confirmar si`, where
+  `--out` saves the unsigned request document for review.
+
 - `junta presentar`: files a writ with PDF attachments in the Junta de
   Extremadura's Registro Electrónico General (tramites.juntaex.es) in the
   holder's own name. It drives the STA registry SPA's JSON API (`/sta/api/v1`):

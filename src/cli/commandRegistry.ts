@@ -15,6 +15,7 @@ import { cirbeEstado } from './commands/cirbeEstado'
 import { cirbeInforme } from './commands/cirbeInforme'
 import { dehuDocumentos } from './commands/dehuDocumentos'
 import { dehuList } from './commands/dehuList'
+import { dgsfpReclamacion } from './commands/dgsfpReclamacion'
 import { firmarPdf } from './commands/firmarPdf'
 import { firmarXml } from './commands/firmarXml'
 import { oargtRecibos } from './commands/oargtRecibos'
@@ -75,6 +76,7 @@ export const commandRegistry: readonly Command[] = [
   roleceSolicitud,
   placspEstado,
   placspPregunta,
+  dgsfpReclamacion,
   firmarPdf,
   firmarXml,
   validarNif,
