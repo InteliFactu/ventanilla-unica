@@ -55,11 +55,18 @@
 
 ## Integrations
 
-- [ ] dgsfp: add `dgsfp reclamacion` (sede.sededgsfp.gob.es, procedimiento 14,
-      certificate + AutoFirma signature, write act behind `--confirmar si`) —
-      needed to file the MyBox Salud complaint against CaixaBank drafted in
-      `ArchivoFiscal/Christian Quintanilla Jiménez/Seguros/baja-mybox-883569016-2026-09/envio-2026-10-05/04-RECLAMACION-DGSFP-CAIXABANK.txt`
-      (2026-10-05); no DGSFP command exists yet.
+- [ ] **dgsfp: read commands.** `dgsfp reclamacion` files but nothing reads
+      back: no listing of the holder's presentations or drafts was found in the
+      sede bundles. Next step: capture Carpeta/Mis presentaciones (if any) or
+      read the registry entry through Carpeta Ciudadana by its REGAGE number.
+- [ ] **dgsfp: the request document is rendered locally.** The browser renders
+      it with react-pdf; the CLI writes an equivalent text PDF (same sections,
+      values, hashes and HMAC) and signs it PAdES. The sede accepted it on
+      2026-10-05 (REGAGE26e00086595724). Revisit only if the DGSFP objects.
+- [ ] **dgsfp: drafts accumulate.** Each confirmed run saves a
+      `guardarBorradorPresentacion` draft before registering; a failed register
+      leaves it on the sede. Next step: find the draft delete call if one
+      exists.
 
 - [ ] **Dated AECPSED1 certificates (types 4, 8, 9)** are refused until the date
       field of the request is captured.

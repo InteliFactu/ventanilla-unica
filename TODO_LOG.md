@@ -6,6 +6,18 @@
 
 ### 2026-10
 
+- [x] 2026-10-05 — **Integrations:** `dgsfp reclamacion` files a complaint
+      (TEL43) at sededgsfp.gob.es (72566d04).
+  - Result: certificate login through Cl@ve (`createClave2Request`, AFIRMA),
+    form values rebuilt from `obtenerFormularioProcedimiento` and the reusable
+    sections, FilePond uploads keyed by SHA-256, `comprobarAdjuntoPresentacion`,
+    `guardarBorradorPresentacion`, the request document signed locally PAdES,
+    and `registrarPresentacionTelematica`. Used live for the MyBox Salud
+    complaint against CaixaBank: registry REGAGE26e00086595724, 05/10/2026
+    17:14:22, CSV GEISER-2ddf-3df3-93c5-4e04-bb4c-bcb9-ad59-0cac; the
+    justificante lists all four attachments with their hashes. `pnpm check:ci`
+    green.
+
 - [x] 2026-10-03 — **Backend:** `rolece solicitud --confirmar si` files the
       Solicitud Simplificada.
   - Result: "Firmar y Enviar Solicitud" answers the unsigned draft (files
