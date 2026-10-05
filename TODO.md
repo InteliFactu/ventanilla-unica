@@ -55,6 +55,12 @@
 
 ## Integrations
 
+- [ ] dgsfp: add `dgsfp reclamacion` (sede.sededgsfp.gob.es, procedimiento 14,
+      certificate + AutoFirma signature, write act behind `--confirmar si`) —
+      needed to file the MyBox Salud complaint against CaixaBank drafted in
+      `ArchivoFiscal/Christian Quintanilla Jiménez/Seguros/baja-mybox-883569016-2026-09/envio-2026-10-05/04-RECLAMACION-DGSFP-CAIXABANK.txt`
+      (2026-10-05); no DGSFP command exists yet.
+
 - [ ] **Dated AECPSED1 certificates (types 4, 8, 9)** are refused until the date
       field of the request is captured.
 - [ ] **OARGT `LISTALIQ`** (liquidations) is server-rendered with a write button
