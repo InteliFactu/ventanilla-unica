@@ -8,6 +8,17 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `junta carpeta-comparecer`: accepts a pending notification in the Junta de
+  Extremadura Carpeta Ciudadana (sede.gobex.es). Accepting counts as notified
+  that day and starts the act's legal deadlines; the sede signs the acuse
+  itself, so no AutoFirma is involved. Plan only without `--confirmar si`; an
+  already accepted notification is never accepted again, only downloaded with
+  `--out`.
+
+- `junta carpeta-descargar`: downloads the PDF of an already accepted Carpeta
+  Ciudadana notification (and the acuse when the sede serves it as a PDF),
+  walking the grid's pages to find it; refuses a pending one.
+
 - `dgsfp reclamacion`: files a complaint (queja o reclamación, procedure TEL43)
   at the Dirección General de Seguros y Fondos de Pensiones sede
   (sededgsfp.gob.es) in the holder's own name. It logs in with the certificate
