@@ -8,6 +8,16 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `aeat aportar`: files documents (alegaciones, a reply to a requerimiento) at
+  the AEAT registry against the CSV of the notification they answer
+  (`REGD-JDIT/FGCSV`), as interesado or as the interesado's representative with
+  a power on record. Plan only without `--confirmar si` (the form the CSV
+  resolves to is opened and its procedure and parties printed; nothing is
+  uploaded); confirmed, it uploads each PDF (`EECA-FICH/UploadSv`), attaches it
+  with its document type, checks the "Firma y envío" screen lists exactly those
+  files, and registers the filing with the firma básica. The filing counts as
+  presented that day.
+
 - `junta carpeta-comparecer`: accepts a pending notification in the Junta de
   Extremadura Carpeta Ciudadana (sede.gobex.es). Accepting counts as notified
   that day and starts the act's legal deadlines; the sede signs the acuse

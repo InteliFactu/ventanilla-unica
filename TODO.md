@@ -40,6 +40,15 @@
 
 ## Testing
 
+- [~] **`aeat aportar` act and receipt unverified.** Verified live on 2026-10-06
+  with a real sancionador CSV: the form opens as GZ706 for a representative,
+  five PDFs upload and attach, and the "Firma y envío" screen lists them and
+  signs as the holder. The firma básica POST and the step-3 receipt were never
+  sent, so `parseFilingReceipt` is lenient and the receipt page is always saved
+  with `--out`. Smallest next step: after the first real filing, rewrite the
+  receipt fixture from the saved page and tighten the parser. Files over 2 MiB
+  go in one request where the dialog would chunk; also unverified.
+
 - [~] **AEAT `comparecer`, `carta-pago` and `domicilio`** ran live only in plan
   mode; the pages after the signature are inferred from the wiki flows and fail
   safe. Done when each has one owner-authorised live run and its receipt parsed.
