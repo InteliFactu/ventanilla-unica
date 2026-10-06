@@ -46,9 +46,11 @@
 - [~] **Junta `carpeta-comparecer` and `carpeta-descargar`** were built from the
   flow verified by hand on 2026-10-06 (accept by the `panelAceptar1` A4J button,
   download through `panelDescargar` `imprimirnot`) and tested offline only;
-  scroller paging to a row past page 1 is untested live. Done when one
-  `carpeta-descargar --out` and one owner-authorised confirmed acceptance run
-  through the CLI.
+  scroller paging to a row past page 1 is untested live. 2026-10-06 live (owner
+  cert, NoExp-NOT-222072_17351): `carpeta-descargar --out` saved a PDF identical
+  byte for byte to the hand download (`acuse: null`), and `carpeta-comparecer`
+  without confirm answered `accepted: 'already'`. Done when one owner-authorised
+  confirmed acceptance of a Pendiente row runs through the CLI.
 - [~] **`cirbe estado` download of a ready report.** The 2026-09-26 request was
   still "Registrada" at 03:18 and again at 12:20, two hours and nineteen minutes
   after it was made, across eight polls; the 14-minute-to-2-hour figure may hold
