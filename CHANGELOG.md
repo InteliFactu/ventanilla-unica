@@ -8,6 +8,20 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `aeat informativa`: presents an informative return file in the BOE design
+  (190, 347, 180...) through TGVI Online. It acts for the file's declarant,
+  switching the session to "en representación de" when the certificate holder
+  differs, and validates every record at the AEAT (`InicializarEnvio`,
+  `EnviarDatos`, `RecuperarErrores`), listing the failures by NIF; that opens an
+  envío but presents nothing. Confirmed, it refuses any failing record, because
+  the signature window would otherwise register only the valid ones, checks the
+  type 1 record the window shows against the file, and presents with the firma
+  básica (`PresentarEnvio`), saving the justificante by CSV.
+
+- `aeat modelo190`: builds the BOE file of a modelo 190 (2025 design, claves A
+  and L) from a perceptor CSV, offline; byte-identical to the file the AEAT
+  accepted in a live validation.
+
 - `aeat aportar`: files documents (alegaciones, a reply to a requerimiento) at
   the AEAT registry against the CSV of the notification they answer
   (`REGD-JDIT/FGCSV`), as interesado or as the interesado's representative with
