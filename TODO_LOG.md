@@ -6,6 +6,9 @@
 
 ### 2026-10
 
+- 2026-10-06 [-] **Launch after `v0.1.0`.** Listing PR opened 2026-09-26: —
+  Superseded: GeiserX/awesome-spain #45 was closed unmerged 2026-09-26; the
+  re-proposal item replaces it. LinkedIn post unverified.
 - [x] 2026-10-05 — **Integrations:** `dgsfp reclamacion` files a complaint
       (TEL43) at sededgsfp.gob.es (72566d04).
   - Result: certificate login through Cl@ve (`createClave2Request`, AFIRMA),
