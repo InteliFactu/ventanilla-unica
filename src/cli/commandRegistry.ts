@@ -1,4 +1,5 @@
 import { aeatAportar } from './commands/aeatAportar'
+import { aeatBaja } from './commands/aeatBaja'
 import { aeatCartaPago } from './commands/aeatCartaPago'
 import { aeatCertificadoCensal } from './commands/aeatCertificadoCensal'
 import { aeatCertificadoCorriente } from './commands/aeatCertificadoCorriente'
@@ -54,6 +55,7 @@ export const commandRegistry: readonly Command[] = [
   aeatComparecer,
   aeatCartaPago,
   aeatDomicilio,
+  aeatBaja,
   aeatAportar,
   aeatInformativa,
   aeatModelo190,

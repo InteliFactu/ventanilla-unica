@@ -8,11 +8,22 @@ All notable changes to this project are documented here. The format follows
 
 ### Fixed
 
+- 036 events are sent as ASCII-escaped JSON: the `zkau` decodes the body as
+  Latin-1, so an accented value ("Disolución y liquidación", "Cáceres") arrived
+  longer than typed and the form answered Error LNGINC.
 - `tgss deuda`: an ERROR message ("NO SE HA ENCONTRADO DEUDA...") is a refusal
   even when Prosa keeps the request's `DOCDocumento` in the audit block; it used
   to be taken for an issued report and end in `no PDF returned (status 500)`.
 
 ### Added
+
+- `aeat baja`: files a modelo 036 baja en el censo (casillas 150-152) of a legal
+  entity or ESPJ, with the sucesores of page 13
+  (`--sucesores 'NIF;Nombre;%;cuota|...'`). Plan mode is offline; `--validar si`
+  fills the 036 and presses "Validar declaración" at the AEAT, filing nothing;
+  only `--confirmar si` signs and files it. The baja takes the entity out of the
+  ROI too: the AEAT refuses casilla 150 with 130 (error 10655). Datebox values
+  go as ZK's own client sends them (`jq.d2j` UTC parts with `z$dateKeys`).
 
 - `tgss ccc`: lists the holder's códigos de cuenta de cotización with their
   situation (alta or baja, and since when), type and RED authorisation, from the

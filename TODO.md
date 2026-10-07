@@ -79,10 +79,6 @@
 
 ## Integrations
 
-- [ ] aeat: `aeat baja` — 036 of an entity's extinction (casillas 150/151/152,
-      page 9 successors, ROI 583/584) behind `--confirmar si`, for the Deluxe
-      Producciones dissolution if the owner wants it filed from here.
-
 - [ ] **dgsfp: read commands.** `dgsfp reclamacion` files but nothing reads
       back: no listing of the holder's presentations or drafts was found in the
       sede bundles. Next step: capture Carpeta/Mis presentaciones (if any) or
