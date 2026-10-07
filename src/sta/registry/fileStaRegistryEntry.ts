@@ -1,4 +1,3 @@
-import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
 import type { HttpClient } from '../../http/types/HttpClient'
 import type { WriteResult } from '../../write/types/WriteResult'
 import type { StaPortal } from '../types/StaPortal'
@@ -11,6 +10,7 @@ import { selectDestinationKey } from './selectors/selectDestinationKey'
 import { selectDocumentSlot } from './selectors/selectDocumentSlot'
 import { selectNotificationEmail } from './selectors/selectNotificationEmail'
 import { submitRegistryEntry } from './submitRegistryEntry'
+import type { StaRegistryFilingContext } from './types/StaRegistryFilingContext'
 import type { StaRegistryQuery } from './types/StaRegistryQuery'
 import type { StaRegistryReceipt } from './types/StaRegistryReceipt'
 import { assertPdfFiles } from './validators/assertPdfFiles'
@@ -27,11 +27,7 @@ export const fileStaRegistryEntry = async (
   client: HttpClient,
   portal: StaPortal,
   query: StaRegistryQuery,
-  context: {
-    readonly identity: CertificateIdentity
-    readonly confirmed: boolean
-    readonly outDir?: string | undefined
-  },
+  context: StaRegistryFilingContext,
 ): Promise<WriteResult<StaRegistryReceipt>> => {
   const files = await assertPdfFiles(query.documents)
   const { origin, session, person, schema } = await readRegistryContext(

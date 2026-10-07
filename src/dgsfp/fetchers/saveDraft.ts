@@ -1,11 +1,12 @@
 import type { HttpClient } from '../../http/types/HttpClient'
+import type { DgsfpDraft } from '../types/DgsfpDraft'
 import { callDgsfpService } from './callDgsfpService'
 
 /** Save the form as the holder's draft (`guardarBorradorPresentacion`), as "Revisar y presentar" does before the review; the answer is the draft id. */
 export const saveDraft = async (
   client: HttpClient,
   digest: string,
-  draft: { readonly numTelematico: string; readonly datosFormulario: string },
+  draft: DgsfpDraft,
 ): Promise<void> => {
   const id = await callDgsfpService(
     client,

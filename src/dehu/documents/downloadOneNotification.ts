@@ -1,12 +1,13 @@
-import type { HttpClient } from '../../http/types/HttpClient'
 import { downloadNotificationFile } from './downloadNotificationFile'
 import type { DownloadedDocument } from './types/DownloadedDocument'
+import type { NotificationDownloadItem } from './types/NotificationDownloadItem'
+import type { NotificationDownloadSession } from './types/NotificationDownloadSession'
 import type { Sleep } from './types/Sleep'
 
 /** The document, then the voucher, of one realized notification. */
 export const downloadOneNotification = async (
-  session: { readonly client: HttpClient; readonly authData: string },
-  item: { readonly id: string; readonly reference: string },
+  session: NotificationDownloadSession,
+  item: NotificationDownloadItem,
   outDir: string,
   sleep: Sleep,
 ): Promise<DownloadedDocument> => {

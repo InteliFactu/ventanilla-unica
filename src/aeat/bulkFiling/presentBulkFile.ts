@@ -7,6 +7,7 @@ import { openTgviAs } from './openTgviAs'
 import { readBulkFile } from './readBulkFile'
 import { runTgviValidation } from './runTgviValidation'
 import { saveBulkJustificante } from './saveBulkJustificante'
+import type { BulkFilingContext } from './types/BulkFilingContext'
 import type { BulkFilingQuery } from './types/BulkFilingQuery'
 import type { BulkFilingReceipt } from './types/BulkFilingReceipt'
 import { checkSignedHeader } from './validators/checkSignedHeader'
@@ -21,10 +22,7 @@ import { checkSignedHeader } from './validators/checkSignedHeader'
 export const presentBulkFile = async (
   client: HttpClient,
   query: BulkFilingQuery,
-  context: {
-    readonly confirmed: boolean
-    readonly outDir?: string | undefined
-  },
+  context: BulkFilingContext,
 ): Promise<WriteResult<BulkFilingReceipt>> => {
   const file = await readBulkFile(query.fichero)
   await openTgviAs(client, file)

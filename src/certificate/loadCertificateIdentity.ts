@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises'
 
 import type { CertificateIdentity } from './types/CertificateIdentity'
+import type { CertificatePaths } from './types/CertificatePaths'
 
 /**
  * Read the certificate and key from explicit paths, falling back to the
@@ -9,10 +10,9 @@ import type { CertificateIdentity } from './types/CertificateIdentity'
  * `openssl pkcs12 -legacy -in cert.p12 -clcerts -nokeys -out cert.pem` and
  * `openssl pkcs12 -legacy -in cert.p12 -nocerts -nodes -out key.pem`.
  */
-export const loadCertificateIdentity = async (paths: {
-  readonly cert?: string | undefined
-  readonly key?: string | undefined
-}): Promise<CertificateIdentity> => {
+export const loadCertificateIdentity = async (
+  paths: CertificatePaths,
+): Promise<CertificateIdentity> => {
   const certPath = paths.cert ?? process.env['VENTANILLA_UNICA_CERT']
   const keyPath = paths.key ?? process.env['VENTANILLA_UNICA_KEY']
   if (!certPath || !keyPath)

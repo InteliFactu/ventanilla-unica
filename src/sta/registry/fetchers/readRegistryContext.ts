@@ -3,9 +3,9 @@ import { openStaSession } from '../../session/openStaSession'
 import { staOrigins } from '../../session/staOrigins'
 import type { StaPortal } from '../../types/StaPortal'
 import { generalRegistryProcedures } from '../generalRegistryProcedures'
-import type { RegistryPerson } from '../types/RegistryPerson'
+import type { RegistryContext } from '../types/RegistryContext'
+import type { RegistryMeAnswer } from '../types/RegistryMeAnswer'
 import type { RegistrySchema } from '../types/RegistrySchema'
-import type { RegistrySession } from '../types/RegistrySession'
 import { getRegistryJson } from './getRegistryJson'
 import { openRegistryDraft } from './openRegistryDraft'
 
@@ -13,18 +13,13 @@ import { openRegistryDraft } from './openRegistryDraft'
 export const readRegistryContext = async (
   client: HttpClient,
   portal: StaPortal,
-): Promise<{
-  readonly origin: string
-  readonly session: RegistrySession
-  readonly person: RegistryPerson
-  readonly schema: RegistrySchema
-}> => {
+): Promise<RegistryContext> => {
   const procedureId = generalRegistryProcedures[portal]
   if (!procedureId) throw new Error(`${portal}: general registry not mapped`)
   const origin = staOrigins[portal]
   await openStaSession(client, origin)
   const session = await openRegistryDraft(client, origin, procedureId)
-  const me = await getRegistryJson<{ readonly person: RegistryPerson }>(
+  const me = await getRegistryJson<RegistryMeAnswer>(
     client,
     origin,
     `/people/me/${session.reference}`,

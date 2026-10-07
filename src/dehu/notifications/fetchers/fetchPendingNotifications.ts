@@ -4,15 +4,13 @@ import { dehuUrls } from '../../api/dehuUrls'
 import { parseJsonResponse } from '../../api/parseJsonResponse'
 import { parsePendingNotificationPage } from '../parsers/parsePendingNotificationPage'
 import type { Notification } from '../types/Notification'
+import type { NotificationSweep } from '../types/NotificationSweep'
 
 /** Read every pending notification, paging while DEHU keeps answering a full page. */
 export const fetchPendingNotifications = async (
   client: HttpClient,
   authData: string,
-): Promise<{
-  readonly notifications: readonly Notification[]
-  readonly pages: number
-}> => {
+): Promise<NotificationSweep> => {
   const pageSize = 50
   const notifications: Notification[] = []
   let pages = 0

@@ -1,4 +1,6 @@
 import { randomUUID } from 'node:crypto'
+import type { RegistryMultipartBody } from '../types/RegistryMultipartBody'
+import type { RegistryMultipartFile } from '../types/RegistryMultipartFile'
 
 /**
  * A `multipart/form-data` body: text parts first, then one file part. Returns
@@ -6,13 +8,8 @@ import { randomUUID } from 'node:crypto'
  */
 export const buildMultipartBody = (
   fields: Readonly<Record<string, string>>,
-  file: {
-    readonly field: string
-    readonly name: string
-    readonly type: string
-    readonly bytes: Buffer
-  },
-): { readonly body: Buffer; readonly contentType: string } => {
+  file: RegistryMultipartFile,
+): RegistryMultipartBody => {
   const boundary = `----ventanilla${randomUUID().replaceAll('-', '')}`
   const text = Object.entries(fields)
     .map(

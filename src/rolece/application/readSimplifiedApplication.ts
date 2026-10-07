@@ -6,6 +6,7 @@ import { readApplicationForm } from '../parsers/readApplicationForm'
 import { readRegistrationCheck } from '../parsers/readRegistrationCheck'
 import { requireOption } from '../selectors/requireOption'
 import type { RegistrationQuery } from '../types/RegistrationQuery'
+import type { SimplifiedApplicationFields } from '../types/SimplifiedApplicationFields'
 import { assertSimplifiedForm } from '../validators/assertSimplifiedForm'
 
 /**
@@ -16,10 +17,7 @@ import { assertSimplifiedForm } from '../validators/assertSimplifiedForm'
 export const readSimplifiedApplication = async (
   client: HttpClient,
   query: RegistrationQuery,
-): Promise<{
-  readonly action: string
-  readonly fields: Readonly<Record<string, string>>
-}> => {
+): Promise<SimplifiedApplicationFields> => {
   const first = await fetchRegistrationCheck(client, query.nif)
   const check = readRegistrationCheck(first, query.nif)
   if (check.pendingApplication)

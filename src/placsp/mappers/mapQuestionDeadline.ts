@@ -1,3 +1,5 @@
+import type { QuestionDeadline } from '../types/QuestionDeadline'
+
 /**
  * The last day a question obliges the contracting body to answer: art. 138.3
  * LCSP makes the answer due 6 days before the submission deadline only for
@@ -6,7 +8,7 @@
  */
 export const mapQuestionDeadline = (
   finPresentacion: string | undefined,
-): { readonly submissionEnd: string; readonly askBy: string } | undefined => {
+): QuestionDeadline | undefined => {
   const dayMs = 86_400_000
   const leadDays = 12
   const match = /^(\d{2})\/(\d{2})\/(\d{4})/.exec(finPresentacion ?? '')

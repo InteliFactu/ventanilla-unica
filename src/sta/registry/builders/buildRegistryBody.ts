@@ -1,3 +1,4 @@
+import type { RegistryBodyContent } from '../types/RegistryBodyContent'
 import type { RegistryMode } from '../types/RegistryMode'
 import type { RegistrySession } from '../types/RegistrySession'
 import type { RegistrySlot } from '../types/RegistrySlot'
@@ -10,12 +11,7 @@ import type { RegistrySlot } from '../types/RegistrySlot'
 export const buildRegistryBody = (
   session: RegistrySession,
   slot: RegistrySlot,
-  content: {
-    readonly parties: Readonly<Record<string, unknown>>
-    readonly data: readonly Readonly<Record<string, unknown>>[]
-    readonly documents: readonly Readonly<Record<string, unknown>>[]
-    readonly notificationEmail?: string | undefined
-  },
+  content: RegistryBodyContent,
   mode: RegistryMode,
 ): Readonly<Record<string, unknown>> => {
   const now = Date.now()

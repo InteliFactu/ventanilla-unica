@@ -1,10 +1,8 @@
+import type { RegistrationPageMessages } from '../types/RegistrationPageMessages'
+
 /** A synthetic PLACSP self-registration page, with the availability messages it answers. */
 export const registrationPageHtml = (
-  messages: {
-    readonly user?: string
-    readonly email?: string
-    readonly free?: string
-  } = {},
+  messages: RegistrationPageMessages = {},
 ): string =>
   `<form id="viewns_Z7_TEST_:form1" method="post" action="/wps/portal/registrarse/!ut/p/z1/x/">
 <input type="hidden" name="javax.faces.encodedURL" value="/wps/portal/registrarse/x" />

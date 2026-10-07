@@ -1,17 +1,12 @@
-import type { DgsfpAttachment } from '../types/DgsfpAttachment'
+import type { DgsfpComplaintFacts } from '../types/DgsfpComplaintFacts'
 import type { DgsfpComplaintQuery } from '../types/DgsfpComplaintQuery'
 import type { DgsfpHolder } from '../types/DgsfpHolder'
-import type { DgsfpPlace } from '../types/DgsfpPlace'
 
 /** What a confirmed run would file and every request it would send, for the holder to read before `--confirmar si`. */
 export const mapComplaintPlan = (
   holder: DgsfpHolder,
   query: DgsfpComplaintQuery,
-  facts: {
-    readonly place: DgsfpPlace
-    readonly files: readonly DgsfpAttachment[]
-    readonly numTelematico: string
-  },
+  facts: DgsfpComplaintFacts,
 ): readonly string[] => [
   `File complaint ${facts.numTelematico} at sededgsfp.gob.es as ${holder.nombre} ${holder.apellido1} ${holder.apellido2} (${holder.identificador}), in own name`,
   `Against: ${query.entity} (NIF ${query.entityNif})${query.entityDetail === '' ? '' : ` — ${query.entityDetail}`}`,

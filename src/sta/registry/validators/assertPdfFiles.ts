@@ -1,10 +1,11 @@
 import { readFile } from 'node:fs/promises'
 import { basename } from 'node:path'
+import type { RegistryPdfFile } from '../types/RegistryPdfFile'
 
 /** Refuse, before any request, a path that is not a readable PDF under the sede's 9.8 MB limit. */
 export const assertPdfFiles = async (
   paths: readonly string[],
-): Promise<readonly { readonly name: string; readonly bytes: number }[]> => {
+): Promise<readonly RegistryPdfFile[]> => {
   const maxBytes = 9.8 * 1024 * 1024
   return Promise.all(
     paths.map(async (path) => {

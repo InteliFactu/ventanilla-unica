@@ -1,7 +1,9 @@
 import type { HttpClient } from '../../http/types/HttpClient'
 import { selectListEntry } from '../selectors/selectListEntry'
 import type { DgsfpKeyValue } from '../types/DgsfpKeyValue'
+import type { DgsfpMunicipalitiesAnswer } from '../types/DgsfpMunicipalitiesAnswer'
 import type { DgsfpPlace } from '../types/DgsfpPlace'
+import type { DgsfpWantedPlace } from '../types/DgsfpWantedPlace'
 import { callDgsfpService } from './callDgsfpService'
 
 /**
@@ -12,7 +14,7 @@ import { callDgsfpService } from './callDgsfpService'
 export const fetchPlace = async (
   client: HttpClient,
   digest: string,
-  wanted: { readonly province: string; readonly municipality: string },
+  wanted: DgsfpWantedPlace,
 ): Promise<DgsfpPlace> => {
   const provinces = (await callDgsfpService(
     client,
@@ -24,7 +26,7 @@ export const fetchPlace = async (
     client,
     digest,
     `GFRestService.svc/ObtenerMunicipios?codProvincia=${encodeURIComponent(province.key)}`,
-  )) as { readonly municipios: readonly DgsfpKeyValue[] }
+  )) as DgsfpMunicipalitiesAnswer
   const municipality = selectListEntry(
     answer.municipios,
     wanted.municipality,

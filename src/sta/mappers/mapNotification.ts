@@ -1,13 +1,13 @@
 import { readText } from '../parsers/readText'
 import type { StaNotification } from '../types/StaNotification'
-import type { StaRole } from '../types/StaRole'
+import type { StaNotificationScope } from '../types/StaNotificationScope'
 import type { StaRow } from '../types/StaRow'
 import { isoFromStaTimestamp } from './isoFromStaTimestamp'
 
 /** One `ds_NOTIFICACIONES_*` row as a notification. */
 export const mapNotification = (
   row: StaRow,
-  scope: { readonly role: StaRole; readonly tab: string },
+  scope: StaNotificationScope,
 ): StaNotification => ({
   role: scope.role,
   tab: scope.tab,

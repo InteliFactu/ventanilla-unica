@@ -1,8 +1,9 @@
-import type { Mock } from 'vitest'
 import { vi } from 'vitest'
 
 import type { HttpClient } from '../../../http/types/HttpClient'
 import type { HttpRequestOptions } from '../../../http/types/HttpRequestOptions'
+import type { RecordedHttpCall } from '../../../http/types/RecordedHttpCall'
+import type { RecordingHttpClientExtras } from '../../../http/types/RecordingHttpClientExtras'
 import { filingFormPage } from './filingFormPage'
 import { signatureScreenPage } from './signatureScreenPage'
 import { uploadAnswer } from './uploadAnswer'
@@ -15,11 +16,8 @@ import { uploadAnswer } from './uploadAnswer'
 export const fakeFilingClient = (
   listed: readonly string[],
   receipt = '<p>Recibo CSV=ZZZZYYYYXXXXWWWW</p>',
-): HttpClient & {
-  request: Mock<HttpClient['request']>
-  calls: { url: string; options: HttpRequestOptions }[]
-} => {
-  const calls: { url: string; options: HttpRequestOptions }[] = []
+): HttpClient & RecordingHttpClientExtras => {
+  const calls: RecordedHttpCall[] = []
   const keys: string[] = []
   const respond = async (
     url: string,

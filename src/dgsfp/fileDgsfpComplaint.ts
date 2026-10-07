@@ -1,13 +1,13 @@
 import { writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
-import type { CertificateIdentity } from '../certificate/types/CertificateIdentity'
 import type { HttpClient } from '../http/types/HttpClient'
 import type { WriteResult } from '../write/types/WriteResult'
 import { mapComplaintPlan } from './mappers/mapComplaintPlan'
 import { prepareComplaint } from './prepareComplaint'
 import { saveComplaintReceipt } from './saveComplaintReceipt'
 import { submitComplaint } from './submitComplaint'
+import type { DgsfpComplaintContext } from './types/DgsfpComplaintContext'
 import type { DgsfpComplaintQuery } from './types/DgsfpComplaintQuery'
 import type { DgsfpReceipt } from './types/DgsfpReceipt'
 
@@ -21,11 +21,7 @@ import type { DgsfpReceipt } from './types/DgsfpReceipt'
 export const fileDgsfpComplaint = async (
   client: HttpClient,
   query: DgsfpComplaintQuery,
-  context: {
-    readonly identity: CertificateIdentity
-    readonly confirmed: boolean
-    readonly outDir?: string | undefined
-  },
+  context: DgsfpComplaintContext,
 ): Promise<WriteResult<DgsfpReceipt>> => {
   const prepared = await prepareComplaint(client, query, context.identity)
   const action = 'dgsfp reclamacion'

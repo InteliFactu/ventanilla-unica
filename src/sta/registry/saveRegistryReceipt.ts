@@ -1,5 +1,6 @@
 import type { HttpClient } from '../../http/types/HttpClient'
 import { fetchRegistryReceiptPdf } from './fetchers/fetchRegistryReceiptPdf'
+import type { RegistryReceiptTarget } from './types/RegistryReceiptTarget'
 import type { StaRegistryReceipt } from './types/StaRegistryReceipt'
 import { writeRegistryReceiptPdf } from './writeRegistryReceiptPdf'
 
@@ -8,7 +9,7 @@ export const saveRegistryReceipt = async (
   client: HttpClient,
   origin: string,
   receipt: StaRegistryReceipt,
-  target: { readonly nif: string; readonly outDir: string },
+  target: RegistryReceiptTarget,
 ): Promise<StaRegistryReceipt> => {
   const pdf = await fetchRegistryReceiptPdf(client, origin, {
     csv: receipt.csv,

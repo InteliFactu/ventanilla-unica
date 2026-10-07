@@ -1,4 +1,5 @@
 import type { HttpClient } from '../../../http/types/HttpClient'
+import type { RegistryReceiptLookup } from '../types/RegistryReceiptLookup'
 
 /**
  * The justificante PDF of a registry entry: `/sta/Utils/DocumentCheck` with
@@ -8,7 +9,7 @@ import type { HttpClient } from '../../../http/types/HttpClient'
 export const fetchRegistryReceiptPdf = async (
   client: HttpClient,
   origin: string,
-  receipt: { readonly csv: string; readonly nif: string },
+  receipt: RegistryReceiptLookup,
 ): Promise<Buffer> => {
   const response = await client.request(
     `${origin}/sta/Utils/DocumentCheck?ACTION=view&CUD=${encodeURIComponent(receipt.csv)}&NIF=${encodeURIComponent(receipt.nif)}`,

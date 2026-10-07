@@ -1,3 +1,5 @@
+import type { RegistryContent } from '../types/RegistryContent'
+import type { RegistryFormValues } from '../types/RegistryFormValues'
 import type { RegistryPerson } from '../types/RegistryPerson'
 import type { RegistrySchema } from '../types/RegistrySchema'
 import { buildRegistryData } from './buildRegistryData'
@@ -7,17 +9,8 @@ import { buildRegistryParties } from './buildRegistryParties'
 export const buildRegistryContent = (
   person: RegistryPerson,
   schema: RegistrySchema,
-  form: {
-    readonly unitKey: string
-    readonly phone: string
-    readonly subject: string
-    readonly notificationEmail: string
-  },
-): {
-  readonly parties: Readonly<Record<string, unknown>>
-  readonly data: readonly Readonly<Record<string, unknown>>[]
-  readonly notificationEmail: string
-} => ({
+  form: RegistryFormValues,
+): RegistryContent => ({
   parties: buildRegistryParties(person),
   data: buildRegistryData(schema, {
     CBDIR3: form.unitKey,

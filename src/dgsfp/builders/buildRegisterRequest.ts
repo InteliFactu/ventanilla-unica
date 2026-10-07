@@ -1,5 +1,6 @@
 import type { DgsfpAttachedFile } from '../types/DgsfpAttachedFile'
 import type { DgsfpFormValues } from '../types/DgsfpFormValues'
+import type { DgsfpRegisterParts } from '../types/DgsfpRegisterParts'
 import type { DgsfpRegisterRequest } from '../types/DgsfpRegisterRequest'
 
 /**
@@ -12,12 +13,7 @@ import type { DgsfpRegisterRequest } from '../types/DgsfpRegisterRequest'
 export const buildRegisterRequest = (
   values: DgsfpFormValues,
   datosFormulario: string,
-  parts: {
-    readonly numTelematico: string
-    readonly document: Buffer
-    readonly signedDocument: Buffer
-    readonly certificateDerBase64: string
-  },
+  parts: DgsfpRegisterParts,
 ): DgsfpRegisterRequest => {
   const files = values.secciones
     .flatMap((section) => section.lineasSeccion)

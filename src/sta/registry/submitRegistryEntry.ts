@@ -1,4 +1,3 @@
-import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
 import type { HttpClient } from '../../http/types/HttpClient'
 import { buildRegistryBody } from './builders/buildRegistryBody'
 import { saveRegistryRequest } from './fetchers/saveRegistryRequest'
@@ -6,8 +5,8 @@ import { signRegistryForm } from './fetchers/signRegistryForm'
 import { uploadRegistryFile } from './fetchers/uploadRegistryFile'
 import { mapRegistryAnswer } from './mappers/mapRegistryAnswer'
 import { mapUploadToDocument } from './mappers/mapUploadToDocument'
-import type { RegistrySession } from './types/RegistrySession'
-import type { RegistrySlot } from './types/RegistrySlot'
+import type { RegistryContent } from './types/RegistryContent'
+import type { RegistrySubmitTarget } from './types/RegistrySubmitTarget'
 import type { StaRegistryReceipt } from './types/StaRegistryReceipt'
 
 /**
@@ -17,16 +16,8 @@ import type { StaRegistryReceipt } from './types/StaRegistryReceipt'
  */
 export const submitRegistryEntry = async (
   client: HttpClient,
-  target: {
-    readonly session: RegistrySession
-    readonly slot: RegistrySlot
-    readonly identity: CertificateIdentity
-  },
-  content: {
-    readonly parties: Readonly<Record<string, unknown>>
-    readonly data: readonly Readonly<Record<string, unknown>>[]
-    readonly notificationEmail: string
-  },
+  target: RegistrySubmitTarget,
+  content: RegistryContent,
   paths: readonly string[],
 ): Promise<StaRegistryReceipt> => {
   const { session, slot, identity } = target

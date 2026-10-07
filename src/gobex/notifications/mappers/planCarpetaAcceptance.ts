@@ -1,4 +1,5 @@
 import type { GobexRecord } from '../../types/GobexRecord'
+import type { CarpetaAcceptancePlan } from '../types/CarpetaAcceptancePlan'
 import type { CarpetaAcceptanceRequest } from '../types/CarpetaAcceptanceRequest'
 import { isNotifiedNotification } from '../validators/isNotifiedNotification'
 import { isPendingNotification } from '../validators/isPendingNotification'
@@ -7,7 +8,7 @@ import { isPendingNotification } from '../validators/isPendingNotification'
 export const planCarpetaAcceptance = (
   record: GobexRecord,
   request: CarpetaAcceptanceRequest,
-): { readonly plan: readonly string[]; readonly notes: readonly string[] } => {
+): CarpetaAcceptancePlan => {
   const download = request.outDir
     ? [
         `Open the accepted notification and save its PDF (and the acuse, when the sede serves it as a PDF) under ${request.outDir}.`,

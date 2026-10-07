@@ -1,7 +1,8 @@
 import type { HttpClient } from '../../http/types/HttpClient'
 import { dgsfpUrls } from '../session/dgsfpUrls'
+import type { DgsfpProcedureAnswer } from '../types/DgsfpProcedureAnswer'
 import type { DgsfpProcedureForm } from '../types/DgsfpProcedureForm'
-import type { DgsfpSection } from '../types/DgsfpSection'
+import type { DgsfpProcedureFormJson } from '../types/DgsfpProcedureFormJson'
 import { callDgsfpService } from './callDgsfpService'
 import { fetchReusableSection } from './fetchReusableSection'
 
@@ -18,14 +19,8 @@ export const fetchProcedureForm = async (
     client,
     digest,
     `RestService.svc/obtenerFormularioProcedimiento?pr=${String(dgsfpUrls.procedureId)}`,
-  )) as {
-    readonly jsonFormulario: string
-    readonly numTelematico: string
-    readonly tituloProcedimiento: string
-  }
-  const form = JSON.parse(answer.jsonFormulario) as {
-    readonly secciones: readonly DgsfpSection[]
-  }
+  )) as DgsfpProcedureAnswer
+  const form = JSON.parse(answer.jsonFormulario) as DgsfpProcedureFormJson
   const sections = await Promise.all(
     form.secciones.map(async (section) =>
       section.seccionReutilizableId === undefined

@@ -6,6 +6,7 @@ import { postFilingSignature } from './fetchers/postFilingSignature'
 import { mapDocumentFilingPlan } from './mappers/mapDocumentFilingPlan'
 import { prepareDocumentFiling } from './prepareDocumentFiling'
 import { saveFilingReceipt } from './saveFilingReceipt'
+import type { DocumentFilingContext } from './types/DocumentFilingContext'
 import type { DocumentFilingQuery } from './types/DocumentFilingQuery'
 import type { DocumentFilingReceipt } from './types/DocumentFilingReceipt'
 
@@ -20,10 +21,7 @@ import type { DocumentFilingReceipt } from './types/DocumentFilingReceipt'
 export const fileDocumentsWithCsv = async (
   client: HttpClient,
   query: DocumentFilingQuery,
-  context: {
-    readonly confirmed: boolean
-    readonly outDir?: string | undefined
-  },
+  context: DocumentFilingContext,
 ): Promise<WriteResult<DocumentFilingReceipt>> => {
   const { form, documents } = await prepareDocumentFiling(client, query)
   const action = `aeat aportar ${query.csv}`

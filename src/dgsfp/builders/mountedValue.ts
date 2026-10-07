@@ -1,5 +1,6 @@
 import type { DgsfpControl } from '../types/DgsfpControl'
 import type { DgsfpHolder } from '../types/DgsfpHolder'
+import type { DgsfpListEntry } from '../types/DgsfpListEntry'
 import { holderContextValue } from './holderContextValue'
 import { presetValue } from './presetValue'
 
@@ -11,7 +12,7 @@ import { presetValue } from './presetValue'
 export const mountedValue = (
   control: DgsfpControl,
   holder: DgsfpHolder,
-): { readonly key: string; readonly value: string } | undefined => {
+): DgsfpListEntry | undefined => {
   if (control.tipo === 'DatosControlEtiqueta')
     return {
       key: '',

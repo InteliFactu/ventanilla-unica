@@ -1,4 +1,6 @@
 import type { HttpClient } from '../../http/types/HttpClient'
+import type { DgsfpPostalCodeAnswer } from '../types/DgsfpPostalCodeAnswer'
+import type { DgsfpPostalPlace } from '../types/DgsfpPostalPlace'
 import { callDgsfpService } from './callDgsfpService'
 
 /**
@@ -11,14 +13,14 @@ import { callDgsfpService } from './callDgsfpService'
 export const checkPostalCode = async (
   client: HttpClient,
   digest: string,
-  place: { readonly provinceKey: string; readonly postalCode: string },
+  place: DgsfpPostalPlace,
 ): Promise<void> => {
   const answer = (await callDgsfpService(
     client,
     digest,
     'CoreServices.svc/validarCodigoPostal',
     { codigoPostal: place.provinceKey, codigoProvincia: place.postalCode },
-  )) as { readonly errores?: readonly string[] | null }
+  )) as DgsfpPostalCodeAnswer
   const errors = answer.errores ?? []
   if (errors.length > 0) throw new Error(`DGSFP: ${errors.join('; ')}`)
 }

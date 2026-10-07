@@ -2,7 +2,7 @@ import type { HttpClient } from '../http/types/HttpClient'
 import { searchGobexReport } from './fetchers/searchGobexReport'
 import { gobexUrls } from './session/gobexUrls'
 import { loginWithClave } from './session/loginWithClave'
-import type { GobexRecord } from './types/GobexRecord'
+import type { JuntaCarpetaNotifications } from './types/JuntaCarpetaNotifications'
 
 /**
  * The holder's notifications in the Carpeta Ciudadana, every state, listed
@@ -10,10 +10,7 @@ import type { GobexRecord } from './types/GobexRecord'
  */
 export const listJuntaCarpetaNotifications = async (
   client: HttpClient,
-): Promise<{
-  readonly notifications: readonly GobexRecord[]
-  readonly pending: number
-}> => {
+): Promise<JuntaCarpetaNotifications> => {
   await loginWithClave(client)
   const { rows: notifications } = await searchGobexReport(
     client,

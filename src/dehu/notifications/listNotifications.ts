@@ -3,8 +3,8 @@ import { loginWithCertificate } from '../session/loginWithCertificate'
 import { fetchPendingNotifications } from './fetchers/fetchPendingNotifications'
 import { fetchRealizedNotifications } from './fetchers/fetchRealizedNotifications'
 import type { ListQuery } from './types/ListQuery'
-import type { ListState } from './types/ListState'
 import type { Notification } from './types/Notification'
+import type { NotificationListing } from './types/NotificationListing'
 
 /**
  * Log in with the holder's certificate and list pending and/or realized DEHU
@@ -13,12 +13,7 @@ import type { Notification } from './types/Notification'
 export const listNotifications = async (
   client: HttpClient,
   query: ListQuery,
-): Promise<{
-  readonly state: ListState
-  readonly notifications: readonly Notification[]
-  readonly count: number
-  readonly pages: number
-}> => {
+): Promise<NotificationListing> => {
   const { state, year } = query
   if (state !== 'pending' && year === undefined)
     throw new Error('--year is required for state=realized or state=all')

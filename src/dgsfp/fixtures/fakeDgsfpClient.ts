@@ -4,6 +4,7 @@ import type { HttpClient } from '../../http/types/HttpClient'
 import type { HttpRequestOptions } from '../../http/types/HttpRequestOptions'
 import type { HttpResponse } from '../../http/types/HttpResponse'
 import { respondWith } from '../../sta/registry/fixtures/respondWith'
+import type { FakeDgsfpClientExtras } from './/FakeDgsfpClientExtras'
 import type { DgsfpCall } from './DgsfpCall'
 import { dgsfpRoutes } from './dgsfpRoutes'
 
@@ -13,7 +14,7 @@ export const fakeDgsfpClient = (
     (url: string) => boolean,
     (url: string, options?: HttpRequestOptions) => HttpResponse,
   ],
-): HttpClient & { readonly calls: DgsfpCall[] } => {
+): HttpClient & FakeDgsfpClientExtras => {
   const calls: DgsfpCall[] = []
   return {
     calls,

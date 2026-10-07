@@ -1,7 +1,7 @@
+import type { QualifiedNameParts } from '../types/QualifiedNameParts'
+
 /** Split `prefix:local` into its parts; an unprefixed name has the empty prefix. */
-export const splitQualifiedName = (
-  name: string,
-): { readonly prefix: string; readonly local: string } => {
+export const splitQualifiedName = (name: string): QualifiedNameParts => {
   const colon = name.indexOf(':')
   return colon === -1
     ? { prefix: '', local: name }

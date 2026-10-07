@@ -2,7 +2,8 @@ import type { HttpClient } from '../../http/types/HttpClient'
 import { fetchJustificante } from '../fetchers/fetchJustificante'
 import { postSignedApplication } from '../fetchers/postSignedApplication'
 import { readFilingAnswer } from '../parsers/readFilingAnswer'
-import type { RegistrationReceipt } from '../types/RegistrationReceipt'
+import type { FiledApplicationResult } from '../types/FiledApplicationResult'
+import type { FilingOutputTarget } from '../types/FilingOutputTarget'
 import type { SignedApplication } from '../types/SignedApplication'
 import type { SigningScreen } from '../types/SigningScreen'
 import { writeFilingFiles } from './writeFilingFiles'
@@ -17,11 +18,8 @@ export const fileSignedApplication = async (
   client: HttpClient,
   screen: SigningScreen,
   signed: SignedApplication,
-  output: { readonly outDir: string; readonly stem: string },
-): Promise<{
-  readonly receipt: RegistrationReceipt
-  readonly notes: string[]
-}> => {
+  output: FilingOutputTarget,
+): Promise<FiledApplicationResult> => {
   const answer = await postSignedApplication(client, screen, signed)
   const read = readFilingAnswer(answer)
   const justificante = read.filed

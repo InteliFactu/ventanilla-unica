@@ -1,6 +1,7 @@
 import { join } from 'node:path'
 
 import { writeSignedFile } from '../../signing/xades/writeSignedFile'
+import type { FilingFilesOutcome } from '../types/FilingFilesOutcome'
 
 /**
  * Keep what filing produced under `--out` as `<stem><suffix>`, never over an
@@ -12,7 +13,7 @@ export const writeFilingFiles = async (
   outDir: string,
   stem: string,
   files: Readonly<Record<string, Buffer | undefined>>,
-): Promise<{ readonly written: string[]; readonly failed: string[] }> => {
+): Promise<FilingFilesOutcome> => {
   const written: string[] = []
   const failed: string[] = []
   for (const [suffix, content] of Object.entries(files)) {

@@ -4,7 +4,7 @@ import { fetchStaTab } from './fetchers/fetchStaTab'
 import { notificationsFromDatasets } from './mappers/notificationsFromDatasets'
 import { openStaSession } from './session/openStaSession'
 import { staOrigins } from './session/staOrigins'
-import type { StaNotification } from './types/StaNotification'
+import type { StaNotificationsListing } from './types/StaNotificationsListing'
 import type { StaPortal } from './types/StaPortal'
 
 /**
@@ -15,11 +15,7 @@ import type { StaPortal } from './types/StaPortal'
 export const listStaNotifications = async (
   client: HttpClient,
   portal: StaPortal,
-): Promise<{
-  readonly host: string
-  readonly pending: number
-  readonly notifications: readonly StaNotification[]
-}> => {
+): Promise<StaNotificationsListing> => {
   const origin = staOrigins[portal]
   await openStaSession(client, origin)
   const notifications = notificationsFromDatasets(

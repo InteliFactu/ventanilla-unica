@@ -1,19 +1,13 @@
 import { htmlToText } from '../../html/htmlToText'
 import type { HttpResponse } from '../../http/types/HttpResponse'
+import type { FilingAnswer } from '../types/FilingAnswer'
 
 /**
  * What the signed post answered: the acuse de recibo of the application,
  * with its "Número de Registro" and "Número de Expediente", or anything
  * else, which the caller keeps for a human to read and never retries.
  */
-export const readFilingAnswer = (
-  page: HttpResponse,
-): {
-  readonly filed: boolean
-  readonly registro: string | undefined
-  readonly expediente: string | undefined
-  readonly summary: string
-} => {
+export const readFilingAnswer = (page: HttpResponse): FilingAnswer => {
   const summaryLength = 600
   const text = htmlToText(
     page.text.replace(/^[\s\S]*?<div id="content"/i, '<div'),

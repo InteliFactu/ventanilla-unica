@@ -3,7 +3,9 @@ import { searchGobexReport } from './fetchers/searchGobexReport'
 import { slashDateWindows } from './mappers/slashDateWindows'
 import { gobexUrls } from './session/gobexUrls'
 import { loginWithClave } from './session/loginWithClave'
+import type { GobexDateRange } from './types/GobexDateRange'
 import type { GobexRecord } from './types/GobexRecord'
+import type { JuntaCarpetaExpedientes } from './types/JuntaCarpetaExpedientes'
 
 /**
  * The holder's expedientes in the Carpeta Ciudadana started between `desde`
@@ -12,12 +14,8 @@ import type { GobexRecord } from './types/GobexRecord'
  */
 export const listJuntaCarpetaExpedientes = async (
   client: HttpClient,
-  range: { readonly desde: string; readonly hasta: string },
-): Promise<{
-  readonly desde: string
-  readonly hasta: string
-  readonly expedientes: readonly GobexRecord[]
-}> => {
+  range: GobexDateRange,
+): Promise<JuntaCarpetaExpedientes> => {
   const windows = slashDateWindows(range.desde, range.hasta, 30)
   await loginWithClave(client)
   const expedientes = new Map<string, GobexRecord>()

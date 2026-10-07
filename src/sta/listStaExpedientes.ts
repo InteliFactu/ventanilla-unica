@@ -4,17 +4,14 @@ import { fetchStaTab } from './fetchers/fetchStaTab'
 import { mapExpediente } from './mappers/mapExpediente'
 import { openStaSession } from './session/openStaSession'
 import { staOrigins } from './session/staOrigins'
-import type { StaExpediente } from './types/StaExpediente'
+import type { StaExpedientesListing } from './types/StaExpedientesListing'
 import type { StaPortal } from './types/StaPortal'
 
 /** The holder's expedientes at an STA sede, open and archived. */
 export const listStaExpedientes = async (
   client: HttpClient,
   portal: StaPortal,
-): Promise<{
-  readonly host: string
-  readonly expedientes: readonly StaExpediente[]
-}> => {
+): Promise<StaExpedientesListing> => {
   const origin = staOrigins[portal]
   await openStaSession(client, origin)
   const open = await fetchStaPage(client, origin, 'EXPEDIENTES_FULL')

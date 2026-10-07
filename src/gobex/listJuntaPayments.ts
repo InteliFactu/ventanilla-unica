@@ -3,6 +3,7 @@ import { searchGobexReport } from './fetchers/searchGobexReport'
 import { gobexUrls } from './session/gobexUrls'
 import { loginWithClave } from './session/loginWithClave'
 import type { GobexRecord } from './types/GobexRecord'
+import type { JuntaPayments } from './types/JuntaPayments'
 
 /**
  * What the Junta de Extremadura and its bodies paid or owe the holder in one
@@ -14,11 +15,7 @@ import type { GobexRecord } from './types/GobexRecord'
 export const listJuntaPayments = async (
   client: HttpClient,
   ejercicio: string,
-): Promise<{
-  readonly ejercicio: string
-  readonly payments: readonly GobexRecord[]
-  readonly incidents: readonly GobexRecord[]
-}> => {
+): Promise<JuntaPayments> => {
   await loginWithClave(client)
   const payments: GobexRecord[] = []
   let incidents: readonly GobexRecord[] = []

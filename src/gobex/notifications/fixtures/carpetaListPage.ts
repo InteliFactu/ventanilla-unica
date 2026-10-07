@@ -1,3 +1,4 @@
+import type { CarpetaListPageOptions } from '../types/CarpetaListPageOptions'
 import type { CarpetaFixtureRow } from './CarpetaFixtureRow'
 import { carpetaRowsTable } from './carpetaRowsTable'
 
@@ -8,7 +9,7 @@ import { carpetaRowsTable } from './carpetaRowsTable'
  */
 export const carpetaListPage = (
   rows: readonly CarpetaFixtureRow[],
-  options: { readonly scroller?: boolean; readonly panel?: boolean } = {},
+  options: CarpetaListPageOptions = {},
 ): string =>
   `<html><body><form id="f" name="f" method="post" action="/SEDE/privado/ciudadanos/Notificaciones.jsf">
 <input type="hidden" name="f" value="f" />

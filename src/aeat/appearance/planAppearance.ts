@@ -1,11 +1,12 @@
 import type { AeatNotification } from './types/AeatNotification'
 import type { AppearanceRequest } from './types/AppearanceRequest'
+import type { AppearanceSteps } from './types/AppearanceSteps'
 
 /** The steps a confirmed comparecencia would run, and why it cannot run yet. */
 export const planAppearance = (
   pending: readonly AeatNotification[],
   request: AppearanceRequest,
-): { readonly plan: readonly string[]; readonly notes: readonly string[] } => {
+): AppearanceSteps => {
   const notes: string[] = []
   if (pending.length === 0)
     notes.push('No pending notification at the AEAT sede for this holder.')

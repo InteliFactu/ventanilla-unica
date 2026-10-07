@@ -1,12 +1,13 @@
 import { writeFile } from 'node:fs/promises'
 import { join, resolve, sep } from 'node:path'
+import type { WrittenNotificationFile } from './types/WrittenNotificationFile'
 
 /** Decode one base64 document and write it as `fileName` under `outDir`. */
 export const writeNotificationFile = async (
   outDir: string,
   fileName: string,
   content: string,
-): Promise<{ readonly path: string; readonly bytes: number }> => {
+): Promise<WrittenNotificationFile> => {
   const bytes = Buffer.from(content, 'base64')
   const path = join(outDir, fileName)
   if (!resolve(path).startsWith(resolve(outDir) + sep))

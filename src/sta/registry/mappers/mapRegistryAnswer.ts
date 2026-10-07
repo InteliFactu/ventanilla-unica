@@ -1,3 +1,4 @@
+import type { RegistryAnswerDocument } from '../types/RegistryAnswerDocument'
 import type { StaRegistryReceipt } from '../types/StaRegistryReceipt'
 
 /**
@@ -9,7 +10,7 @@ export const mapRegistryAnswer = (
   reference: string,
   answer: Readonly<Record<string, unknown>>,
 ): StaRegistryReceipt => {
-  const document = answer['document'] as { readonly cud?: unknown } | null
+  const document = answer['document'] as RegistryAnswerDocument | null
   const registryNumber = answer['id']
   const registeredAt = answer['date']
   const csv = document?.cud

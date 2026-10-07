@@ -2,6 +2,7 @@ import { selectIdpChooserForm } from '../../dehu/session/selectors/selectIdpChoo
 import { postForm } from '../../http/postForm'
 import type { HttpClient } from '../../http/types/HttpClient'
 import type { HttpResponse } from '../../http/types/HttpResponse'
+import type { DgsfpSamlRequest } from '../types/DgsfpSamlRequest'
 import { dgsfpUrls } from './dgsfpUrls'
 import { readRequestDigest } from './readRequestDigest'
 import { walkClaveRelay } from './walkClaveRelay'
@@ -24,11 +25,7 @@ export const loginWithCertificate = async (
     `${dgsfpUrls.claveRequest}${encodeURI(dgsfpUrls.formPage)}`,
     { headers: { 'X-RequestDigest': digest, Accept: 'application/json' } },
   )
-  const saml = JSON.parse(answer.text) as {
-    readonly action: string
-    readonly samlRequest: string
-    readonly relayState: string
-  }
+  const saml = JSON.parse(answer.text) as DgsfpSamlRequest
   const chooserPage = await client.request(saml.action, {
     method: 'POST',
     form: { SAMLRequest: saml.samlRequest, RelayState: saml.relayState },

@@ -1,4 +1,4 @@
-import type { StaRole } from '../types/StaRole'
+import type { StaNotificationScope } from '../types/StaNotificationScope'
 
 /**
  * Role and tab of a notification dataset from its name:
@@ -7,7 +7,7 @@ import type { StaRole } from '../types/StaRole'
  */
 export const notificationScope = (
   name: string,
-): { readonly role: StaRole; readonly tab: string } | undefined => {
+): StaNotificationScope | undefined => {
   const match = /^NOTIFICACIONES_(REP_)?([A-Z]+)$/.exec(name)
   if (!match?.[2]) return undefined
   return {

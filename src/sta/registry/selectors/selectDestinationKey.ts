@@ -1,10 +1,11 @@
+import type { RegistryFieldItem } from '../types/RegistryFieldItem'
 import type { RegistrySchema } from '../types/RegistrySchema'
 
 /** The internal key of the addressee unit whose label starts with the DIR3 code (`A11030071-...`). */
 export const selectDestinationKey = (
   schema: RegistrySchema,
   dir3: string,
-): { readonly key: string; readonly label: string } => {
+): RegistryFieldItem => {
   const field = schema.sections.data.elements
     .flatMap((element) => element.fields)
     .find((candidate) => candidate.id === 'CBDIR3')

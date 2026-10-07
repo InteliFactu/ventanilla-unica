@@ -5,6 +5,7 @@ import { parseJsonResponse } from '../../api/parseJsonResponse'
 import { parseRealizedNotificationPage } from '../parsers/parseRealizedNotificationPage'
 import { realizedMonthWindow } from '../realizedMonthWindow'
 import type { Notification } from '../types/Notification'
+import type { NotificationSweep } from '../types/NotificationSweep'
 
 /**
  * Read every realized notification of one calendar year. DEHU rejects any
@@ -15,10 +16,7 @@ export const fetchRealizedNotifications = async (
   client: HttpClient,
   authData: string,
   year: number,
-): Promise<{
-  readonly notifications: readonly Notification[]
-  readonly pages: number
-}> => {
+): Promise<NotificationSweep> => {
   const pageSize = 100
   const notifications: Notification[] = []
   let pages = 0

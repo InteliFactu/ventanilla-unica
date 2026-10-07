@@ -1,9 +1,8 @@
 import type { Debt } from '../types/Debt'
+import type { DebtTotals } from '../types/DebtTotals'
 
 /** Sum of pendiente, and of a ingresar where the portal gave one, across every debt. */
-export const sumDebtTotals = (
-  debts: readonly Debt[],
-): { readonly pendiente: number; readonly aIngresar: number } => {
+export const sumDebtTotals = (debts: readonly Debt[]): DebtTotals => {
   // Summing floats leaves noise in the last digits; the portal counts in cents.
   const cents = (amount: number): number => Math.round(amount * 100)
   const pendiente = debts.reduce(

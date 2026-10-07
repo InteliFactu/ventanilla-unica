@@ -4,12 +4,10 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
 import type { DgsfpComplaintQuery } from '../types/DgsfpComplaintQuery'
+import type { DgsfpComplaintFixture } from './/DgsfpComplaintFixture'
 
 /** A synthetic complaint against an invented insurer, its three PDFs written to a fresh temp dir. */
-export const buildComplaintQuery = (): {
-  readonly dir: string
-  readonly query: DgsfpComplaintQuery
-} => {
+export const buildComplaintQuery = (): DgsfpComplaintFixture => {
   const dir = mkdtempSync(join(tmpdir(), 'dgsfp-'))
   const file = (name: string): string => {
     const path = join(dir, name)

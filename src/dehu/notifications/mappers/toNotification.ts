@@ -1,16 +1,12 @@
 import type { Notification } from '../types/Notification'
 import type { NotificationApiItem } from '../types/NotificationApiItem'
-import type { NotificationState } from '../types/NotificationState'
+import type { NotificationStateExtras } from '../types/NotificationStateExtras'
 import { notificationSourceFromIssuer } from './notificationSourceFromIssuer'
 
 /** Map a validated raw API item to the listing's stable notification shape. */
 export const toNotification = (
   item: NotificationApiItem,
-  extra: {
-    readonly state: NotificationState
-    readonly rawState?: string | undefined
-    readonly expiresAt?: string | undefined
-  },
+  extra: NotificationStateExtras,
 ): Notification => ({
   id: item.identifier,
   reference: item.sentReference,

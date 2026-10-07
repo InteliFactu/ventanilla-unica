@@ -1,4 +1,5 @@
 import { formatSlashDate } from '../formatters/formatSlashDate'
+import type { GobexDateRange } from '../types/GobexDateRange'
 import { parseSlashDate } from './parseSlashDate'
 
 /**
@@ -9,9 +10,9 @@ export const slashDateWindows = (
   desde: string,
   hasta: string,
   days: number,
-): { readonly desde: string; readonly hasta: string }[] => {
+): GobexDateRange[] => {
   const end = parseSlashDate(hasta)
-  const windows: { desde: string; hasta: string }[] = []
+  const windows: GobexDateRange[] = []
   for (
     let start = parseSlashDate(desde);
     start <= end;

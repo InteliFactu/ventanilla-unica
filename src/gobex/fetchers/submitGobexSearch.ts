@@ -1,7 +1,7 @@
 import type { HttpClient } from '../../http/types/HttpClient'
-import type { HttpResponse } from '../../http/types/HttpResponse'
 import { selectImageButtonForm } from '../selectors/selectImageButtonForm'
 import { gobexTimeoutMs } from '../session/gobexTimeoutMs'
+import type { GobexSearchSubmission } from '../types/GobexSearchSubmission'
 import { submitImageButton } from './submitImageButton'
 
 /**
@@ -14,7 +14,7 @@ export const submitGobexSearch = async (
   client: HttpClient,
   url: string,
   filters: (formId: string) => Readonly<Record<string, string>>,
-): Promise<{ readonly results: HttpResponse; readonly formId: string }> => {
+): Promise<GobexSearchSubmission> => {
   const page = await client.request(url, { timeoutMs: gobexTimeoutMs })
   const fields = selectImageButtonForm(page.text, page.url, 'bt_buscar')?.form
     .fields

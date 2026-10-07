@@ -1,4 +1,5 @@
 import { toMoneyAmount } from '../../money/mappers/toMoneyAmount'
+import type { DebtPeriodAndSituation } from '../types/DebtPeriodAndSituation'
 import type { DebtRow } from '../types/DebtRow'
 import { parseTableRowCells } from './parseTableRowCells'
 
@@ -13,10 +14,7 @@ export const parseDebtRows = (html: string): readonly DebtRow[] => {
   const periodoStartPattern = /^(?:volunt|ejecut)/i
   const findPeriodoAndSituacion = (
     cells: readonly string[],
-  ): {
-    readonly periodoRecaudacion: string | undefined
-    readonly situacion: string | undefined
-  } => {
+  ): DebtPeriodAndSituation => {
     const index = cells.findIndex((cell) => periodoStartPattern.test(cell))
     return {
       periodoRecaudacion: index >= 0 ? cells[index] : undefined,

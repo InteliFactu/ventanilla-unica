@@ -2,8 +2,7 @@ import type { HttpClient } from '../../http/types/HttpClient'
 import { fetchFilingForm } from './fetchers/fetchFilingForm'
 import { parseFilingForm } from './parsers/parseFilingForm'
 import type { DocumentFilingQuery } from './types/DocumentFilingQuery'
-import type { FilingDocument } from './types/FilingDocument'
-import type { FilingForm } from './types/FilingForm'
+import type { PreparedDocumentFiling } from './types/PreparedDocumentFiling'
 import { readFilingDocuments } from './validators/readFilingDocuments'
 
 /**
@@ -14,7 +13,7 @@ import { readFilingDocuments } from './validators/readFilingDocuments'
 export const prepareDocumentFiling = async (
   client: HttpClient,
   query: DocumentFilingQuery,
-): Promise<{ form: FilingForm; documents: FilingDocument[] }> => {
+): Promise<PreparedDocumentFiling> => {
   const documents = await readFilingDocuments(query.files)
   const form = parseFilingForm(
     await fetchFilingForm(client, query.csv, query.role),
