@@ -32,6 +32,7 @@ import { tgssAdjuntar } from './commands/tgssAdjuntar'
 import { tgssAlta } from './commands/tgssAlta'
 import { tgssAplazamiento } from './commands/tgssAplazamiento'
 import { tgssBases } from './commands/tgssBases'
+import { tgssCcc } from './commands/tgssCcc'
 import { tgssCorriente } from './commands/tgssCorriente'
 import { tgssDatos } from './commands/tgssDatos'
 import { tgssDeuda } from './commands/tgssDeuda'
@@ -64,6 +65,7 @@ export const commandRegistry: readonly Command[] = [
   tgssDatos,
   tgssAlta,
   tgssEmpresario,
+  tgssCcc,
   tgssBases,
   tgssAplazamiento,
   tgssAdjuntar,

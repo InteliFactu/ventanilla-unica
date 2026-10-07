@@ -6,7 +6,18 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- `tgss deuda`: an ERROR message ("NO SE HA ENCONTRADO DEUDA...") is a refusal
+  even when Prosa keeps the request's `DOCDocumento` in the audit block; it used
+  to be taken for an issued report and end in `no PDF returned (status 500)`.
+
 ### Added
+
+- `tgss ccc`: lists the holder's códigos de cuenta de cotización with their
+  situation (alta or baja, and since when), type and RED authorisation, from the
+  Sistema RED consulta de autorizados (RETC0001), which a company certificate
+  opens directly on that list.
 
 - `aeat informativa`: presents an informative return file in the BOE design
   (190, 347, 180...) through TGVI Online. It acts for the file's declarant,

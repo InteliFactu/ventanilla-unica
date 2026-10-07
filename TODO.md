@@ -79,12 +79,6 @@
 
 ## Integrations
 
-- [ ] tgss: read the state of an employer's CCC (open / de baja) — on 2026-10-07
-      `tgss empresario` for E10501278 answered "existen datos en los Ficheros de
-      la TGSS" (so it is inscribed) but nothing here tells an open CCC from a
-      closed one; needed before dissolving an entity. Smallest step: find the
-      sede service that lists a company's CCCs with their situation and capture
-      it.
 - [ ] aeat: `aeat baja` — 036 of an entity's extinction (casillas 150/151/152,
       page 9 successors, ROI 583/584) behind `--confirmar si`, for the Deluxe
       Producciones dissolution if the owner wants it filed from here.
