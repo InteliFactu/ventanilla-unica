@@ -34,6 +34,17 @@
   the CEUS bodies, then port; the deferral bodies need the next real deferral
   the owner authorises.
 
+## Owner requests
+
+- [ ] **`oargt recibo --numero <n>`: the detail and PDF of one OARGT receipt.**
+      The list does not say what a receipt is for: Deluxe's 261243480 (ref 117,
+      2026-07-20) could not be matched to a month. Next step: capture the detail
+      and print request in the sede, read-only.
+- [!] **`oargt fraccionar` (write, `--confirmar si`).** Requests a
+  fraccionamiento in ejecutiva (ordinance: up to 6 months from 100,01 to 600, no
+  guarantee below 30.000). The owner wants it once he has a job; blocked until
+  then. Next step: capture the OARGT form when the first request is made.
+
 ## Maintenance
 
 - [ ] Drop the two `minimumReleaseAgeExclude` entries in `pnpm-workspace.yaml`
