@@ -47,6 +47,11 @@
 
 ## Testing
 
+- [~] **XAdES mutation test hit its 5-second timeout once under concurrent
+  full-suite coverage.** The isolated `signXml.test.ts` passed 11/11, and
+  `pnpm check:ci` passed 1,349/1,349 when rerun alone on 2026-10-07. Next:
+  reproduce under sustained load before changing its timeout.
+
 - [~] **`aeat aportar` act and receipt unverified.** Verified live on 2026-10-06
   with a real sancionador CSV: the form opens as GZ706 for a representative,
   five PDFs upload and attach, and the "Firma y envío" screen lists them and
@@ -78,6 +83,13 @@
       `tgss deuda --out` on a day one has not.
 
 ## Integrations
+
+- [ ] **TEA appeal status is outside `aeat expedientes`.** The AEAT Mis
+      Expedientes list covers its own 77 procedures for the tested holder and
+      shows no recurso de reposición, but the separate Tribunales
+      Económico-Administrativos may hold a reclamación. Next: map the TEA's
+      certificate-authenticated, read-only case list and verify its coverage
+      before asserting none is open.
 
 - [ ] **dgsfp: read commands.** `dgsfp reclamacion` files but nothing reads
       back: no listing of the holder's presentations or drafts was found in the

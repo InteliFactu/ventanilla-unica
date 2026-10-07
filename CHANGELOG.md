@@ -17,6 +17,10 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `aeat expedientes`: reads the represented holder's Mis Expedientes list and
+  each detail page for status, period, dates and listed acts. It does not open
+  act links or cover separate TEA tribunal proceedings.
+
 - `aeat baja`: files a modelo 036 baja en el censo (casillas 150-152) of a legal
   entity or ESPJ, with the sucesores of page 13
   (`--sucesores 'NIF;Nombre;%;cuota|...'`). Plan mode is offline; `--validar si`

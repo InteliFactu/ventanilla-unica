@@ -7,6 +7,7 @@ import { aeatComparecer } from './commands/aeatComparecer'
 import { aeatDeclaraciones } from './commands/aeatDeclaraciones'
 import { aeatDeudas } from './commands/aeatDeudas'
 import { aeatDomicilio } from './commands/aeatDomicilio'
+import { aeatExpedientes } from './commands/aeatExpedientes'
 import { aeatInformativa } from './commands/aeatInformativa'
 import { aeatInformativas } from './commands/aeatInformativas'
 import { aeatModelo190 } from './commands/aeatModelo190'
@@ -47,6 +48,7 @@ import type { Command } from './types/Command'
 
 export const commandRegistry: readonly Command[] = [
   aeatDeudas,
+  aeatExpedientes,
   aeatPagos,
   aeatDeclaraciones,
   aeatInformativas,
