@@ -4,6 +4,7 @@ import { tgssUrls } from '../../session/tgssUrls'
 import type { ProsaSession } from '../../session/types/ProsaSession'
 import { nextProsaAction } from '../nextProsaAction'
 import { readAuditFields } from '../parsers/readAuditFields'
+import { readXmlErrorMessages } from '../parsers/readXmlErrorMessages'
 import { readXmlField } from '../parsers/readXmlField'
 import { readXmlMessages } from '../parsers/readXmlMessages'
 import { prosaCommonFields } from '../prosaCommonFields'
@@ -53,6 +54,8 @@ export const driveProsaEmission = async (
     payload = readProsaPayload(response.text)
     if (action === 'IMPRIMIR') break
   }
+  const [refusal] = readXmlErrorMessages(payload.xml)
+  if (refusal !== undefined) return { issued: false, message: refusal }
   const messages = readXmlMessages(payload.xml)
   if (messages.length > 0 && !readXmlField(payload.xml, 'DOCDocumento'))
     return { issued: false, message: messages[0] ?? '' }

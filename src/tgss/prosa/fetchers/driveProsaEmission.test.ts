@@ -117,6 +117,27 @@ describe('driveProsaEmission', () => {
     expect(outcome.issued).toBe(true)
   })
 
+  it('reads an ERROR message as a refusal even with an audit DOCDocumento', async () => {
+    const { client } = clientAnswering(
+      screen(
+        't1',
+        '<ProsaXMLData><tipoEjecucion>O</tipoEjecucion></ProsaXMLData>',
+      ),
+      screen(
+        't2',
+        '<ProsaXMLData><DatosAuditoria><DOCDocumento>9</DOCDocumento></DatosAuditoria>' +
+          '<MESSAGES><MESSAGE><TIPO>ERROR</TIPO><TEXTO><![CDATA[NO SE HA ENCONTRADO DEUDA PARA EL IDENTIFICADOR SOLICITADO   .]]></TEXTO></MESSAGE></MESSAGES></ProsaXMLData>',
+      ),
+    )
+
+    const outcome = await driveProsaEmission(client, session, '7')
+
+    expect(outcome).toEqual({
+      issued: false,
+      message: 'NO SE HA ENCONTRADO DEUDA PARA EL IDENTIFICADOR SOLICITADO .',
+    })
+  })
+
   it('stops after the confirmation budget without a document', async () => {
     const pending = screen(
       't',
