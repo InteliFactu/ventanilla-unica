@@ -91,6 +91,16 @@ Las dos firman en tu máquina con el certificado y la clave que indiques.
 | `ventanilla-unica aeat modelo190 --datos f.csv --out f.txt --ejercicio 2025 --nif X --nombre ... --telefono ... --contacto ... [--correo ...]` | Genera el fichero BOE de un modelo 190 (claves A y L) a partir de un CSV de perceptores, listo para `aeat informativa` |
 | `ventanilla-unica calendario fiscal --ejercicio 2026 [--modelo 303] [--periodo 3T]`                                                            | Plazos de presentación y de domiciliación tal como los publica la AEAT; un año no verificado da error                  |
 
+El CSV del modelo 190 lleva una fila por perceptor y clave. `provincia` es la
+del domicilio del perceptor (un trabajador que vive en Badajoz es `06` aunque el
+centro de trabajo esté en Cáceres), no la del declarante. La clave `L` con
+subclave `05` es solo para lo que esté realmente exento por el art. 7.e LIRPF:
+la indemnización por fin de contrato temporal (art. 49.1.c ET) tributa y va en
+`A` junto al resto del sueldo de ese perceptor. `retencion` es lo que retuvo de
+verdad cada nómina, aunque los 111 trimestrales sumen otra cosa. La validación
+de la AEAT solo comprueba formato y censo, así que cuadra los importes con las
+nóminas antes de presentar.
+
 Sin navegador, sin dependencias en tiempo de ejecución y sin guardar nada: la
 herramienta habla HTTPS con tu certificado, recorre Cl@ve donde la sede lo pide,
 interpreta la respuesta e imprime JSON. El certificado no sale de tu máquina.

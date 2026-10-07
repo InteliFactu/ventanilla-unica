@@ -92,6 +92,16 @@ machine.
 | `ventanilla-unica aeat modelo190 --datos f.csv --out f.txt --ejercicio 2025 --nif X --nombre ... --telefono ... --contacto ... [--correo ...]` | Builds the BOE file of a modelo 190 (claves A and L) from a perceptor CSV, ready for `aeat informativa` |
 | `ventanilla-unica calendario fiscal --ejercicio 2026 [--modelo 303] [--periodo 3T]`                                                            | Filing deadlines and direct-debit cut-offs as the AEAT publishes them; unverified years answer an error |
 
+The modelo 190 CSV has one row per perceptor and key. `provincia` is the
+province of the perceptor's home (an employee living in Badajoz is `06` even if
+the workplace is in Cáceres), not the declarant's. `L` with subclave `05` is
+only for a payment actually exempt under art. 7.e LIRPF: the payment at the end
+of a temporary contract (art. 49.1.c ET) is taxable and goes in `A` with the
+rest of that perceptor's pay. `retencion` is what each payslip actually
+withheld, even when the quarterly 111 returns add up to something else. The AEAT
+validation only checks format and census, so reconcile the amounts against the
+payslips before filing.
+
 No certificate needed.
 
 No browser, no runtime dependencies, nothing stored: the tool speaks HTTPS with

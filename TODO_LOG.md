@@ -6,6 +6,19 @@
 
 ### 2026-10
 
+- [x] 2026-10-07 — **Testing:** `aeat informativa --confirmar si` presents a
+      real modelo 190 through TGVI.
+  - Result: the first real filing went through on 2026-10-07 16:48, a modelo
+    190-2025 for a dissolved ESPJ, signed by a member's personal certificate "en
+    representación de". The validation run answered 7 records valid and 0
+    failing, `PresentarEnvio` was accepted, and the cotejo returned the
+    justificante PDF with its registry number and CSV, saved with `--out`.
+    Before filing, an adversarial review compared the file with the AEAT 2025
+    logical design: placement was correct, but two input rows had the wrong
+    province (the employer's, not the perceptor's home) and a temporary contract
+    end payment had been put in L05. Those mistakes are now documented in the
+    README.
+
 - 2026-10-06 [-] **Launch after `v0.1.0`.** Listing PR opened 2026-09-26: —
   Superseded: GeiserX/awesome-spain #45 was closed unmerged 2026-09-26; the
   re-proposal item replaces it. LinkedIn post unverified.

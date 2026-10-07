@@ -40,13 +40,6 @@
 
 ## Testing
 
-- [~] **`aeat informativa` presentation unverified.** Validated live on
-  2026-10-06 for a real modelo 190 (declarant switched to "en representación
-  de", records validated, errors parsed by NIF); the `PresentarEnvio` call and
-  its CSV header were read from the page script and never sent. Smallest next
-  step: after the first real presentation, confirm the answer headers and that
-  the cotejo returns the justificante.
-
 - [~] **`aeat aportar` act and receipt unverified.** Verified live on 2026-10-06
   with a real sancionador CSV: the form opens as GZ706 for a representative,
   five PDFs upload and attach, and the "Firma y envío" screen lists them and
