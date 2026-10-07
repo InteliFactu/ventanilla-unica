@@ -38,6 +38,13 @@
   the CEUS bodies, then port; the deferral bodies need the next real deferral
   the owner authorises.
 
+## Maintenance
+
+- [ ] Drop the two `minimumReleaseAgeExclude` entries in `pnpm-workspace.yaml`
+      after 2026-10-08. Added 2026-10-07 for `@syntopica/eslint-config@0.9.0`
+      and `eslint-plugin-code-policy@0.8.0`, which were inside the release-age
+      window. Next: delete both lines and confirm `pnpm install` still resolves.
+
 ## Testing
 
 - [~] **`aeat aportar` act and receipt unverified.** Verified live on 2026-10-06
