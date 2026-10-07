@@ -8,7 +8,7 @@ export const dehuList: Command = {
   portal: 'dehu',
   action: 'list',
   description:
-    "List the holder's pending and realized notifications at DEHU without opening any (opening a notification is a legal act and is not offered)",
+    "List the holder's pending and realized notifications at DEHU without opening any (opening one is the legal act of `dehu comparecer`)",
   options: ['state', 'year'],
   run: async (client: HttpClient, options: CliOptions): Promise<unknown> => {
     const rawState = options['state'] ?? 'pending'

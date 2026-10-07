@@ -6,6 +6,21 @@
 
 ### 2026-10
 
+- [x] 2026-10-07 — **Blocked → done:** `dehu comparecer` opens pending DEHU
+      notifications over plain HTTP.
+  - Result: the owner authorised opening every pending notification. One
+    (Deluxe, OARGT) was accepted through the wiki's Playwright flow with a HAR
+    recorded; the exchange is legal text id, `appearance-login-form`, a second
+    Cl@ve relay that skips the IdP chooser, a fresh bearer from
+    `appearance-login-check`, and POST `voucher` `{"operation":"aceptar"}`. The
+    new command then accepted two more live (an OARGT providencia for a natural
+    person and a court LexNET notification delivered as a ZIP), each in about a
+    minute, and saved document and acuse. `pnpm check:ci` green.
+- [x] 2026-10-07 — **Testing:** `aeat comparecer --confirmar si` live.
+  - Result: notification 2699864820446 (an interest liquidation) opened in the
+    AEAT sede; the receipt parsed (fechaNotificacion, CSV) and both the act and
+    the acuse PDFs were saved with `--out`.
+
 - [x] 2026-10-07 — **Testing:** `aeat informativa --confirmar si` presents a
       real modelo 190 through TGVI.
   - Result: the first real filing went through on 2026-10-07 16:48, a modelo

@@ -24,6 +24,8 @@ export type { CertificateIdentity } from './certificate/types/CertificateIdentit
 export { requestRiskReport } from './cirbe/report/requestRiskReport'
 export { readCirbeStatus } from './cirbe/status/readCirbeStatus'
 export { followAutoSubmitForms } from './clave/followAutoSubmitForms'
+export { appearAtNotifications } from './dehu/appearance/appearAtNotifications'
+export type { AppearanceResult } from './dehu/appearance/types/AppearanceResult'
 export { downloadNotificationDocuments } from './dehu/documents/downloadNotificationDocuments'
 export type { DocumentsQuery } from './dehu/documents/types/DocumentsQuery'
 export type { DocumentsResult } from './dehu/documents/types/DocumentsResult'

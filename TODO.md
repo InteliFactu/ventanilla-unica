@@ -19,10 +19,6 @@
   info@tieneslavibra.com: "Id usuario y email permitidos."). Unblock: the owner
   self-registers at `/wps/portal/registrarse` (captcha, activation e-mail); then
   capture the logged-in form read-only.
-- [!] **DEHU comparecencia.** Not implemented on purpose: the re-auth hop
-  `.../aceptar/{ref}/login?authData=` and the accept call were never captured,
-  and appearing is a legal act. Unblock: the owner records a browser HAR of one
-  accept they choose to make, and authorises that specific notification.
 - [!] **TGSS `aplazamiento` and `adjuntar` refuse `--confirmar si`.** The "firma
   optimizada" is implemented and tested. The protocol is no longer uncaptured:
   on 2026-09-22 a real deferral (registro 20265990000981409) and a CEUS
@@ -61,9 +57,9 @@
   receipt fixture from the saved page and tighten the parser. Files over 2 MiB
   go in one request where the dialog would chunk; also unverified.
 
-- [~] **AEAT `comparecer`, `carta-pago` and `domicilio`** ran live only in plan
-  mode; the pages after the signature are inferred from the wiki flows and fail
-  safe. Done when each has one owner-authorised live run and its receipt parsed.
+- [~] **AEAT `carta-pago` and `domicilio`** ran live only in plan mode; the
+  pages after the signature are inferred from the wiki flows and fail safe. Done
+  when each has one owner-authorised live run and its receipt parsed.
 - [~] **Junta `carpeta-comparecer` and `carpeta-descargar`** were built from the
   flow verified by hand on 2026-10-06 (accept by the `panelAceptar1` A4J button,
   download through `panelDescargar` `imprimirnot`) and tested offline only;

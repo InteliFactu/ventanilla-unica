@@ -8,8 +8,8 @@ import { selectIdpAndAuthenticate } from './selectors/selectIdpAndAuthenticate'
 
 /**
  * Complete DEHU's six-hop Cl@ve relay with the client's own certificate and
- * return the bearer JWT it hands back as `authData`. This never reaches the
- * comparecencia (accept) flow, which needs a second, separate re-auth hop.
+ * return the bearer JWT it hands back as `authData`. The comparecencia needs
+ * a second relay of its own (`reauthenticateForAppearance`).
  */
 export const loginWithCertificate = async (
   client: HttpClient,

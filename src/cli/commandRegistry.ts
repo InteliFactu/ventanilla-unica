@@ -18,6 +18,7 @@ import { caceresRegistros } from './commands/caceresRegistros'
 import { calendarioFiscal } from './commands/calendarioFiscal'
 import { cirbeEstado } from './commands/cirbeEstado'
 import { cirbeInforme } from './commands/cirbeInforme'
+import { dehuComparecer } from './commands/dehuComparecer'
 import { dehuDocumentos } from './commands/dehuDocumentos'
 import { dehuList } from './commands/dehuList'
 import { dgsfpReclamacion } from './commands/dgsfpReclamacion'
@@ -75,6 +76,7 @@ export const commandRegistry: readonly Command[] = [
   tgssAdjuntar,
   dehuList,
   dehuDocumentos,
+  dehuComparecer,
   oargtRecibos,
   ...juntaCommands,
   caceresExpedientes,

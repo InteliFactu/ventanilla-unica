@@ -8,7 +8,7 @@ import type { NotificationFileResponse } from '../types/NotificationFileResponse
 /**
  * One GET of a realized notification's document or voucher. Only the
  * `realized_notifications` resource is ever read: a pending notification's
- * document is behind the comparecencia, which this package never performs.
+ * document is behind the comparecencia, which only `dehu comparecer` performs.
  */
 export const fetchNotificationFile = async ({
   client,

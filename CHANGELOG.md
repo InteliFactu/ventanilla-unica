@@ -17,6 +17,15 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `dehu comparecer --id a,b [--out d]`: appears at pending DEHU notifications.
+  The exchange was captured from one browser acceptance on 2026-10-07: GET
+  `get_legal_text/1/es`, GET
+  `notifications/<ref>/appearance-login-form/aceptar/<id>`, a second Cl@ve relay
+  (it skips the IdP chooser inside the same Cl@ve session) whose
+  `appearance-login-check` hands back a fresh bearer, then POST
+  `notifications/<ref>/voucher` `{"operation":"aceptar"}` with that bearer.
+  Without `--confirmar si` it only reports which identifiers are pending.
+
 - `aeat expedientes`: reads the represented holder's Mis Expedientes list and
   each detail page for status, period, dates and listed acts. It does not open
   act links or cover separate TEA tribunal proceedings.
