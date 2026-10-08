@@ -43,4 +43,18 @@ describe('writeFilingPdf', () => {
 
     expect(filePath).toBe(join(dir, 'aeat-303-2025-2025303A1.pdf'))
   })
+
+  it('creates the --out directory when it does not exist yet', async () => {
+    dir = await mkdtemp(join(tmpdir(), 'ventanilla-unica-aeat-'))
+    const nested = join(dir, 'new', 'folder')
+
+    const filePath = await writeFilingPdf(
+      nested,
+      { modelo: '200', ejercicio: '2025' },
+      '202520090000001A',
+      Buffer.from('%PDF'),
+    )
+
+    expect(filePath).toBe(join(nested, 'aeat-200-2025-202520090000001A.pdf'))
+  })
 })
