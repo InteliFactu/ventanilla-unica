@@ -17,6 +17,11 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `nic correo --identificador H-ESNIC-F5 --email m`: asks Red.es (nic.es) to
+  change an ES-NIC contact's email, signed with the certificate as implicit
+  CAdES over the form's token (what @firma's `AutoScript.sign` returns). Without
+  `--confirmar si` it only reads the form and checks the contact is a natural
+  person. `nic.es` joins the hosts the certificate may be presented to.
 - `dehu comparecer --id a,b [--out d]`: appears at pending DEHU notifications.
   The exchange was captured from one browser acceptance on 2026-10-07: GET
   `get_legal_text/1/es`, GET

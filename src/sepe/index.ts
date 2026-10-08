@@ -1,0 +1,5 @@
+export { readLastBenefit } from './benefits/readLastBenefit'
+export type { LastBenefit } from './benefits/types/LastBenefit'
+export { emitSituationCertificate } from './certificates/emitSituationCertificate'
+export type { SituationCertificateResult } from './certificates/types/SituationCertificateResult'
+export { loginWithCertificate as loginSepeWithCertificate } from './session/loginWithCertificate'

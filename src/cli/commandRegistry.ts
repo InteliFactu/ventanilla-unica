@@ -24,6 +24,7 @@ import { dehuList } from './commands/dehuList'
 import { dgsfpReclamacion } from './commands/dgsfpReclamacion'
 import { firmarPdf } from './commands/firmarPdf'
 import { firmarXml } from './commands/firmarXml'
+import { nicCorreo } from './commands/nicCorreo'
 import { oargtRecibos } from './commands/oargtRecibos'
 import { placspEstado } from './commands/placspEstado'
 import { placspPregunta } from './commands/placspPregunta'
@@ -91,6 +92,7 @@ export const commandRegistry: readonly Command[] = [
   placspEstado,
   placspPregunta,
   dgsfpReclamacion,
+  nicCorreo,
   firmarPdf,
   firmarXml,
   validarNif,

@@ -15,6 +15,7 @@ export const isAdministrationHost = (host: string): boolean => {
     'caceres.es',
     'gobex.es',
     'contrataciondelestado.es',
+    'nic.es',
   ]
   const name = host.toLowerCase()
   return domains.some(

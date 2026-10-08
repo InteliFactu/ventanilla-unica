@@ -17,6 +17,7 @@ describe('isAdministrationHost', () => {
       'SEDE.SEPE.GOB.ES',
       'registrodelicitadores.gob.es',
       'contrataciondelestado.es',
+      'www.nic.es',
     ])
       expect(isAdministrationHost(host)).toBe(true)
   })
