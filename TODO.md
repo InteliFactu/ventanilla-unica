@@ -91,6 +91,16 @@
 
 ## Integrations
 
+- [ ] **registro: cuentas anuales and legalised books have no free read route.**
+      Investigated 2026-10-08 against sede.registradores.org: the CSV checker
+      needs a real CSV plus requester NIF and a captcha; "Mis presentaciones"
+      only shows the presenter's own filings (the gestoría's); the "Sociedad con
+      Cuentas Depositadas" list may be free for subscribers (unconfirmed). The
+      authoritative answer is a paid nota informativa mercantil (identification
+      2,103542 + accounts relation 0,601012 + 0,601012 per legalised book,
+      before tax). Next: decide whether to buy one per SL or build
+      `registro nota` behind `--confirmar si`.
+
 - [ ] **TEA appeal status is outside `aeat expedientes`.** The AEAT Mis
       Expedientes list covers its own 77 procedures for the tested holder and
       shows no recurso de reposición, but the separate Tribunales
