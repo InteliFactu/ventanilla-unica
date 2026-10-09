@@ -1,3 +1,4 @@
+import { caceresCommands } from './caceresCommands'
 import { aeatAportar } from './commands/aeatAportar'
 import { aeatBaja } from './commands/aeatBaja'
 import { aeatCartaPago } from './commands/aeatCartaPago'
@@ -12,9 +13,6 @@ import { aeatInformativa } from './commands/aeatInformativa'
 import { aeatInformativas } from './commands/aeatInformativas'
 import { aeatModelo190 } from './commands/aeatModelo190'
 import { aeatPagos } from './commands/aeatPagos'
-import { caceresExpedientes } from './commands/caceresExpedientes'
-import { caceresNotificaciones } from './commands/caceresNotificaciones'
-import { caceresRegistros } from './commands/caceresRegistros'
 import { calendarioFiscal } from './commands/calendarioFiscal'
 import { cirbeEstado } from './commands/cirbeEstado'
 import { cirbeInforme } from './commands/cirbeInforme'
@@ -80,9 +78,7 @@ export const commandRegistry: readonly Command[] = [
   dehuComparecer,
   oargtRecibos,
   ...juntaCommands,
-  caceresExpedientes,
-  caceresNotificaciones,
-  caceresRegistros,
+  ...caceresCommands,
   sepePrestacion,
   sepeCertificado,
   cirbeInforme,

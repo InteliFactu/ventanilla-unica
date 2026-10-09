@@ -29,6 +29,13 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `caceres datos-contacto --correo m [--telefono t]`: answers the Cáceres sede's
+  contact-data gate, which blocked every command for a certificate that never
+  logged in there (the Vibra Lab representative one did). It presses the gate's
+  own confirming buttons in turn (`PERSCONTACT_ADD` with the data, then
+  `PERSCONTACT_YES`, then the identification "SÍ"/"Aceptar"; never "NO" or
+  "Modificar") and checks the session then opens. Plan only without
+  `--confirmar si`.
 - `junta aportar --expediente 2026/25777D --documentos a.pdf [--descripciones 'd1|d2'] [--informacion t]`:
   contributes documents to an open expediente through the Junta's "Aporte
   documentación" procedure (6269000000810119707984), registered as documentación
