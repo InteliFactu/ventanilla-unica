@@ -127,6 +127,34 @@
       client bug. Next: build list + tree + actos + document download as a
       command.
 
+- [ ] **morosos: `experian acceso` and `equifax acceso` for the debtor files
+      (BADEXCUG, ASNEF).** Mapped live 2026-10-09 for Alba (78117074N). Neither
+      takes a certificate or Cl@ve; both are an account per person with an email
+      code as second factor (read it from Vexa). Experian
+      (`portaldelconsumidor.experian.es`): Blazor Server behind Incapsula, so
+      the portal itself needs a browser, but the login is plain Okta classic:
+      POST `https://experian-spainb.okta-emea.com/api/v1/authn`
+      {username,password} -> MFA_REQUIRED (email factor) -> POST
+      `factors/<id>/verify` {stateToken} sends the code -> same with passCode ->
+      SUCCESS + sessionToken (or PASSWORD_EXPIRED, then
+      `credentials/change_password` {stateToken,oldPassword,newPassword}; policy
+      12+ chars, upper, lower, digit). The widget then exchanges an id_token at
+      `api/create-user-session`; a stale portal session answers "El usuario no
+      pudo ser verificado" until the Okta session is signed out. Flow: Inicio >
+      BADEXCUG > Derecho de Acceso > Para mí mismo > Siguiente; the request is
+      registered at once (code A..., 2026-10-09 A787054329551) and the result
+      mail ("Solicitud derecho", noreply@experian.com) arrives in minutes; it
+      stays two months in Mis Solicitudes. Equifax
+      (`www2.equifax.es/consumidores`): without the inclusion letter (ref
+      "740/…") an account is required: create-account (persona física, NIF,
+      address, province) -> Okta activation mail from authsvc-eu.equifax.com
+      (168 h) -> password (12+, symbol) -> email factor -> PERFIL: upload DNI
+      (one JPEG/PDF, max 2.9 MB) -> wait for the manual validation mail before
+      ACCESO is allowed. In Orca, ref clicks do not reach Blazor/Angular
+      handlers; DOM `.click()` and value plus `input` event do. Next: wrap the
+      Okta login and the access request where HTTP reaches, browser step
+      otherwise.
+
 - [ ] **registro: cuentas anuales and legalised books have no free read route.**
       Investigated 2026-10-08 against sede.registradores.org: the CSV checker
       needs a real CSV plus requester NIF and a captcha; "Mis presentaciones"
