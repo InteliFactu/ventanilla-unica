@@ -3,7 +3,7 @@ import { defaultSleep } from '../documents/defaultSleep'
 import type { Sleep } from '../documents/types/Sleep'
 import { fetchPendingNotifications } from '../notifications/fetchers/fetchPendingNotifications'
 import { loginWithCertificate } from '../session/loginWithCertificate'
-import { acceptOneNotification } from './acceptOneNotification'
+import { attemptAppearance } from './attemptAppearance'
 import { fetchAcceptLegalTextId } from './fetchers/fetchAcceptLegalTextId'
 import { planAppearance } from './mappers/planAppearance'
 import type { AppearanceOutcome } from './types/AppearanceOutcome'
@@ -29,6 +29,8 @@ export const appearAtNotifications = async (
     ? await fetchAcceptLegalTextId(client, authData)
     : ''
   const outcomes: AppearanceOutcome[] = []
+  let sessionAuthData = authData
+  let attempted = false
   for (const id of request.ids) {
     const found = notifications.find((item) => item.id === id)
     const reference = found?.reference
@@ -36,16 +38,30 @@ export const appearAtNotifications = async (
       outcomes.push({ id, notPending: true, accepted: false })
       continue
     }
-    const { subject, issuer, expiresAt } = found
+    if (!request.confirm) {
+      const { subject, issuer, expiresAt } = found
+      outcomes.push({
+        id,
+        reference,
+        subject,
+        issuer,
+        expiresAt,
+        accepted: false,
+      })
+      continue
+    }
+    // The appearance relay of one notification spends the listing bearer
+    // (2026-10-09: the second id of a run got no Cl@ve form, the same id
+    // alone in a fresh run was accepted), so each later one logs in anew.
+    if (attempted) sessionAuthData = await loginWithCertificate(client)
+    attempted = true
     outcomes.push(
-      request.confirm
-        ? await acceptOneNotification(
-            { client, authData, legalTextId },
-            { ...found, reference },
-            request.outDir,
-            sleep,
-          )
-        : { id, reference, subject, issuer, expiresAt, accepted: false },
+      await attemptAppearance(
+        { client, authData: sessionAuthData, legalTextId },
+        { ...found, reference },
+        request.outDir,
+        sleep,
+      ),
     )
   }
   return { action, executed: request.confirm, plan, outcomes }

@@ -8,6 +8,11 @@ All notable changes to this project are documented here. The format follows
 
 ### Fixed
 
+- `dehu comparecer` with several `--id`: the appearance relay of the first
+  notification spends the listing bearer, so the second one got "no Cl@ve form
+  in the appearance-login-form answer" and the error hid the first acceptance.
+  Each later notification now logs in anew, and a failed one is reported as an
+  outcome with its `error` instead of ending the run.
 - 036 events are sent as ASCII-escaped JSON: the `zkau` decodes the body as
   Latin-1, so an accented value ("Disolución y liquidación", "Cáceres") arrived
   longer than typed and the form answered Error LNGINC.

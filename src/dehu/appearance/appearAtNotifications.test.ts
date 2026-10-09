@@ -1,6 +1,7 @@
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { HttpClient } from '../../http/types/HttpClient'
+import { loginWithCertificate } from '../session/loginWithCertificate'
 import { acceptOneNotification } from './acceptOneNotification'
 import { appearAtNotifications } from './appearAtNotifications'
 import { fetchAcceptLegalTextId } from './fetchers/fetchAcceptLegalTextId'
@@ -22,6 +23,15 @@ vi.mock('../notifications/fetchers/fetchPendingNotifications', () => ({
         state: 'pending',
       },
       { id: 'N2', subject: 'S', issuer: 'I', createdAt: 'x', state: 'pending' },
+      {
+        id: 'N3',
+        reference: 'REF3',
+        subject: 'S3',
+        issuer: 'I3',
+        createdAt: '2026-01-02',
+        expiresAt: '2026-01-12',
+        state: 'pending',
+      },
     ],
   }),
 }))
@@ -37,6 +47,10 @@ vi.mock('./acceptOneNotification', () => ({
 const client: HttpClient = { request: vi.fn(), cookie: () => undefined }
 
 describe('appearAtNotifications', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
   it('never accepts anything without confirm', async () => {
     const result = await appearAtNotifications(client, {
       ids: ['N1', 'MISSING'],
@@ -76,5 +90,22 @@ describe('appearAtNotifications', () => {
       notPending: true,
       accepted: false,
     })
+  })
+
+  it('logs in anew before each notification after the first', async () => {
+    vi.mocked(loginWithCertificate)
+      .mockResolvedValueOnce('JWT')
+      .mockResolvedValueOnce('JWT2')
+    await appearAtNotifications(client, {
+      ids: ['N1', 'N3'],
+      confirm: true,
+    })
+    expect(loginWithCertificate).toHaveBeenCalledTimes(2)
+    expect(
+      vi.mocked(acceptOneNotification).mock.calls.map((call) => call[0]),
+    ).toEqual([
+      { client, authData: 'JWT', legalTextId: '901' },
+      { client, authData: 'JWT2', legalTextId: '901' },
+    ])
   })
 })
