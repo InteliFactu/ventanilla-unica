@@ -145,27 +145,6 @@
       Decide whether InteliFactu depends on `ventanilla-unica` or keeps its own,
       and file the result in both backlogs.
 
-- [~] **STA registry filing: `caceres aportar` as a gated `write` command.**
-  Implemented 2026-10-09 in `src/sta/relec/` over the old Relec form
-  (`frame.jsp` + `Relec/TramitaForm`, `ApordocAjaxLoader?getTypes=0`, per
-  document `FileUploader` / `AutofirmaDownload10` / local PAdES /
-  `AutofirmaUpload10`, then `TramitaSign`, `FileUploaderApplet` XAdES round trip
-  and `TramitaJustif`), from the HTTP capture of 2026-10-09 (reference filings
-  made with the Playwright shim: ENT2026039187 on 2026-09-30, ENT2026040015 on
-  2026-10-02). The contact-data gate is already answered for the Vibra Lab
-  representative certificate. Plan mode verified live against 2026/00032519N
-  with four PDFs. Offline: the built TramitaSign body is byte-identical (168
-  fields) to the browser's, the TramitaJustif body and the `FileUploaderApplet`
-  ids match the capture, the result parser reads the real 2026-10-02 page, the
-  XAdES over the real form XML verifies with xmlsec1, and the PAdES over the
-  sede's own returned copies verifies with pdfsig. Unverified until the first
-  real filing: that the sede accepts our XAdES shape (enveloped-signature + C14N
-  transforms instead of endesive's XPath one), a new PAdES field while its empty
-  `Telematico` field stays unsigned (as the accepted pyfirma filing did), and
-  that the result page never names the registry number (it is only in the
-  justificante PDF). Next step: the owner runs it with
-  `--confirmar si --out <dir>` and checks the justificante; then mark `[x]`.
-
 - [ ] **Cáceres general registry.** `junta presentar` runs on the shared STA
       registry SPA, but only the Junta's procedure id
       (`generalRegistryProcedures`) is mapped. Next step: open

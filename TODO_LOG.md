@@ -6,6 +6,16 @@
 
 ### 2026-10
 
+- [x] 2026-10-09 — **`caceres aportar` and `junta aportar` verified live.**
+  - Result: `caceres aportar` (64a48b6, Relec form over HTTP) registered
+    ENT2026041263 (CSV 16336616641771423311, four PDFs as DECL/ALTER/CERTI/OTROE
+    to expediente 2026/00032519N, VIBRA LAB SL as interesado, holder as
+    representative); the sede accepted the local XAdES form signature and the
+    PAdES documents, and the registry number appears only in the justificante.
+    `junta aportar` (3eee739) registered ENT20260859077 for expediente
+    2026/25777D. Evidence: justificantes under
+    `ArchivoFiscal/Vibra Lab S.L./Subvenciones-Ayudas/2026/`.
+
 - [x] 2026-10-07 — **Blocked → done:** `dehu comparecer` opens pending DEHU
       notifications over plain HTTP.
   - Result: the owner authorised opening every pending notification. One

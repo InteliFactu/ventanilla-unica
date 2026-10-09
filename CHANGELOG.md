@@ -43,6 +43,10 @@ All notable changes to this project are documented here. The format follows
   link and server time are parsed, and `--out` saves the justificante PDF and an
   `aportacion-<CSV>.json` receipt. Plan only without `--confirmar si`; the
   confirmed path is verified against captured pages until the first real filing.
+  Confirmed path verified live on 2026-10-09: registro ENT2026041263 (CSV
+  16336616641771423311, four PDFs to expediente 2026/00032519N); the sede
+  accepted the XAdES form signature and the PAdES documents. The registry number
+  is only on the justificante, as expected.
 - `caceres datos-contacto --correo m [--telefono t]`: answers the Cáceres sede's
   contact-data gate, which blocked every command for a certificate that never
   logged in there (the Vibra Lab representative one did). It presses the gate's
