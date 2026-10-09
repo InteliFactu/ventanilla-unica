@@ -1,32 +1,26 @@
-import { formatPersonNif } from '../formatters/formatPersonNif'
 import type { RegistryPerson } from '../types/RegistryPerson'
+import { buildPersonParty } from './buildPersonParty'
 
 /**
- * The `parties` block for a holder acting in their own name: the person as
- * `/people/me` returns it, minus `represented`, plus `personality` and the
- * first address as `party`, which is what the SPA sends.
+ * The `parties` block. In the holder's own name the holder is the `subject`;
+ * acting for an entity, as the SPA's "representacionjuridica" step does with
+ * a representative certificate, the entity is the `subject` and the holder
+ * the `representedBy` agent, reached at their first address.
  */
 export const buildRegistryParties = (
   person: RegistryPerson,
+  represented?: RegistryPerson,
 ): Readonly<Record<string, unknown>> => {
-  const { represented: _represented, ...rest } = person
-  const displayName = [person.name, person.familyname, person.secondname]
-    .filter(Boolean)
-    .join(' ')
+  const holder = { party: person.addreses?.[0] ?? null }
+  if (represented === undefined)
+    return { subject: buildPersonParty(person, { ...holder, isAgent: false }) }
   return {
-    subject: {
-      id: person.dboid,
-      displayId: formatPersonNif(person),
-      displayName,
-      type: person.persontype,
+    representedBy: buildPersonParty(person, { ...holder, isAgent: true }),
+    subject: buildPersonParty(represented, {
       isAgent: false,
-      isAuthenticated: true,
-      value: {
-        ...rest,
-        personality: person.persontype,
-        party: person.addreses[0],
-      },
-      hasAddress: person.addreses.length > 0,
-    },
+      party:
+        (represented['party'] as
+          Readonly<Record<string, unknown>> | null | undefined) ?? null,
+    }),
   }
 }

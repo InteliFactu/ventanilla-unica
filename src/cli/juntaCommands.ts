@@ -1,3 +1,4 @@
+import { juntaAportar } from './commands/juntaAportar'
 import { juntaCarpetaComparecer } from './commands/juntaCarpetaComparecer'
 import { juntaCarpetaDescargar } from './commands/juntaCarpetaDescargar'
 import { juntaCarpetaExpedientes } from './commands/juntaCarpetaExpedientes'
@@ -20,6 +21,7 @@ export const juntaCommands: readonly Command[] = [
   juntaNotificaciones,
   juntaRegistros,
   juntaPresentar,
+  juntaAportar,
   juntaJustificante,
   juntaDeudas,
   juntaTasas,

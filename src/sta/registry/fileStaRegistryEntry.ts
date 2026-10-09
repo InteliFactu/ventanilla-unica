@@ -4,12 +4,13 @@ import type { StaPortal } from '../types/StaPortal'
 import { buildRegistryContent } from './builders/buildRegistryContent'
 import { readRegistryContext } from './fetchers/readRegistryContext'
 import { formatPersonNif } from './formatters/formatPersonNif'
+import { generalRegistryProcedures } from './generalRegistryProcedures'
 import { mapRegistryPlan } from './mappers/mapRegistryPlan'
-import { saveRegistryReceipt } from './saveRegistryReceipt'
 import { selectDestinationKey } from './selectors/selectDestinationKey'
 import { selectDocumentSlot } from './selectors/selectDocumentSlot'
 import { selectNotificationEmail } from './selectors/selectNotificationEmail'
 import { submitRegistryEntry } from './submitRegistryEntry'
+import { trySaveRegistryReceipt } from './trySaveRegistryReceipt'
 import type { StaRegistryFilingContext } from './types/StaRegistryFilingContext'
 import type { StaRegistryQuery } from './types/StaRegistryQuery'
 import type { StaRegistryReceipt } from './types/StaRegistryReceipt'
@@ -30,9 +31,12 @@ export const fileStaRegistryEntry = async (
   context: StaRegistryFilingContext,
 ): Promise<WriteResult<StaRegistryReceipt>> => {
   const files = await assertPdfFiles(query.documents)
+  const procedureId = generalRegistryProcedures[portal]
+  if (!procedureId) throw new Error(`${portal}: general registry not mapped`)
   const { origin, session, person, schema } = await readRegistryContext(
     client,
     portal,
+    procedureId,
   )
   const unit = selectDestinationKey(schema, query.destination)
   const notificationEmail = selectNotificationEmail(person)
@@ -57,12 +61,9 @@ export const fileStaRegistryEntry = async (
     }),
     query.documents,
   )
-  const receipt =
-    context.outDir === undefined
-      ? filed
-      : await saveRegistryReceipt(client, origin, filed, {
-          nif: formatPersonNif(person),
-          outDir: context.outDir,
-        })
-  return { action, executed: true, plan, receipt, notes: [] }
+  const saved = await trySaveRegistryReceipt(client, origin, filed, {
+    nif: formatPersonNif(person),
+    outDir: context.outDir,
+  })
+  return { action, executed: true, plan, ...saved }
 }

@@ -145,25 +145,24 @@
       Decide whether InteliFactu depends on `ventanilla-unica` or keeps its own,
       and file the result in both backlogs.
 
-- [ ] **STA registry filing: `caceres aportar` and `junta aportar` as gated
-      `write` commands.** Owner, 2026-10-02: sede filings like this one must go
-      through ventanilla-unica, not ad hoc Playwright. Two real filings exist as
-      the reference: Cáceres "Alojamiento en despachos" (ENT2026039187,
-      2026-09-30) and Cáceres "Aportación de documentación" (ENT2026040015,
-      2026-10-02), plus the Junta STA "Aporte documentación" (ENT20260825259).
-      The captured flow (form fields, `aportadoc_modo libre|req`,
-      `referenciaAporDoc`, the `documentSignSend.jsp` upload popup that calls
-      `MiniApplet.sign` with `Adobe PDF` per document and `XAdES` over
-      `Form.xml` at "Firmar y enviar", the hidden template row, the transient
-      `TimeoutException`, the justificante in `var docu`) is in
-      `~/p/wiki/tools/sede-caceres/README.md`; the Playwright originals are in
+- [ ] **STA registry filing: `caceres aportar` as a gated `write` command.**
+      `junta aportar` is done (2026-10-09, plan verified live against
+      2026/25777D; the confirmed path shares `junta presentar`'s signing and
+      submission, unverified for a representative until the first real filing).
+      Cáceres is different: with the Vibra Lab representative certificate the
+      sede stops at the CONFIRMACION_DATOS_PERSONALES contact-data gate (a write
+      this tool refuses), and with the personal certificate
+      `/sta/reg/auth/es/6269000000002829307935` stays on the SPA shell, so the
+      Cáceres aportación still runs on the old Relec form
+      (`/sta/Relec/TramitaForm?dboidSolicitud=...`, MiniApplet PAdES per
+      document and XAdES over `Form.xml`). Reference filings: ENT2026039187
+      (2026-09-30) and ENT2026040015 (2026-10-02); the captured flow is in
+      `~/p/wiki/tools/sede-caceres/README.md` and the Playwright originals in
       `ArchivoFiscal/Vibra Lab S.L./Subvenciones-Ayudas/2026/subsanacion-2026-10/_src/sede-caceres/`.
-      Smallest next step: capture the HTTP requests of one plan-mode run (upload
-      servlet, sign callback, final submit) and replay them on the existing
-      `sta` session with `firmar pdf`/`firmar xml`. Done when
-      `ventanilla-unica caceres aportar --referencia <registro> --doc <tipo>:<pdf>`
-      returns a plan without `--confirmar si` and the registro plus the
-      justificante with it.
+      Blocked on an owner decision: confirm the contact data at the gate once
+      (it is a write) or keep the Relec path. Then capture one plan-mode run
+      (upload servlet, sign callback, final submit) and replay it on the `sta`
+      session.
 
 - [ ] **Cáceres general registry.** `junta presentar` runs on the shared STA
       registry SPA, but only the Junta's procedure id

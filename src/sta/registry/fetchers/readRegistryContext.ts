@@ -2,20 +2,18 @@ import type { HttpClient } from '../../../http/types/HttpClient'
 import { openStaSession } from '../../session/openStaSession'
 import { staOrigins } from '../../session/staOrigins'
 import type { StaPortal } from '../../types/StaPortal'
-import { generalRegistryProcedures } from '../generalRegistryProcedures'
 import type { RegistryContext } from '../types/RegistryContext'
 import type { RegistryMeAnswer } from '../types/RegistryMeAnswer'
 import type { RegistrySchema } from '../types/RegistrySchema'
 import { getRegistryJson } from './getRegistryJson'
 import { openRegistryDraft } from './openRegistryDraft'
 
-/** The read-only half, for a sede whose general registry is mapped: certificate login, a fresh draft reference, the holder and the procedure schema. */
+/** The read-only half of a registry filing: certificate login, a fresh draft reference of the procedure, the holder and the procedure schema. */
 export const readRegistryContext = async (
   client: HttpClient,
   portal: StaPortal,
+  procedureId: string,
 ): Promise<RegistryContext> => {
-  const procedureId = generalRegistryProcedures[portal]
-  if (!procedureId) throw new Error(`${portal}: general registry not mapped`)
   const origin = staOrigins[portal]
   await openStaSession(client, origin)
   const session = await openRegistryDraft(client, origin, procedureId)

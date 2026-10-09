@@ -8,6 +8,7 @@ import { describe, expect, it } from 'vitest'
 import { buildTestIdentity } from '../../signing/fixtures/buildTestIdentity'
 import { fileStaRegistryEntry } from './fileStaRegistryEntry'
 import { fakeRegistryClient } from './fixtures/fakeRegistryClient'
+import { postsOf } from './fixtures/postsOf'
 
 const dir = mkdtempSync(join(tmpdir(), 'registry-'))
 const pdf = join(dir, 'a.pdf')
@@ -84,15 +85,3 @@ describe('fileStaRegistryEntry', () => {
     ).rejects.toThrow('no addressee unit with DIR3 code A99999999')
   })
 })
-
-/** Every POST the fake client received, with its body as text. */
-const postsOf = (
-  client: ReturnType<typeof fakeRegistryClient>,
-): { url: string; body: string }[] =>
-  (
-    client.request as unknown as {
-      mock: { calls: [string, { method?: string; body?: string | Buffer }?][] }
-    }
-  ).mock.calls
-    .filter(([, options]) => options?.method === 'POST')
-    .map(([url, options]) => ({ url, body: String(options?.body ?? '') }))

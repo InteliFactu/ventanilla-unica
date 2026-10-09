@@ -21,7 +21,11 @@ export const submitRegistryEntry = async (
   paths: readonly string[],
 ): Promise<StaRegistryReceipt> => {
   const { session, slot, identity } = target
-  const draft = { parties: content.parties, data: content.data }
+  const draft = {
+    parties: content.parties,
+    data: content.data,
+    apordoc: content.apordoc,
+  }
   await saveRegistryRequest(
     client,
     session,
@@ -31,7 +35,10 @@ export const submitRegistryEntry = async (
   for (const path of paths) {
     // Sequential on purpose: the order is the attachment order.
     const upload = await uploadRegistryFile(client, session, slot, path)
-    documents.push(mapUploadToDocument(upload, documents.length, slot))
+    const description = content.descriptions?.[documents.length]
+    documents.push(
+      mapUploadToDocument(upload, documents.length, slot, description),
+    )
   }
   await saveRegistryRequest(
     client,

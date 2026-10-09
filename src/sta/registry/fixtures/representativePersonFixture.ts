@@ -1,0 +1,31 @@
+/** A holder with a representative certificate: one `onlyagent` entity in `represented`, which has no address of its own. */
+export const representativePersonFixture = {
+  dboid: 'P1',
+  name: 'ANA',
+  familyname: 'LOPEZ',
+  secondname: 'RUIZ',
+  cianame: null,
+  idnumber: '012345678',
+  ctrldigit: 'Z',
+  persontype: 'F',
+  addreses: [{ street: 'X' }],
+  contacts: [{ waycode: '21', wayvalue: 'ana@example.es', default: true }],
+  onlyagent: true,
+  represented: [
+    {
+      dboid: 'E1',
+      name: null,
+      familyname: null,
+      secondname: null,
+      cianame: 'EJEMPLO SL',
+      idnumber: 'B1234567',
+      ctrldigit: '8',
+      persontype: 'J',
+      addreses: null,
+      contacts: [],
+      represented: null,
+      onlyagent: true,
+      party: null,
+    },
+  ],
+}

@@ -1,3 +1,4 @@
+import { formatPersonName } from '../formatters/formatPersonName'
 import type { RegistryPerson } from '../types/RegistryPerson'
 import type { RegistryPlanFacts } from '../types/RegistryPlanFacts'
 import type { StaRegistryQuery } from '../types/StaRegistryQuery'
@@ -9,7 +10,7 @@ export const mapRegistryPlan = (
   query: StaRegistryQuery,
   facts: RegistryPlanFacts,
 ): readonly string[] => [
-  `Register at ${host} as ${person.name} ${person.familyname}, addressed to ${facts.unitLabel}`,
+  `Register at ${host} as ${formatPersonName(person)}, addressed to ${facts.unitLabel}`,
   `Subject: ${query.subject}`,
   ...facts.files.map(
     (file, index) =>

@@ -6,7 +6,9 @@ import type { RegistrySlot } from '../types/RegistrySlot'
 /**
  * The request body every save sends. `notification` and `legal` (the two
  * declarations, as timestamps of acceptance) only go once the summary step
- * is reached, i.e. from the `sign` save on.
+ * is reached, i.e. from the `sign` save on. A contribution to an open file
+ * names it in `apordoc` and, having no documents step of its own, sends no
+ * `infoDocs`; the general registry sends its attachment slot there.
  */
 export const buildRegistryBody = (
   session: RegistrySession,
@@ -33,16 +35,19 @@ export const buildRegistryBody = (
     mode,
     reference: session.reference,
     progress: mode === 'draft' && content.documents.length === 0 ? 75 : 100,
-    apordoc: {},
-    infoDocs: [
-      {
-        id: slot.documentId,
-        pid: false,
-        reusable: false,
-        dateEnd: '',
-        reusableSelection: [],
-      },
-    ],
+    apordoc: content.apordoc ?? {},
+    infoDocs:
+      content.apordoc === undefined
+        ? [
+            {
+              id: slot.documentId,
+              pid: false,
+              reusable: false,
+              dateEnd: '',
+              reusableSelection: [],
+            },
+          ]
+        : [],
     taxInfo: {},
     taxPayment: false,
   }

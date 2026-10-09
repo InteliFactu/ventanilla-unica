@@ -13,6 +13,9 @@ All notable changes to this project are documented here. The format follows
   in the appearance-login-form answer" and the error hid the first acceptance.
   Each later notification now logs in anew, and a failed one is reported as an
   outcome with its `error` instead of ending the run.
+- `junta presentar` and `junta aportar`: a justificante download that fails
+  after the entry is registered is now a note next to the registry number and
+  CSV instead of an error that hid them.
 - `dehu comparecer`: a failed re-login before a later notification is now that
   notification's `error` instead of aborting the run, and a download that fails
   after DEHU accepted keeps `accepted: true` and reports `downloadError`, since
@@ -26,6 +29,15 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `junta aportar --expediente 2026/25777D --documentos a.pdf [--descripciones 'd1|d2'] [--informacion t]`:
+  contributes documents to an open expediente through the Junta's "Aporte
+  documentación" procedure (6269000000810119707984), registered as documentación
+  complementaria to the unit handling the file. The expediente is looked up
+  among the party's open ones (`/people/info/expedientes`) and sent as
+  `apordoc.expId`. With a representative certificate (first `represented` entry
+  `onlyagent`) the entity is the `subject` and the holder the `representedBy`
+  agent, the parties the sede's own form sends (captured 2026-10-09). Plan only
+  without `--confirmar si`.
 - `nic correo --identificador H-ESNIC-F5 --email m`: asks Red.es (nic.es) to
   change an ES-NIC contact's email, signed with the certificate as implicit
   CAdES over the form's token (what @firma's `AutoScript.sign` returns). Without
