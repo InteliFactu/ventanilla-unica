@@ -144,7 +144,8 @@
       BADEXCUG > Derecho de Acceso > Para mí mismo > Siguiente; the request is
       registered at once (code A..., 2026-10-09 A787054329551) and the result
       mail ("Solicitud derecho", noreply@experian.com) arrives in minutes; it
-      stays two months in Mis Solicitudes. Equifax
+      stays two months in Mis Solicitudes; the PDF downloads from the row chip
+      (`button.spcss-chip`, DOM click). Equifax
       (`www2.equifax.es/consumidores`): without the inclusion letter (ref
       "740/…") an account is required: create-account (persona física, NIF,
       address, province) -> Okta activation mail from authsvc-eu.equifax.com
