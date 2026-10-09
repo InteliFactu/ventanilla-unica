@@ -91,6 +91,37 @@
 
 ## Integrations
 
+- [ ] **justicia: `justicia expedientes` for the Carpeta Justicia (read-only).**
+      Mapped live 2026-10-09 with Alba's certificate (MON 670/2026). Needs
+      `justicia.es` in `isAdministrationHost`. Login: GET
+      `carpeta.justicia.es/c/portal/login` -> 308 to `selfservice-ext/login`,
+      whose meta refresh goes to
+      `am.justicia.es/selfservice-ext/saml2/sp/login/clave` (SAMLRequest form to
+      pasarela.clave.gob.es); IdP chooser `idpRedirect` with
+      `SelectedIdP=AFIRMA`, then the usual relay (`idpUrl` wins) back to
+      `am.justicia.es/.../login/clave`, landing on `/group/guest/home`. List:
+      GET `/group/guest/expedientes` (cards `cj-card__key/val`: Procedimiento,
+      Organo, Estado, Fecha de estado, NIG); detail
+      `...&_carjusmisprocedimientosmodule_mvcRenderCommandName=%2FmisProcedimientosDefault&_carjusmisprocedimientosmodule_idExpediente=<n>`
+      carries the Atenea IRIS link
+      `eje.justicia.es/visor-webapp/plantillaMatriz/accesoExternoEjeSeleccionOrgano-flow?coPro&nuPro&anPro&coOrd&codConsejo&rol=C`.
+      Visor page gives `execution` (e1s1), `_csrf` meta and `var codExpediente`.
+      POST `visor-webapp/plantillaMatriz/AjaxResolver?tipo=accesoExternoEje`
+      with `X-CSRF-TOKEN`: `codOpe=accesoExternoEjeGetArbolByCodExpediente`
+      (destino=procedimientoConstruccion, orden=asc) returns the full document
+      tree; `getActosComunicacionDocumento` (idNodo) returns who was notified,
+      by which channel and when; `getMetadataDocumento` (idNodo) gives tramite,
+      escrito presenter and dates. NOT working: document content
+      (`accesoExternoEjeCheckDocumento` and `validarPermisos` answer HTTP 902;
+      the servlet
+      `externoEjeControllerDocument?action=getDocumentoByCodigoApache` returns 0
+      bytes; the "Descargar expediente" ZIP job `descargarFicheros` ends in
+      estadoDescarga 7 = error). The three 2022-23 delitos-leves expedientes of
+      the same holder answer 902 even for the tree. Next: build list + tree +
+      actos as a command; investigate document content in a browser capture (the
+      visor may need the websocket in
+      `js/accesoExternoEje/sockets/websockets.js`).
+
 - [ ] **registro: cuentas anuales and legalised books have no free read route.**
       Investigated 2026-10-08 against sede.registradores.org: the CSV checker
       needs a real CSV plus requester NIF and a captcha; "Mis presentaciones"
