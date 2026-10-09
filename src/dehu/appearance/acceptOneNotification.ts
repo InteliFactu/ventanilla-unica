@@ -1,5 +1,5 @@
-import { downloadOneNotification } from '../documents/downloadOneNotification'
 import type { Sleep } from '../documents/types/Sleep'
+import { downloadAcceptedNotification } from './downloadAcceptedNotification'
 import { postNotificationAcceptance } from './fetchers/postNotificationAcceptance'
 import { reauthenticateForAppearance } from './reauthenticateForAppearance'
 import type { AppearanceOutcome } from './types/AppearanceOutcome'
@@ -28,11 +28,11 @@ export const acceptOneNotification = async (
   )
   if (status !== ok) return { ...base, accepted: false, status }
   if (outDir === undefined) return { ...base, accepted: true, status }
-  const downloaded = await downloadOneNotification(
+  const saved = await downloadAcceptedNotification(
     { client: session.client, authData: bearer },
     { id, reference },
     outDir,
     sleep,
   )
-  return { ...base, accepted: true, status, files: downloaded.files }
+  return { ...base, accepted: true, status, ...saved }
 }

@@ -80,4 +80,22 @@ describe('acceptOneNotification', () => {
     )
     expect(outcome).toMatchObject({ accepted: false, status: 403 })
   })
+
+  it('keeps an acceptance that stands when its download fails', async () => {
+    vi.mocked(postNotificationAcceptance).mockResolvedValueOnce(200)
+    vi.mocked(downloadOneNotification).mockRejectedValueOnce(
+      new Error('DEHU: document download failed'),
+    )
+    const outcome = await acceptOneNotification(
+      session,
+      notification,
+      '/o',
+      sleep,
+    )
+    expect(outcome).toMatchObject({
+      accepted: true,
+      status: 200,
+      downloadError: 'DEHU: document download failed',
+    })
+  })
 })

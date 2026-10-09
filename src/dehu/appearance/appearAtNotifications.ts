@@ -6,6 +6,7 @@ import { loginWithCertificate } from '../session/loginWithCertificate'
 import { attemptAppearance } from './attemptAppearance'
 import { fetchAcceptLegalTextId } from './fetchers/fetchAcceptLegalTextId'
 import { planAppearance } from './mappers/planAppearance'
+import { openAppearanceSession } from './openAppearanceSession'
 import type { AppearanceOutcome } from './types/AppearanceOutcome'
 import type { AppearanceRequest } from './types/AppearanceRequest'
 import type { AppearanceResult } from './types/AppearanceResult'
@@ -29,7 +30,7 @@ export const appearAtNotifications = async (
     ? await fetchAcceptLegalTextId(client, authData)
     : ''
   const outcomes: AppearanceOutcome[] = []
-  let sessionAuthData = authData
+  const listingSession = { client, authData, legalTextId }
   let attempted = false
   for (const id of request.ids) {
     const found = notifications.find((item) => item.id === id)
@@ -50,14 +51,11 @@ export const appearAtNotifications = async (
       })
       continue
     }
-    // The appearance relay of one notification spends the listing bearer
-    // (2026-10-09: the second id of a run got no Cl@ve form, the same id
-    // alone in a fresh run was accepted), so each later one logs in anew.
-    if (attempted) sessionAuthData = await loginWithCertificate(client)
+    const relogin = attempted
     attempted = true
     outcomes.push(
       await attemptAppearance(
-        { client, authData: sessionAuthData, legalTextId },
+        async () => openAppearanceSession(client, listingSession, relogin),
         { ...found, reference },
         request.outDir,
         sleep,

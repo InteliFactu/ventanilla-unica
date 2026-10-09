@@ -5,17 +5,19 @@ import type { AppearanceSession } from './types/AppearanceSession'
 import type { ReferencedNotification } from './types/ReferencedNotification'
 
 /**
- * Accept one notification, turning a failure before DEHU answers into an
- * outcome with its `error`, so the acceptances already made in the same run
- * are still reported and the next requested one still gets its turn.
+ * Open a session and accept one notification, turning a failure before DEHU
+ * answers (the login included) into an outcome with its `error`, so the
+ * acceptances already made in the same run are still reported and the next
+ * requested one still gets its turn.
  */
 export const attemptAppearance = async (
-  session: AppearanceSession,
+  openSession: () => Promise<AppearanceSession>,
   notification: ReferencedNotification,
   outDir: string | undefined,
   sleep: Sleep,
 ): Promise<AppearanceOutcome> => {
   try {
+    const session = await openSession()
     return await acceptOneNotification(session, notification, outDir, sleep)
   } catch (error) {
     const { id, reference, subject, issuer, expiresAt } = notification

@@ -13,6 +13,10 @@ All notable changes to this project are documented here. The format follows
   in the appearance-login-form answer" and the error hid the first acceptance.
   Each later notification now logs in anew, and a failed one is reported as an
   outcome with its `error` instead of ending the run.
+- `dehu comparecer`: a failed re-login before a later notification is now that
+  notification's `error` instead of aborting the run, and a download that fails
+  after DEHU accepted keeps `accepted: true` and reports `downloadError`, since
+  the deadlines already run.
 - 036 events are sent as ASCII-escaped JSON: the `zkau` decodes the body as
   Latin-1, so an accented value ("Disolución y liquidación", "Cáceres") arrived
   longer than typed and the form answered Error LNGINC.

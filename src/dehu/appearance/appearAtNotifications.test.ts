@@ -108,4 +108,22 @@ describe('appearAtNotifications', () => {
       { client, authData: 'JWT2', legalTextId: '901' },
     ])
   })
+
+  it('keeps earlier acceptances when a later login fails', async () => {
+    vi.mocked(loginWithCertificate)
+      .mockResolvedValueOnce('JWT')
+      .mockRejectedValueOnce(new Error('DEHU: certificate login failed'))
+    const result = await appearAtNotifications(client, {
+      ids: ['N1', 'N3'],
+      confirm: true,
+    })
+    expect(result.outcomes).toEqual([
+      { id: 'N1', accepted: true, status: 200 },
+      expect.objectContaining({
+        id: 'N3',
+        accepted: false,
+        error: 'DEHU: certificate login failed',
+      }),
+    ])
+  })
 })

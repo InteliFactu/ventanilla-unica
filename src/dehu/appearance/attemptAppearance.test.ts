@@ -28,7 +28,12 @@ describe('attemptAppearance', () => {
       status: 200,
     })
     await expect(
-      attemptAppearance(session, notification, undefined, vi.fn()),
+      attemptAppearance(
+        vi.fn().mockResolvedValue(session),
+        notification,
+        undefined,
+        vi.fn(),
+      ),
     ).resolves.toEqual({ id: 'N1', accepted: true, status: 200 })
   })
 
@@ -37,7 +42,12 @@ describe('attemptAppearance', () => {
       new Error('DEHU: no Cl@ve form in the appearance-login-form answer'),
     )
     await expect(
-      attemptAppearance(session, notification, undefined, vi.fn()),
+      attemptAppearance(
+        vi.fn().mockResolvedValue(session),
+        notification,
+        undefined,
+        vi.fn(),
+      ),
     ).resolves.toEqual({
       id: 'N1',
       reference: 'REF1',
@@ -47,5 +57,22 @@ describe('attemptAppearance', () => {
       accepted: false,
       error: 'DEHU: no Cl@ve form in the appearance-login-form answer',
     })
+  })
+
+  it('reports a failed login as an outcome instead of throwing', async () => {
+    vi.mocked(acceptOneNotification).mockClear()
+    await expect(
+      attemptAppearance(
+        vi.fn().mockRejectedValue(new Error('DEHU: certificate login failed')),
+        notification,
+        undefined,
+        vi.fn(),
+      ),
+    ).resolves.toMatchObject({
+      id: 'N1',
+      accepted: false,
+      error: 'DEHU: certificate login failed',
+    })
+    expect(acceptOneNotification).not.toHaveBeenCalled()
   })
 })
