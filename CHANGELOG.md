@@ -29,6 +29,20 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `caceres aportar --referencia 2026/00032519N --documentos a.pdf,b.pdf --tipos DECL,ALTER --descripciones 'd1|d2' [--informacion t] [--correo m] [--telefono t]`:
+  contributes documents at the Ayuntamiento de Cáceres sede through its old
+  Relec form ("Aportación de documentación"), as representative of the entity
+  the certificate represents, over plain HTTP: `frame.jsp` and
+  `Relec/TramitaForm`, the type list from `ApordocAjaxLoader?getTypes=0`
+  (unknown codes are refused), then per document `FileUploader`,
+  `AutofirmaDownload10`, a local PAdES signature and `AutofirmaUpload10`; then
+  `TramitaSign`, the form XML from `FileUploaderApplet` signed XAdES-BES
+  enveloped and uploaded back, and `TramitaJustif`. The plan names the holder,
+  the represented entity, the contact and each document with its type dboid and
+  SHA-256; it also trial-signs each PDF locally. The result's CSV, justificante
+  link and server time are parsed, and `--out` saves the justificante PDF and an
+  `aportacion-<CSV>.json` receipt. Plan only without `--confirmar si`; the
+  confirmed path is verified against captured pages until the first real filing.
 - `caceres datos-contacto --correo m [--telefono t]`: answers the Cáceres sede's
   contact-data gate, which blocked every command for a certificate that never
   logged in there (the Vibra Lab representative one did). It presses the gate's
@@ -44,7 +58,8 @@ All notable changes to this project are documented here. The format follows
   `apordoc.expId`. With a representative certificate (first `represented` entry
   `onlyagent`) the entity is the `subject` and the holder the `representedBy`
   agent, the parties the sede's own form sends (captured 2026-10-09). Plan only
-  without `--confirmar si`.
+  without `--confirmar si`. Confirmed path verified live on 2026-10-09: registro
+  ENT20260859077 (expediente 2026/25777D).
 - `nic correo --identificador H-ESNIC-F5 --email m`: asks Red.es (nic.es) to
   change an ES-NIC contact's email, signed with the certificate as implicit
   CAdES over the form's token (what @firma's `AutoScript.sign` returns). Without
