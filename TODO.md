@@ -111,16 +111,21 @@
       (destino=procedimientoConstruccion, orden=asc) returns the full document
       tree; `getActosComunicacionDocumento` (idNodo) returns who was notified,
       by which channel and when; `getMetadataDocumento` (idNodo) gives tramite,
-      escrito presenter and dates. NOT working: document content
-      (`accesoExternoEjeCheckDocumento` and `validarPermisos` answer HTTP 902;
-      the servlet
-      `externoEjeControllerDocument?action=getDocumentoByCodigoApache` returns 0
-      bytes; the "Descargar expediente" ZIP job `descargarFicheros` ends in
-      estadoDescarga 7 = error). The three 2022-23 delitos-leves expedientes of
-      the same holder answer 902 even for the tree. Next: build list + tree +
-      actos as a command; investigate document content in a browser capture (the
-      visor may need the websocket in
-      `js/accesoExternoEje/sockets/websockets.js`).
+      escrito presenter and dates. Document content SOLVED the same day: the
+      earlier 902s came from `nombreArbol=procedimientoConstruccion`; the visor
+      JS maps the tab to `doc` (`eje`, `video`, `adm` for the others). POST
+      `codOpe=accesoExternoEjeCheckDocumento` (codigoBarras,
+      nombreProcedimiento, idDoc, operacionAuditoria=Consulta,
+      esExpediente=false, codExpediente, esEje=false, checkFirmado=true,
+      nombreArbol=doc) answers `{result:true, extension}`, then GET
+      `visor-webapp/externoEjeControllerDocument?action=getDocumentoByCodigoApache&filename=doc<ext>&idDoc&execution&codigoBarras&nombreArbol=doc`
+      returns the file; no extra cookie. All 37 documents of MON 670/2026 came
+      down this way, so the ZIP job (`descargarFicheros`, estadoDescarga 7) is
+      not needed. The three 2022-23 delitos-leves expedientes are refused by the
+      visor itself ("No tiene acceso al procedimiento... no cumplir con los
+      requisitos de acceso"), no codExpediente: a server-side access rule, not a
+      client bug. Next: build list + tree + actos + document download as a
+      command.
 
 - [ ] **registro: cuentas anuales and legalised books have no free read route.**
       Investigated 2026-10-08 against sede.registradores.org: the CSV checker
