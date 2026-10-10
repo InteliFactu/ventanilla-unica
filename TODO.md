@@ -18,7 +18,16 @@
   only (no certificate, no Cl@ve). Vibra Lab has no account (`placsp estado` for
   info@tieneslavibra.com: "Id usuario y email permitidos."). Unblock: the owner
   self-registers at `/wps/portal/registrarse` (captcha, activation e-mail); then
-  capture the logged-in form read-only.
+  capture the logged-in form read-only. Mailbox pass 2026-10-10: the account now
+  exists. info@tieneslavibra.com got "DGPE: Activación de cuenta de usuario" for
+  user `vibralabsl` and the communications-address change on 2026-10-03, and on
+  2026-10-07 "PLACE: La pregunta del expediente 202600000109 ha sido contestada"
+  (Centro Español de Metrología). Next: read that answer, then capture the
+  logged-in form. Same mailbox, ROLECE 2026-10-03: "REQUERIMIENTO SUBSANACIÓN
+  (DOCUMENTACIÓN BÁSICA) Debe remitirse nota mercantil simple a
+  notasregistrales@patrimoniodelestado.es"; a notification followed on
+  2026-10-05. Next: request Vibra Lab's nota informativa mercantil at
+  registradores.org and send it there.
 - [!] **TGSS `aplazamiento` and `adjuntar` refuse `--confirmar si`.** The "firma
   optimizada" is implemented and tested. The protocol is no longer uncaptured:
   on 2026-09-22 a real deferral (registro 20265990000981409) and a CEUS
