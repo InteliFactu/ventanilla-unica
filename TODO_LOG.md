@@ -6,6 +6,17 @@
 
 ### 2026-10
 
+- [x] 2026-10-11 — **`carpeta confirmar-email` verified live.**
+  - Result: the verification mail of the 2026-10-11 `carpeta email` run (Alba,
+    78117074N) reached albapriieto4@gmail.com at 01:12 from
+    `noreply.carpetaciudadana@correo...` (subject "Verificación de email"; the
+    earlier "not arrived" check was before Vexa synced it).
+    `carpeta confirmar-email --enlace <verificarCorreo link> --confirmar si`
+    answered
+    `{"confirmed": true, "ok": true, "message": "EMAIL VERIFICADO CORRECTAMENTE"}`;
+    the plan run without `--confirmar` returned `{"confirmed": false}` and sent
+    nothing. `readOutcome` parsed the real answer as is, so no change was
+    needed.
 - [x] 2026-10-09 — **`caceres aportar` and `junta aportar` verified live.**
   - Result: `caceres aportar` (64a48b6, Relec form over HTTP) registered
     ENT2026041263 (CSV 16336616641771423311, four PDFs as DECL/ALTER/CERTI/OTROE

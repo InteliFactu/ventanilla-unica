@@ -174,15 +174,6 @@
   `sexpe demanda|alta-demanda|contacto --sesion <cookie header>` commands taking
   the cookies of a CAPTCHA the holder solved. `extremaduratrabaja.juntaex.es`
   and `www.sexpe.es` did not answer on 2026-10-11.
-- [ ] **Carpeta Ciudadana: `carpeta confirmar-email` live run.** Built and
-      tested offline; the 2026-10-11 `carpeta email --confirmar si` run (Alba,
-      78117074N) answered "Se ha enviado el correo de verificación, el enlace
-      caducará el día 14/10/2026" and the Carpeta shows "Pendiente de
-      verificar", but the mail had not reached the inbox an hour later. Next
-      step: open the link with
-      `carpeta confirmar-email --enlace <url> --confirmar si` before 14/10/2026
-      and tighten `readOutcome` from the real answer. A new `carpeta email`
-      resends it after expiry.
 - [ ] **Carpeta Ciudadana: alert groups and address change (plan only).** The
       e-mail alone switches no alert group on (`/api/v3/preferencias-usuario`
       does, not built). The address change service at
