@@ -1,0 +1,6 @@
+export { confirmEmail } from './alerts/confirmEmail'
+export { readAlertSettings } from './alerts/readAlertSettings'
+export { requestEmailVerification } from './alerts/requestEmailVerification'
+export type { AlertSettings } from './alerts/types/AlertSettings'
+export type { EmailConfirmation } from './alerts/types/EmailConfirmation'
+export type { EmailVerification } from './alerts/types/EmailVerification'

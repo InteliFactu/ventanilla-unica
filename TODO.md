@@ -143,6 +143,28 @@
   (com.gpex.sexpe) user/password path is documented.
   `extremaduratrabaja.juntaex.es` and `www.sexpe.es` did not answer on
   2026-10-11.
+- [ ] **Carpeta Ciudadana: `carpeta confirmar-email` live run.** Built and
+      tested offline; the 2026-10-11 `carpeta email --confirmar si` run (Alba,
+      78117074N) answered "Se ha enviado el correo de verificación, el enlace
+      caducará el día 14/10/2026" and the Carpeta shows "Pendiente de
+      verificar", but the mail had not reached the inbox an hour later. Next
+      step: open the link with
+      `carpeta confirmar-email --enlace <url> --confirmar si` before 14/10/2026
+      and tighten `readOutcome` from the real answer. A new `carpeta email`
+      resends it after expiry.
+- [ ] **Carpeta Ciudadana: alert groups and address change (plan only).** The
+      e-mail alone switches no alert group on (`/api/v3/preferencias-usuario`
+      does, not built). The address change service at
+      `cambiodomicilio.redsara.es/pcd` is not built: the owner deferred any
+      address change at AEAT/DEHU/Carpeta on 2026-10-11 (it fixes where a future
+      self-employment counts as located for an aid); build it plan-only when
+      that is decided.
+- [ ] **AEAT avisos channels write.** `aeat contacto` reads the mobile and
+      e-mail of `TOAG-JDIT` (MDAPL); the modification form behind it is not
+      mapped. Map it when a holder's channels need changing.
+- [ ] **DEHU contact phone.** `dehu contacto` reads `telefono`, but the DEHU
+      front offers no field for it (e-mails and push only), so no write is
+      built; `v1/contact/<base64 NIF>` accepts PUT/POST, unverified.
 
 - [ ] **justicia: `justicia expedientes` for the Carpeta Justicia (read-only).**
       Mapped live 2026-10-09 with Alba's certificate (MON 670/2026). Needs

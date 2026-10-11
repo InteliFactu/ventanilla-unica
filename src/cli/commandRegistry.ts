@@ -1,10 +1,12 @@
 import { caceresCommands } from './caceresCommands'
+import { carpetaCommands } from './carpetaCommands'
 import { aeatAportar } from './commands/aeatAportar'
 import { aeatBaja } from './commands/aeatBaja'
 import { aeatCartaPago } from './commands/aeatCartaPago'
 import { aeatCertificadoCensal } from './commands/aeatCertificadoCensal'
 import { aeatCertificadoCorriente } from './commands/aeatCertificadoCorriente'
 import { aeatComparecer } from './commands/aeatComparecer'
+import { aeatContacto } from './commands/aeatContacto'
 import { aeatDeclaraciones } from './commands/aeatDeclaraciones'
 import { aeatDeudas } from './commands/aeatDeudas'
 import { aeatDomicilio } from './commands/aeatDomicilio'
@@ -16,9 +18,6 @@ import { aeatPagos } from './commands/aeatPagos'
 import { calendarioFiscal } from './commands/calendarioFiscal'
 import { cirbeEstado } from './commands/cirbeEstado'
 import { cirbeInforme } from './commands/cirbeInforme'
-import { dehuComparecer } from './commands/dehuComparecer'
-import { dehuDocumentos } from './commands/dehuDocumentos'
-import { dehuList } from './commands/dehuList'
 import { dgsfpReclamacion } from './commands/dgsfpReclamacion'
 import { firmarPdf } from './commands/firmarPdf'
 import { firmarXml } from './commands/firmarXml'
@@ -31,6 +30,7 @@ import { roleceSolicitud } from './commands/roleceSolicitud'
 import { sepeCertificado } from './commands/sepeCertificado'
 import { sepePrestacion } from './commands/sepePrestacion'
 import { validarNif } from './commands/validarNif'
+import { dehuCommands } from './dehuCommands'
 import { juntaCommands } from './juntaCommands'
 import { tgssCommands } from './tgssCommands'
 import type { Command } from './types/Command'
@@ -43,6 +43,7 @@ export const commandRegistry: readonly Command[] = [
   aeatInformativas,
   aeatCertificadoCensal,
   aeatCertificadoCorriente,
+  aeatContacto,
   aeatComparecer,
   aeatCartaPago,
   aeatDomicilio,
@@ -51,9 +52,8 @@ export const commandRegistry: readonly Command[] = [
   aeatInformativa,
   aeatModelo190,
   ...tgssCommands,
-  dehuList,
-  dehuDocumentos,
-  dehuComparecer,
+  ...dehuCommands,
+  ...carpetaCommands,
   oargtRecibos,
   ...juntaCommands,
   ...caceresCommands,

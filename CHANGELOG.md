@@ -39,6 +39,19 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `aeat contacto --nif <NIF>`: reads the avisos channels (mobile, e-mail, state)
+  from `TOAG-JDIT/Detalle` and the domicilio fiscal and de notificación from
+  `BUGC-JDIT/MdcAcceso`, refusing pages that do not name the holder.
+- `dehu contacto`: reads the DEHU avisos contact from `v1/contact/<base64 NIF>`
+  (the plain NIF answers 403), with each e-mail's confirmation flag.
+- `carpeta avisos`, `carpeta email --email e` and
+  `carpeta confirmar-email --enlace <url>`: the state Carpeta Ciudadana over
+  plain HTTP, logging in by OIDC with PKCE through Keycloak and the Cl@ve
+  certificate IdP (every relay hop sends its `Origin`, without which
+  `ResponseRedirect` answers empty), then reading the alert settings, storing
+  the alert e-mail (the Carpeta mails a verification link) and opening that
+  link. Both writes are plan-only without `--confirmar si`.
+
 - `caceres aportar --referencia 2026/00032519N --documentos a.pdf,b.pdf --tipos DECL,ALTER --descripciones 'd1|d2' [--informacion t] [--correo m] [--telefono t]`:
   contributes documents at the Ayuntamiento de Cáceres sede through its old
   Relec form ("Aportación de documentación"), as representative of the entity

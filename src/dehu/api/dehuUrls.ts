@@ -6,5 +6,6 @@ export const dehuUrls = {
   loginClaveForm: 'https://dehu.redsara.es/api/login/login-clave-form',
   pending: 'https://dehu.redsara.es/api/v1/notifications',
   realized: 'https://dehu.redsara.es/api/v1/realized_notifications',
+  contact: 'https://dehu.redsara.es/api/v1/contact/',
   acceptLegalText: 'https://dehu.redsara.es/api/v1/get_legal_text/1/es',
 } as const
