@@ -52,4 +52,19 @@ describe('CookieJar', () => {
     ])
     expect(jar.headerFor(tgss)).toBe('keep=4')
   })
+
+  it('sends a cookie with an explicit Path only on that path and below it', () => {
+    const sede = 'sede.example.gob.es'
+    const jar = new CookieJar()
+    jar.store(sede, [
+      'SESSION=s; Path=/',
+      'LTPA=t; Domain=sede.example.gob.es; Path=/es ;HTTPOnly',
+      'BARE=b',
+    ])
+    expect(jar.headerFor(sede, '/es/mi/')).toBe('SESSION=s; LTPA=t; BARE=b')
+    expect(jar.headerFor(sede, '/es')).toBe('SESSION=s; LTPA=t; BARE=b')
+    expect(jar.headerFor(sede, '/system/x.jsp')).toBe('SESSION=s; BARE=b')
+    expect(jar.headerFor(sede, '/estado')).toBe('SESSION=s; BARE=b')
+    expect(jar.get(sede, 'LTPA')).toBe('t')
+  })
 })

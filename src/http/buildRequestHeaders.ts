@@ -15,7 +15,7 @@ export const buildRequestHeaders = (
     'Accept-Language': 'es-ES,es;q=0.9',
     ...options.headers,
   }
-  const cookie = jar.headerFor(target.hostname)
+  const cookie = jar.headerFor(target.hostname, target.pathname)
   if (cookie) headers['Cookie'] = cookie
   if (options.referer) headers['Referer'] = options.referer
   if (body !== undefined) {

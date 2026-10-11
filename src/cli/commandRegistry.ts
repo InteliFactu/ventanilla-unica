@@ -19,6 +19,8 @@ import { calendarioFiscal } from './commands/calendarioFiscal'
 import { cirbeEstado } from './commands/cirbeEstado'
 import { cirbeInforme } from './commands/cirbeInforme'
 import { dgsfpReclamacion } from './commands/dgsfpReclamacion'
+import { dgtContacto } from './commands/dgtContacto'
+import { dgtDatos } from './commands/dgtDatos'
 import { firmarPdf } from './commands/firmarPdf'
 import { firmarXml } from './commands/firmarXml'
 import { nicCorreo } from './commands/nicCorreo'
@@ -66,6 +68,8 @@ export const commandRegistry: readonly Command[] = [
   placspEstado,
   placspPregunta,
   dgsfpReclamacion,
+  dgtDatos,
+  dgtContacto,
   nicCorreo,
   firmarPdf,
   firmarXml,

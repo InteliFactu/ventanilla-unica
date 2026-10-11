@@ -165,6 +165,25 @@
 - [ ] **DEHU contact phone.** `dehu contacto` reads `telefono`, but the DEHU
       front offers no field for it (e-mails and push only), so no write is
       built; `v1/contact/<base64 NIF>` accepts PUT/POST, unverified.
+- [ ] **dgt: `dgt domicilio` (CDI change of address), plan only so far.** Owner
+      has not decided on a new domicile (2026-10-11), so nothing was built. Live
+      map: page `/es/servicios-sede/cambio-de-direccion/`, choose
+      `radio_direcion=notificacion-nueva`; address fields take ids from
+      `service_sadd.jsp` lookups (tipoVia, via, numero, planta, puerta,
+      provincia, municipio, localidad, cp). Act: POST `service_cond.jsp`
+      `{nifTitular, domicilioNuevo: JSON, tramite: 'CDI', token}` where `token`
+      equals cookie `token-tramite-cond` (16 random chars set by JS, 5 s
+      expiry), then `service_rele.jsp` (registry, asunto `SCDCB`) for the
+      justificante. Write it behind `--confirmar si` when the owner decides.
+- [ ] **dgt: licence/vehicle/fine counters in `dgt datos`.** The Mi DGT counters
+      (`ajaxCalls.jsp?permisos=true` and siblings) answered `-` or HTML
+      depending on the session, so they were dropped. Needs a session that has
+      landed on `/es/mi_dgt/` first; verify with a holder who has a vehicle.
+- [ ] **ses / catastro / clave / inss: contact and domicile readers.** Not
+      explored yet (2026-10-11). Cl@ve phone/email change with certificate lives
+      under AEAT "Cl@ve > Otras gestiones"; SES contact data is in Centro de
+      Salud Online (`ses.es` is not in `isAdministrationHost`); Catastro titular
+      domicile via sedecatastro. Email/phone only; addresses wait for the owner.
 
 - [ ] **justicia: `justicia expedientes` for the Carpeta Justicia (read-only).**
       Mapped live 2026-10-09 with Alba's certificate (MON 670/2026). Needs
