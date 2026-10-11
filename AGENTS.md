@@ -3,6 +3,8 @@
 The gate is `pnpm check:ci`. The README describes the commands, and
 `CONTRIBUTING.md` describes the file layout and the rules.
 
+<!-- tadu:rule v1 -->
+
 ## Continuous TODO, Work Log, and History Coverage
 
 Maintain `TODO.md` as the active backlog and `TODO_LOG.md` as the searchable
@@ -27,3 +29,6 @@ conversations more than once.
 - Do not interrupt the active task for unrelated non-critical work, and do not
   implement unrelated TODO items unless requested. Immediately report critical
   security, destructive, or data-loss findings.
+
+Format: tadu spec v1. Workflows: the tadu-create and tadu-work skills.
+<!-- /tadu:rule -->
