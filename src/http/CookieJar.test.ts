@@ -41,4 +41,15 @@ describe('CookieJar', () => {
     expect(jar.get(tgss, 'nonsense')).toBeUndefined()
     expect(jar.headerFor(tgss)).toBe('JSESSIONID=two')
   })
+
+  it('deletes a cookie whose header expires it, as WebSphere Portal does', () => {
+    const jar = new CookieJar()
+    jar.store(tgss, ['keep=1', 'gone=2', 'aged=3'])
+    jar.store(tgss, [
+      'gone=; Expires=Thu, 01-Dec-94 16:00:00 GMT; Path=/',
+      'aged=x; Max-Age=0',
+      'keep=4; Expires=Fri, 01-Jan-2100 00:00:00 GMT',
+    ])
+    expect(jar.headerFor(tgss)).toBe('keep=4')
+  })
 })
