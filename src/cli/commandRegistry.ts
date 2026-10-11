@@ -2,6 +2,7 @@ import { caceresCommands } from './caceresCommands'
 import { carpetaCommands } from './carpetaCommands'
 import { aeatAportar } from './commands/aeatAportar'
 import { aeatBaja } from './commands/aeatBaja'
+import { aeatBorradorAutoliquidacion } from './commands/aeatBorradorAutoliquidacion'
 import { aeatCartaPago } from './commands/aeatCartaPago'
 import { aeatCertificadoCensal } from './commands/aeatCertificadoCensal'
 import { aeatCertificadoCorriente } from './commands/aeatCertificadoCorriente'
@@ -53,6 +54,7 @@ export const commandRegistry: readonly Command[] = [
   aeatAportar,
   aeatInformativa,
   aeatModelo190,
+  aeatBorradorAutoliquidacion,
   ...tgssCommands,
   ...dehuCommands,
   ...carpetaCommands,
