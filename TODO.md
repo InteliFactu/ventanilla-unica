@@ -237,6 +237,19 @@
 
 ## Future Ideas
 
+- [ ] **STA (Cáceres, Junta tramites): read the holder's contact data and padrón
+      status.** Evidence 2026-10-11: `PAGE_CODE=DATOS_PERSONALES` on both sedes
+      shows "Mis Medios de Contacto" (phone, e-mail, "confirmados") with a
+      "Modificar" button, and `PAGE_CODE=DATOS_HABITANTE` on sede.caceres.es
+      says "No se encuentra empadronado/a en este municipio" when the holder is
+      not inscribed. `caceres datos-contacto` only answers the first-login gate
+      and reports "nothing to confirm" afterwards, so it cannot change data
+      already saved. Next step: a read command for both pages, then a write for
+      "Modificar" (capture its `submitAjax.aa` body) if ever needed.
+- [ ] **Cáceres padrón change ("alta por cambio de residencia"): not needed
+      now.** The owner dropped it on 2026-10-11. Could be built later on the
+      generalRegistryProcedures path (registry entry with DNI and escritura).
+
 - [ ] **PLACSP bid submission ("Preparación y Presentación de ofertas"): design
       note, not planned.** Evidence, Guía de licitación electrónica v9.1 and
       Guía del Operador Económico v5.3: offers are prepared in a Java 1.8
