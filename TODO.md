@@ -100,6 +100,35 @@
 
 ## Integrations
 
+- [ ] **sepe: `sepe datos-contacto` (write) for the "Comunicación de variación
+      de datos personales" service.** Entry
+      `https://sede.sepe.gob.es/PNuevosServiciosSede/pantallas/?servicio=1`,
+      reached through the same GetAccess/Cl@ve relay (`loginWithCertificate`
+      lands on it). Per the SEPE's own guide (GUIA-USO-COMUNICACION-VARIACION-
+      SITUACION.pdf): residence address and identity are read-only there, the
+      "datos a efectos de comunicaciones" address and the e-mail are editable,
+      and the phone only changes in the holder's Cl@ve account. Not captured: on
+      2026-10-11 ~03:10 the page answered "EL SITIO AL QUE INTENTA ACCEDER NO SE
+      ENCUENTRA DISPONIBLE" and every certificate service landed on
+      `GesUsuariosSEDE/.../error.jsp?errorcode=[TSEG_4003011]` (two different
+      holders, so a sede outage). Next step: capture the variation screens in
+      working hours, build plan mode first. Pending use: Alba's e-mail to
+      albapriieto4@gmail.com (owner: no address change at SEPE for now).
+- [ ] **sepe: `sepe prestacion`/`sepe certificado` re-run for Alba** once the
+      sede is back; they now fail with the sede's outage code instead of "no
+      tipoCertFormBean form".
+- [!] **sexpe: demanda de empleo (consulta, informes, datos personales).** The
+  SEXPE "Gestión de la demanda" button leads to the SNE citizen catalogue
+  `https://www.sistemanacionalempleo.es/CartaServiciosCiudadanoWEB/jsp/principal.jsp?CA=11`,
+  whose entry form (`cartaServicios.do`, fields `nif`, `claveimagen`,
+  `modo=formularioEntrada1`, `CA=11`) is gated by an image/audio CAPTCHA; no
+  certificate entry was found. Not automatable without defeating the CAPTCHA,
+  which this package does not do. Unblock: the holder passes the CAPTCHA by hand
+  once to show what follows (certificate or PIN step), or the SEXPE app
+  (com.gpex.sexpe) user/password path is documented.
+  `extremaduratrabaja.juntaex.es` and `www.sexpe.es` did not answer on
+  2026-10-11.
+
 - [ ] **justicia: `justicia expedientes` for the Carpeta Justicia (read-only).**
       Mapped live 2026-10-09 with Alba's certificate (MON 670/2026). Needs
       `justicia.es` in `isAdministrationHost`. Login: GET

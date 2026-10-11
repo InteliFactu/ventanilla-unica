@@ -4,6 +4,7 @@ import { postForm } from '../../http/postForm'
 import type { HttpClient } from '../../http/types/HttpClient'
 import type { HttpResponse } from '../../http/types/HttpResponse'
 import { sepeUrls } from './sepeUrls'
+import { validateSepeServiceAvailable } from './validators/validateSepeServiceAvailable'
 import { walkSamlChain } from './walkSamlChain'
 
 /**
@@ -11,7 +12,8 @@ import { walkSamlChain } from './walkSamlChain'
  * SSO init with a SAML form for Cl@ve, which needs the SEPE Origin or it
  * refuses with `invalid.sp.domain`; the IdP chooser is answered with the
  * certificate option (`AFIRMA`) under the Cl@ve Origin; the rest is the relay
- * `walkSamlChain` plays. Resolves to the service page, authenticated.
+ * `walkSamlChain` plays. Resolves to the service page, authenticated, or
+ * throws when the sede lands on its maintenance answer instead.
  */
 export const loginWithCertificate = async (
   client: HttpClient,
@@ -40,5 +42,5 @@ export const loginWithCertificate = async (
     { SelectedIdP: sepeUrls.certificateIdp },
     { referer: chooserPage.url, headers: { Origin: sepeUrls.claveOrigin } },
   )
-  return walkSamlChain(client, relay)
+  return validateSepeServiceAvailable(await walkSamlChain(client, relay))
 }
