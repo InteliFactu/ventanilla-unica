@@ -132,17 +132,32 @@
 - [ ] **sepe: `sepe prestacion`/`sepe certificado` re-run for Alba** once the
       sede is back; they now fail with the sede's outage code instead of "no
       tipoCertFormBean form".
-- [!] **sexpe: demanda de empleo (consulta, informes, datos personales).** The
-  SEXPE "Gestión de la demanda" button leads to the SNE citizen catalogue
-  `https://www.sistemanacionalempleo.es/CartaServiciosCiudadanoWEB/jsp/principal.jsp?CA=11`,
-  whose entry form (`cartaServicios.do`, fields `nif`, `claveimagen`,
-  `modo=formularioEntrada1`, `CA=11`) is gated by an image/audio CAPTCHA; no
-  certificate entry was found. Not automatable without defeating the CAPTCHA,
-  which this package does not do. Unblock: the holder passes the CAPTCHA by hand
-  once to show what follows (certificate or PIN step), or the SEXPE app
-  (com.gpex.sexpe) user/password path is documented.
-  `extremaduratrabaja.juntaex.es` and `www.sexpe.es` did not answer on
-  2026-10-11.
+- [~] **sexpe: demanda de empleo (consulta, informes, alta/baja).** Captured
+  2026-10-11 (Alba, 78117074N) with the owner solving the CAPTCHA in Orca.
+  Protocol: the SNE citizen catalogue
+  `https://www.sistemanacionalempleo.es/CartaServiciosCiudadanoWEB/jsp/principal.jsp?CA=11`
+  posts `cartaServicios.do` (`itemPrefijoNif=D (DNI)`, `nif`, `claveimagen`,
+  `modo=formularioEntrada1`, `CA=11`); the CAPTCHA has no certificate bypass.
+  The answer is a menu of `cartaServicios.do?modo=<OP>W3` (user/password) and
+  `<OP>W4` (certificate) links: CON1NW4 consulta, INFORW4 informes, RENODW4
+  duplicado de tarjeta, REN1HW4 renovación, DAPERW4 datos personales, CASITW4
+  alta/baja/suspensión, SEREQW4, MISOFW4, CVEUPW4. A W4 link replayed with curl,
+  the client certificate and the CAPTCHA session cookies (`JSESSIONID`,
+  `JSESSIONID_empleo_cl`, `TS*`) goes 302 to
+  `:444/SeguridadWEB_EMPLEO/seguridadWEB.do?modo=...`, then 302 to
+  `:444/ConsultaDemandaWEB/jsp/principal.jsp`, which holds a hidden
+  `idDemanda="D  78117074N"` (two spaces); POST
+  `:444/ConsultaDemandaWEB/consultaDemanda.do` `idDemanda` +
+  `modo=consultaDatos` returns the demand (name, address, occupations,
+  situación, causa, colectivo). Without the CAPTCHA session the W4 link answers
+  "Error de seguridad: Sus datos de autenticación son incorrectos". The first W4
+  replay answered 500 and the second 200; a later CASITW4 from the same Orca
+  cookies answered "El perfil de seguridad es inválido o se ha perdido", so a
+  CAPTCHA session seems to allow one certificate service. Next: a
+  `sexpe demanda --sesion <cookie header>` read command taking the cookies of a
+  CAPTCHA the holder solved, and capture of CASITW4 (alta de demanda, a write)
+  with a fresh CAPTCHA. `extremaduratrabaja.juntaex.es` and `www.sexpe.es` did
+  not answer on 2026-10-11.
 - [ ] **Carpeta Ciudadana: `carpeta confirmar-email` live run.** Built and
       tested offline; the 2026-10-11 `carpeta email --confirmar si` run (Alba,
       78117074N) answered "Se ha enviado el correo de verificación, el enlace
