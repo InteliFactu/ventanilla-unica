@@ -77,6 +77,21 @@
   receipt fixture from the saved page and tighten the parser. Files over 2 MiB
   go in one request where the dialog would chunk; also unverified.
 
+- [~] **TGSS `contacto` confirmed save and `domicilio` save.** 2026-10-11
+  `tgss datos-personales` and both plans ran live (persona física cert); the
+  contact data already matched, so the `ACC_GUARDAR_DATOS_CONTACTO` POST has
+  never run and its answer page is assumed to re-render the datos personales
+  page (the command re-reads it and fails otherwise). `domicilio` refuses
+  `--confirmar si`: capture the `ACC_GUARDAR_DOMICILIO` answer (it may chain a
+  locality lookup, `urlCodPostal` `AC_CARGA_LOCALIDADES`) on an owner-authorised
+  change. Done when each has one live confirmed run.
+- [ ] **TGSS: the vida laboral header shows an older address than Importass.**
+      2026-10-11 the informe de vida laboral printed the holder's previous
+      address while Importass "Tus datos personales" and the informe de datos
+      identificativos (INAF0008) already showed the new one. Find which
+      affiliation field the vida laboral reads before telling a holder their
+      address is stale.
+
 - [~] **AEAT `carta-pago` and `domicilio`** ran live only in plan mode; the
   pages after the signature are inferred from the wiki flows and fail safe. Done
   when each has one owner-authorised live run and its receipt parsed.

@@ -30,20 +30,9 @@ import { roleceEstado } from './commands/roleceEstado'
 import { roleceSolicitud } from './commands/roleceSolicitud'
 import { sepeCertificado } from './commands/sepeCertificado'
 import { sepePrestacion } from './commands/sepePrestacion'
-import { tgssAdjuntar } from './commands/tgssAdjuntar'
-import { tgssAlta } from './commands/tgssAlta'
-import { tgssAplazamiento } from './commands/tgssAplazamiento'
-import { tgssBases } from './commands/tgssBases'
-import { tgssCcc } from './commands/tgssCcc'
-import { tgssCorriente } from './commands/tgssCorriente'
-import { tgssDatos } from './commands/tgssDatos'
-import { tgssDeuda } from './commands/tgssDeuda'
-import { tgssEmpresario } from './commands/tgssEmpresario'
-import { tgssNss } from './commands/tgssNss'
-import { tgssSituacion } from './commands/tgssSituacion'
-import { tgssVidaLaboral } from './commands/tgssVidaLaboral'
 import { validarNif } from './commands/validarNif'
 import { juntaCommands } from './juntaCommands'
+import { tgssCommands } from './tgssCommands'
 import type { Command } from './types/Command'
 
 export const commandRegistry: readonly Command[] = [
@@ -61,18 +50,7 @@ export const commandRegistry: readonly Command[] = [
   aeatAportar,
   aeatInformativa,
   aeatModelo190,
-  tgssDeuda,
-  tgssCorriente,
-  tgssVidaLaboral,
-  tgssSituacion,
-  tgssNss,
-  tgssDatos,
-  tgssAlta,
-  tgssEmpresario,
-  tgssCcc,
-  tgssBases,
-  tgssAplazamiento,
-  tgssAdjuntar,
+  ...tgssCommands,
   dehuList,
   dehuDocumentos,
   dehuComparecer,

@@ -6,8 +6,18 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- `tgss datos-personales` reads Importass "Tus datos personales" (identity,
+  phones, e-mail, domicile) after a certificate login to the WebSphere portal.
+- `tgss contacto` (write) changes the mobile, e-mail and landline there, and
+  `tgss domicilio` plans a domicile change (plan only).
+
 ### Fixed
 
+- The cookie jar now honours deletions (`Expires` in the past, `Max-Age=0`).
+  WebSphere Portal clears `com.ibm.portal.SUA_WPReqURL` that way, and replaying
+  the stale value made every Importass `myportal` page redirect to itself.
 - `dehu comparecer` with several `--id`: the appearance relay of the first
   notification spends the listing bearer, so the second one got "no Cl@ve form
   in the appearance-login-form answer" and the error hid the first acceptance.
