@@ -152,12 +152,28 @@
   situación, causa, colectivo). Without the CAPTCHA session the W4 link answers
   "Error de seguridad: Sus datos de autenticación son incorrectos". The first W4
   replay answered 500 and the second 200; a later CASITW4 from the same Orca
-  cookies answered "El perfil de seguridad es inválido o se ha perdido", so a
-  CAPTCHA session seems to allow one certificate service. Next: a
-  `sexpe demanda --sesion <cookie header>` read command taking the cookies of a
-  CAPTCHA the holder solved, and capture of CASITW4 (alta de demanda, a write)
-  with a fresh CAPTCHA. `extremaduratrabaja.juntaex.es` and `www.sexpe.es` did
-  not answer on 2026-10-11.
+  cookies answered "El perfil de seguridad es inválido o se ha perdido": the
+  cause was dropping the `:444` cookies curl had been given, not a one-use
+  session. Second capture, same day, with a persistent cookie jar seeded from
+  the Orca cookies: one CAPTCHA session served CASITW4 and DAPERW4 in a row.
+  Alta de demanda: CASITW4 to
+  `:444/CambioSituacionDemandaWEB/cambioSituacionDemanda.do?inicio=true`, POST
+  `?modo=altaDemanda` (empty), POST `?modo=altaFijoNoDiscontinuo`
+  `estudianteCheck=No`, `trabajdorCheck=No`, `motivoAltaCheck=02` (búsqueda
+  activa; 03 servicios previos, 01 ningún servicio), `botonVolver=Confirmar`,
+  answering "Su nueva situación administrativa es de Alta"; POST
+  `?modo=CambioSituDemandaDarde` returns the DARDE PDF. Datos personales:
+  DAPERW4 to
+  `:444/ModifDatosPersonalesWEB/modifDatosPersonales.do?modo=notificacion`, POST
+  `modo=modificacionDatos&botonNavModDatPersonales=Siguiente` **with a Referer**
+  (without it: "Sistema temporalmente no disponible"), giving form
+  `modPFWWWform` (48 fields: telefono, telefono_movil, correo_electronico,
+  residence) that POSTs to `:444/modPFWWW/modPF.do`. That POST answered a SEPE
+  "Error: 3-..." page after redirecting to `?codRetorno=0`, yet reloading the
+  form showed the change saved: verify by re-reading, never by the answer. Next:
+  `sexpe demanda|alta-demanda|contacto --sesion <cookie header>` commands taking
+  the cookies of a CAPTCHA the holder solved. `extremaduratrabaja.juntaex.es`
+  and `www.sexpe.es` did not answer on 2026-10-11.
 - [ ] **Carpeta Ciudadana: `carpeta confirmar-email` live run.** Built and
       tested offline; the 2026-10-11 `carpeta email --confirmar si` run (Alba,
       78117074N) answered "Se ha enviado el correo de verificación, el enlace
