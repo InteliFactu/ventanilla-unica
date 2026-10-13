@@ -56,6 +56,13 @@
 
 ## Maintenance
 
+- [ ] **`tgss vida-laboral --out <dir>` fails when the directory does not
+      exist.** 2026-10-13:
+      `ventanilla-unica: ENOENT: no such file or directory, open '<dir>/tgss-vida-laboral-<NAF>.pdf'`,
+      exit 1, after the TGSS had already emitted the report; the same call
+      succeeds once the directory exists. Next: create `--out` recursively
+      before writing (check the other commands that take `--out`).
+
 - [ ] Drop the two `minimumReleaseAgeExclude` entries in `pnpm-workspace.yaml`
       after 2026-10-08. Added 2026-10-07 for `@syntopica/eslint-config@0.9.0`
       and `eslint-plugin-code-policy@0.8.0`, which were inside the release-age
