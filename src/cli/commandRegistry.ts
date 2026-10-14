@@ -34,6 +34,7 @@ import { sepeCertificado } from './commands/sepeCertificado'
 import { sepePrestacion } from './commands/sepePrestacion'
 import { validarNif } from './commands/validarNif'
 import { dehuCommands } from './dehuCommands'
+import { ineCommands } from './ineCommands'
 import { juntaCommands } from './juntaCommands'
 import { tgssCommands } from './tgssCommands'
 import type { Command } from './types/Command'
@@ -61,6 +62,7 @@ export const commandRegistry: readonly Command[] = [
   oargtRecibos,
   ...juntaCommands,
   ...caceresCommands,
+  ...ineCommands,
   sepePrestacion,
   sepeCertificado,
   cirbeInforme,

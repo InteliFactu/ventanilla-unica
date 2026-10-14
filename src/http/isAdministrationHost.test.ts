@@ -18,6 +18,7 @@ describe('isAdministrationHost', () => {
       'registrodelicitadores.gob.es',
       'contrataciondelestado.es',
       'www.nic.es',
+      'iria.ine.es',
     ])
       expect(isAdministrationHost(host)).toBe(true)
   })
