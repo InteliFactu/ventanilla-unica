@@ -342,6 +342,49 @@
       (`fileStaRegistryEntry`, `downloadStaRegistryReceipt`) are not exported.
       Next step: split the index by portal, then export them.
 
+## Signing
+
+Found by reading AutoFirma's source (clienteafirma `0d7f3cf`) on 2026-10-15;
+each claim is cited in `~/p/wiki/brain/sources/autofirma/` and summarized in
+`~/p/wiki/brain/topics/autofirma.md`.
+
+- [ ] **Facturae profile differs from AutoFirma's (blocks the FACe port).**
+      AutoFirma forces `xades:SignerRole/ClaimedRoles/ClaimedRole` `emisor`,
+      only the enveloped-signature transform on the invoice reference,
+      `RSAKeyValue` in KeyInfo, and SHA-512 references. Next: a `facturae`
+      preset in `resolveSignatureContext.ts` and `contentReferenceSpec.ts`, a
+      `signerRole` option in `buildSignedProperties.ts`, then diff against a
+      real AutoFirma `-format facturae` output.
+- [ ] **Signature digest is hard-coded to SHA-256.** Sedes pass `algorithm`;
+      AutoFirma defaults to SHA512withRSA and some portals ask SHA1withRSA.
+      Next: `signPkcs1(identity, data, digest)` replacing `signPkcs1Sha256`,
+      threaded through the XAdES builders, `cmsOids.ts`, `signerInfo.ts` and
+      `signingCertificateV2Attribute.ts` (explicit AlgorithmIdentifier when not
+      SHA-256).
+- [ ] **No AGE signature policy.** `expPolicy=FirmaAGE` means EPES with
+      `urn:oid:2.16.724.1.3.1.1.2.1.9`, SHA-1 hash
+      `G7roucf600+f03r/o0bAOQ6WAs0=` and an SPURI qualifier; likely needed by
+      RED SARA REC. Next: `qualifier` in `SignaturePolicy.ts`, an `agePolicy`
+      constant, the CMS `sigPolicyId` attribute, `--politica age`.
+- [ ] **XAdES "detached" means something else in AutoFirma.** Its detached is
+      internally detached (`<AFIRMA>` root, `CONTENT` sibling); ours points at
+      an external file. Next: rename ours `externally-detached` and add the
+      internal mode, only when a sede asks for it.
+- [ ] **Generic AutoScript adapter.** AutoFirma always hands
+      `cert|signature[|extra]` back to the page's JavaScript, which posts it, so
+      sedes can be completed by reproducing the page's AutoScript call and
+      dispatching on `format` to our signers. ROLECE, NIC, TGSS and Caceres each
+      copy that call by hand today. Any upload to `stservlet`/`rtservlet` must
+      pass `isAdministrationHost` and `https` (AutoFirma checks no host). Next:
+      build it with RED SARA REC as the first consumer.
+- [ ] **ECDSA certificates are refused by `signAutoscriptData`.** AutoFirma
+      signs `NONE` with ECDSA for EC keys. Next: only when an EC certificate
+      appears.
+- [ ] **PAdES gaps:** no timestamp (`tsaURL`), 16384-byte `/Contents` reserve
+      (AutoFirma 27000), no `adbe.pkcs7.detached`, no `signatureField`, and no
+      `/Perms` (DocMDP) guard, so a certified PDF could be signed and broken.
+      Next: the DocMDP guard first.
+
 ## Documentation
 
 - [ ] **`--help` column overflows.** `usageText` pads `portal action` to 24
@@ -381,7 +424,8 @@
       `~/p/wiki/tools/face/` (`face_client.py` SOAP with WS-Security,
       `facturae.py`, XAdES SHA-512 byte-compatible with AutoFirma through
       `afirma_bridge.py`). Port it here with the local XAdES signer rather than
-      the AutoFirma bridge.
+      the AutoFirma bridge. Needs the Facturae profile and digest items under
+      Signing, plus a WS-Security envelope signer.
 - [ ] RED SARA REC general registry filing.
 - [ ] BOE fixed-width modelo writer and validator.
 - [ ] **Rayuela (Educarex) portal:

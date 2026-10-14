@@ -8,6 +8,15 @@
 
 ### 2026-10
 
+- [x] 2026-10-15 — **Signing:** attached CAdES now carries signingTime.
+  - Result: `buildAttachedSignedData` signs `cadesSignedAttributes` (the PAdES
+    set plus signingTime, OID 1.2.840.113549.1.9.5), as ETSI EN 319 122-1
+    CAdES-B-B requires and AutoFirma always does; PAdES keeps its set without
+    it. Found reading AutoFirma's source; affects the `nic correo` signature.
+  - Evidence: `pnpm check:ci` green (1531 tests); a test-identity signature
+    passes `openssl cms -verify -noverify` and `-cmsout -print` shows the
+    signingTime UTCTime. Not yet re-run live against ES-NIC.
+
 - [x] 2026-10-11 — **`carpeta confirmar-email` verified live.**
   - Result: the verification mail of the 2026-10-11 `carpeta email` run (Alba,
     78117074N) reached albapriieto4@gmail.com at 01:12 from

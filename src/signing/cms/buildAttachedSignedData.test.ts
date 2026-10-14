@@ -7,10 +7,12 @@ import {
 
 import { describe, expect, it } from 'vitest'
 
+import { derOid } from '../asn1/derOid'
 import { readDerChildren } from '../asn1/parsers/readDerChildren'
 import { readDerElement } from '../asn1/parsers/readDerElement'
 import { buildTestIdentity } from '../fixtures/buildTestIdentity'
 import { buildAttachedSignedData } from './buildAttachedSignedData'
+import { cmsOids } from './cmsOids'
 
 describe('buildAttachedSignedData', () => {
   it('carries the content and signs attributes holding its digest', () => {
@@ -45,5 +47,6 @@ describe('buildAttachedSignedData', () => {
     )
     const value = der.subarray(signature.valueStart, signature.end)
     expect(verify('sha256', signedBytes, key, value)).toBe(true)
+    expect(signedBytes.includes(derOid(cmsOids.signingTime))).toBe(true)
   })
 })

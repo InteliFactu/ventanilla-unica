@@ -9,24 +9,25 @@ import { derSequence } from '../asn1/derSequence'
 import { derSetOf } from '../asn1/derSetOf'
 import { readCertificateParts } from '../asn1/parsers/readCertificateParts'
 import { signPkcs1Sha256 } from '../signPkcs1Sha256'
+import { cadesSignedAttributes } from './cadesSignedAttributes'
 import { cmsOids } from './cmsOids'
 import { selectSignerCertificates } from './selectors/selectSignerCertificates'
-import { signedAttributes } from './signedAttributes'
 import { signerInfo } from './signerInfo'
 
 /**
  * Attached CMS SignedData (RFC 5652) carrying `content` itself: the implicit
  * CAdES signature @firma's `AutoScript.sign(data, ..., "CAdES")` returns by
- * default. Returns the ContentInfo DER.
+ * default, with signingTime as CAdES-B-B requires. Returns the ContentInfo DER.
  */
 export const buildAttachedSignedData = (
   identity: CertificateIdentity,
   content: Buffer,
+  signingTime: Date = new Date(),
 ): Buffer => {
   const certificates = selectSignerCertificates(identity)
   const signer = readCertificateParts(certificates.signer)
   const digest = createHash('sha256').update(content).digest()
-  const attributes = signedAttributes(digest, signer)
+  const attributes = cadesSignedAttributes(digest, signer, signingTime)
   const signature = signPkcs1Sha256(identity, derSetOf(attributes))
   const signedData = derSequence([
     derInteger(1),
