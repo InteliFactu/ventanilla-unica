@@ -5,7 +5,7 @@ import { lookupPublicAddress } from '../lookupPublicAddress'
 import { timestampReplyLimit } from '../timestampReplyLimit'
 import type { TimestampHttpReply } from '../types/TimestampHttpReply'
 
-/** POST the query to the TSA through `lookupPublicAddress`, without following redirects, and read at most `timestampReplyLimit` bytes. */
+/** POST the query to the TSA through `lookupPublicAddress`, without following redirects, reading at most `timestampReplyLimit` bytes within 30 s in all. */
 export const sendTimestampRequest = async (
   url: URL,
   query: Buffer,
@@ -21,7 +21,7 @@ export const sendTimestampRequest = async (
           'Content-Length': query.length,
         },
         lookup: lookupPublicAddress,
-        timeout: 30_000,
+        signal: AbortSignal.timeout(30_000),
       },
       (response) => {
         const chunks: Buffer[] = []
@@ -41,9 +41,6 @@ export const sendTimestampRequest = async (
         })
       },
     )
-    outgoing.on('timeout', () => {
-      outgoing.destroy(new Error('the TSA did not answer in 30 s'))
-    })
     outgoing.on('error', reject)
     outgoing.end(query)
   })
