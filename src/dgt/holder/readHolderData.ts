@@ -5,12 +5,14 @@ import { fetchAtexHolder } from './fetchers/fetchAtexHolder'
 import { readAtexHolder } from './parsers/readAtexHolder'
 import { readDgtJson } from './parsers/readDgtJson'
 import { readContact } from './readContact'
+import { readMiDgtCounters } from './readMiDgtCounters'
 import type { DgtHolderData } from './types/DgtHolderData'
 
 /**
  * Read what the DGT holds about the certificate holder: identity, the postal
  * address it notifies to (which the DGT takes from the INE padrón unless the
- * holder changed it) and the contact data. Changes nothing.
+ * holder changed it), the contact data and the Mi DGT counters. Changes
+ * nothing.
  */
 export const readHolderData = async (
   client: HttpClient,
@@ -21,8 +23,10 @@ export const readHolderData = async (
     readDgtJson(await fetchAtexHolder(client, nif), 'holder data'),
   )
   const contacto = await readContact(client)
+  const contadores = await readMiDgtCounters(client)
   return {
     ...holder,
     contacto,
+    contadores,
   }
 }

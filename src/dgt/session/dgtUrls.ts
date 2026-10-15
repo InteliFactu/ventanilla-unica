@@ -8,6 +8,11 @@ export const dgtUrls = {
     'https://sede.dgt.gob.es/system/modules/es.trafico.dgt.sedeV5/functions/mi_dgt/componentes/service_savi_suscripcion.jsp',
   /** Holder identity and notification address (ATEX), as the address-change service reads them. */
   atex: 'https://sede.dgt.gob.es/system/modules/es.trafico.dgt.sedeV5/functions/mi_dgt/componentes/service_atex.jsp',
+  /** The Mi DGT home; its counters answer only once the session has loaded it. */
+  miDgtHome: 'https://sede.dgt.gob.es/es/mi_dgt/',
+  /** The counters the Mi DGT home fills itself with, one `?<name>=true` call each. */
+  miDgtCounters:
+    'https://sede.dgt.gob.es/system/modules/es.trafico.dgt.sedeV5/elements/mi_dgt/ajaxCalls.jsp',
   certificateIdp: 'AFIRMA',
   claveOrigin: 'https://pasarela.clave.gob.es',
 } as const

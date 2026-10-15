@@ -15,6 +15,23 @@ describe('readHolderData', () => {
       dgtJsonResponse(dgtUrls.saviSubscription, {
         ok: { email: 'ana@example.es', tel: '0034600000000' },
       }),
+      dgtJsonResponse(dgtUrls.miDgtHome, {}),
+      dgtJsonResponse(dgtUrls.miDgtCounters, {
+        NumeroVehiculos: '3',
+        AlertaVehiculos: 0,
+      }),
+      dgtJsonResponse(dgtUrls.miDgtCounters, {
+        NumeroSanciones: '1',
+        AlertaSanciones: 0,
+      }),
+      dgtJsonResponse(dgtUrls.miDgtCounters, { NumeroRegistros: '1' }),
+      dgtJsonResponse(dgtUrls.miDgtCounters, { NumeroPuntos: '15' }),
+      dgtJsonResponse(dgtUrls.miDgtCounters, { NumeroPermisos: '-' }),
+      dgtJsonResponse(dgtUrls.miDgtCounters, {
+        NumeroRepresentantes: '0',
+        NumeroRepresentados: '0',
+      }),
+      dgtJsonResponse(dgtUrls.miDgtCounters, { NumeroCitas: '0' }),
     )
     const data = await readHolderData(client, '12345678Z')
     expect(data).toMatchObject({
@@ -24,6 +41,13 @@ describe('readHolderData', () => {
         texto: 'CALLE MAYOR, 7, 28001 Madrid, (Madrid)',
       },
       contacto: { email: 'ana@example.es', telefono: '0034600000000' },
+      contadores: {
+        vehiculos: 3,
+        sanciones: 1,
+        puntos: 15,
+        permisos: undefined,
+        avisosSanciones: 0,
+      },
     })
     const chooserPost = client.request.mock.calls[2]?.[1]
     expect(chooserPost?.form?.['SelectedIdP']).toBe('AFIRMA')
