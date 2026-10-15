@@ -1,3 +1,5 @@
+import type { PdfSubFilter } from './PdfSubFilter'
+
 /** What `ventanilla-unica firmar pdf` reports once the signed copy is written. */
 export type SignPdfFileResult = {
   readonly input: string
@@ -5,5 +7,5 @@ export type SignPdfFileResult = {
   readonly bytes: number
   readonly signer: string
   readonly visible: boolean
-  readonly subFilter: 'ETSI.CAdES.detached'
+  readonly subFilter: PdfSubFilter
 }

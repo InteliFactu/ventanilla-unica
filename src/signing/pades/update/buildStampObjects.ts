@@ -5,16 +5,19 @@ import { pdfRaw } from '../objects/pdfRaw'
 import { pdfRefTo } from '../objects/pdfRefTo'
 import { streamObject } from '../objects/streamObject'
 import type { ObjectAllocator } from '../types/ObjectAllocator'
-import type { SignatureDetails } from '../types/SignatureDetails'
 import type { StampObjects } from '../types/StampObjects'
 import { allocateObject } from './allocateObject'
 import { buildStampContent } from './buildStampContent'
 
-/** A Helvetica font and the stamp's form XObject, placed at the page's bottom left. */
+/** A Helvetica font and the stamp's form XObject, sized to `rect` ([llx lly urx ury]). */
 export const buildStampObjects = (
   allocator: ObjectAllocator,
-  details: SignatureDetails,
+  lines: readonly string[],
+  rect: readonly number[],
 ): StampObjects => {
+  const [llx = 0, lly = 0, urx = 0, ury = 0] = rect
+  const width = urx - llx
+  const height = ury - lly
   const font = allocateObject(allocator)
   const appearance = allocateObject(allocator)
   const fontDict = pdfDict([
@@ -26,15 +29,22 @@ export const buildStampObjects = (
   const formDict = pdfDict([
     ['Type', pdfRaw('/XObject')],
     ['Subtype', pdfRaw('/Form')],
-    ['BBox', pdfArray(['0', '0', '300', '50'].map((value) => pdfRaw(value)))],
+    [
+      'BBox',
+      pdfArray([0, 0, width, height].map((value) => pdfRaw(String(value)))),
+    ],
     ['Resources', pdfDict([['Font', pdfDict([['Helv', pdfRefTo(font)]])]])],
   ])
   return {
-    rect: [36, 36, 336, 86],
+    rect,
     appearance: pdfRefTo(appearance),
     objects: [
       indirectObject(font, 0, fontDict),
-      streamObject(appearance, formDict, buildStampContent(details)),
+      streamObject(
+        appearance,
+        formDict,
+        buildStampContent(lines, width, height),
+      ),
     ],
   }
 }

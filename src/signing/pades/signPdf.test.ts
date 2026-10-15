@@ -64,4 +64,24 @@ describe('signPdf', () => {
     expect(verifyDetachedCms(parts.cms, parts.content, ec.cert)).toBe(true)
     expect(parts.cms.includes(derOid(cmsOids.ecdsaWithSha256))).toBe(true)
   })
+
+  it('declares adbe.pkcs7.detached and the contact on request, and refuses it under a policy', () => {
+    const signed = signPdf(identity, buildClassicPdf(), {
+      subFilter: 'adbe.pkcs7.detached',
+      contactInfo: 'ana@example.org',
+    })
+    const text = signed.toString('latin1')
+    expect(text).toContain('/SubFilter /adbe.pkcs7.detached')
+    expect(text).toContain('/ContactInfo (ana@example.org)')
+    const parts = extractSignedParts(signed)
+    expect(verifyDetachedCms(parts.cms, parts.content, identity.cert)).toBe(
+      true,
+    )
+    expect(() =>
+      signPdf(identity, buildClassicPdf(), {
+        subFilter: 'adbe.pkcs7.detached',
+        policy: agePolicyCms,
+      }),
+    ).toThrow('needs the ETSI.CAdES.detached subfilter')
+  })
 })

@@ -15,10 +15,12 @@ export const buildSignatureDict = (details: SignatureDetails): PdfDict => {
     optional.push(['Reason', pdfRaw(pdfTextString(details.reason))])
   if (details.location)
     optional.push(['Location', pdfRaw(pdfTextString(details.location))])
+  if (details.contactInfo)
+    optional.push(['ContactInfo', pdfRaw(pdfTextString(details.contactInfo))])
   return pdfDict([
     ['Type', pdfRaw('/Sig')],
     ['Filter', pdfRaw('/Adobe.PPKLite')],
-    ['SubFilter', pdfRaw('/ETSI.CAdES.detached')],
+    ['SubFilter', pdfRaw(`/${details.subFilter ?? 'ETSI.CAdES.detached'}`)],
     ['ByteRange', pdfRaw(byteRangePlaceholder)],
     ['Contents', pdfRaw(`<${'0'.repeat(signatureContentsBytes * 2)}>`)],
     ['M', pdfRaw(pdfTextString(pdfDate(details.date)))],

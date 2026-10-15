@@ -30,6 +30,6 @@ export const signPdfFile = async (
     bytes: signed.length,
     signer: selectCommonName(identity),
     visible: request.options.visible === true,
-    subFilter: 'ETSI.CAdES.detached',
+    subFilter: request.options.subFilter ?? 'ETSI.CAdES.detached',
   }
 }

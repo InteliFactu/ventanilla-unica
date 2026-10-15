@@ -8,6 +8,14 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `firmar pdf` and `signPdf` place the signature: `--pagina` (negative from the
+  end), `--posicion llx,lly,urx,ury`, `--texto` (AutoFirma `layer2Text`
+  placeholders `$$SUBJECTCN$$`, `$$SIGNDATE=dd/MM/yyyy$$`, `$$REASON$$`,
+  `$$LOCATION$$`, `$$CONTACT$$`), `--campo` to fill an existing empty signature
+  field, `--lugar` and `--contacto` (/ContactInfo). `signPdf` also takes
+  `subFilter: 'adbe.pkcs7.detached'`, and `signAutoScript` honours the matching
+  AutoFirma parameters (`signaturePage`, `signaturePositionOnPage*`,
+  `layer2Text`, `signatureField`, `signerContact`, `signatureSubFilter`).
 - CAdES, PAdES and XAdES sign with EC certificates (ecdsa-with-SHA* in CMS,
   `ecdsa-sha*` with r||s values in XML-DSig, no KeyValue, as AutoFirma does);
   `signAutoScript` no longer refuses an EC certificate outside `NONE`.

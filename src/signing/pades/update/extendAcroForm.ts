@@ -8,32 +8,26 @@ import type { DictChange } from '../types/DictChange'
 import type { ObjectAllocator } from '../types/ObjectAllocator'
 import type { PdfDict } from '../types/PdfDict'
 import type { PdfDocument } from '../types/PdfDocument'
-import type { PdfRef } from '../types/PdfRef'
 import { allocateObject } from './allocateObject'
-import { withSignatureField } from './withSignatureField'
 
-/** Register `field` in the catalog's AcroForm, which may be absent, inline or indirect. */
+/** Apply `edit` to the catalog's AcroForm, which may be absent, inline or indirect. */
 export const extendAcroForm = (
   doc: PdfDocument,
   catalog: PdfDict,
-  field: PdfRef,
+  edit: (form: PdfDict) => PdfDict,
   allocator: ObjectAllocator,
 ): DictChange => {
   const current = pdfDictGet(catalog, 'AcroForm')
   if (current?.kind === 'ref') {
     const form = readPdfObject(doc, current.num)
     if (form.kind !== 'dict') throw new Error('AcroForm is not a dictionary')
-    const updated = withSignatureField(doc, form, field)
+    const updated = edit(form)
     return {
       dict: undefined,
       objects: [indirectObject(current.num, current.gen, updated)],
     }
   }
-  const updated = withSignatureField(
-    doc,
-    current?.kind === 'dict' ? current : pdfDict([]),
-    field,
-  )
+  const updated = edit(current?.kind === 'dict' ? current : pdfDict([]))
   if (current?.kind === 'dict')
     return { dict: pdfDictWith(catalog, 'AcroForm', updated), objects: [] }
   const num = allocateObject(allocator)

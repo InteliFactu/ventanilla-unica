@@ -99,7 +99,7 @@ describe('signAutoScript', () => {
       'another PDF subfilter',
       {
         format: 'PAdES',
-        extraParams: 'signatureSubFilter=adbe.pkcs7.detached',
+        extraParams: 'signatureSubFilter=adbe.x509.rsa_sha1',
       },
     ],
     ['another named policy', { extraParams: 'expPolicy=FirmaAGE18' }],

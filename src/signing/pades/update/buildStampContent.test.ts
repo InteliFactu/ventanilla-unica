@@ -3,22 +3,14 @@ import { describe, expect, it } from 'vitest'
 import { buildStampContent } from './buildStampContent'
 
 describe('buildStampContent', () => {
-  const date = new Date('2026-09-26T08:07:06Z')
-
-  it('draws the signer, date and reason', () => {
-    const text = buildStampContent({
-      commonName: 'ANA',
-      date,
-      reason: 'Conforme',
-    }).toString('latin1')
-    expect(text).toContain('(Firmado por ANA) Tj')
-    expect(text).toContain('(Fecha: 2026-09-26 08:07:06 UTC) Tj')
-    expect(text).toContain('(Motivo: Conforme) Tj')
-  })
-
-  it('omits the reason line when there is none', () => {
-    expect(
-      buildStampContent({ commonName: 'ANA', date }).toString('latin1'),
-    ).not.toContain('Motivo')
+  it('frames the box and writes the lines from its top', () => {
+    const text = buildStampContent(
+      ['Firmado por ANA', 'Motivo: (x)'],
+      200,
+      60,
+    ).toString('latin1')
+    expect(text).toContain('0.5 0.5 199 59 re S')
+    expect(text).toContain('BT /Helv 8 Tf 0 g 6 44 Td\n(Firmado por ANA) Tj')
+    expect(text).toContain('0 -12 Td (Motivo: \\(x\\)) Tj')
   })
 })
