@@ -24,6 +24,8 @@ import { dgtContacto } from './commands/dgtContacto'
 import { dgtDatos } from './commands/dgtDatos'
 import { firmarPdf } from './commands/firmarPdf'
 import { firmarXml } from './commands/firmarXml'
+import { justiciaDocumentos } from './commands/justiciaDocumentos'
+import { justiciaExpedientes } from './commands/justiciaExpedientes'
 import { nicCorreo } from './commands/nicCorreo'
 import { oargtRecibos } from './commands/oargtRecibos'
 import { placspEstado } from './commands/placspEstado'
@@ -75,6 +77,8 @@ export const commandRegistry: readonly Command[] = [
   dgsfpReclamacion,
   dgtDatos,
   dgtContacto,
+  justiciaExpedientes,
+  justiciaDocumentos,
   nicCorreo,
   ...regCommands,
   firmarPdf,

@@ -1,0 +1,7 @@
+export { listJusticiaDocuments } from './documents/listJusticiaDocuments'
+export type { JusticiaDocument } from './documents/types/JusticiaDocument'
+export type { JusticiaDocumentsQuery } from './documents/types/JusticiaDocumentsQuery'
+export type { JusticiaDocumentsResult } from './documents/types/JusticiaDocumentsResult'
+export { listJusticiaExpedientes } from './expedientes/listJusticiaExpedientes'
+export type { JusticiaExpediente } from './expedientes/types/JusticiaExpediente'
+export type { JusticiaExpedientesResult } from './expedientes/types/JusticiaExpedientesResult'
