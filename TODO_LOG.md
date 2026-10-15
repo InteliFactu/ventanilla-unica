@@ -42,8 +42,8 @@
     one, were dropped: all three releases are past the window.
   - Evidence: locally
     `pnpm check:ci && pnpm check:quality && pnpm check:security` exit 0;
-    `pnpm install` leaves the lockfile resolving. Hosted CI result is checked
-    after the push.
+    `pnpm install` leaves the lockfile resolving. Hosted CI run 38736559373 on
+    1a54bcb: all three jobs success.
 
 - [x] 2026-10-15 — **Signing:** Remaining AutoFirma gaps and two review findings
       closed.
