@@ -15,6 +15,8 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `oargt liquidaciones` says whether the holder has OARGT liquidations, own or
+  as representative, and stops at the contact-data gate.
 - `caceres datos-personales` and `junta datos-personales` read the contact ways
   the STA sede holds, whether it shows them as confirmed, and the identity and
   addresses when shown; `caceres padron` reads the holder's padrón entry and the
