@@ -1,25 +1,26 @@
 import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
-import { signPdf } from '../pades/signPdf'
-import { signPdfTimestamped } from '../pades/signPdfTimestamped'
+import { signPdfStamped } from '../pades/signPdfStamped'
 import type { DigestName } from '../types/DigestName'
 import { padesOptionsOf } from './mappers/padesOptionsOf'
-import { timestampAuthorityOf } from './mappers/timestampAuthorityOf'
+import { padesTimestampsOf } from './mappers/padesTimestampsOf'
 import type { AutoScriptSigning } from './types/AutoScriptSigning'
 
-/** An AutoScript PAdES signature, as the signed PDF, with AutoFirma's parameters; PAdES-B-T when `tsaURL` names a TSA. */
+/**
+ * An AutoScript PAdES signature, as the signed PDF, with AutoFirma's
+ * parameters; `tsaURL` with `tsType` 1, 2 or 3 stamps the signature, the
+ * document before it, or both.
+ */
 export const signAutoScriptPades = async (
   identity: CertificateIdentity,
   signing: AutoScriptSigning,
   digest: DigestName,
-): Promise<Buffer> => {
-  const options = padesOptionsOf(signing.params, digest)
-  const timestamp = timestampAuthorityOf(signing.params)
-  return timestamp === undefined
-    ? signPdf(identity, signing.data, options)
-    : signPdfTimestamped(
-        identity,
-        signing.data,
-        { ...options, timestamp },
-        signing.post,
-      )
-}
+): Promise<Buffer> =>
+  signPdfStamped(
+    identity,
+    signing.data,
+    {
+      ...padesOptionsOf(signing.params, digest),
+      ...padesTimestampsOf(signing.params),
+    },
+    signing.post,
+  )

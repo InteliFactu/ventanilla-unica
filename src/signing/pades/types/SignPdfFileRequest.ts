@@ -8,4 +8,6 @@ export type SignPdfFileRequest = {
   readonly options: SignPdfOptions
   /** The TSA that stamps the signature (PAdES-B-T); none by default. */
   readonly timestamp?: TimestampAuthority | undefined
+  /** The TSA that stamps the document before it is signed (/DocTimeStamp); none by default. */
+  readonly documentTimestamp?: TimestampAuthority | undefined
 }

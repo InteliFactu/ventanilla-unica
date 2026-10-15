@@ -15,6 +15,10 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- PDF document timestamps (/DocTimeStamp, ETSI.RFC3161):
+  `firmar pdf --tsa url --sello documento|ambos` and AutoScript `tsType` 2 and 3
+  stamp the document before signing it, in AutoFirma's order. The token was
+  checked against freetsa.org with `openssl ts -verify` over the byte range.
 - CAdES cosignatures and countersignatures: `cosignCadesSignedData` adds a
   signer over the same content (implicit or detached), and
   `countersignCadesSignedData` countersigns every signer's signature value.

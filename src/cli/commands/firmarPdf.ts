@@ -6,7 +6,7 @@ export const firmarPdf: Command = {
   portal: 'firmar',
   action: 'pdf',
   description:
-    'Sign a PDF locally with the certificate (PAdES-B-B, incremental update): --in <file> --out <file> [--visible si] [--motivo t] [--lugar t] [--contacto t] [--pagina n|-1] [--posicion llx,lly,urx,ury] [--texto t] [--campo name] [--tsa url]',
+    'Sign a PDF locally with the certificate (PAdES-B-B, incremental update): --in <file> --out <file> [--visible si] [--motivo t] [--lugar t] [--contacto t] [--pagina n|-1] [--posicion llx,lly,urx,ury] [--texto t] [--campo name] [--tsa url [--sello firma|documento|ambos]]',
   options: [
     'in',
     'visible',
@@ -18,6 +18,7 @@ export const firmarPdf: Command = {
     'texto',
     'campo',
     'tsa',
+    'sello',
   ],
   effect: 'sign',
   run: async (_client, options, identity): Promise<unknown> => {

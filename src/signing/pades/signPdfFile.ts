@@ -3,8 +3,7 @@ import { resolve } from 'node:path'
 
 import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
 import { selectCommonName } from './selectors/selectCommonName'
-import { signPdf } from './signPdf'
-import { signPdfTimestamped } from './signPdfTimestamped'
+import { signPdfStamped } from './signPdfStamped'
 import type { SignPdfFileRequest } from './types/SignPdfFileRequest'
 import type { SignPdfFileResult } from './types/SignPdfFileResult'
 
@@ -22,13 +21,11 @@ export const signPdfFile = async (
   // writing them is the feature, not an injection surface.
   // eslint-disable-next-line security/detect-non-literal-fs-filename
   const original = await readFile(request.input)
-  const signed =
-    request.timestamp === undefined
-      ? signPdf(identity, original, request.options)
-      : await signPdfTimestamped(identity, original, {
-          ...request.options,
-          timestamp: request.timestamp,
-        })
+  const signed = await signPdfStamped(identity, original, {
+    ...request.options,
+    timestamp: request.timestamp,
+    documentTimestamp: request.documentTimestamp,
+  })
   // eslint-disable-next-line security/detect-non-literal-fs-filename
   await writeFile(request.output, signed)
   return {

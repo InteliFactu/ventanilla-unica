@@ -8,7 +8,10 @@ import type { PdfDict } from '../types/PdfDict'
 import type { PdfValue } from '../types/PdfValue'
 import type { SignatureDetails } from '../types/SignatureDetails'
 
-/** The /Sig dictionary with the /ByteRange and /Contents placeholders (ByteRange first). */
+/**
+ * The /Sig dictionary with the /ByteRange and /Contents placeholders
+ * (ByteRange first); a /DocTimeStamp, without /Name, for ETSI.RFC3161.
+ */
 export const buildSignatureDict = (details: SignatureDetails): PdfDict => {
   const optional: (readonly [string, PdfValue])[] = []
   if (details.reason)
@@ -17,14 +20,17 @@ export const buildSignatureDict = (details: SignatureDetails): PdfDict => {
     optional.push(['Location', pdfRaw(pdfTextString(details.location))])
   if (details.contactInfo)
     optional.push(['ContactInfo', pdfRaw(pdfTextString(details.contactInfo))])
+  const timestamp = details.subFilter === 'ETSI.RFC3161'
   return pdfDict([
-    ['Type', pdfRaw('/Sig')],
+    ['Type', pdfRaw(timestamp ? '/DocTimeStamp' : '/Sig')],
     ['Filter', pdfRaw('/Adobe.PPKLite')],
     ['SubFilter', pdfRaw(`/${details.subFilter ?? 'ETSI.CAdES.detached'}`)],
     ['ByteRange', pdfRaw(byteRangePlaceholder)],
     ['Contents', pdfRaw(`<${'0'.repeat(signatureContentsBytes * 2)}>`)],
     ['M', pdfRaw(pdfTextString(pdfDate(details.date)))],
-    ['Name', pdfRaw(pdfTextString(details.commonName))],
+    ...(timestamp
+      ? []
+      : [['Name', pdfRaw(pdfTextString(details.commonName))] as const]),
     ...optional,
   ])
 }

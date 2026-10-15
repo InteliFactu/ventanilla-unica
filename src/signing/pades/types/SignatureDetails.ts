@@ -1,4 +1,4 @@
-import type { PdfSubFilter } from './PdfSubFilter'
+import type { PdfSignatureSubFilter } from './PdfSignatureSubFilter'
 
 /** What the signature says about itself: who, when, why, where and how to reach them. */
 export type SignatureDetails = {
@@ -7,6 +7,6 @@ export type SignatureDetails = {
   readonly reason?: string | undefined
   readonly location?: string | undefined
   readonly contactInfo?: string | undefined
-  /** ETSI.CAdES.detached by default. */
-  readonly subFilter?: PdfSubFilter | undefined
+  /** ETSI.CAdES.detached by default; ETSI.RFC3161 makes it a /DocTimeStamp. */
+  readonly subFilter?: PdfSignatureSubFilter | undefined
 }
