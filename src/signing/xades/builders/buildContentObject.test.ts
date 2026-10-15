@@ -6,7 +6,7 @@ import { renderTestElement } from '../fixtures/renderTestElement'
 import { buildContentObject } from './buildContentObject'
 
 describe('buildContentObject', () => {
-  it('wraps the XML root element', () => {
+  it('wraps the XML root element under its MimeType', () => {
     const document = parseXmlDocument('<!--c--><a>x</a>')
     expect(
       renderTestElement(
@@ -15,7 +15,7 @@ describe('buildContentObject', () => {
           document,
         }),
       ),
-    ).toBe('<ds:Object Id="S-Object"><a>x</a></ds:Object>')
+    ).toBe('<ds:Object Id="S-Object" MimeType="text/xml"><a>x</a></ds:Object>')
   })
   it('carries other bytes in base64', () => {
     expect(

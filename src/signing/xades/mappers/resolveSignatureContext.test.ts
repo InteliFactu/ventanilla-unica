@@ -25,7 +25,7 @@ describe('resolveSignatureContext', () => {
       referencesDigest: 'sha256',
       signerRoles: [],
       contentC14nTransform: true,
-      objectIdentifier: undefined,
+      objectIdentifier: 'urn:oid:1.2.840.10003.5.109.10',
       policy: undefined,
       mimeType: 'text/xml',
       encoding: undefined,

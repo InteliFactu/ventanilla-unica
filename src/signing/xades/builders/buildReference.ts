@@ -3,6 +3,7 @@ import type { ReferenceSpec } from '../types/ReferenceSpec'
 import { buildDigestElements } from './buildDigestElements'
 import { buildElement } from './buildElement'
 import { buildText } from './buildText'
+import { buildTransform } from './buildTransform'
 
 /** A ds:Reference with an empty DigestValue to fill once the tree is final. */
 export const buildReference = (
@@ -18,9 +19,7 @@ export const buildReference = (
           buildElement(
             `${ds}:Transforms`,
             {},
-            spec.transforms.map((algorithm) =>
-              buildElement(`${ds}:Transform`, { Algorithm: algorithm }),
-            ),
+            spec.transforms.map((algorithm) => buildTransform(ds, algorithm)),
           ),
         ]
   const element = buildElement(

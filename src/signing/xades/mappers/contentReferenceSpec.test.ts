@@ -15,7 +15,11 @@ describe('contentReferenceSpec', () => {
     expect(contentReferenceSpec('enveloped', context, xml, undefined)).toEqual({
       id: 'R',
       uri: '',
-      transforms: [xadesUris.envelopedSignature, xadesUris.c14n],
+      transforms: [
+        xadesUris.envelopedSignature,
+        xadesUris.c14n,
+        xadesUris.xpath,
+      ],
       target: { kind: 'enveloped' },
     })
   })
@@ -42,12 +46,13 @@ describe('contentReferenceSpec', () => {
       target: { kind: 'enveloped', node: 'root' },
     })
   })
-  it('points at the object when enveloping, through base64 for non-XML', () => {
+  it('points at the typed object when enveloping, through C14N or base64', () => {
     expect(
       contentReferenceSpec('enveloping', context, xml, undefined),
     ).toMatchObject({
       uri: '#S-Object',
-      transforms: [],
+      type: xadesUris.objectType,
+      transforms: [xadesUris.c14n],
       target: { id: 'S-Object' },
     })
     expect(

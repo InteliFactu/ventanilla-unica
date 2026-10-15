@@ -7,8 +7,9 @@ import { buildText } from './buildText'
 import { buildTextElement } from './buildTextElement'
 
 /**
- * xades:SignaturePolicyIdentifier naming an explicit policy, its hash and,
- * when given, the SPURI where it is published (XAdES-EPES).
+ * xades:SignaturePolicyIdentifier naming an explicit policy (with an empty
+ * Description when it has none, as AutoFirma writes it), its hash and, when
+ * given, the SPURI where it is published (XAdES-EPES).
  */
 export const buildSignaturePolicyIdentifier = (
   prefixes: XadesPrefixes,
@@ -17,8 +18,8 @@ export const buildSignaturePolicyIdentifier = (
   const { ds, xades } = prefixes
   const description =
     policy.description === undefined
-      ? []
-      : [buildTextElement(`${xades}:Description`, policy.description)]
+      ? buildElement(`${xades}:Description`, {})
+      : buildTextElement(`${xades}:Description`, policy.description)
   const qualifiers =
     policy.qualifier === undefined
       ? []
@@ -33,7 +34,7 @@ export const buildSignaturePolicyIdentifier = (
     buildElement(`${xades}:SignaturePolicyId`, {}, [
       buildElement(`${xades}:SigPolicyId`, {}, [
         buildTextElement(`${xades}:Identifier`, policy.identifier),
-        ...description,
+        description,
       ]),
       buildElement(
         `${xades}:SigPolicyHash`,

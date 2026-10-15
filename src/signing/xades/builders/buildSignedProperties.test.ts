@@ -14,7 +14,7 @@ describe('buildSignedProperties', () => {
       /^<xades:SignedProperties Id="S-SignedProperties"><xades:SignedSignatureProperties><xades:SigningTime>2026-09-26T10:00:00Z<\/xades:SigningTime><xades:SigningCertificate>/,
     )
     expect(rendered).toContain(
-      '<xades:SignedDataObjectProperties><xades:DataObjectFormat ObjectReference="#R"><xades:MimeType>text/xml</xades:MimeType></xades:DataObjectFormat></xades:SignedDataObjectProperties>',
+      '<xades:SignedDataObjectProperties><xades:DataObjectFormat ObjectReference="#R"><xades:Description></xades:Description><xades:MimeType>text/xml</xades:MimeType><xades:Encoding></xades:Encoding></xades:DataObjectFormat></xades:SignedDataObjectProperties>',
     )
     expect(rendered).not.toContain('SignaturePolicyIdentifier')
   })

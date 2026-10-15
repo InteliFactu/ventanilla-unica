@@ -1,2 +1,2 @@
-/** Bytes reserved in /Contents for the CMS: room for a signer and a long chain. */
-export const signatureContentsBytes = 16384
+/** Bytes reserved in /Contents for the CMS, as AutoFirma reserves: room for a long chain and a timestamp. */
+export const signatureContentsBytes = 27000

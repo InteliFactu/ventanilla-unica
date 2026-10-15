@@ -13,5 +13,7 @@ export const xadesUris = {
   sha1: 'http://www.w3.org/2000/09/xmldsig#sha1',
   envelopedSignature: 'http://www.w3.org/2000/09/xmldsig#enveloped-signature',
   base64: 'http://www.w3.org/2000/09/xmldsig#base64',
+  xpath: 'http://www.w3.org/TR/1999/REC-xpath-19991116',
+  objectType: 'http://www.w3.org/2000/09/xmldsig#Object',
   signedPropertiesType: 'http://uri.etsi.org/01903#SignedProperties',
 } as const

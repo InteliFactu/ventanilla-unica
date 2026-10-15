@@ -5,8 +5,9 @@ import { buildText } from './buildText'
 import { buildTextElement } from './buildTextElement'
 
 /**
- * xades:DataObjectFormat of the signed content: ObjectIdentifier when given,
- * MimeType, and Encoding for base64-wrapped content, in the schema's order.
+ * xades:DataObjectFormat of the signed content in AutoFirma's shape: an empty
+ * Description, the ObjectIdentifier when known (with its own empty
+ * Description), MimeType, and Encoding (empty unless base64-wrapped).
  */
 export const buildDataObjectFormat = (
   context: SignatureContext,
@@ -20,19 +21,19 @@ export const buildDataObjectFormat = (
             buildElement(`${xades}:Identifier`, { Qualifier: 'OIDAsURN' }, [
               buildText(context.objectIdentifier),
             ]),
+            buildElement(`${xades}:Description`, {}),
           ]),
         ]
-  const encoding =
-    context.encoding === undefined
-      ? []
-      : [buildTextElement(`${xades}:Encoding`, context.encoding)]
   return buildElement(
     `${xades}:DataObjectFormat`,
     { ObjectReference: `#${context.ids.reference}` },
     [
+      buildElement(`${xades}:Description`, {}),
       ...identifier,
       buildTextElement(`${xades}:MimeType`, context.mimeType),
-      ...encoding,
+      context.encoding === undefined
+        ? buildElement(`${xades}:Encoding`, {})
+        : buildTextElement(`${xades}:Encoding`, context.encoding),
     ],
   )
 }

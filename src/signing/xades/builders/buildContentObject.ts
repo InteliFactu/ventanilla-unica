@@ -17,7 +17,9 @@ export const buildContentObject = (
   const name = `${context.prefixes.ds}:Object`
   const id = context.ids.object
   if (content.document !== undefined)
-    return buildElement(name, { Id: id }, [content.document.root])
+    return buildElement(name, { Id: id, MimeType: context.mimeType }, [
+      content.document.root,
+    ])
   return buildElement(
     name,
     { Id: id, MimeType: context.mimeType, Encoding: xadesUris.base64 },

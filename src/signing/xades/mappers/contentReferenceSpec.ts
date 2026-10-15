@@ -7,8 +7,8 @@ import { envelopedReferenceSpec } from './envelopedReferenceSpec'
 import { wrappedReferenceSpec } from './wrappedReferenceSpec'
 
 /**
- * The Reference to the signed content: the enveloped one; `#<object>` for
- * enveloping; `#CONTENT-...` through C14N when internally detached (base64
+ * The Reference to the signed content: the enveloped one; `#<object>` typed
+ * ds:Object through C14N for enveloping; `#CONTENT-...` through C14N when internally detached (base64
  * for non-XML in both); the given URI over the raw bytes when detached.
  */
 export const contentReferenceSpec = (
@@ -24,7 +24,12 @@ export const contentReferenceSpec = (
       xadesUris.c14n,
     ])
   if (mode === 'enveloping')
-    return wrappedReferenceSpec(ids.reference, ids.object, content, [])
+    return {
+      ...wrappedReferenceSpec(ids.reference, ids.object, content, [
+        xadesUris.c14n,
+      ]),
+      type: xadesUris.objectType,
+    }
   if (detachedUri === undefined)
     throw new Error('a detached signature needs the content URI')
   return {

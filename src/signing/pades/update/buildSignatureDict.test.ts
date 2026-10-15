@@ -15,7 +15,7 @@ describe('buildSignatureDict', () => {
     )
     expect(text).toContain('/ByteRange [0 0000000000 0000000000 0000000000]')
     expect(text).toContain("/M (D:20260926080706+00'00') /Name (ANA)")
-    expect(text).toMatch(/\/Contents <0{32768}>/)
+    expect(text).toMatch(/\/Contents <0{54000}>/)
     expect(text).not.toContain('/Reason')
   })
 

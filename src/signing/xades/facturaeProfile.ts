@@ -1,4 +1,5 @@
 import { facturaePolicy } from './facturaePolicy'
+import { textXmlObjectIdentifier } from './textXmlObjectIdentifier'
 import type { SignXmlOptions } from './types/SignXmlOptions'
 
 /**
@@ -14,5 +15,5 @@ export const facturaeProfile: Omit<SignXmlOptions, 'mode'> = {
   contentC14nTransform: false,
   keyInfo: { keyValue: true },
   referencesDigest: 'sha512',
-  objectIdentifier: 'urn:oid:1.2.840.10003.5.109.10',
+  objectIdentifier: textXmlObjectIdentifier,
 }

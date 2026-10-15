@@ -46,6 +46,15 @@ All notable changes to this project are documented here. The format follows
 
 ### Changed
 
+- XAdES now matches what AutoFirma 1.9 writes for the same input (compared
+  element by element with its command line on a synthetic certificate):
+  enveloped references add the XPath filter
+  `not(ancestor-or-self::ds:Signature)`, enveloping references are typed
+  `ds:Object` and go through C14N with the Object carrying its MimeType, and
+  DataObjectFormat carries an empty Description, the text/xml OID for XML
+  content, and Encoding. A policy without description writes an empty
+  Description. ROLECE, the STA registry and Relec flows sign this shape too.
+- The PAdES `/Contents` reserve is 27000 bytes, as AutoFirma's.
 - `signPkcs1Sha256` is replaced by `signData(identity, data, digest)`.
 
 ### Fixed

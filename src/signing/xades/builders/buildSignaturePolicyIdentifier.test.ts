@@ -17,7 +17,7 @@ describe('buildSignaturePolicyIdentifier', () => {
       `<xa:SignaturePolicyIdentifier><xa:SignaturePolicyId><xa:SigPolicyId><xa:Identifier>${facturaePolicy.identifier}</xa:Identifier><xa:Description>Política de Firma FacturaE v3.1</xa:Description></xa:SigPolicyId><xa:SigPolicyHash><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>Ohixl6upD6av8N7pEvDABhEL6hM=</ds:DigestValue></xa:SigPolicyHash></xa:SignaturePolicyId></xa:SignaturePolicyIdentifier>`,
     )
   })
-  it('omits an absent description', () => {
+  it('writes an empty Description when the policy has none', () => {
     expect(
       renderTestElement(
         buildSignaturePolicyIdentifier(prefixes, {
@@ -26,7 +26,9 @@ describe('buildSignaturePolicyIdentifier', () => {
           digestValue: 'v',
         }),
       ),
-    ).not.toContain('Description')
+    ).toContain(
+      '<xa:Identifier>urn:p</xa:Identifier><xa:Description></xa:Description>',
+    )
   })
   it('appends the SPURI qualifier after the hash', () => {
     const rendered = renderTestElement(

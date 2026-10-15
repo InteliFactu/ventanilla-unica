@@ -1,3 +1,4 @@
+import { textXmlObjectIdentifier } from '../textXmlObjectIdentifier'
 import type { SignatureContext } from '../types/SignatureContext'
 import type { SignedContent } from '../types/SignedContent'
 import type { SignerCertificate } from '../types/SignerCertificate'
@@ -6,7 +7,10 @@ import { xadesUris } from '../xadesUris'
 import { resolveSignatureProfile } from './resolveSignatureProfile'
 import { resolveXadesIds } from './resolveXadesIds'
 
-/** Apply the documented defaults to the caller's options. */
+/**
+ * Apply the documented defaults to the caller's options; XML content is named
+ * by its OID in DataObjectFormat, as AutoFirma does.
+ */
 export const resolveSignatureContext = (
   certificates: SignerCertificate,
   options: SignXmlOptions,
@@ -15,8 +19,14 @@ export const resolveSignatureContext = (
   const wrapped =
     (options.mode === 'enveloping' || options.mode === 'internally-detached') &&
     content.document === undefined
+  const mimeType =
+    options.mimeType ??
+    (content.document === undefined ? 'application/octet-stream' : 'text/xml')
   return {
     ...resolveSignatureProfile(options),
+    objectIdentifier:
+      options.objectIdentifier ??
+      (mimeType === 'text/xml' ? textXmlObjectIdentifier : undefined),
     certificates,
     prefixes: { ds: 'ds', xades: 'xades', ...options.prefixes },
     ids: resolveXadesIds(options.ids),
@@ -29,11 +39,7 @@ export const resolveSignatureContext = (
     signingCertificateVersion: options.signingCertificateVersion ?? 1,
     policy: options.policy,
     signingTime: options.signingTime ?? new Date(),
-    mimeType:
-      options.mimeType ??
-      (content.document === undefined
-        ? 'application/octet-stream'
-        : 'text/xml'),
+    mimeType,
     encoding: wrapped ? xadesUris.base64 : undefined,
   }
 }
