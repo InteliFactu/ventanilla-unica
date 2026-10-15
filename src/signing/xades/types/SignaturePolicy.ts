@@ -6,4 +6,6 @@ export type SignaturePolicy = {
   readonly digestAlgorithm: string
   /** Base64 digest of the policy document. */
   readonly digestValue: string
+  /** SPURI qualifier: where the policy document is published. */
+  readonly qualifier?: string | undefined
 }

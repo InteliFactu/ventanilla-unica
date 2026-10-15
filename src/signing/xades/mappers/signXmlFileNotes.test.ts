@@ -27,4 +27,9 @@ describe('signXmlFileNotes', () => {
       ['the input is not XML: it is carried in base64 inside ds:Object'],
     )
   })
+  it('warns that the AGE policy is not for enveloping signatures', () => {
+    expect(
+      signXmlFileNotes({ ...request, mode: 'enveloping', policy: 'age' }, true),
+    ).toEqual(['the AGE policy asks for enveloped or detached signatures'])
+  })
 })

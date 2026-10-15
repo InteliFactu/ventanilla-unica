@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import { agePolicy } from '../agePolicy'
 import { facturaePolicy } from '../facturaePolicy'
 import { renderTestElement } from '../fixtures/renderTestElement'
 import { buildSignaturePolicyIdentifier } from './buildSignaturePolicyIdentifier'
@@ -26,5 +27,16 @@ describe('buildSignaturePolicyIdentifier', () => {
         }),
       ),
     ).not.toContain('Description')
+  })
+  it('appends the SPURI qualifier after the hash', () => {
+    const rendered = renderTestElement(
+      buildSignaturePolicyIdentifier(prefixes, agePolicy),
+    )
+    expect(rendered).toContain(
+      '</xa:SigPolicyHash><xa:SigPolicyQualifiers><xa:SigPolicyQualifier><xa:SPURI>https://sede.administracion.gob.es/politica_de_firma_anexo_1.pdf</xa:SPURI></xa:SigPolicyQualifier></xa:SigPolicyQualifiers></xa:SignaturePolicyId>',
+    )
+    expect(rendered).toContain(
+      '<xa:Identifier>urn:oid:2.16.724.1.3.1.1.2.1.9</xa:Identifier>',
+    )
   })
 })

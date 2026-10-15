@@ -8,6 +8,9 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `firmar xml --politica age` signs XAdES-EPES under the AGE policy v1.9 with
+  its SPURI, as AutoFirma does on `expPolicy=FirmaAGE`; `SignaturePolicy` gains
+  `qualifier`.
 - `firmar xml --politica facturae` emits AutoFirma's Facturae profile, matched
   against a signature FACe accepted: the `emisor` SignerRole, the
   enveloped-signature transform alone, the RSA key value, SHA-512 references and

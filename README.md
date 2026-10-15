@@ -97,10 +97,10 @@ anything does not match what the plan read (holder, amount, document).
 
 ## Signing
 
-| Command                                                                                                                      | What it does                                                                                                                                                             |
-| ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ventanilla-unica firmar pdf --in f.pdf --out g.pdf [--visible si] [--motivo text]`                                          | PAdES-B-B signature (ETSI.CAdES.detached) by incremental update; valid in Acrobat, pdfsig and openssl                                                                    |
-| `ventanilla-unica firmar xml --in f.xml --out g.xml [--modo enveloped\|enveloping\|detached] [--politica facturae\|ninguna]` | XAdES-BES/EPES with SHA-256, AutoFirma-style layout; `facturae` emits AutoFirma's Facturae profile (role `emisor`, SHA-512 references, key value); verified with xmlsec1 |
+| Command                                                                                                                           | What it does                                                                                                                                                                                           |
+| --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ventanilla-unica firmar pdf --in f.pdf --out g.pdf [--visible si] [--motivo text]`                                               | PAdES-B-B signature (ETSI.CAdES.detached) by incremental update; valid in Acrobat, pdfsig and openssl                                                                                                  |
+| `ventanilla-unica firmar xml --in f.xml --out g.xml [--modo enveloped\|enveloping\|detached] [--politica facturae\|age\|ninguna]` | XAdES-BES/EPES with SHA-256, AutoFirma-style layout; `facturae` emits AutoFirma's Facturae profile (role `emisor`, SHA-512 references, key value) and `age` the AGE policy v1.9; verified with xmlsec1 |
 
 Both run locally with the certificate and key you pass; nothing leaves your
 machine.

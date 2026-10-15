@@ -1,6 +1,7 @@
 import { basename } from 'node:path'
 
 import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
+import { agePolicy } from './agePolicy'
 import { facturaeProfile } from './facturaeProfile'
 import { readContentFile } from './fetchers/readContentFile'
 import { signXmlFileNotes } from './mappers/signXmlFileNotes'
@@ -19,6 +20,7 @@ export const signXmlFile = async (
   const result = signXml(identity, content, {
     mode: request.mode,
     ...(request.policy === 'facturae' ? facturaeProfile : {}),
+    ...(request.policy === 'age' ? { policy: agePolicy } : {}),
     ...(request.mode === 'detached'
       ? { detachedUri: basename(request.input) }
       : {}),

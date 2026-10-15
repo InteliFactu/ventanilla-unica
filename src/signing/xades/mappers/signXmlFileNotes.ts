@@ -16,5 +16,7 @@ export const signXmlFileNotes = (
     notes.push('the input is not XML: it is carried in base64 inside ds:Object')
   if (request.policy === 'facturae' && request.mode !== 'enveloped')
     notes.push('FACe and the AEAT expect Facturae signed enveloped')
+  if (request.policy === 'age' && request.mode === 'enveloping')
+    notes.push('the AGE policy asks for enveloped or detached signatures')
   return notes
 }

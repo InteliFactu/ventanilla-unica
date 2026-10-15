@@ -6,7 +6,10 @@ import { buildElement } from './buildElement'
 import { buildText } from './buildText'
 import { buildTextElement } from './buildTextElement'
 
-/** xades:SignaturePolicyIdentifier naming an explicit policy and its hash (XAdES-EPES). */
+/**
+ * xades:SignaturePolicyIdentifier naming an explicit policy, its hash and,
+ * when given, the SPURI where it is published (XAdES-EPES).
+ */
 export const buildSignaturePolicyIdentifier = (
   prefixes: XadesPrefixes,
   policy: SignaturePolicy,
@@ -16,6 +19,16 @@ export const buildSignaturePolicyIdentifier = (
     policy.description === undefined
       ? []
       : [buildTextElement(`${xades}:Description`, policy.description)]
+  const qualifiers =
+    policy.qualifier === undefined
+      ? []
+      : [
+          buildElement(`${xades}:SigPolicyQualifiers`, {}, [
+            buildElement(`${xades}:SigPolicyQualifier`, {}, [
+              buildTextElement(`${xades}:SPURI`, policy.qualifier),
+            ]),
+          ]),
+        ]
   return buildElement(`${xades}:SignaturePolicyIdentifier`, {}, [
     buildElement(`${xades}:SignaturePolicyId`, {}, [
       buildElement(`${xades}:SigPolicyId`, {}, [
@@ -31,6 +44,7 @@ export const buildSignaturePolicyIdentifier = (
           buildText(policy.digestValue),
         ),
       ),
+      ...qualifiers,
     ]),
   ])
 }
