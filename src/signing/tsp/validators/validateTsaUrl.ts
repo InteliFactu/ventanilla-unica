@@ -1,13 +1,13 @@
 import { isIP } from 'node:net'
 
-import { internalAddresses } from '../internalAddresses'
+import { isInternalAddress } from './isInternalAddress'
 
 /**
  * Refuse a TSA URL that is not http(s) or that names this machine or a
  * private network: a `tsaURL` comes from a sede page, and the query must not
- * become a request into the holder's own network. shortcut: a public name
- * that resolves to a private address (DNS rebinding) is not caught; resolve
- * and pin the address if that ever matters.
+ * become a request into the holder's own network. A public name that
+ * resolves to a private address is refused at connect time by
+ * `lookupPublicAddress`.
  */
 export const validateTsaUrl = (url: string): void => {
   const { protocol, hostname } = new URL(url)
@@ -20,6 +20,6 @@ export const validateTsaUrl = (url: string): void => {
       ? host === 'localhost' ||
         /\.(?:localhost|local|internal|lan|home\.arpa)$/.test(host) ||
         !host.includes('.')
-      : internalAddresses.check(host, family === 4 ? 'ipv4' : 'ipv6')
+      : isInternalAddress(host)
   if (internal) throw new Error(`refused TSA on an internal host: ${hostname}`)
 }

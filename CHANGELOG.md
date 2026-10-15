@@ -10,7 +10,8 @@ All notable changes to this project are documented here. The format follows
 
 - TSA URLs on loopback, private, link-local or CGNAT addresses, local-only names
   and dotless hosts are refused, and TSA redirects are not followed: an
-  AutoScript `tsaURL` comes from a sede page.
+  AutoScript `tsaURL` comes from a sede page. The check also runs on the
+  addresses the name resolves to, at connect time, so DNS rebinding is caught.
 
 ### Added
 
