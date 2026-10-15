@@ -5,6 +5,7 @@ export const cmsOids = {
   contentType: '1.2.840.113549.1.9.3',
   messageDigest: '1.2.840.113549.1.9.4',
   signingTime: '1.2.840.113549.1.9.5',
+  countersignature: '1.2.840.113549.1.9.6',
   signingCertificateV2: '1.2.840.113549.1.9.16.2.47',
   signaturePolicyIdentifier: '1.2.840.113549.1.9.16.2.15',
   signatureTimeStampToken: '1.2.840.113549.1.9.16.2.14',

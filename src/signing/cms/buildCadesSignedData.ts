@@ -1,4 +1,4 @@
-import { createHash, X509Certificate } from 'node:crypto'
+import { createHash } from 'node:crypto'
 
 import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
 import { derContext } from '../asn1/derContext'
@@ -7,14 +7,11 @@ import { derOctetString } from '../asn1/derOctetString'
 import { derOid } from '../asn1/derOid'
 import { derSequence } from '../asn1/derSequence'
 import { derSetOf } from '../asn1/derSetOf'
-import { readCertificateParts } from '../asn1/parsers/readCertificateParts'
-import { selectSigningKeyType } from '../selectors/selectSigningKeyType'
-import { signData } from '../signData'
+import { buildSignerInfo } from './builders/buildSignerInfo'
 import { cadesSignedAttributes } from './cadesSignedAttributes'
 import { cmsDigestOids } from './cmsDigestOids'
 import { cmsOids } from './cmsOids'
 import { selectSignerCertificates } from './selectors/selectSignerCertificates'
-import { signerInfo } from './signerInfo'
 import type { CadesSignedDataOptions } from './types/CadesSignedDataOptions'
 
 /**
@@ -30,17 +27,7 @@ export const buildCadesSignedData = (
 ): Buffer => {
   const digest = options.digest ?? 'sha256'
   const certificates = selectSignerCertificates(identity)
-  const signer = readCertificateParts(certificates.signer)
-  const attributes = cadesSignedAttributes(
-    createHash(digest).update(content).digest(),
-    signer,
-    {
-      signingTime: options.signingTime ?? new Date(),
-      digest,
-      policy: options.policy,
-    },
-  )
-  const signature = signData(identity, derSetOf(attributes), digest)
+  const contentDigest = createHash(digest).update(content).digest()
   const signedData = derSequence([
     derInteger(1),
     derSetOf([derSequence([derOid(cmsDigestOids[digest])])]),
@@ -52,13 +39,13 @@ export const buildCadesSignedData = (
     ]),
     derSetOf([certificates.signer, ...certificates.chain], 0xa0),
     derSetOf([
-      signerInfo({
-        signer,
-        keyType: selectSigningKeyType(new X509Certificate(certificates.signer)),
-        digest,
-        attributes,
-        signature,
-      }),
+      buildSignerInfo(identity, digest, (signer) =>
+        cadesSignedAttributes(contentDigest, signer, {
+          signingTime: options.signingTime ?? new Date(),
+          digest,
+          policy: options.policy,
+        }),
+      ),
     ]),
   ])
   return derSequence([derOid(cmsOids.signedData), derContext(0, signedData)])

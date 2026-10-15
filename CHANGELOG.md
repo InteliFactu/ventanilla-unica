@@ -14,6 +14,13 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- CAdES cosignatures and countersignatures: `cosignCadesSignedData` adds a
+  signer over the same content (implicit or detached), and
+  `countersignCadesSignedData` countersigns every signer's signature value.
+  `signAutoScript` takes `operation: 'cosign' | 'countersign'` with the existing
+  `signature`, as AutoScript's `coSign` and `counterSign` do. Checked with
+  `openssl cms -verify` (RSA and EC signers) and compared with AutoFirma's CLI
+  `cosign` and `countersign` output.
 - XAdES-T: `timestampXadesSignature` stamps the inclusive C14N of
   ds:SignatureValue and appends AutoFirma's UnsignedProperties layout;
   `firmar xml --tsa <url>` and `signAutoScript` (`tsaURL` with XAdES and

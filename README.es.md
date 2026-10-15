@@ -106,8 +106,10 @@ Las dos firman en tu máquina con el certificado y la clave que indiques. Para
 los flujos de las sedes, la biblioteca exporta
 `signAutoScript(identity, {data, algorithm, format, extraParams})`, que hace lo
 que AutoFirma hace ante una llamada `AutoScript.sign` de la página (NONE, CAdES,
-XAdES, FacturaE y PAdES, con los valores por defecto de AutoFirma) y devuelve la
-firma y el certificado que la página envía.
+XAdES, FacturaE y PAdES, con los valores por defecto de AutoFirma; con
+`operation: 'cosign'` o `'countersign'` y `signature` hace `coSign` y
+`counterSign` en CAdES) y devuelve la firma y el certificado que la página
+envía.
 
 ## Utilidades sin certificado
 
