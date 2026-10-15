@@ -14,17 +14,18 @@ import { cmsDigestOids } from './cmsDigestOids'
 import { cmsOids } from './cmsOids'
 import { selectSignerCertificates } from './selectors/selectSignerCertificates'
 import { signerInfo } from './signerInfo'
-import type { AttachedSignedDataOptions } from './types/AttachedSignedDataOptions'
+import type { CadesSignedDataOptions } from './types/CadesSignedDataOptions'
 
 /**
- * Attached CMS SignedData (RFC 5652) carrying `content` itself: the implicit
- * CAdES signature @firma's `AutoScript.sign(data, ..., "CAdES")` returns by
- * default, with signingTime as CAdES-B-B requires. Returns the ContentInfo DER.
+ * CAdES-B-B SignedData (RFC 5652) over `content`, with signingTime as the
+ * standard requires: implicit (the content carried inside, what @firma's
+ * `AutoScript.sign(data, ..., "CAdES")` returns with `mode=implicit`) or
+ * explicit (detached). Returns the ContentInfo DER.
  */
-export const buildAttachedSignedData = (
+export const buildCadesSignedData = (
   identity: CertificateIdentity,
   content: Buffer,
-  options: AttachedSignedDataOptions = {},
+  options: CadesSignedDataOptions = {},
 ): Buffer => {
   const digest = options.digest ?? 'sha256'
   const certificates = selectSignerCertificates(identity)
@@ -42,7 +43,12 @@ export const buildAttachedSignedData = (
   const signedData = derSequence([
     derInteger(1),
     derSetOf([derSequence([derOid(cmsDigestOids[digest])])]),
-    derSequence([derOid(cmsOids.data), derContext(0, derOctetString(content))]),
+    derSequence([
+      derOid(cmsOids.data),
+      ...(options.mode === 'explicit'
+        ? []
+        : [derContext(0, derOctetString(content))]),
+    ]),
     derSetOf([certificates.signer, ...certificates.chain], 0xa0),
     derSetOf([signerInfo({ signer, digest, attributes, signature })]),
   ])

@@ -25,5 +25,8 @@ export const signPdf = (
     location: options.location,
     visible: options.visible === true,
   })
-  return patchSignature(appendUpdate(doc, objects), identity, pdf.length)
+  return patchSignature(appendUpdate(doc, objects), identity, pdf.length, {
+    digest: options.digest ?? 'sha256',
+    policy: options.policy,
+  })
 }

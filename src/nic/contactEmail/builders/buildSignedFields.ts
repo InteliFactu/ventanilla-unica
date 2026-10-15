@@ -1,7 +1,7 @@
 import { X509Certificate } from 'node:crypto'
 
 import type { CertificateIdentity } from '../../../certificate/types/CertificateIdentity'
-import { buildAttachedSignedData } from '../../../signing/cms/buildAttachedSignedData'
+import { buildCadesSignedData } from '../../../signing/cms/buildCadesSignedData'
 import { selectSignerCertificates } from '../../../signing/cms/selectors/selectSignerCertificates'
 import type { ContactEmailQuery } from '../types/ContactEmailQuery'
 
@@ -17,7 +17,7 @@ export const buildSignedFields = (
   token: string,
   query: ContactEmailQuery,
 ): Record<string, string> => {
-  const signature = buildAttachedSignedData(
+  const signature = buildCadesSignedData(
     identity,
     Buffer.from(token, 'base64'),
   ).toString('base64')

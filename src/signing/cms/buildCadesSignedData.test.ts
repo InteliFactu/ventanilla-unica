@@ -12,14 +12,14 @@ import { readDerChildren } from '../asn1/parsers/readDerChildren'
 import { readDerElement } from '../asn1/parsers/readDerElement'
 import { buildTestIdentity } from '../fixtures/buildTestIdentity'
 import { agePolicyCms } from './agePolicyCms'
-import { buildAttachedSignedData } from './buildAttachedSignedData'
+import { buildCadesSignedData } from './buildCadesSignedData'
 import { cmsOids } from './cmsOids'
 
-describe('buildAttachedSignedData', () => {
+describe('buildCadesSignedData', () => {
   it('carries the content and signs attributes holding its digest', () => {
     const identity = buildTestIdentity()
     const content = Buffer.from('token to sign')
-    const der = buildAttachedSignedData(identity, content)
+    const der = buildCadesSignedData(identity, content)
     const [, wrapper] = readDerChildren(der, readDerElement(der, 0))
     const signedData = wrapper && readDerChildren(der, wrapper)[0]
     const fields = signedData ? readDerChildren(der, signedData) : []
@@ -54,13 +54,24 @@ describe('buildAttachedSignedData', () => {
   it('signs with SHA-512 and an AGE policy', () => {
     const identity = buildTestIdentity()
     const content = Buffer.from('token to sign')
-    const der = buildAttachedSignedData(identity, content, {
+    const der = buildCadesSignedData(identity, content, {
       digest: 'sha512',
       policy: agePolicyCms,
     })
     expect(der.includes(derOid(cmsOids.sha512))).toBe(true)
     expect(der.includes(derOid(agePolicyCms.oid))).toBe(true)
     expect(der.includes(createHash('sha512').update(content).digest())).toBe(
+      true,
+    )
+  })
+
+  it('leaves the content out when explicit', () => {
+    const content = Buffer.from('token to sign')
+    const der = buildCadesSignedData(buildTestIdentity(), content, {
+      mode: 'explicit',
+    })
+    expect(der.includes(content)).toBe(false)
+    expect(der.includes(createHash('sha256').update(content).digest())).toBe(
       true,
     )
   })

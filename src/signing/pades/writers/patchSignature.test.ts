@@ -14,7 +14,9 @@ describe('patchSignature', () => {
     )
 
   it('patches the byte range and signs everything around /Contents', () => {
-    const patched = patchSignature(file(8192), identity, 0)
+    const patched = patchSignature(file(8192), identity, 0, {
+      digest: 'sha256',
+    })
     const parts = extractSignedParts(patched)
     expect(parts.byteRange[0]).toBe(0)
     expect((parts.byteRange[2] ?? 0) + (parts.byteRange[3] ?? 0)).toBe(
@@ -26,9 +28,13 @@ describe('patchSignature', () => {
   })
 
   it('refuses a missing placeholder or one too small for the CMS', () => {
-    expect(() => patchSignature(Buffer.from('nothing'), identity, 0)).toThrow(
-      /placeholders not found/,
-    )
-    expect(() => patchSignature(file(16), identity, 0)).toThrow(/larger than/)
+    expect(() =>
+      patchSignature(Buffer.from('nothing'), identity, 0, {
+        digest: 'sha256',
+      }),
+    ).toThrow(/placeholders not found/)
+    expect(() =>
+      patchSignature(file(16), identity, 0, { digest: 'sha256' }),
+    ).toThrow(/larger than/)
   })
 })

@@ -13,6 +13,7 @@ describe('verifyDetachedCms', () => {
   const cms = buildSignedData(
     identity,
     createHash('sha256').update(content).digest(),
+    { digest: 'sha256' },
   )
 
   it('accepts the right content and rejects other content', () => {

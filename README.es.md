@@ -102,7 +102,12 @@ cuadra con lo leído (titular, importe, documento).
 | `ventanilla-unica firmar pdf --in f.pdf --out g.pdf [--visible si] [--motivo texto]`                                                                   | Firma PAdES-B-B (ETSI.CAdES.detached) por actualización incremental; válida en Acrobat, pdfsig y openssl                                                                                                     |
 | `ventanilla-unica firmar xml --in f.xml --out g.xml [--modo enveloped\|enveloping\|detached\|internally-detached] [--politica facturae\|age\|ninguna]` | XAdES-BES/EPES con SHA-256 y la forma de AutoFirma; `facturae` emite el perfil Facturae de AutoFirma (rol `emisor`, referencias SHA-512, clave pública) y `age` la política AGE v1.9; verificada con xmlsec1 |
 
-Las dos firman en tu máquina con el certificado y la clave que indiques.
+Las dos firman en tu máquina con el certificado y la clave que indiques. Para
+los flujos de las sedes, la biblioteca exporta
+`signAutoScript(identity, {data, algorithm, format, extraParams})`, que hace lo
+que AutoFirma hace ante una llamada `AutoScript.sign` de la página (NONE, CAdES,
+XAdES, FacturaE y PAdES, con los valores por defecto de AutoFirma) y devuelve la
+firma y el certificado que la página envía.
 
 ## Utilidades sin certificado
 

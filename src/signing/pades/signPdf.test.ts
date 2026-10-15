@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
+import { derOid } from '../asn1/derOid'
+import { agePolicyCms } from '../cms/agePolicyCms'
 import { buildTestIdentity } from '../fixtures/buildTestIdentity'
 import { buildClassicPdf } from './fixtures/buildClassicPdf'
 import { buildObjectStreamPdf } from './fixtures/buildObjectStreamPdf'
@@ -23,6 +25,18 @@ describe('signPdf', () => {
         readPdfDocument(original).usesXrefStream,
       )
     }
+  })
+
+  it('signs with SHA-512 and the AGE policy when asked', () => {
+    const signed = signPdf(identity, buildClassicPdf(), {
+      digest: 'sha512',
+      policy: agePolicyCms,
+    })
+    const parts = extractSignedParts(signed)
+    expect(
+      verifyDetachedCms(parts.cms, parts.content, identity.cert, 'sha512'),
+    ).toBe(true)
+    expect(parts.cms.includes(derOid(agePolicyCms.oid))).toBe(true)
   })
 
   it('draws a visible stamp and signs again on top of a signature', () => {

@@ -8,6 +8,17 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `signAutoScript(identity, request)` signs what a sede page hands
+  `AutoScript.sign(data, algorithm, format, extraParams)` the way AutoFirma
+  does: NONE, CAdES (explicit by default, implicit under the AGE policy below 1
+  MB), XAdES (enveloping by default, "Detached" as internally detached),
+  FacturaE and PAdES, reading `expPolicy`, `policyIdentifier`, `mode`,
+  `signerClaimedRoles`, `referencesDigestMethod`, the KeyInfo switches,
+  `signReason` and `signatureProductionCity`, and refusing what it does not
+  implement. It returns the base64 signature and certificate.
+- `signPdf` takes `digest` and a PAdES-EPES `policy`.
+- `buildCadesSignedData` (formerly `buildAttachedSignedData`) takes
+  `mode: 'explicit'` to leave the content out.
 - `firmar xml --modo internally-detached` writes AutoFirma's "XAdES Detached":
   an `AFIRMA` root holding the content in a `CONTENT` node (base64 for non-XML)
   with the signature as its sibling. `--modo detached` keeps meaning a signature

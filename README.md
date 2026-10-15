@@ -103,7 +103,11 @@ anything does not match what the plan read (holder, amount, document).
 | `ventanilla-unica firmar xml --in f.xml --out g.xml [--modo enveloped\|enveloping\|detached\|internally-detached] [--politica facturae\|age\|ninguna]` | XAdES-BES/EPES with SHA-256, AutoFirma-style layout; `facturae` emits AutoFirma's Facturae profile (role `emisor`, SHA-512 references, key value) and `age` the AGE policy v1.9; verified with xmlsec1 |
 
 Both run locally with the certificate and key you pass; nothing leaves your
-machine.
+machine. For portal flows, the library's
+`signAutoScript(identity, {data, algorithm, format, extraParams})` does what
+AutoFirma does for a page's `AutoScript.sign` call (NONE, CAdES, XAdES, FacturaE
+and PAdES, with AutoFirma's defaults) and returns the signature and certificate
+the page posts.
 
 ## Offline tools
 
