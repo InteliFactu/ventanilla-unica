@@ -22,12 +22,17 @@
   exists. info@tieneslavibra.com got "DGPE: Activación de cuenta de usuario" for
   user `vibralabsl` and the communications-address change on 2026-10-03, and on
   2026-10-07 "PLACE: La pregunta del expediente 202600000109 ha sido contestada"
-  (Centro Español de Metrología). Next: read that answer, then capture the
-  logged-in form. Same mailbox, ROLECE 2026-10-03: "REQUERIMIENTO SUBSANACIÓN
-  (DOCUMENTACIÓN BÁSICA) Debe remitirse nota mercantil simple a
-  notasregistrales@patrimoniodelestado.es"; a notification followed on
-  2026-10-05. Next: request Vibra Lab's nota informativa mercantil at
-  registradores.org and send it there.
+  (Centro Español de Metrología). 2026-10-16: answer read in Orca (logged in at
+  the Empresas page `login_form`, user id and password; the tender's "Solicitar
+  Información" tab lists questions in a JSF table whose rows open with
+  `myfaces.oam.submitForm(form, '<form>:tableEx1:<n>:link2')`, and the question
+  and answer sit in `textarea` values, not in the page text); it is in the
+  wiki's `business/licitaciones-vibra-lab.md`. Next: capture the logged-in login
+  POST and the "Nueva Pregunta" form read-only, then port. Same mailbox, ROLECE
+  2026-10-03: "REQUERIMIENTO SUBSANACIÓN (DOCUMENTACIÓN BÁSICA) Debe remitirse
+  nota mercantil simple a notasregistrales@patrimoniodelestado.es"; a
+  notification followed on 2026-10-05. Next: request Vibra Lab's nota
+  informativa mercantil at registradores.org and send it there.
 - [!] **TGSS `aplazamiento` and `adjuntar` refuse `--confirmar si`.** The "firma
   optimizada" is implemented and tested. The protocol is no longer uncaptured:
   on 2026-09-22 a real deferral (registro 20265990000981409) and a CEUS
@@ -249,9 +254,9 @@
       and was not ported.
 - [!] **`junta pagos` answers HTTP 500 for E10484822.** The MisPagos search POST
   returns 500 with an empty body for that holder only, every year tried; the
-  other five certificates answer. Still 500 on 2026-10-15. Server-side; recheck
-  later and, if it persists, try the search per sociedad in the browser to see
-  whether the sede itself fails there too.
+  other five certificates answer. Still 500 on 2026-10-15 and 2026-10-16.
+  Server-side; recheck later and, if it persists, try the search per sociedad in
+  the browser to see whether the sede itself fails there too.
 - [!] **Re-propose to `awesome-spain`.** GeiserX/awesome-spain#45 was closed on
   2026-09-26 by the maintainer, kindly: too new (no stars or visible use,
   versions still shipping), it asks for the holder's certificate and acts on
