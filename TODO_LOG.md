@@ -8,6 +8,12 @@
 
 ### 2026-10
 
+- [-] 2026-10-15 — **Testing:** XAdES mutation test timeout under concurrent
+  coverage.
+  - Resolution: not reproducible. `signXml` tests run in 20-36 ms at load ~80,
+    and the full suite passed three times on 2026-10-15 (1,727 tests); the one
+    timeout on 2026-10-07 was machine contention, so the timeout stays.
+
 - [x] 2026-10-15 — **Integrations:** Mi DGT counters in `dgt datos`.
   - Result: after the Cl@ve login the command loads `/es/mi_dgt/` and reads the
     seven `ajaxCalls.jsp?<name>=true` counters into `contadores` (5496b5d).

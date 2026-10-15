@@ -59,11 +59,6 @@
 
 ## Testing
 
-- [~] **XAdES mutation test hit its 5-second timeout once under concurrent
-  full-suite coverage.** The isolated `signXml.test.ts` passed 11/11, and
-  `pnpm check:ci` passed 1,349/1,349 when rerun alone on 2026-10-07. Next:
-  reproduce under sustained load before changing its timeout.
-
 - [~] **`aeat aportar` act and receipt unverified.** Verified live on 2026-10-06
   with a real sancionador CSV: the form opens as GZ706 for a representative,
   five PDFs upload and attach, and the "Firma y envío" screen lists them and
@@ -112,7 +107,11 @@
       ENCUENTRA DISPONIBLE" and every certificate service landed on
       `GesUsuariosSEDE/.../error.jsp?errorcode=[TSEG_4003011]` (two different
       holders, so a sede outage). Next step: capture the variation screens in
-      working hours, build plan mode first. Pending use: Alba's e-mail to
+      working hours, build plan mode first. On 2026-10-15 the sede was up and
+      Alba's login reached the service page, which shows only "Actualmente no
+      consta en los sistemas que disponga de una prestación activa" and no form:
+      the variation screens exist only for a holder with an active prestación,
+      so capture waits for one. Pending use: Alba's e-mail to
       albapriieto4@gmail.com (owner: no address change at SEPE for now).
 - [~] **sexpe: demanda de empleo (consulta, informes, alta/baja).** Captured
   2026-10-11 (Alba, 78117074N) with the owner solving the CAPTCHA in Orca.
