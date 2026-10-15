@@ -1,6 +1,11 @@
+import { readDerElement } from '../../asn1/parsers/readDerElement'
 import type { SignedParts } from '../types/SignedParts'
 
-/** The last signature of a signed PDF: its byte ranges' content and its CMS (placeholder zeros trimmed). */
+/**
+ * The last signature of a signed PDF: its byte ranges' content and its CMS,
+ * cut at the DER length rather than by trimming zeros, since a signature can
+ * end in a zero byte.
+ */
 export const extractSignedParts = (pdf: Buffer): SignedParts => {
   const text = pdf.toString('latin1')
   const at = text.lastIndexOf('/ByteRange [')
@@ -14,6 +19,7 @@ export const extractSignedParts = (pdf: Buffer): SignedParts => {
     pdf.subarray(start, start + first),
     pdf.subarray(second, second + length),
   ])
-  const hex = text.slice(first + 1, second - 1).replace(/(?:00)+$/, '')
-  return { content, cms: Buffer.from(hex, 'hex'), byteRange }
+  const contents = Buffer.from(text.slice(first + 1, second - 1), 'hex')
+  const cms = contents.subarray(0, readDerElement(contents, 0).end)
+  return { content, cms, byteRange }
 }

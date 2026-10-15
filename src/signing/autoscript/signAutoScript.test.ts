@@ -2,9 +2,13 @@ import { verify, X509Certificate } from 'node:crypto'
 
 import { describe, expect, it } from 'vitest'
 
+import { derOid } from '../asn1/derOid'
+import { cmsOids } from '../cms/cmsOids'
 import { buildTestIdentity } from '../fixtures/buildTestIdentity'
 import { buildClassicPdf } from '../pades/fixtures/buildClassicPdf'
+import { extractSignedParts } from '../pades/fixtures/extractSignedParts'
 import { verifyDetachedCms } from '../pades/fixtures/verifyDetachedCms'
+import { answerTestTimestamp } from '../tsp/fixtures/answerTestTimestamp'
 import { signAutoScript } from './signAutoScript'
 
 const identity = buildTestIdentity()
@@ -14,8 +18,8 @@ const decoded = (signature: string): string =>
   Buffer.from(signature, 'base64').toString('latin1')
 
 describe('signAutoScript', () => {
-  it('signs NONE as raw PKCS#1 and returns the certificate DER', () => {
-    const result = signAutoScript(identity, {
+  it('signs NONE as raw PKCS#1 and returns the certificate DER', async () => {
+    const result = await signAutoScript(identity, {
       data: base64('prepared'),
       algorithm: 'SHA256withRSA',
       format: 'NONE',
@@ -33,8 +37,8 @@ describe('signAutoScript', () => {
     ).toBe(true)
   })
 
-  it('signs CAdES explicit by default, without the content', () => {
-    const result = signAutoScript(identity, {
+  it('signs CAdES explicit by default, without the content', async () => {
+    const result = await signAutoScript(identity, {
       data: base64(marker),
       algorithm: 'SHA512withRSA',
       format: 'CAdES',
@@ -42,8 +46,8 @@ describe('signAutoScript', () => {
     expect(decoded(result.signature)).not.toContain(marker)
   })
 
-  it('signs CAdES implicit under the AGE policy for small data', () => {
-    const result = signAutoScript(identity, {
+  it('signs CAdES implicit under the AGE policy for small data', async () => {
+    const result = await signAutoScript(identity, {
       data: base64(marker),
       algorithm: 'SHA256withRSA',
       format: 'CAdEStri',
@@ -52,8 +56,8 @@ describe('signAutoScript', () => {
     expect(decoded(result.signature)).toContain(marker)
   })
 
-  it('signs XAdES enveloping by default with the claimed roles', () => {
-    const result = signAutoScript(identity, {
+  it('signs XAdES enveloping by default with the claimed roles', async () => {
+    const result = await signAutoScript(identity, {
       data: base64('<doc>synthetic</doc>'),
       algorithm: 'SHA256withRSA',
       format: 'XAdES',
@@ -67,8 +71,8 @@ describe('signAutoScript', () => {
     expect(xml).toContain('>reviewer<')
   })
 
-  it('signs FacturaE enveloped, claiming emisor', () => {
-    const result = signAutoScript(identity, {
+  it('signs FacturaE enveloped, claiming emisor', async () => {
+    const result = await signAutoScript(identity, {
       data: base64('<fe:Facturae xmlns:fe="urn:test">synthetic</fe:Facturae>'),
       algorithm: 'SHA512withRSA',
       format: 'FacturaE',
@@ -78,8 +82,8 @@ describe('signAutoScript', () => {
     expect(xml).toContain('>emisor<')
   })
 
-  it('signs PAdES with the reason and location', () => {
-    const result = signAutoScript(identity, {
+  it('signs PAdES with the reason and location', async () => {
+    const result = await signAutoScript(identity, {
       data: buildClassicPdf().toString('base64'),
       algorithm: 'SHA256withRSA',
       format: 'PAdES',
@@ -104,20 +108,20 @@ describe('signAutoScript', () => {
     ],
     ['another named policy', { extraParams: 'expPolicy=FirmaAGE18' }],
     ['an EC algorithm for an RSA key', { algorithm: 'SHA256withECDSA' }],
-  ])('refuses %s', (_name, change) => {
-    expect(() =>
+  ])('refuses %s', async (_name, change) => {
+    await expect(
       signAutoScript(identity, {
         data: base64('<doc>synthetic</doc>'),
         algorithm: 'SHA256withRSA',
         format: 'XAdES',
         ...change,
       }),
-    ).toThrow()
+    ).rejects.toThrow()
   })
 
-  it('signs CAdES with an EC certificate', () => {
+  it('signs CAdES with an EC certificate', async () => {
     const ec = buildTestIdentity(undefined, undefined, 'ec')
-    const result = signAutoScript(ec, {
+    const result = await signAutoScript(ec, {
       data: base64(marker),
       algorithm: 'SHA256withECDSA',
       format: 'CAdES',
@@ -129,5 +133,27 @@ describe('signAutoScript', () => {
         ec.cert,
       ),
     ).toBe(true)
+  })
+
+  it('timestamps CAdES and PAdES when tsaURL names a TSA', async () => {
+    for (const [format, data] of [
+      ['CAdES', base64(marker)],
+      ['PAdES', buildClassicPdf().toString('base64')],
+    ] as const) {
+      const result = await signAutoScript(
+        identity,
+        {
+          data,
+          algorithm: 'SHA256withRSA',
+          format,
+          extraParams:
+            'tsaURL=https://tsa.example.test/tsr\ntsaHashAlgorithm=SHA-256',
+        },
+        answerTestTimestamp,
+      )
+      const signed = Buffer.from(result.signature, 'base64')
+      const cms = format === 'PAdES' ? extractSignedParts(signed).cms : signed
+      expect(cms.includes(derOid(cmsOids.signatureTimeStampToken))).toBe(true)
+    }
   })
 })

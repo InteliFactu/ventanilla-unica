@@ -9,6 +9,7 @@ export const validateSignPdfQuery = (
   const input = options['in']
   const output = options['out']
   if (!input || !output) throw new Error('--in and --out are required')
+  const tsa = options['tsa']
   return {
     input,
     output,
@@ -22,5 +23,6 @@ export const validateSignPdfQuery = (
       text: options['texto'],
       field: options['campo'],
     },
+    timestamp: tsa ? { url: tsa } : undefined,
   }
 }

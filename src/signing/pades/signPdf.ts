@@ -1,12 +1,9 @@
 import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
-import { signatureRequestOf } from './mappers/signatureRequestOf'
-import { readPdfDocument } from './parsers/readPdfDocument'
-import { selectCommonName } from './selectors/selectCommonName'
+import { buildSignedData } from '../cms/buildSignedData'
+import { digestByteRanges } from './mappers/digestByteRanges'
+import { preparePdfSignature } from './mappers/preparePdfSignature'
 import type { SignPdfOptions } from './types/SignPdfOptions'
-import { planSignatureObjects } from './update/planSignatureObjects'
-import { validateSignablePdf } from './validators/validateSignablePdf'
-import { appendUpdate } from './writers/appendUpdate'
-import { patchSignature } from './writers/patchSignature'
+import { writeSignatureContents } from './writers/writeSignatureContents'
 
 /**
  * Sign a PDF with the holder's certificate as PAdES-B-B (ETSI.CAdES.detached,
@@ -18,14 +15,11 @@ export const signPdf = (
   pdf: Buffer,
   options: SignPdfOptions = {},
 ): Buffer => {
-  const doc = readPdfDocument(pdf)
-  validateSignablePdf(doc)
-  const objects = planSignatureObjects(
-    doc,
-    signatureRequestOf(selectCommonName(identity), options),
-  )
-  return patchSignature(appendUpdate(doc, objects), identity, pdf.length, {
-    digest: options.digest ?? 'sha256',
+  const prepared = preparePdfSignature(identity, pdf, options)
+  const digest = options.digest ?? 'sha256'
+  const cms = buildSignedData(identity, digestByteRanges(prepared, digest), {
+    digest,
     policy: options.policy,
   })
+  return writeSignatureContents(prepared, cms)
 }

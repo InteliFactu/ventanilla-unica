@@ -8,6 +8,12 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- RFC 3161 signature timestamps: `timestampSignedData` turns a CMS into CAdES-T,
+  `signPdfTimestamped` and `firmar pdf --tsa <url>` sign PAdES-B-T, and
+  `signAutoScript` honours `tsaURL`, `tsaPolicy` and `tsaHashAlgorithm` (SHA-512
+  by default, as AutoFirma) for CAdES and PAdES. The reply must echo the imprint
+  and nonce; the TSA's own signature is left to the verifier. Checked against
+  freetsa.org with `openssl ts -verify`.
 - `firmar pdf` and `signPdf` place the signature: `--pagina` (negative from the
   end), `--posicion llx,lly,urx,ury`, `--texto` (AutoFirma `layer2Text`
   placeholders `$$SUBJECTCN$$`, `$$SIGNDATE=dd/MM/yyyy$$`, `$$REASON$$`,
@@ -57,6 +63,8 @@ All notable changes to this project are documented here. The format follows
 
 ### Changed
 
+- `signAutoScript` is asynchronous (it may call a TSA) and takes an optional
+  `post` to reach it.
 - XAdES now matches what AutoFirma 1.9 writes for the same input (compared
   element by element with its command line on a synthetic certificate):
   enveloped references add the XPath filter

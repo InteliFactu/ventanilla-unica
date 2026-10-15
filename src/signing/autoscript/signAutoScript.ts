@@ -1,4 +1,6 @@
 import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
+import { postTimestampQuery } from '../tsp/fetchers/postTimestampQuery'
+import type { TimestampPost } from '../tsp/types/TimestampPost'
 import { certificateDerBase64 } from './certificateDerBase64'
 import { parseAutoScriptAlgorithm } from './parsers/parseAutoScriptAlgorithm'
 import { parseExtraParams } from './parsers/parseExtraParams'
@@ -13,12 +15,14 @@ import { validateKeyType } from './validators/validateKeyType'
  * Do locally what AutoFirma does for a sede page's `AutoScript.sign(data,
  * algorithm, format, extraParams)`, with AutoFirma's defaults, and return
  * what its success callback receives: the signature and the certificate.
- * The page's own code posts them; nothing here talks to the sede.
+ * The page's own code posts them; nothing here talks to the sede. The one
+ * request made is to the TSA a `tsaURL` parameter names, through `post`.
  */
-export const signAutoScript = (
+export const signAutoScript = async (
   identity: CertificateIdentity,
   request: AutoScriptRequest,
-): AutoScriptResult => {
+  post: TimestampPost = postTimestampQuery,
+): Promise<AutoScriptResult> => {
   const family = selectAutoScriptFamily(request.format)
   const certificate = certificateDerBase64(identity)
   if (family === 'none')
@@ -30,13 +34,14 @@ export const signAutoScript = (
   validateKeyType(identity, algorithm)
   const data = Buffer.from(request.data, 'base64')
   if (data.length === 0) throw new Error('the portal sent no data to sign')
-  const signed = signAutoScriptFamily(
+  const signed = await signAutoScriptFamily(
     identity,
     family,
     {
       data,
       format: request.format,
       params: parseExtraParams(request.extraParams),
+      post,
     },
     algorithm.digest,
   )
