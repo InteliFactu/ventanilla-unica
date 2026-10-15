@@ -179,10 +179,6 @@
       equals cookie `token-tramite-cond` (16 random chars set by JS, 5 s
       expiry), then `service_rele.jsp` (registry, asunto `SCDCB`) for the
       justificante. Write it behind `--confirmar si` when the owner decides.
-- [ ] **dgt: licence/vehicle/fine counters in `dgt datos`.** The Mi DGT counters
-      (`ajaxCalls.jsp?permisos=true` and siblings) answered `-` or HTML
-      depending on the session, so they were dropped. Needs a session that has
-      landed on `/es/mi_dgt/` first; verify with a holder who has a vehicle.
 - [ ] **ses / catastro / clave / inss: contact and domicile readers.** Not
       explored yet (2026-10-11). Cl@ve phone/email change with certificate lives
       under AEAT "Cl@ve > Otras gestiones"; SES contact data is in Centro de
@@ -305,7 +301,9 @@
   or STA filing confirms it, or revert that flow's shape.
 - [ ] **FACe and valide.redsara.es never tried** (external acts). Next: with the
       owner's go-ahead, validate one synthetic XAdES and one PAdES at
-      valide.redsara.es.
+      valide.redsara.es. 2026-10-15: its form (`validarFirmaForm`, multipart
+      `fileData`) requires an image CAPTCHA (`codigoSeguridad`), so the owner
+      has to solve it in Orca while the files are uploaded.
 - [ ] **Multisignature limits:** countersignatures ignore AutoFirma's `target`
       and countersign every top-level signer (nested ones are not
       countersigned); detached and internally detached XAdES cannot be cosigned.

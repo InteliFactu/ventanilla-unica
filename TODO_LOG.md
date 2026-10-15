@@ -8,6 +8,16 @@
 
 ### 2026-10
 
+- [x] 2026-10-15 — **Integrations:** Mi DGT counters in `dgt datos`.
+  - Result: after the Cl@ve login the command loads `/es/mi_dgt/` and reads the
+    seven `ajaxCalls.jsp?<name>=true` counters into `contadores` (5496b5d).
+    Loading the home first is what the earlier `-`/HTML answers lacked. One live
+    run of four missed the vehicle counter, so a field is absent rather than
+    guessed when the DGT gives no number.
+  - Evidence: live 2026-10-15 with the owner's certificate: 3 vehicles, 1
+    sanción, 15 points, 1 licence, 1 registry entry, no appointments or
+    representations; `readHolderData.test.ts`.
+
 - [x] 2026-10-15 — **Integrations:** `justicia expedientes` and
       `justicia     documentos` (Carpeta Justicia, read-only).
   - Result: Cl@ve login with the certificate (Liferay login, meta refresh to
