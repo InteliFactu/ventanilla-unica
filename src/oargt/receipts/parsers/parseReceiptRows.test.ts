@@ -16,6 +16,7 @@ describe('parseReceiptRows', () => {
         importePendiente: '158.24',
         isDomiciliado: true,
         periodoVoluntarioReal: '20/07/2026&nbsp;-&nbsp;20/10/2026',
+        accounyear: '2026 / 6',
         isCobrado: false,
       },
     ]
@@ -34,6 +35,7 @@ describe('parseReceiptRows', () => {
         directDebit: true,
         enforced: false,
         voluntaryPeriod: '20/07/2026 - 20/10/2026',
+        accountingPeriod: '2026 / 6',
         paid: false,
       },
     ])

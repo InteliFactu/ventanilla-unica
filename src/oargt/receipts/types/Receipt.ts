@@ -16,6 +16,8 @@ export type Receipt = {
   readonly directDebit: boolean
   readonly enforced: boolean
   readonly voluntaryPeriod?: string | undefined
+  /** The year and month the receipt charges for, as the portal writes it ("2026 / 6"). */
+  readonly accountingPeriod?: string | undefined
   readonly paid: boolean
   /** Present on enforced receipts when the caller asked for today's amount and the portal answered. */
   readonly amountToday?: AmountToday | undefined

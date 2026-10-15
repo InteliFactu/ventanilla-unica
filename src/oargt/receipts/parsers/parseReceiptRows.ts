@@ -27,6 +27,7 @@ export const parseReceiptRows = (
     const detail = rawDetail === '()' ? '' : rawDetail
     const period = readStringField(record, 'periodoVoluntarioReal')
     const paseje = readStringField(record, 'paseje')
+    const accountingPeriod = readStringField(record, 'accounyear')
     const number = readStringField(record, 'render_recnumber')
     const principalNumber = parseEuroAmount(record['importePrincipal'])
     const pendingNumber = parseEuroAmount(record['importePendiente'])
@@ -45,6 +46,8 @@ export const parseReceiptRows = (
         directDebit: record['isDomiciliado'] === true,
         enforced: paseje !== '',
         voluntaryPeriod: period === '' ? undefined : unescapeHtml(period),
+        accountingPeriod:
+          accountingPeriod === '' ? undefined : accountingPeriod,
         paid: record['isCobrado'] === true,
       },
     ]
