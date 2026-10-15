@@ -1,0 +1,6 @@
+{
+  "GHSA-vfj7-8cjw-p6xm": {
+    "reason": "braces has no patched release; it reaches the tree only through the dev tool type-coverage (fast-glob > micromatch), which expands this repository's own glob patterns, never untrusted input.",
+    "expires": "2026-11-15"
+  }
+}
