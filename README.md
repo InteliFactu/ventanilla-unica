@@ -107,8 +107,8 @@ machine. For portal flows, the library's
 `signAutoScript(identity, {data, algorithm, format, extraParams})` does what
 AutoFirma does for a page's `AutoScript.sign` call (NONE, CAdES, XAdES, FacturaE
 and PAdES, with AutoFirma's defaults; `operation: 'cosign'` or `'countersign'`
-with `signature` does `coSign` and `counterSign` for CAdES) and returns the
-signature and certificate the page posts.
+with `signature` does `coSign` and `counterSign` for CAdES and XAdES, and a
+PAdES `coSign`) and returns the signature and certificate the page posts.
 
 ## Offline tools
 

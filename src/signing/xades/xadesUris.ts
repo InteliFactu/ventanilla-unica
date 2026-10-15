@@ -20,4 +20,6 @@ export const xadesUris = {
   xpath: 'http://www.w3.org/TR/1999/REC-xpath-19991116',
   objectType: 'http://www.w3.org/2000/09/xmldsig#Object',
   signedPropertiesType: 'http://uri.etsi.org/01903#SignedProperties',
+  countersignedSignatureType:
+    'http://uri.etsi.org/01903#CountersignedSignature',
 } as const

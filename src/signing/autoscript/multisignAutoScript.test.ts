@@ -5,11 +5,14 @@ import { buildCadesSignedData } from '../cms/buildCadesSignedData'
 import { cmsOids } from '../cms/cmsOids'
 import { readSignedDataParts } from '../cms/parsers/readSignedDataParts'
 import { buildTestIdentity } from '../fixtures/buildTestIdentity'
+import { buildClassicPdf } from '../pades/fixtures/buildClassicPdf'
+import { signPdf } from '../pades/signPdf'
+import { signXml } from '../xades/signXml'
 import { signAutoScript } from './signAutoScript'
 
 const first = buildTestIdentity('FIRST')
 const second = buildTestIdentity('SECOND')
-const content = Buffer.from('synthetic content')
+const content = Buffer.from('<doc>synthetic content</doc>')
 const request = {
   data: '',
   algorithm: 'SHA512withRSA',
@@ -44,15 +47,45 @@ describe('multisignAutoScript', () => {
     ).toBe(true)
   })
 
-  it('refuses other formats and a missing signature', async () => {
-    await expect(
-      signAutoScript(second, {
+  it('cosigns and countersigns XAdES, and cosigns PAdES by signing again', async () => {
+    const xml = signXml(first, content, { mode: 'enveloped' }).xml
+    for (const operation of ['cosign', 'countersign'] as const) {
+      const result = await signAutoScript(second, {
         ...request,
         format: 'XAdES',
-        operation: 'countersign',
-        signature: 'AA==',
-      }),
-    ).rejects.toThrow('only supported for CAdES')
+        operation,
+        signature: xml.toString('base64'),
+      })
+      expect(
+        Buffer.from(result.signature, 'base64')
+          .toString()
+          .match(/<ds:Signature /g),
+      ).toHaveLength(2)
+    }
+    const pdf = signPdf(first, buildClassicPdf())
+    const cosigned = await signAutoScript(second, {
+      ...request,
+      format: 'PAdES',
+      operation: 'cosign',
+      signature: pdf.toString('base64'),
+    })
+    expect(
+      Buffer.from(cosigned.signature, 'base64')
+        .toString('latin1')
+        .match(/\/ByteRange/g),
+    ).toHaveLength(2)
+  })
+
+  it('refuses PAdES countersignatures, FacturaE and a missing signature', async () => {
+    for (const format of ['PAdES', 'FacturaE'])
+      await expect(
+        signAutoScript(second, {
+          ...request,
+          format,
+          operation: 'countersign',
+          signature: 'AA==',
+        }),
+      ).rejects.toThrow(`countersign is not supported for ${format}`)
     await expect(
       signAutoScript(second, { ...request, operation: 'cosign' }),
     ).rejects.toThrow('no signature to cosign')

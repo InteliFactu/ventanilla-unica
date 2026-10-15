@@ -3,8 +3,6 @@ import { buildContentObject } from './builders/buildContentObject'
 import { buildSignature } from './builders/buildSignature'
 import { formatDistinguishedName } from './formatters/formatDistinguishedName'
 import { formatSignedXml } from './formatters/formatSignedXml'
-import { computeReferenceDigest } from './mappers/computeReferenceDigest'
-import { computeSignatureValue } from './mappers/computeSignatureValue'
 import { contentReferenceSpec } from './mappers/contentReferenceSpec'
 import { placeSignature } from './mappers/placeSignature'
 import { resolveSignatureContext } from './mappers/resolveSignatureContext'
@@ -12,6 +10,7 @@ import { parseCertificateChain } from './parsers/parseCertificateChain'
 import { parseOptionalXml } from './parsers/parseOptionalXml'
 import type { SignXmlOptions } from './types/SignXmlOptions'
 import type { SignXmlResult } from './types/SignXmlResult'
+import { completeSignature } from './writers/completeSignature'
 
 /**
  * Sign XML (or, enveloping and detached, any bytes) as XAdES-BES, or
@@ -49,18 +48,7 @@ export const signXml = (
     content,
     skeleton.signature,
   )
-  for (const pending of skeleton.references)
-    pending.digest.value = computeReferenceDigest(
-      document,
-      skeleton.signature,
-      pending.target,
-      context.referencesDigest,
-    )
-  skeleton.signatureValue.value = computeSignatureValue(
-    identity,
-    document,
-    context,
-  )
+  completeSignature(identity, document, skeleton, context)
   return {
     xml: formatSignedXml(document),
     mode: options.mode,

@@ -15,6 +15,14 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- XAdES cosignatures and countersignatures: `cosignXadesSignature` adds a second
+  enveloped signature, or a new enveloping one under an `AFIRMA` root, and
+  `countersignXadesSignature` adds a xades:CounterSignature over each
+  signature's SignatureValue, beside any timestamp. `signAutoScript` routes
+  XAdES `coSign`/`counterSign` to them and a PAdES `coSign` to one more
+  signature; PAdES countersignatures and FacturaE multisignatures are refused,
+  as in AutoFirma. Every signature verifies in xmlsec1, also on AutoFirma's own
+  signatures, and the structure matches AutoFirma's CLI output.
 - PDF document timestamps (/DocTimeStamp, ETSI.RFC3161):
   `firmar pdf --tsa url --sello documento|ambos` and AutoScript `tsType` 2 and 3
   stamp the document before signing it, in AutoFirma's order. The token was
@@ -101,6 +109,9 @@ All notable changes to this project are documented here. The format follows
 
 ### Fixed
 
+- An enveloped XAdES over an XML that already carried a signature had a wrong
+  reference digest: the XPath filter `not(ancestor-or-self::ds:Signature)` drops
+  every signature, and only our own was left out.
 - `firmar pdf` refuses a PDF certified with no changes allowed (DocMDP P=1),
   which a new signature would invalidate; it used to sign it silently.
 - The cookie jar now honours deletions (`Expires` in the past, `Max-Age=0`).

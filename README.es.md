@@ -108,8 +108,8 @@ los flujos de las sedes, la biblioteca exporta
 que AutoFirma hace ante una llamada `AutoScript.sign` de la página (NONE, CAdES,
 XAdES, FacturaE y PAdES, con los valores por defecto de AutoFirma; con
 `operation: 'cosign'` o `'countersign'` y `signature` hace `coSign` y
-`counterSign` en CAdES) y devuelve la firma y el certificado que la página
-envía.
+`counterSign` en CAdES y XAdES, y `coSign` en PAdES) y devuelve la firma y el
+certificado que la página envía.
 
 ## Utilidades sin certificado
 

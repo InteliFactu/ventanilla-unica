@@ -14,7 +14,7 @@ import { validateKeyType } from './validators/validateKeyType'
 
 /**
  * Do locally what AutoFirma does for a sede page's `AutoScript.sign(data,
- * algorithm, format, extraParams)` (or `coSign`/`counterSign` for CAdES),
+ * algorithm, format, extraParams)` (or `coSign`/`counterSign`),
  * with AutoFirma's defaults, and return
  * what its success callback receives: the signature and the certificate.
  * The page's own code posts them; nothing here talks to the sede. The one
@@ -34,13 +34,17 @@ export const signAutoScript = async (
     }
   const algorithm = parseAutoScriptAlgorithm(request.algorithm)
   validateKeyType(identity, algorithm)
+  const params = parseExtraParams(request.extraParams)
   if (request.operation !== undefined && request.operation !== 'sign') {
-    const signed = multisignAutoScript(
-      identity,
-      family,
-      request,
-      algorithm.digest,
-    )
+    const signed = await multisignAutoScript(identity, family, {
+      data: Buffer.from(request.signature ?? '', 'base64'),
+      content: Buffer.from(request.data, 'base64'),
+      format: request.format,
+      params,
+      post,
+      operation: request.operation,
+      digest: algorithm.digest,
+    })
     return { signature: signed.toString('base64'), certificate }
   }
   const data = Buffer.from(request.data, 'base64')
@@ -51,7 +55,7 @@ export const signAutoScript = async (
     {
       data,
       format: request.format,
-      params: parseExtraParams(request.extraParams),
+      params,
       post,
     },
     algorithm.digest,

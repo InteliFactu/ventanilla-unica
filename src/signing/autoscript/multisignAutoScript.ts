@@ -1,37 +1,37 @@
 import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
-import { cosignCadesSignedData } from '../cms/cosignCadesSignedData'
-import { countersignCadesSignedData } from '../cms/countersignCadesSignedData'
-import type { DigestName } from '../types/DigestName'
-import { cmsPolicyOf } from './mappers/cmsPolicyOf'
-import { parseExtraParams } from './parsers/parseExtraParams'
+import { signPdfStamped } from '../pades/signPdfStamped'
+import { padesOptionsOf } from './mappers/padesOptionsOf'
+import { padesTimestampsOf } from './mappers/padesTimestampsOf'
+import { multisignAutoScriptCades } from './multisignAutoScriptCades'
+import { multisignAutoScriptXades } from './multisignAutoScriptXades'
 import type { AutoScriptFamily } from './types/AutoScriptFamily'
-import type { AutoScriptRequest } from './types/AutoScriptRequest'
+import type { AutoScriptMultisigning } from './types/AutoScriptMultisigning'
 
 /**
- * AutoFirma's `coSign` and `counterSign` for CAdES: add a signer over the
- * same content, or countersign each signer's signature value. shortcut: the
- * `target` parameter is ignored and every top-level signer is countersigned,
- * which is AutoFirma's `leafs` until a countersignature is already nested;
- * XAdES and PAdES multisignatures are refused until a sede needs them.
+ * AutoFirma's `coSign` and `counterSign`. CAdES and XAdES do both; a PAdES
+ * cosignature is one more signature on the signed PDF, as in AutoFirma, which
+ * also refuses to countersign a PDF; FacturaE admits a single signature.
+ * shortcut: the `target` parameter is ignored and every top-level signer is
+ * countersigned, which is AutoFirma's `leafs` until one is already nested.
  */
-export const multisignAutoScript = (
+export const multisignAutoScript = async (
   identity: CertificateIdentity,
   family: AutoScriptFamily,
-  request: AutoScriptRequest,
-  digest: DigestName,
-): Buffer => {
-  const operation = request.operation ?? 'sign'
-  if (family !== 'cades')
-    throw new Error(`${operation} is only supported for CAdES`)
-  const signature = Buffer.from(request.signature ?? '', 'base64')
-  if (signature.length === 0)
-    throw new Error(`the portal sent no signature to ${operation}`)
-  if (operation === 'countersign')
-    return countersignCadesSignedData(identity, signature, { digest })
-  const content = Buffer.from(request.data, 'base64')
-  return cosignCadesSignedData(identity, signature, {
-    digest,
-    content: content.length > 0 ? content : undefined,
-    policy: cmsPolicyOf(parseExtraParams(request.extraParams)),
-  })
+  signing: AutoScriptMultisigning,
+): Promise<Buffer> => {
+  if (signing.data.length === 0)
+    throw new Error(`the portal sent no signature to ${signing.operation}`)
+  if (family === 'cades') return multisignAutoScriptCades(identity, signing)
+  if (family === 'xades') return multisignAutoScriptXades(identity, signing)
+  if (family === 'pades' && signing.operation === 'cosign')
+    return signPdfStamped(
+      identity,
+      signing.data,
+      {
+        ...padesOptionsOf(signing.params, signing.digest),
+        ...padesTimestampsOf(signing.params),
+      },
+      signing.post,
+    )
+  throw new Error(`${signing.operation} is not supported for ${signing.format}`)
 }
