@@ -8,6 +8,32 @@
 
 ### 2026-10
 
+- [x] 2026-10-15 — **Owner requests:** what an OARGT receipt charges for.
+  - Result: the receipts JSON already carries `accounyear`; `oargt recibos` now
+    returns it as `accountingPeriod` (666bc4b). Deluxe's 261243480 (ref 117) is
+    "2026 / 6", the June Aldealab tasa, domiciliada, voluntaria until
+    20/10/2026. No detail page was needed. A receipt PDF was not built: the
+    "Obtener" carta de pago issues a payment document counted against
+    `numDocIngMaxPermitidos`, and paid receipts expose their justificante as a
+    `GetDocumentServlet?CUD=` link only once generated.
+  - Evidence: live `oargt recibos` with the Deluxe certificate lists a period on
+    all eight receipts; `parseReceiptRows.test.ts`.
+
+- [x] 2026-10-15 — **Testing:** read paths re-run live.
+  - Result: `sepe prestacion` and `sepe certificado --out` work again for Alba
+    (the sede outage is over); `cirbe estado --out` downloaded both PDFs of the
+    resolved request I2026092600003100 into a new nested directory;
+    `tgss vida-laboral --out` wrote into a missing nested directory (fix 9b6f6a1
+    confirmed live).
+  - Evidence: 2026-10-15 runs with the owner's and Alba's certificates;
+    37682-byte SEPE PDF, 170439 and 164991-byte CIRBE PDFs, 156962-byte vida
+    laboral.
+
+- [-] 2026-10-15 — **Testing:** vida laboral header older than Importass.
+  - Resolution: on 2026-10-15 the informe header and `tgss datos-personales`
+    both show CL LOS LIRIOS 1, 10004 Cáceres; the 2026-10-11 difference was
+    propagation lag between the two TGSS records.
+
 - [x] 2026-10-15 — **Maintenance:** `--out` directories are created before
       writing.
   - Result: the ten writers that joined a file under `outDir` without creating

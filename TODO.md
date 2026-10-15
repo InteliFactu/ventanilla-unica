@@ -45,10 +45,6 @@
 
 ## Owner requests
 
-- [ ] **`oargt recibo --numero <n>`: the detail and PDF of one OARGT receipt.**
-      The list does not say what a receipt is for: Deluxe's 261243480 (ref 117,
-      2026-07-20) could not be matched to a month. Next step: capture the detail
-      and print request in the sede, read-only.
 - [!] **`oargt fraccionar` (write, `--confirmar si`).** Requests a
   fraccionamiento in ejecutiva (ordinance: up to 6 months from 100,01 to 600, no
   guarantee below 30.000). The owner wants it once he has a job; blocked until
@@ -85,13 +81,6 @@
   `--confirmar si`: capture the `ACC_GUARDAR_DOMICILIO` answer (it may chain a
   locality lookup, `urlCodPostal` `AC_CARGA_LOCALIDADES`) on an owner-authorised
   change. Done when each has one live confirmed run.
-- [ ] **TGSS: the vida laboral header shows an older address than Importass.**
-      2026-10-11 the informe de vida laboral printed the holder's previous
-      address while Importass "Tus datos personales" and the informe de datos
-      identificativos (INAF0008) already showed the new one. Find which
-      affiliation field the vida laboral reads before telling a holder their
-      address is stale.
-
 - [~] **AEAT `carta-pago` and `domicilio`** ran live only in plan mode; the
   pages after the signature are inferred from the wiki flows and fail safe. Done
   when each has one owner-authorised live run and its receipt parsed.
@@ -103,15 +92,11 @@
   byte for byte to the hand download (`acuse: null`), and `carpeta-comparecer`
   without confirm answered `accepted: 'already'`. Done when one owner-authorised
   confirmed acceptance of a Pendiente row runs through the CLI.
-- [~] **`cirbe estado` download of a ready report.** The 2026-09-26 request was
-  still "Registrada" at 03:18 and again at 12:20, two hours and nineteen minutes
-  after it was made, across eight polls; the 14-minute-to-2-hour figure may hold
-  only in office hours. Re-run `cirbe estado --out` during the day before
-  suspecting the status parser. Done when a resolved request writes its PDF
-  under `--out`.
 - [ ] **TGSS debt report PDF path with a real debt.** Unexercised through the
-      package because every indebted holder had used the day's emission. Run
-      `tgss deuda --out` on a day one has not.
+      package. 2026-10-15 `tgss deuda --tipo detallado --out` for 76048463K,
+      E10501278 and B22903801 answered "NO SE HA ENCONTRADO DEUDA", and
+      E10484822 "SIN DATOS O NO EXISTE CCC/NAF PRINCIPAL": no holder has a TGSS
+      debt today. Run it when one does.
 
 ## Integrations
 
@@ -129,9 +114,6 @@
       holders, so a sede outage). Next step: capture the variation screens in
       working hours, build plan mode first. Pending use: Alba's e-mail to
       albapriieto4@gmail.com (owner: no address change at SEPE for now).
-- [ ] **sepe: `sepe prestacion`/`sepe certificado` re-run for Alba** once the
-      sede is back; they now fail with the sede's outage code instead of "no
-      tipoCertFormBean form".
 - [~] **sexpe: demanda de empleo (consulta, informes, alta/baja).** Captured
   2026-10-11 (Alba, 78117074N) with the owner solving the CAPTCHA in Orca.
   Protocol: the SNE citizen catalogue
@@ -308,9 +290,9 @@
       and was not ported.
 - [!] **`junta pagos` answers HTTP 500 for E10484822.** The MisPagos search POST
   returns 500 with an empty body for that holder only, every year tried; the
-  other five certificates answer. Server-side; recheck later and, if it
-  persists, try the search per sociedad in the browser to see whether the sede
-  itself fails there too.
+  other five certificates answer. Still 500 on 2026-10-15. Server-side; recheck
+  later and, if it persists, try the search per sociedad in the browser to see
+  whether the sede itself fails there too.
 - [!] **Re-propose to `awesome-spain`.** GeiserX/awesome-spain#45 was closed on
   2026-09-26 by the maintainer, kindly: too new (no stars or visible use,
   versions still shipping), it asks for the holder's certificate and acts on
@@ -326,18 +308,20 @@
       Decide whether InteliFactu depends on `ventanilla-unica` or keeps its own,
       and file the result in both backlogs.
 
-- [ ] **Cáceres general registry.** `junta presentar` runs on the shared STA
-      registry SPA, but only the Junta's procedure id
-      (`generalRegistryProcedures`) is mapped. Next step: open
-      `sede.caceres.es/sta/reg` once and record its general-registry id, then
-      test a plan run.
-
-## Signing
-
-Found by reading AutoFirma's source (clienteafirma `0d7f3cf`) on 2026-10-15;
-each claim is cited in `~/p/wiki/brain/sources/autofirma/` and summarized in
-`~/p/wiki/brain/topics/autofirma.md`.
-
+- [ ] **Cáceres general registry: `caceres instancia` on Relec.** Found
+      2026-10-15 (read-only): the Cáceres catalogue (`PAGE_CODE=CATALOGO`,
+      `dataset_CATSERV`) lists "Instancia general" as `PTS_DEF_S01`, dboid
+      `6269000000342016807935`, `application: EREG`. Only `STAWEB` procedures (3
+      of 333 in Cáceres) open the `/sta/reg` SPA that `junta presentar` uses
+      (`catserv.js` `enterNewReg`); EREG ones post `frame.jsp` into Relec, the
+      engine of `caceres aportar`. `Relec/TramitaForm` for that dboid opened
+      live with the owner's certificate: the same holder, representative and
+      address fields as Aportación, plus `Asunto` (`ANNOT_TEXT_EXTRACT`) and
+      `gruposDoc` with eleven document slots, and without the four
+      `aportadoc_*`/`referenciaAporDoc` fields. Next: take the procedure id as a
+      parameter in `openRelecForm`/`buildFrameForm`, map the asunto and the
+      slots, build `caceres instancia` plan-first; the submit stays unverified
+      until an owner-authorised filing.
 - [~] **`reg presentar`, the first `signAutoScript` consumer, never ran
   confirmed.** 2026-10-15: login, `reg registros`, `reg registro --out` (signed
   justificante downloaded) and `reg organismos` ran live with the owner's
