@@ -1,3 +1,4 @@
+import type { DigestName } from '../../types/DigestName'
 import type { KeyInfoOptions } from './KeyInfoOptions'
 import type { SignaturePolicy } from './SignaturePolicy'
 import type { SignerCertificate } from './SignerCertificate'
@@ -14,6 +15,8 @@ export type SignatureContext = {
   readonly signingCertificateVersion: SigningCertificateVersion
   readonly policy: SignaturePolicy | undefined
   readonly signingTime: Date
+  readonly signatureDigest: DigestName
+  readonly referencesDigest: DigestName
   readonly mimeType: string
   /** DataObjectFormat Encoding, for base64-wrapped content. */
   readonly encoding: string | undefined

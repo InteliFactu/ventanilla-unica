@@ -14,7 +14,7 @@ describe('signedAttributes', () => {
       new X509Certificate(buildTestIdentity().cert).raw,
     )
     const digest = Buffer.alloc(32, 7)
-    const attributes = signedAttributes(digest, parts)
+    const attributes = signedAttributes(digest, parts, 'sha256')
     expect(attributes).toHaveLength(3)
     expect(attributes[0]?.includes(derOid(cmsOids.contentType))).toBe(true)
     expect(attributes[1]?.includes(digest)).toBe(true)

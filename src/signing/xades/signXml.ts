@@ -1,20 +1,17 @@
 import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
-import { signPkcs1Sha256 } from '../signPkcs1Sha256'
-import { canonicalizeSubtree } from '../xml/mappers/canonicalizeSubtree'
 import { buildContentObject } from './builders/buildContentObject'
 import { buildSignature } from './builders/buildSignature'
 import { formatDistinguishedName } from './formatters/formatDistinguishedName'
 import { formatSignedXml } from './formatters/formatSignedXml'
 import { computeReferenceDigest } from './mappers/computeReferenceDigest'
+import { computeSignatureValue } from './mappers/computeSignatureValue'
 import { contentReferenceSpec } from './mappers/contentReferenceSpec'
 import { placeSignature } from './mappers/placeSignature'
 import { resolveSignatureContext } from './mappers/resolveSignatureContext'
 import { parseCertificateChain } from './parsers/parseCertificateChain'
 import { parseOptionalXml } from './parsers/parseOptionalXml'
-import { selectPathById } from './selectors/selectPathById'
 import type { SignXmlOptions } from './types/SignXmlOptions'
 import type { SignXmlResult } from './types/SignXmlResult'
-import { assertSignatureVerifies } from './validators/assertSignatureVerifies'
 
 /**
  * Sign XML (or, enveloping and detached, any bytes) as XAdES-BES, or
@@ -52,16 +49,13 @@ export const signXml = (
       document,
       skeleton.signature,
       pending.target,
+      context.referencesDigest,
     )
-  const signedInfo = Buffer.from(
-    canonicalizeSubtree(selectPathById(document.root, context.ids.signedInfo), {
-      withComments: false,
-      exclusive: false,
-    }),
+  skeleton.signatureValue.value = computeSignatureValue(
+    identity,
+    document,
+    context,
   )
-  const signature = signPkcs1Sha256(identity, signedInfo)
-  assertSignatureVerifies(certificates.signer, signedInfo, signature)
-  skeleton.signatureValue.value = signature.toString('base64')
   return {
     xml: formatSignedXml(document),
     mode: options.mode,

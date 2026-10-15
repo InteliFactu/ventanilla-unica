@@ -21,6 +21,8 @@ describe('resolveSignatureContext', () => {
       prefixes: { ds: 'ds', xades: 'xades' },
       keyInfo: { chain: true, keyValue: false, reference: true },
       signingCertificateVersion: 1,
+      signatureDigest: 'sha256',
+      referencesDigest: 'sha256',
       policy: undefined,
       mimeType: 'text/xml',
       encoding: undefined,
@@ -37,6 +39,8 @@ describe('resolveSignatureContext', () => {
         keyInfo: { keyValue: true },
         signingCertificateVersion: 2,
         signingTime,
+        signatureDigest: 'sha512',
+        referencesDigest: 'sha1',
       },
       binary,
     )
@@ -45,6 +49,8 @@ describe('resolveSignatureContext', () => {
       keyInfo: { chain: true, keyValue: true },
       signingCertificateVersion: 2,
       signingTime,
+      signatureDigest: 'sha512',
+      referencesDigest: 'sha1',
       mimeType: 'application/octet-stream',
       encoding: xadesUris.base64,
     })

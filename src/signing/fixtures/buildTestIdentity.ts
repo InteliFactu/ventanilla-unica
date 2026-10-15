@@ -10,7 +10,7 @@ import { derSequence } from '../asn1/derSequence'
 import { derSetOf } from '../asn1/derSetOf'
 import { derUtcTime } from '../asn1/derUtcTime'
 import { cmsOids } from '../cms/cmsOids'
-import { signPkcs1Sha256 } from '../signPkcs1Sha256'
+import { signData } from '../signData'
 
 /**
  * A synthetic self-signed RSA certificate and key, built in memory for tests:
@@ -45,7 +45,7 @@ export const buildTestIdentity = (
     name,
     publicKey.export({ type: 'spki', format: 'der' }),
   ])
-  const signature = signPkcs1Sha256({ cert: Buffer.alloc(0), key }, tbs)
+  const signature = signData({ cert: Buffer.alloc(0), key }, tbs, 'sha256')
   const der = derSequence([
     tbs,
     algorithm,

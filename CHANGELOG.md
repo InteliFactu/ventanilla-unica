@@ -8,10 +8,22 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- Signing digests are selectable: `signXml` takes `signatureDigest` and
+  `referencesDigest` (SHA-1, SHA-256, SHA-384 or SHA-512; the CertDigest follows
+  the references, as in AutoFirma), and attached CAdES takes `digest` and an
+  optional CAdES-EPES `policy` (`agePolicyCms`, the AGE policy v1.9).
+- Attached CAdES signatures carry signingTime, which CAdES-B-B requires.
+- AutoScript `NONE` signing reads any `SHA<n>with<RSA|ECDSA>` and signs ECDSA
+  with an EC key, refusing an algorithm whose key family is not the
+  certificate's.
 - `tgss datos-personales` reads Importass "Tus datos personales" (identity,
   phones, e-mail, domicile) after a certificate login to the WebSphere portal.
 - `tgss contacto` (write) changes the mobile, e-mail and landline there, and
   `tgss domicilio` plans a domicile change (plan only).
+
+### Changed
+
+- `signPkcs1Sha256` is replaced by `signData(identity, data, digest)`.
 
 ### Fixed
 

@@ -1,14 +1,14 @@
 import type { BuiltReference } from '../types/BuiltReference'
 import type { ReferenceSpec } from '../types/ReferenceSpec'
-import { xadesUris } from '../xadesUris'
 import { buildDigestElements } from './buildDigestElements'
 import { buildElement } from './buildElement'
 import { buildText } from './buildText'
 
-/** A SHA-256 ds:Reference with an empty DigestValue to fill once the tree is final. */
+/** A ds:Reference with an empty DigestValue to fill once the tree is final. */
 export const buildReference = (
   ds: string,
   spec: ReferenceSpec,
+  digestUri: string,
 ): BuiltReference => {
   const digest = buildText('')
   const transforms =
@@ -30,7 +30,7 @@ export const buildReference = (
       ...(spec.type === undefined ? {} : { Type: spec.type }),
       URI: spec.uri,
     },
-    [...transforms, ...buildDigestElements(ds, xadesUris.sha256, digest)],
+    [...transforms, ...buildDigestElements(ds, digestUri, digest)],
   )
   return { element, pending: { target: spec.target, digest } }
 }

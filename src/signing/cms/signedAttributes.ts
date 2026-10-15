@@ -1,6 +1,7 @@
 import { derOctetString } from '../asn1/derOctetString'
 import { derOid } from '../asn1/derOid'
 import type { CertificateParts } from '../asn1/types/CertificateParts'
+import type { DigestName } from '../types/DigestName'
 import { cmsAttribute } from './cmsAttribute'
 import { cmsOids } from './cmsOids'
 import { signingCertificateV2Attribute } from './signingCertificateV2Attribute'
@@ -13,8 +14,9 @@ import { signingCertificateV2Attribute } from './signingCertificateV2Attribute'
 export const signedAttributes = (
   contentDigest: Buffer,
   signer: CertificateParts,
+  digest: DigestName,
 ): readonly Buffer[] => [
   cmsAttribute(cmsOids.contentType, [derOid(cmsOids.data)]),
   cmsAttribute(cmsOids.messageDigest, [derOctetString(contentDigest)]),
-  signingCertificateV2Attribute(signer),
+  signingCertificateV2Attribute(signer, digest),
 ]

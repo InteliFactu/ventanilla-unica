@@ -1,3 +1,5 @@
+import { digestUris } from '../digestUris'
+import { rsaSignatureUris } from '../rsaSignatureUris'
 import type { BuiltSignedInfo } from '../types/BuiltSignedInfo'
 import type { ReferenceSpec } from '../types/ReferenceSpec'
 import type { SignatureContext } from '../types/SignatureContext'
@@ -6,7 +8,8 @@ import { buildElement } from './buildElement'
 import { buildReference } from './buildReference'
 
 /**
- * ds:SignedInfo with inclusive C14N, RSA-SHA256 and the references: the
+ * ds:SignedInfo with inclusive C14N, RSA with the signature digest, and the
+ * references: the
  * content, the SignedProperties and, when asked, the KeyInfo.
  */
 export const buildSignedInfo = (
@@ -33,10 +36,14 @@ export const buildSignedInfo = (
         ]
       : []),
   ]
-  const built = specs.map((spec) => buildReference(ds, spec))
+  const built = specs.map((spec) =>
+    buildReference(ds, spec, digestUris[context.referencesDigest]),
+  )
   const element = buildElement(`${ds}:SignedInfo`, { Id: ids.signedInfo }, [
     buildElement(`${ds}:CanonicalizationMethod`, { Algorithm: xadesUris.c14n }),
-    buildElement(`${ds}:SignatureMethod`, { Algorithm: xadesUris.rsaSha256 }),
+    buildElement(`${ds}:SignatureMethod`, {
+      Algorithm: rsaSignatureUris[context.signatureDigest],
+    }),
     ...built.map((reference) => reference.element),
   ])
   return { element, references: built.map((reference) => reference.pending) }

@@ -2,7 +2,7 @@ import { X509Certificate } from 'node:crypto'
 
 import { describe, expect, it } from 'vitest'
 
-import { buildTestIdentity } from '../../signing/fixtures/buildTestIdentity'
+import { buildTestIdentity } from '../fixtures/buildTestIdentity'
 import { certificateDerBase64 } from './certificateDerBase64'
 
 describe('certificateDerBase64', () => {

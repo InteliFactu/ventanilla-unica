@@ -5,7 +5,7 @@ import { derOid } from '../asn1/derOid'
 import { derSequence } from '../asn1/derSequence'
 import { derSetOf } from '../asn1/derSetOf'
 import { readCertificateParts } from '../asn1/parsers/readCertificateParts'
-import { signPkcs1Sha256 } from '../signPkcs1Sha256'
+import { signData } from '../signData'
 import { cmsOids } from './cmsOids'
 import { selectSignerCertificates } from './selectors/selectSignerCertificates'
 import { signedAttributes } from './signedAttributes'
@@ -22,14 +22,21 @@ export const buildSignedData = (
 ): Buffer => {
   const certificates = selectSignerCertificates(identity)
   const signer = readCertificateParts(certificates.signer)
-  const attributes = signedAttributes(contentDigest, signer)
-  const signature = signPkcs1Sha256(identity, derSetOf(attributes))
+  const attributes = signedAttributes(contentDigest, signer, 'sha256')
+  const signature = signData(identity, derSetOf(attributes), 'sha256')
   const signedData = derSequence([
     derInteger(1),
     derSetOf([derSequence([derOid(cmsOids.sha256)])]),
     derSequence([derOid(cmsOids.data)]),
     derSetOf([certificates.signer, ...certificates.chain], 0xa0),
-    derSetOf([signerInfo({ signer, attributes, signature })]),
+    derSetOf([
+      signerInfo({
+        signer,
+        digest: 'sha256',
+        attributes,
+        signature,
+      }),
+    ]),
   ])
   return derSequence([derOid(cmsOids.signedData), derContext(0, signedData)])
 }

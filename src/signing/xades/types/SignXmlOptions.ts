@@ -1,3 +1,4 @@
+import type { DigestName } from '../../types/DigestName'
 import type { KeyInfoOptions } from './KeyInfoOptions'
 import type { SignaturePolicy } from './SignaturePolicy'
 import type { SigningCertificateVersion } from './SigningCertificateVersion'
@@ -18,6 +19,10 @@ export type SignXmlOptions = {
   readonly ids?: Partial<XadesIds> | undefined
   /** Default: chain, no key value, KeyInfo referenced. */
   readonly keyInfo?: Partial<KeyInfoOptions> | undefined
+  /** Digest of the RSA signature over SignedInfo; default SHA-256. */
+  readonly signatureDigest?: DigestName | undefined
+  /** Digest of every Reference and of the CertDigest; default SHA-256. */
+  readonly referencesDigest?: DigestName | undefined
   /** Default: now. */
   readonly signingTime?: Date | undefined
   /** DataObjectFormat MimeType; default `text/xml`, or `application/octet-stream` for non-XML. */

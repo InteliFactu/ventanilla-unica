@@ -22,6 +22,8 @@ export const buildTestSignatureContext = (
   signingCertificateVersion: 1,
   policy: undefined,
   signingTime: new Date('2026-09-26T10:00:00.123Z'),
+  signatureDigest: 'sha256',
+  referencesDigest: 'sha256',
   mimeType: 'text/xml',
   encoding: undefined,
   ...overrides,

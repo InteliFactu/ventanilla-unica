@@ -8,11 +8,13 @@ import { derOid } from '../asn1/derOid'
 import { derSequence } from '../asn1/derSequence'
 import { derSetOf } from '../asn1/derSetOf'
 import { readCertificateParts } from '../asn1/parsers/readCertificateParts'
-import { signPkcs1Sha256 } from '../signPkcs1Sha256'
+import { signData } from '../signData'
 import { cadesSignedAttributes } from './cadesSignedAttributes'
+import { cmsDigestOids } from './cmsDigestOids'
 import { cmsOids } from './cmsOids'
 import { selectSignerCertificates } from './selectors/selectSignerCertificates'
 import { signerInfo } from './signerInfo'
+import type { AttachedSignedDataOptions } from './types/AttachedSignedDataOptions'
 
 /**
  * Attached CMS SignedData (RFC 5652) carrying `content` itself: the implicit
@@ -22,19 +24,27 @@ import { signerInfo } from './signerInfo'
 export const buildAttachedSignedData = (
   identity: CertificateIdentity,
   content: Buffer,
-  signingTime: Date = new Date(),
+  options: AttachedSignedDataOptions = {},
 ): Buffer => {
+  const digest = options.digest ?? 'sha256'
   const certificates = selectSignerCertificates(identity)
   const signer = readCertificateParts(certificates.signer)
-  const digest = createHash('sha256').update(content).digest()
-  const attributes = cadesSignedAttributes(digest, signer, signingTime)
-  const signature = signPkcs1Sha256(identity, derSetOf(attributes))
+  const attributes = cadesSignedAttributes(
+    createHash(digest).update(content).digest(),
+    signer,
+    {
+      signingTime: options.signingTime ?? new Date(),
+      digest,
+      policy: options.policy,
+    },
+  )
+  const signature = signData(identity, derSetOf(attributes), digest)
   const signedData = derSequence([
     derInteger(1),
-    derSetOf([derSequence([derOid(cmsOids.sha256)])]),
+    derSetOf([derSequence([derOid(cmsDigestOids[digest])])]),
     derSequence([derOid(cmsOids.data), derContext(0, derOctetString(content))]),
     derSetOf([certificates.signer, ...certificates.chain], 0xa0),
-    derSetOf([signerInfo({ signer, attributes, signature })]),
+    derSetOf([signerInfo({ signer, digest, attributes, signature })]),
   ])
   return derSequence([derOid(cmsOids.signedData), derContext(0, signedData)])
 }

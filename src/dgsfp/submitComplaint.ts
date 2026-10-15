@@ -1,7 +1,7 @@
 import type { CertificateIdentity } from '../certificate/types/CertificateIdentity'
 import type { HttpClient } from '../http/types/HttpClient'
+import { certificateDerBase64 } from '../signing/autoscript/certificateDerBase64'
 import { signPdf } from '../signing/pades/signPdf'
-import { certificateDerBase64 } from '../tgss/signing/certificateDerBase64'
 import { buildRegisterRequest } from './builders/buildRegisterRequest'
 import { checkAttachment } from './fetchers/checkAttachment'
 import { registerComplaint } from './fetchers/registerComplaint'

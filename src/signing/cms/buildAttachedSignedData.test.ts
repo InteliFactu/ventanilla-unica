@@ -11,6 +11,7 @@ import { derOid } from '../asn1/derOid'
 import { readDerChildren } from '../asn1/parsers/readDerChildren'
 import { readDerElement } from '../asn1/parsers/readDerElement'
 import { buildTestIdentity } from '../fixtures/buildTestIdentity'
+import { agePolicyCms } from './agePolicyCms'
 import { buildAttachedSignedData } from './buildAttachedSignedData'
 import { cmsOids } from './cmsOids'
 
@@ -48,5 +49,19 @@ describe('buildAttachedSignedData', () => {
     const value = der.subarray(signature.valueStart, signature.end)
     expect(verify('sha256', signedBytes, key, value)).toBe(true)
     expect(signedBytes.includes(derOid(cmsOids.signingTime))).toBe(true)
+  })
+
+  it('signs with SHA-512 and an AGE policy', () => {
+    const identity = buildTestIdentity()
+    const content = Buffer.from('token to sign')
+    const der = buildAttachedSignedData(identity, content, {
+      digest: 'sha512',
+      policy: agePolicyCms,
+    })
+    expect(der.includes(derOid(cmsOids.sha512))).toBe(true)
+    expect(der.includes(derOid(agePolicyCms.oid))).toBe(true)
+    expect(der.includes(createHash('sha512').update(content).digest())).toBe(
+      true,
+    )
   })
 })

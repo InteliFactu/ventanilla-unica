@@ -1,17 +1,17 @@
 import type { XmlElement } from '../../xml/types/XmlElement'
+import { digestUris } from '../digestUris'
 import { formatDistinguishedName } from '../formatters/formatDistinguishedName'
 import { decimalSerialNumber } from '../mappers/decimalSerialNumber'
-import { sha256Base64 } from '../mappers/sha256Base64'
+import { digestBase64 } from '../mappers/digestBase64'
 import type { SignatureContext } from '../types/SignatureContext'
-import { xadesUris } from '../xadesUris'
 import { buildDigestElements } from './buildDigestElements'
 import { buildElement } from './buildElement'
 import { buildText } from './buildText'
 import { buildTextElement } from './buildTextElement'
 
 /**
- * xades:SigningCertificate (v1) or xades:SigningCertificateV2: the SHA-256
- * digest of the signer certificate, and in v1 its IssuerSerial. V2 leaves the
+ * xades:SigningCertificate (v1) or xades:SigningCertificateV2: the digest of
+ * the signer certificate, with the references' digest as AutoFirma does, and in v1 its IssuerSerial. V2 leaves the
  * optional IssuerSerialV2 out.
  */
 export const buildSigningCertificate = (
@@ -24,8 +24,8 @@ export const buildSigningCertificate = (
     {},
     buildDigestElements(
       ds,
-      xadesUris.sha256,
-      buildText(sha256Base64(signer.raw)),
+      digestUris[context.referencesDigest],
+      buildText(digestBase64(context.referencesDigest, signer.raw)),
     ),
   )
   const issuerSerial = buildElement(`${xades}:IssuerSerial`, {}, [

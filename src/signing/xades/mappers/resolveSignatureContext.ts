@@ -26,6 +26,8 @@ export const resolveSignatureContext = (
     signingCertificateVersion: options.signingCertificateVersion ?? 1,
     policy: options.policy,
     signingTime: options.signingTime ?? new Date(),
+    signatureDigest: options.signatureDigest ?? 'sha256',
+    referencesDigest: options.referencesDigest ?? 'sha256',
     mimeType:
       options.mimeType ??
       (content.document === undefined
