@@ -355,20 +355,27 @@ each claim is cited in `~/p/wiki/brain/sources/autofirma/` and summarized in
       future upload to `stservlet`/`rtservlet` must pass `isAdministrationHost`
       and `https` (AutoFirma checks no host). Next: RED SARA REC as the first
       consumer.
-- [ ] **CMS, XAdES and PAdES sign with RSA only.** `signAutoScript` refuses an
-      EC certificate for any format but `NONE`. Next: ECDSA SignerInfo and
-      `ecdsa-sha*` SignatureMethod, only when an EC certificate appears.
-- [ ] **PAdES gaps:** no timestamp (`tsaURL`), 16384-byte `/Contents` reserve
-      (AutoFirma 27000), no `adbe.pkcs7.detached`, no `signatureField`, no
-      visible placement parameters. Next: the reserve size when a chain or
-      timestamp overflows it.
-- [ ] **No cosign or countersign** (AutoScript `coSign`/`counterSign`). Next:
-      only when a sede asks for one.
-- [~] **Not compared with real AutoFirma output byte for byte.** The Facturae
-  skeleton was matched against a FACe-accepted xsig and every family passes
-  xmlsec1 or openssl, but no AutoFirma run was diffed and no FACe filing or
-  valide.redsara.es check was made (both external acts). Next: run
-  `/Applications/Autofirma.app` in batch mode on a synthetic file and diff.
+- [~] **Sede flows not re-verified after the XAdES shape change.** ROLECE, the
+  STA registry and Relec sign with `signXml` enveloped, which since e3a3197
+  emits AutoFirma's layout (XPath transform, DataObjectFormat fields). Unit
+  tests and xmlsec1 pass; no live act was repeated. Next: the next real ROLECE
+  or STA filing confirms it, or revert that flow's shape.
+- [ ] **FACe and valide.redsara.es never tried** (external acts). Next: with the
+      owner's go-ahead, validate one synthetic XAdES and one PAdES at
+      valide.redsara.es.
+- [ ] **TSA host check misses DNS rebinding.** `validateTsaUrl` checks the
+      literal host, not the address `fetch` resolves. Next: pin the resolved
+      address (custom `lookup`) if a TSA URL ever comes from an untrusted page
+      in practice.
+- [ ] **Only signature timestamps.** AutoFirma `tsType` 2/3 (document
+      timestamps, PAdES-LTV) are refused. Next: when a sede asks for one.
+- [ ] **XAdES and PAdES cosign/countersign are refused.** CAdES has both. CAdES
+      countersign ignores `target` and countersigns every top-level signer.
+      Next: when a sede asks for one.
+- [ ] **Minor AutoFirma differences left:** CAdES `contentHint`, MIME sniffing
+      (AutoFirma writes `text/plain` where we write `application/octet-stream`),
+      and NULL digest parameters. All valid either way. Next: only if a
+      validator objects.
 
 ## Documentation
 

@@ -8,6 +8,18 @@
 
 ### 2026-10
 
+- [x] 2026-10-15 — **Signing:** AutoFirma output compared and the format gaps
+      closed.
+  - Result: XAdES matched element by element with the AutoFirma CLI (e3a3197);
+    ECDSA for CAdES, PAdES and XAdES (5aad449); PAdES placement, page, rect,
+    text, field, `adbe.pkcs7.detached`, 27000-byte reserve (62a2ba7); RFC 3161
+    timestamps for CAdES, PAdES (02d3931) and XAdES (7e81fef); CAdES cosign and
+    countersign (fd869f5). Security-review fixes: PDF page-tree loops (5cc6271)
+    and TSA URLs on internal hosts or redirects (20d84c9).
+  - Evidence: `pnpm check:ci` passes (1666 tests); `openssl cms -verify`,
+    `pdfsig`, `xmlsec1` and `openssl ts -verify` against freetsa.org OK;
+    structure diffed against AutoFirma CLI `sign`, `cosign`, `countersign`.
+
 - [x] 2026-10-15 — **Signing:** AutoFirma parity from its source (clienteafirma
       `0d7f3cf`).
   - Result: Facturae profile (`emisor` role, enveloped transform only, RSA key
