@@ -8,6 +8,43 @@
 
 ### 2026-10
 
+- [x] 2026-10-15 — **Maintenance:** `--out` directories are created before
+      writing.
+  - Result: the ten writers that joined a file under `outDir` without creating
+    it (TGSS PROSA reports including `vida-laboral`, TGSS debt, SEPE, DEHU, AEAT
+    payments, informatives and censal, DGSFP draft and named PDFs, STA
+    justificante) now `mkdir -p` first, as the AEAT writers already did
+    (9b6f6a1). Single-file `--out` paths (model 190, signed files) unchanged.
+  - Evidence: new `writeProsaPdf` test writes under a missing nested directory;
+    `pnpm check:ci` passes (1720 tests).
+
+- [x] 2026-10-15 — **Documentation:** `--help` column sized to the longest
+      command.
+  - Result: `commandLabelWidth` pads to the longest `portal action` plus two
+    spaces (7ca9f36); `aeat certificado-corriente` no longer runs into its
+    description.
+  - Evidence: `usageText.test.ts`; `tsx src/cli/main.ts --help` output checked.
+
+- [x] 2026-10-15 — **Integrations:** `src/index.ts` split by portal; STA
+      registry exported.
+  - Result: `src/tgss/index.ts` and `src/sta/index.ts`; the package index went
+    from 99 to 67 lines and now exports `fileStaRegistryEntry`,
+    `downloadStaRegistryReceipt` and their types (96ad235).
+  - Evidence: `pnpm check:ci` passes (eslint, tsc, knip).
+
+- [x] 2026-10-15 — **Maintenance:** CI red on `main` fixed at the root.
+  - Result: the two failing jobs were `check:quality` (depcruise `no-circular`
+    on the `XmlElement`/`XmlNode` type pair, broken in 149f67f) and
+    `check:security` (GHSA-68fv-2mgg-jv7q source-map-js, overridden to ^1.2.2;
+    GHSA-vfj7-8cjw-p6xm braces, no patched release, dev-only through
+    type-coverage, waived in `.baseline-advisories.json` until 2026-11-15)
+    (8e7cf59). The two `minimumReleaseAgeExclude` entries, plus the prettier
+    one, were dropped: all three releases are past the window.
+  - Evidence: locally
+    `pnpm check:ci && pnpm check:quality && pnpm check:security` exit 0;
+    `pnpm install` leaves the lockfile resolving. Hosted CI result is checked
+    after the push.
+
 - [x] 2026-10-15 — **Signing:** Remaining AutoFirma gaps and two review findings
       closed.
   - Result: the TSA lookup refuses internal resolved addresses (0782998); the

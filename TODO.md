@@ -56,17 +56,10 @@
 
 ## Maintenance
 
-- [ ] **`tgss vida-laboral --out <dir>` fails when the directory does not
-      exist.** 2026-10-13:
-      `ventanilla-unica: ENOENT: no such file or directory, open '<dir>/tgss-vida-laboral-<NAF>.pdf'`,
-      exit 1, after the TGSS had already emitted the report; the same call
-      succeeds once the directory exists. Next: create `--out` recursively
-      before writing (check the other commands that take `--out`).
-
-- [ ] Drop the two `minimumReleaseAgeExclude` entries in `pnpm-workspace.yaml`
-      after 2026-10-08. Added 2026-10-07 for `@syntopica/eslint-config@0.9.0`
-      and `eslint-plugin-code-policy@0.8.0`, which were inside the release-age
-      window. Next: delete both lines and confirm `pnpm install` still resolves.
+- [ ] **braces waiver expires 2026-11-15.** GHSA-vfj7-8cjw-p6xm (braces <=3.0.3,
+      dev-only through type-coverage) had no patched release on 2026-10-15.
+      Next: before the expiry, take the fixed braces through an override, or
+      renew the entry in `.baseline-advisories.json` with the reason.
 
 ## Testing
 
@@ -338,9 +331,6 @@
       (`generalRegistryProcedures`) is mapped. Next step: open
       `sede.caceres.es/sta/reg` once and record its general-registry id, then
       test a plan run.
-- [ ] **`src/index.ts` is at the 100-line lint limit.** The registry modules
-      (`fileStaRegistryEntry`, `downloadStaRegistryReceipt`) are not exported.
-      Next step: split the index by portal, then export them.
 
 ## Signing
 
@@ -376,13 +366,6 @@ each claim is cited in `~/p/wiki/brain/sources/autofirma/` and summarized in
       (AutoFirma writes `text/plain` where we write `application/octet-stream`),
       and NULL digest parameters. All valid either way. Next: only if a
       validator objects.
-
-## Documentation
-
-- [ ] **`--help` column overflows.** `usageText` pads `portal action` to 24
-      characters, so `aeat certificado-censal` and `aeat certificado-corriente`
-      run into their description with no space (seen 2026-10-03). Smallest step:
-      pad to the longest command plus two, or always add one space.
 
 ## Future Ideas
 
@@ -442,13 +425,3 @@ each claim is cited in `~/p/wiki/brain/sources/autofirma/` and summarized in
       attachments are `PrincipalPPL.jsp` `idPPL=DOCADJMEN` then
       `EnviarFichero.jsp`. Endpoints and page names are in the brain page. Next
       step: port the read-only commands on that flow.
-
-## Routed from `~/p/TODO.md` (2026-10-03)
-
-Moved verbatim from `~/p/TODO.md` on 2026-10-03; the routing table in
-`~/p/TODO_LOG.md` (entry of that date) records each move.
-
-- [ ] **CI red on `main`.** Every push run since 2026-09-27 failed (latest
-      2026-10-02 14:52 UTC, `gh run list -R InteliFactu/ventanilla-unica`); on
-      2026-09-28 the failing step was `check:quality`. Split out of a cross-repo
-      "Red CI" line in `~/p/TODO.md`.
