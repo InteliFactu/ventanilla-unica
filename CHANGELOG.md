@@ -18,6 +18,8 @@ All notable changes to this project are documented here. The format follows
 - Rayuela (Educarex) password login and read-only children, inbox previews,
   timetable, absences and teachers commands, with optional child selection.
 
+- `tea expedientes --nif` says whether the Tribunales Económico-Administrativos
+  hold a case for the certificate holder, and refuses a list that has rows.
 - `oargt liquidaciones` says whether the holder has OARGT liquidations, own or
   as representative, and stops at the contact-data gate.
 - `caceres datos-personales` and `junta datos-personales` read the contact ways

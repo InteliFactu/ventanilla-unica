@@ -228,12 +228,9 @@
       before tax). Next: decide whether to buy one per SL or build
       `registro nota` behind `--confirmar si`.
 
-- [ ] **TEA appeal status is outside `aeat expedientes`.** The AEAT Mis
-      Expedientes list covers its own 77 procedures for the tested holder and
-      shows no recurso de reposición, but the separate Tribunales
-      Económico-Administrativos may hold a reclamación. Next: map the TEA's
-      certificate-authenticated, read-only case list and verify its coverage
-      before asserting none is open.
+- [ ] **TEA: `tea expedientes` refuses a list with rows.** Only the empty "Mis
+      expedientes" page has been seen live. Next step: capture the page of a
+      holder with an open reclamación and map its rows and detail.
 
 - [ ] **dgsfp: read commands.** `dgsfp reclamacion` files but nothing reads
       back: no listing of the holder's presentations or drafts was found in the

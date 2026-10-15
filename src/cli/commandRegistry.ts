@@ -36,6 +36,7 @@ import { roleceEstado } from './commands/roleceEstado'
 import { roleceSolicitud } from './commands/roleceSolicitud'
 import { sepeCertificado } from './commands/sepeCertificado'
 import { sepePrestacion } from './commands/sepePrestacion'
+import { teaExpedientes } from './commands/teaExpedientes'
 import { validarNif } from './commands/validarNif'
 import { dehuCommands } from './dehuCommands'
 import { ineCommands } from './ineCommands'
@@ -67,6 +68,7 @@ export const commandRegistry: readonly Command[] = [
   ...carpetaCommands,
   oargtRecibos,
   oargtLiquidaciones,
+  teaExpedientes,
   ...juntaCommands,
   ...caceresCommands,
   ...ineCommands,

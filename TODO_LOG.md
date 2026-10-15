@@ -8,6 +8,18 @@
 
 ### 2026-10
 
+- [x] 2026-10-16 — **TEA:** `tea expedientes --nif` reads the Tribunales
+      Económico-Administrativos case list.
+  - Result: one certificate GET to
+    `www1.tea.hacienda.gob.es/wlpl/TEWV-CORE/ResumenVlt`; answers
+    `hasExpedientes: false` on "No existen expedientes que mostrar", checks the
+    holder shown, refuses rows it cannot map and reports "Contribuyente no
+    autorizado".
+  - Evidence: live run: 76048463K, 78117074N, B22903801, B22903793, E10501278,
+    08885194H and E10484822 hold no TEA case; E67686287 is refused by the sede
+    (HTTP 403, "acuda a su oficina de la Agencia Tributaria"); `pnpm check:ci`
+    green.
+
 - [x] 2026-10-16 — **Rayuela:** password-authenticated read-only readers for the
       Educarex parent area.
   - Result:
