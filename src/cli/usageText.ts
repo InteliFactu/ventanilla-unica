@@ -1,4 +1,5 @@
 import { commandEffectTag } from './mappers/commandEffectTag'
+import { commandLabelWidth } from './mappers/commandLabelWidth'
 import { commandOptionNames } from './mappers/commandOptionNames'
 import type { Command } from './types/Command'
 
@@ -11,7 +12,9 @@ export const usageText = (commands: readonly Command[]): string =>
     '',
     ...commands.map(
       (command) =>
-        `  ${command.portal} ${command.action}`.padEnd(24) +
+        `  ${command.portal} ${command.action}`.padEnd(
+          commandLabelWidth(commands),
+        ) +
         command.description +
         commandEffectTag(command) +
         (commandOptionNames(command).length > 0
