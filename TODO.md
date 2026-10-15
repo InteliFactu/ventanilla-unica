@@ -348,13 +348,18 @@ Found by reading AutoFirma's source (clienteafirma `0d7f3cf`) on 2026-10-15;
 each claim is cited in `~/p/wiki/brain/sources/autofirma/` and summarized in
 `~/p/wiki/brain/topics/autofirma.md`.
 
-- [ ] **AutoScript adapter has no consumer yet.** `signAutoScript`
-      (`src/signing/autoscript/`) is built and unit-tested but drives no sede.
-      ROLECE, NIC, TGSS and Caceres keep their hand-copied calls on purpose:
-      they are live-verified and moving them is a separate, tested change. Any
-      future upload to `stservlet`/`rtservlet` must pass `isAdministrationHost`
-      and `https` (AutoFirma checks no host). Next: RED SARA REC as the first
-      consumer.
+- [~] **`reg presentar`, the first `signAutoScript` consumer, never ran
+  confirmed.** 2026-10-15: login, `reg registros`, `reg registro --out` (signed
+  justificante downloaded) and `reg organismos` ran live with the owner's
+  persona física certificate, and `reg presentar` in plan mode resolved the
+  addressee and address codes. The act (upload to `documents/`,
+  `registry/?certificate=true`, XAdES detached over `xmlSummary`,
+  `registry/signCertificate/:uuid`) is built from the front's bundle, not a
+  capture: the create and sign answers, and whether `xmlSummary` is base64 as
+  AutoScript requires, are unverified. Scope: own name only (no representation),
+  Spanish address, PDFs only. ROLECE, NIC, TGSS and Caceres keep their
+  live-verified hand-copied calls on purpose. Next: the first owner-authorised
+  REG filing confirms it; save its receipt.
 - [~] **Sede flows not re-verified after the XAdES shape change.** ROLECE, the
   STA registry and Relec sign with `signXml` enveloped, which since e3a3197
   emits AutoFirma's layout (XPath transform, DataObjectFormat fields). Unit

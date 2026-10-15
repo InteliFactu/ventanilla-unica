@@ -36,6 +36,7 @@ import { validarNif } from './commands/validarNif'
 import { dehuCommands } from './dehuCommands'
 import { ineCommands } from './ineCommands'
 import { juntaCommands } from './juntaCommands'
+import { regCommands } from './regCommands'
 import { tgssCommands } from './tgssCommands'
 import type { Command } from './types/Command'
 
@@ -75,6 +76,7 @@ export const commandRegistry: readonly Command[] = [
   dgtDatos,
   dgtContacto,
   nicCorreo,
+  ...regCommands,
   firmarPdf,
   firmarXml,
   validarNif,

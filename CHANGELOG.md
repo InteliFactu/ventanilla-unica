@@ -15,6 +15,13 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `reg` portal, the Registro Electrónico General (REG, formerly REC) of the AGE:
+  `reg registros`, `reg registro --uuid [--out]` (detail, SIR trace and every
+  document, the signed justificante included) and `reg organismos --buscar`
+  read; `reg presentar` files a writ with PDFs to any DIR3 unit behind
+  `--confirmar si`, the first sede flow signed through `signAutoScript` (the
+  page's own `AutoScript.sign(xmlSummary, "SHA512withRSA", "XAdES Detached")`).
+  The API answers 400 to a multi-tag `Accept-Language`, so its calls send one.
 - XAdES cosignatures and countersignatures: `cosignXadesSignature` adds a second
   enveloped signature, or a new enveloping one under an `AFIRMA` root, and
   `countersignXadesSignature` adds a xades:CounterSignature over each
