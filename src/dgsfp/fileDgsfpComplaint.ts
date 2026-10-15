@@ -1,4 +1,4 @@
-import { writeFile } from 'node:fs/promises'
+import { mkdir, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
 import type { HttpClient } from '../http/types/HttpClient'
@@ -27,13 +27,16 @@ export const fileDgsfpComplaint = async (
   const action = 'dgsfp reclamacion'
   const plan = mapComplaintPlan(prepared.session.holder, query, prepared)
   if (!context.confirmed) {
-    if (context.outDir !== undefined)
+    if (context.outDir !== undefined) {
       // outDir is the holder's own --out choice, not attacker input.
+      // eslint-disable-next-line security/detect-non-literal-fs-filename
+      await mkdir(context.outDir, { recursive: true })
       // eslint-disable-next-line security/detect-non-literal-fs-filename
       await writeFile(
         join(context.outDir, 'solicitud-borrador.pdf'),
         prepared.document,
       )
+    }
     return {
       action,
       executed: false,

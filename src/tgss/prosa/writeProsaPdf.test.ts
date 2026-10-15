@@ -25,4 +25,20 @@ describe('writeProsaPdf', () => {
     // eslint-disable-next-line security/detect-non-literal-fs-filename
     expect(await readFile(path)).toEqual(pdf)
   })
+
+  it('creates a missing --out directory first', async () => {
+    dir = await mkdtemp(join(tmpdir(), 'ventanilla-unica-prosa-'))
+    const pdf = Buffer.from('%PDF-1.4 informe')
+
+    const path = await writeProsaPdf(
+      join(dir, 'a', 'b'),
+      'vida-laboral',
+      'X',
+      pdf,
+    )
+
+    // the path is the temp file this test just wrote
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
+    expect(await readFile(path)).toEqual(pdf)
+  })
 })
