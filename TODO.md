@@ -313,15 +313,13 @@
 
 ## Future Ideas
 
-- [ ] **STA (Cáceres, Junta tramites): read the holder's contact data and padrón
-      status.** Evidence 2026-10-11: `PAGE_CODE=DATOS_PERSONALES` on both sedes
-      shows "Mis Medios de Contacto" (phone, e-mail, "confirmados") with a
-      "Modificar" button, and `PAGE_CODE=DATOS_HABITANTE` on sede.caceres.es
-      says "No se encuentra empadronado/a en este municipio" when the holder is
-      not inscribed. `caceres datos-contacto` only answers the first-login gate
-      and reports "nothing to confirm" afterwards, so it cannot change data
-      already saved. Next step: a read command for both pages, then a write for
-      "Modificar" (capture its `submitAjax.aa` body) if ever needed.
+- [ ] **STA: "Modificar" contact data and the padrón certificates.** The read
+      side is done (`caceres|junta datos-personales`, `caceres padron`). Left: a
+      write for "Modificar" (`PERSCONTACT_MODIFY`; capture its `submitAjax.aa`
+      body) if ever needed, and the padrón page's certificate buttons
+      (`IMPRIMIR` `EPOB_VC_0010` individual, `EPOB_VC_0030` histórico, through
+      `/sta/docs/GetDocumentServlet`), which emit a document. Next: capture one
+      certificate download when the owner needs one.
 - [ ] **Cáceres padrón change ("alta por cambio de residencia"): not needed
       now.** The owner dropped it on 2026-10-11. Could be built later on the
       generalRegistryProcedures path (registry entry with DNI and escritura).

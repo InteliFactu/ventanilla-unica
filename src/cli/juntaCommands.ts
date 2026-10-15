@@ -3,6 +3,7 @@ import { juntaCarpetaComparecer } from './commands/juntaCarpetaComparecer'
 import { juntaCarpetaDescargar } from './commands/juntaCarpetaDescargar'
 import { juntaCarpetaExpedientes } from './commands/juntaCarpetaExpedientes'
 import { juntaCarpetaNotificaciones } from './commands/juntaCarpetaNotificaciones'
+import { juntaDatosPersonales } from './commands/juntaDatosPersonales'
 import { juntaDeudas } from './commands/juntaDeudas'
 import { juntaDocumentos } from './commands/juntaDocumentos'
 import { juntaExpedientes } from './commands/juntaExpedientes'
@@ -20,6 +21,7 @@ export const juntaCommands: readonly Command[] = [
   juntaExpedientes,
   juntaNotificaciones,
   juntaRegistros,
+  juntaDatosPersonales,
   juntaPresentar,
   juntaAportar,
   juntaJustificante,

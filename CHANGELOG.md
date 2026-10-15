@@ -15,6 +15,10 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `caceres datos-personales` and `junta datos-personales` read the contact ways
+  the STA sede holds, whether it shows them as confirmed, and the identity and
+  addresses when shown; `caceres padron` reads the holder's padrón entry and the
+  people registered at the same address, or `registered: false`.
 - `caceres instancia` plans an "Instancia general" at the Cáceres sede: the PDFs
   checked, the Relec form opened and each PDF mapped to its row, with the
   required rows left empty named. `--confirmar si` refuses until the submission

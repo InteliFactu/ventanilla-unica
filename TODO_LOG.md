@@ -8,6 +8,18 @@
 
 ### 2026-10
 
+- [x] 2026-10-16 — **Future Ideas:** STA read commands for the holder's contact
+      data and padrón status.
+  - Result: `caceres datos-personales` and `junta datos-personales` read
+    `PAGE_CODE=DATOS_PERSONALES` (phone, e-mail, confirmed or not, identity and
+    addresses when shown); `caceres padron` reads `DATOS_HABITANTE`. The Junta
+    sede keeps no padrón: its page answers "Se ha producido un error al buscar
+    los datos del padrón", so no `junta padron` was built.
+  - Evidence: live runs 2026-10-16 with 76048463K at both sedes (Cáceres
+    confirmed, Junta still asking "¿Los medios de contacto son correctos?") and
+    `caceres padron` for 76048463K (registered, two cohabitants) and 78117074N
+    (`registered: false`); `pnpm check:ci` green.
+
 - [-] 2026-10-15 — **Testing:** XAdES mutation test timeout under concurrent
   coverage.
   - Resolution: not reproducible. `signXml` tests run in 20-36 ms at load ~80,
