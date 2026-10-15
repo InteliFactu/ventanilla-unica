@@ -1,13 +1,14 @@
 import type { CanonicalizationOptions } from '../types/CanonicalizationOptions'
 import type { CanonicalRenderState } from '../types/CanonicalRenderState'
 import type { XmlElement } from '../types/XmlElement'
+import { isXmlDsigSignature } from '../validators/isXmlDsigSignature'
 import { canonicalAttributes } from './canonicalAttributes'
 import { canonicalNamespaces } from './canonicalNamespaces'
 import { escapeCanonicalAttribute } from './escapeCanonicalAttribute'
 import { extendNamespaceScope } from './extendNamespaceScope'
 import { renderCanonicalLeaf } from './renderCanonicalLeaf'
 
-/** Render an element and its subtree canonically, skipping the excluded subtree. */
+/** Render an element and its subtree canonically, skipping the excluded subtree (and every ds:Signature when asked). */
 export const renderCanonicalElement = (
   element: XmlElement,
   state: CanonicalRenderState,
@@ -15,6 +16,8 @@ export const renderCanonicalElement = (
 ): string => {
   if (options.exclude === element) return ''
   const scope = extendNamespaceScope(state.scope, element)
+  if (options.excludeSignatures === true && isXmlDsigSignature(element, scope))
+    return ''
   const namespaces = canonicalNamespaces(
     element,
     scope,

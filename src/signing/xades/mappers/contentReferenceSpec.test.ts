@@ -20,7 +20,7 @@ describe('contentReferenceSpec', () => {
         xadesUris.c14n,
         xadesUris.xpath,
       ],
-      target: { kind: 'enveloped' },
+      target: { kind: 'enveloped', allSignatures: true },
     })
   })
   it('keeps the enveloped transform alone when the context drops C14N', () => {

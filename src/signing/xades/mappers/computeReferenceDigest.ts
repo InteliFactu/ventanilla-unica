@@ -30,6 +30,7 @@ export const computeReferenceDigest = (
           withComments: false,
           exclusive: false,
           exclude: signature,
+          excludeSignatures: target.allSignatures,
         },
       ),
     )
@@ -40,6 +41,7 @@ export const computeReferenceDigest = (
         withComments: false,
         exclusive: false,
         exclude: signature,
+        excludeSignatures: target.allSignatures,
       }),
     )
   return digestBase64(

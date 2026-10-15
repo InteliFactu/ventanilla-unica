@@ -6,8 +6,8 @@ import { xadesUris } from '../xadesUris'
 /**
  * The enveloped Reference: `URI=""` (or `#node` when one element is signed)
  * with the enveloped-signature transform and, unless the context drops them,
- * C14N and AutoFirma's XPath filter `not(ancestor-or-self::ds:Signature)`
- * (a no-op after the enveloped transform, so the digest is unchanged).
+ * C14N and AutoFirma's XPath filter `not(ancestor-or-self::ds:Signature)`,
+ * which also drops every other signature already in the document.
  */
 export const envelopedReferenceSpec = (
   context: SignatureContext,
@@ -20,7 +20,10 @@ export const envelopedReferenceSpec = (
     transforms: context.contentC14nTransform
       ? [xadesUris.envelopedSignature, xadesUris.c14n, xadesUris.xpath]
       : [xadesUris.envelopedSignature],
-    target:
-      node === undefined ? { kind: 'enveloped' } : { kind: 'enveloped', node },
+    target: {
+      kind: 'enveloped',
+      node,
+      allSignatures: context.contentC14nTransform,
+    },
   }
 }

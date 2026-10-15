@@ -8,4 +8,6 @@ export type CanonicalizationOptions = {
   readonly inclusivePrefixes?: readonly string[] | undefined
   /** An element left out with its whole subtree (the enveloped-signature transform). */
   readonly exclude?: object | undefined
+  /** Leave out every ds:Signature subtree, as the XPath filter `not(ancestor-or-self::ds:Signature)` does. */
+  readonly excludeSignatures?: boolean | undefined
 }
