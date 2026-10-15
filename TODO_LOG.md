@@ -8,6 +8,19 @@
 
 ### 2026-10
 
+- [x] 2026-10-15 — **Signing:** Remaining AutoFirma gaps and two review findings
+      closed.
+  - Result: the TSA lookup refuses internal resolved addresses (0782998); the
+    TSA request has a 30 s total deadline and IPv6 is limited to global unicast
+    (83feb05); PDF document timestamps, `--sello` and `tsType` 2/3 (bd27257);
+    every ds:Signature is left out of an enveloped digest, which broke signing
+    XML that was already signed (69cce79); XAdES cosign and countersign, PAdES
+    cosign through AutoScript (2f4fabe).
+  - Evidence: `pnpm check:ci` passes (1701 tests); `localtest.me` refused, drip
+    server cut at 30 s; freetsa document token passes `openssl ts -verify` over
+    the byte range; xmlsec1 verifies all 16 signatures of the cosign and
+    countersign runs, including over AutoFirma's own signatures.
+
 - [x] 2026-10-15 — **Signing:** AutoFirma output compared and the format gaps
       closed.
   - Result: XAdES matched element by element with the AutoFirma CLI (e3a3197);

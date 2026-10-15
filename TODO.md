@@ -363,15 +363,10 @@ each claim is cited in `~/p/wiki/brain/sources/autofirma/` and summarized in
 - [ ] **FACe and valide.redsara.es never tried** (external acts). Next: with the
       owner's go-ahead, validate one synthetic XAdES and one PAdES at
       valide.redsara.es.
-- [ ] **TSA host check misses DNS rebinding.** `validateTsaUrl` checks the
-      literal host, not the address `fetch` resolves. Next: pin the resolved
-      address (custom `lookup`) if a TSA URL ever comes from an untrusted page
-      in practice.
-- [ ] **Only signature timestamps.** AutoFirma `tsType` 2/3 (document
-      timestamps, PAdES-LTV) are refused. Next: when a sede asks for one.
-- [ ] **XAdES and PAdES cosign/countersign are refused.** CAdES has both. CAdES
-      countersign ignores `target` and countersigns every top-level signer.
-      Next: when a sede asks for one.
+- [ ] **Multisignature limits:** countersignatures ignore AutoFirma's `target`
+      and countersign every top-level signer (nested ones are not
+      countersigned); detached and internally detached XAdES cannot be cosigned.
+      Next: when a sede sends one.
 - [ ] **Minor AutoFirma differences left:** CAdES `contentHint`, MIME sniffing
       (AutoFirma writes `text/plain` where we write `application/octet-stream`),
       and NULL digest parameters. All valid either way. Next: only if a
