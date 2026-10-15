@@ -6,8 +6,19 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Security
+
+- TSA URLs on loopback, private, link-local or CGNAT addresses, local-only names
+  and dotless hosts are refused, and TSA redirects are not followed: an
+  AutoScript `tsaURL` comes from a sede page.
+
 ### Added
 
+- XAdES-T: `timestampXadesSignature` stamps the inclusive C14N of
+  ds:SignatureValue and appends AutoFirma's UnsignedProperties layout;
+  `firmar xml --tsa <url>` and `signAutoScript` (`tsaURL` with XAdES and
+  FacturaE) use it. Checked against freetsa.org: xmlsec1 still verifies and
+  `openssl ts -verify` accepts the token.
 - RFC 3161 signature timestamps: `timestampSignedData` turns a CMS into CAdES-T,
   `signPdfTimestamped` and `firmar pdf --tsa <url>` sign PAdES-B-T, and
   `signAutoScript` honours `tsaURL`, `tsaPolicy` and `tsaHashAlgorithm` (SHA-512

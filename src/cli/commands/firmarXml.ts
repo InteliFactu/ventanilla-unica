@@ -6,8 +6,8 @@ export const firmarXml: Command = {
   portal: 'firmar',
   action: 'xml',
   description:
-    'Sign an XML file locally as XAdES (--modo enveloped|enveloping|detached|internally-detached, --politica facturae|age|ninguna) into --out',
-  options: ['in', 'modo', 'politica'],
+    'Sign an XML file locally as XAdES (--modo enveloped|enveloping|detached|internally-detached, --politica facturae|age|ninguna, --tsa url for XAdES-T) into --out',
+  options: ['in', 'modo', 'politica', 'tsa'],
   effect: 'sign',
   run: async (_client, options, identity): Promise<unknown> => {
     const request = validateSignXmlQuery(options)

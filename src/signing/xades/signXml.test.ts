@@ -1,9 +1,4 @@
-/* eslint-disable security/detect-non-literal-fs-filename -- every path is a fixture or one this test built under its own temp dir */
-import { execFileSync } from 'node:child_process'
 import { createHash, verify } from 'node:crypto'
-import { existsSync, mkdtempSync, writeFileSync } from 'node:fs'
-import { tmpdir } from 'node:os'
-import { join } from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
@@ -14,6 +9,8 @@ import { selectElementPath } from '../xml/selectors/selectElementPath'
 import type { XmlElement } from '../xml/types/XmlElement'
 import { agePolicy } from './agePolicy'
 import { facturaePolicy } from './facturaePolicy'
+import { hasXmlsec } from './fixtures/hasXmlsec'
+import { xmlsecVerifies } from './fixtures/xmlsecVerifies'
 import { parseCertificateChain } from './parsers/parseCertificateChain'
 import { signXml } from './signXml'
 import type { XadesMode } from './types/XadesMode'
@@ -41,33 +38,6 @@ const signedInfoVerifies = (xml: Buffer): boolean => {
     Buffer.from(value ?? '', 'base64'),
   )
 }
-
-const xmlsecVerifies = (xml: Buffer, detached?: Buffer): string => {
-  const dir = mkdtempSync(join(tmpdir(), 'ventanilla-unica-xades-'))
-  if (detached) writeFileSync(join(dir, 'invoice.xml'), detached)
-  writeFileSync(join(dir, 'signed.xml'), xml)
-  return execFileSync(
-    'xmlsec1',
-    [
-      '--verify',
-      '--insecure',
-      '--enabled-reference-uris',
-      'empty,same-doc,local,remote',
-      ...[
-        'http://uri.etsi.org/01903/v1.3.2#:SignedProperties',
-        'http://www.w3.org/2000/09/xmldsig#:KeyInfo',
-        'http://www.w3.org/2000/09/xmldsig#:Object',
-        'CONTENT',
-      ].flatMap((node) => ['--id-attr:Id', node]),
-      'signed.xml',
-    ],
-    { cwd: dir, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] },
-  )
-}
-
-const hasXmlsec = ['/opt/homebrew/bin/xmlsec1', '/usr/bin/xmlsec1'].some(
-  (path) => existsSync(path),
-)
 
 describe('signXml', () => {
   it.each(['enveloped', 'enveloping', 'detached'] as const)(

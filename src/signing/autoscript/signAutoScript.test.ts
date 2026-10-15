@@ -156,4 +156,22 @@ describe('signAutoScript', () => {
       expect(cms.includes(derOid(cmsOids.signatureTimeStampToken))).toBe(true)
     }
   })
+
+  it('timestamps XAdES and Facturae when tsaURL names a TSA', async () => {
+    for (const format of ['XAdES', 'FacturaE']) {
+      const result = await signAutoScript(
+        identity,
+        {
+          data: base64('<root>x</root>'),
+          algorithm: 'SHA256withRSA',
+          format,
+          extraParams: 'tsaURL=https://tsa.example.test/tsr',
+        },
+        answerTestTimestamp,
+      )
+      expect(Buffer.from(result.signature, 'base64').toString()).toContain(
+        ':EncapsulatedTimeStamp>',
+      )
+    }
+  })
 })

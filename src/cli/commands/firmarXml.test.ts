@@ -19,7 +19,7 @@ describe('firmarXml', () => {
       portal: 'firmar',
       action: 'xml',
       effect: 'sign',
-      options: ['in', 'modo', 'politica'],
+      options: ['in', 'modo', 'politica', 'tsa'],
     })
   })
 

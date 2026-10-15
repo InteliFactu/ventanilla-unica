@@ -16,5 +16,6 @@ export const validateSignXmlQuery = (
     output,
     mode: validateXadesMode(options['modo']),
     policy: validateSignXmlPolicyName(options['politica']),
+    timestamp: options['tsa'] ? { url: options['tsa'] } : undefined,
   }
 }

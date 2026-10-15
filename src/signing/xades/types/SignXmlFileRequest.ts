@@ -1,3 +1,4 @@
+import type { TimestampAuthority } from '../../tsp/types/TimestampAuthority'
 import type { SignXmlPolicyName } from './SignXmlPolicyName'
 import type { XadesMode } from './XadesMode'
 
@@ -7,4 +8,5 @@ export type SignXmlFileRequest = {
   readonly output: string
   readonly mode: XadesMode
   readonly policy: SignXmlPolicyName
+  readonly timestamp?: TimestampAuthority | undefined
 }
