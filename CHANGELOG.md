@@ -18,6 +18,9 @@ All notable changes to this project are documented here. The format follows
 - Rayuela (Educarex) password login and read-only children, inbox previews,
   timetable, absences and teachers commands, with optional child selection.
 
+- `oargt datos-contacto` answers the OARGT sede's contact-data gate; the STA
+  gate parser now reads sede.oargt.es buttons, which wrap their label in an
+  extra span.
 - `tea expedientes --nif` says whether the Tribunales Económico-Administrativos
   hold a case for the certificate holder, and refuses a list that has rows.
 - `oargt liquidaciones` says whether the holder has OARGT liquidations, own or

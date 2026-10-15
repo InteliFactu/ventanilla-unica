@@ -35,4 +35,11 @@ describe('parseGateButtons and selectGateStep', () => {
     expect(selectGateStep(accept)?.action).toBe('PERSIDENT_OK')
     expect(selectGateStep(parseGateButtons('<p>Hecho</p>'))).toBeUndefined()
   })
+
+  it('reads the sede.oargt.es variant, with a style attribute and a wrapping span', () => {
+    const html = `<a class="boton-style tamano-defecto " href="#" onclick="if (jQuery(this).hasClass('disabled')) {return false;} else {if(validateForm(this)){callWidgetEventExecuteOn('DATOS_PERSONALES', 'PERSCONTACT', 'PERSCONTACT_YES', '', '','');};return false;}"\n\t\t   style=""\n\t\t   >\n\t\t\t<span>\n\t\t\t\t<span class="a-text">Sí</span>\n\t\t\t</span>\n\t\t</a>`
+    expect(selectGateStep(parseGateButtons(html))?.action).toBe(
+      'PERSCONTACT_YES',
+    )
+  })
 })

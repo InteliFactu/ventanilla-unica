@@ -28,6 +28,7 @@ import { firmarXml } from './commands/firmarXml'
 import { justiciaDocumentos } from './commands/justiciaDocumentos'
 import { justiciaExpedientes } from './commands/justiciaExpedientes'
 import { nicCorreo } from './commands/nicCorreo'
+import { oargtDatosContacto } from './commands/oargtDatosContacto'
 import { oargtLiquidaciones } from './commands/oargtLiquidaciones'
 import { oargtRecibos } from './commands/oargtRecibos'
 import { placspEstado } from './commands/placspEstado'
@@ -68,6 +69,7 @@ export const commandRegistry: readonly Command[] = [
   ...carpetaCommands,
   oargtRecibos,
   oargtLiquidaciones,
+  oargtDatosContacto,
   teaExpedientes,
   ...juntaCommands,
   ...caceresCommands,
