@@ -8,6 +8,18 @@
 
 ### 2026-10
 
+- [x] 2026-10-15 — **Signing:** AutoFirma parity from its source (clienteafirma
+      `0d7f3cf`).
+  - Result: Facturae profile (`emisor` role, enveloped transform only, RSA key
+    value, SHA-512 references); selectable digests (`signData` replaces
+    `signPkcs1Sha256`); AGE policy for XAdES and CAdES; internally detached
+    XAdES; ECDSA for AutoScript `NONE`; DocMDP P=1 guard in `firmar pdf`; PAdES
+    digest and policy; the generic `signAutoScript` adapter.
+  - Evidence: commits 745579a, 3052b5a, f299ad6, 887ce38, 1539f3d, e908eeb,
+    63cb035; `pnpm check:ci` exit 0; xmlsec1 verifies XAdES SHA-1/256/512 and
+    internally detached; `openssl cms -verify` passes CAdES SHA-512 under the
+    AGE policy.
+
 - [x] 2026-10-15 — **Signing:** attached CAdES now carries signingTime.
   - Result: `buildAttachedSignedData` signs `cadesSignedAttributes` (the PAdES
     set plus signingTime, OID 1.2.840.113549.1.9.5), as ETSI EN 319 122-1
