@@ -251,10 +251,10 @@
   reads both widgets of "Mis liquidaciones" (`LISTALIQ_TODAS`,
   `LISTALIQ_REPRESENTANTE`) when empty, and refuses when either lists rows. Live
   the same day: 76048463K, B22903801, E10501278 and 08885194H have none;
-  78117074N and E10484822 have none since their contact data were confirmed with
-  `oargt datos-contacto` (owner-authorised); B22903793 and E67686287 still stop
-  at the gate, which has no contact data for them and needs an e-mail from the
-  owner. Next: when a holder has a liquidation, save the page and parse its
+  78117074N, E10484822 and B22903793 have none since their contact data were
+  confirmed with `oargt datos-contacto` (owner-authorised; B22903793 saved
+  info@vibracaceres.com). E67686287 (AJN, dissolved) stays at the gate by owner
+  decision. Next: when a holder has a liquidation, save the page and parse its
   rows.
 - [!] **`junta pagos` answers HTTP 500 for E10484822.** The MisPagos search POST
   returns 500 with an empty body for that holder only, every year tried; the
