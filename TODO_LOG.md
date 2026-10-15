@@ -8,6 +8,22 @@
 
 ### 2026-10
 
+- [x] 2026-10-15 — **Integrations:** `justicia expedientes` and
+      `justicia     documentos` (Carpeta Justicia, read-only).
+  - Result: Cl@ve login with the certificate (Liferay login, meta refresh to
+    `am.justicia.es`, entity-encoded SAML form, AFIRMA), the "Mis expedientes"
+    cards with their index, and the Atenea IRIS visor tree flattened with the
+    notifications and LexNET receipts nested under each document, each saved
+    with `--out`. Findings: the tree call must be sent minimal (`codOpe`,
+    `codExpediente`, `orden`), since any value for the page's
+    `mostrarTiposDocumentales`/`mostrarSoloDocumentos` flags answers HTTP 902;
+    the check call's `cookie` field is not needed for the download.
+    `justicia.es` joined the host allowlist.
+  - Evidence: live 2026-10-15 with Alba's certificate: 4 expedientes; MON
+    670/2026 listed and downloaded 39 documents (19.3 MB, all PDF; 37 on
+    2026-10-09); LEV 50/2022 refused with the visor's own message.
+    `pnpm check:ci` passes (1727 tests).
+
 - [x] 2026-10-15 — **Owner requests:** what an OARGT receipt charges for.
   - Result: the receipts JSON already carries `accounyear`; `oargt recibos` now
     returns it as `accountingPeriod` (666bc4b). Deluxe's 261243480 (ref 117) is

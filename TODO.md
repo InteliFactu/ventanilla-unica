@@ -189,42 +189,6 @@
       Salud Online (`ses.es` is not in `isAdministrationHost`); Catastro titular
       domicile via sedecatastro. Email/phone only; addresses wait for the owner.
 
-- [ ] **justicia: `justicia expedientes` for the Carpeta Justicia (read-only).**
-      Mapped live 2026-10-09 with Alba's certificate (MON 670/2026). Needs
-      `justicia.es` in `isAdministrationHost`. Login: GET
-      `carpeta.justicia.es/c/portal/login` -> 308 to `selfservice-ext/login`,
-      whose meta refresh goes to
-      `am.justicia.es/selfservice-ext/saml2/sp/login/clave` (SAMLRequest form to
-      pasarela.clave.gob.es); IdP chooser `idpRedirect` with
-      `SelectedIdP=AFIRMA`, then the usual relay (`idpUrl` wins) back to
-      `am.justicia.es/.../login/clave`, landing on `/group/guest/home`. List:
-      GET `/group/guest/expedientes` (cards `cj-card__key/val`: Procedimiento,
-      Organo, Estado, Fecha de estado, NIG); detail
-      `...&_carjusmisprocedimientosmodule_mvcRenderCommandName=%2FmisProcedimientosDefault&_carjusmisprocedimientosmodule_idExpediente=<n>`
-      carries the Atenea IRIS link
-      `eje.justicia.es/visor-webapp/plantillaMatriz/accesoExternoEjeSeleccionOrgano-flow?coPro&nuPro&anPro&coOrd&codConsejo&rol=C`.
-      Visor page gives `execution` (e1s1), `_csrf` meta and `var codExpediente`.
-      POST `visor-webapp/plantillaMatriz/AjaxResolver?tipo=accesoExternoEje`
-      with `X-CSRF-TOKEN`: `codOpe=accesoExternoEjeGetArbolByCodExpediente`
-      (destino=procedimientoConstruccion, orden=asc) returns the full document
-      tree; `getActosComunicacionDocumento` (idNodo) returns who was notified,
-      by which channel and when; `getMetadataDocumento` (idNodo) gives tramite,
-      escrito presenter and dates. Document content SOLVED the same day: the
-      earlier 902s came from `nombreArbol=procedimientoConstruccion`; the visor
-      JS maps the tab to `doc` (`eje`, `video`, `adm` for the others). POST
-      `codOpe=accesoExternoEjeCheckDocumento` (codigoBarras,
-      nombreProcedimiento, idDoc, operacionAuditoria=Consulta,
-      esExpediente=false, codExpediente, esEje=false, checkFirmado=true,
-      nombreArbol=doc) answers `{result:true, extension}`, then GET
-      `visor-webapp/externoEjeControllerDocument?action=getDocumentoByCodigoApache&filename=doc<ext>&idDoc&execution&codigoBarras&nombreArbol=doc`
-      returns the file; no extra cookie. All 37 documents of MON 670/2026 came
-      down this way, so the ZIP job (`descargarFicheros`, estadoDescarga 7) is
-      not needed. The three 2022-23 delitos-leves expedientes are refused by the
-      visor itself ("No tiene acceso al procedimiento... no cumplir con los
-      requisitos de acceso"), no codExpediente: a server-side access rule, not a
-      client bug. Next: build list + tree + actos + document download as a
-      command.
-
 - [ ] **morosos: `experian acceso` and `equifax acceso` for the debtor files
       (BADEXCUG, ASNEF).** Mapped live 2026-10-09 for Alba (78117074N). Neither
       takes a certificate or Cl@ve; both are an account per person with an email
