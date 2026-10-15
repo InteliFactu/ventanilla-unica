@@ -58,6 +58,22 @@ describe('contentReferenceSpec', () => {
       target: { kind: 'bytes', data: bytes },
     })
   })
+  it('points at the CONTENT node when internally detached', () => {
+    expect(
+      contentReferenceSpec('internally-detached', context, xml, undefined),
+    ).toEqual({
+      id: 'R',
+      uri: '#CONTENT',
+      transforms: [xadesUris.c14n],
+      target: { kind: 'id', id: 'CONTENT' },
+    })
+    expect(
+      contentReferenceSpec('internally-detached', context, binary, undefined),
+    ).toMatchObject({
+      transforms: [xadesUris.base64],
+      target: { kind: 'bytes', data: bytes },
+    })
+  })
   it('digests the raw bytes under the given URI when detached', () => {
     expect(
       contentReferenceSpec('detached', context, binary, 'a.xml'),

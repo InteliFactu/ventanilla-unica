@@ -10,4 +10,7 @@ export type XadesIds = {
   readonly reference: string
   /** Id of the ds:Object that holds the content when enveloping. */
   readonly object: string
+  /** Internally detached: the `AFIRMA` root and the `CONTENT` node. */
+  readonly detachedRoot: string
+  readonly detachedContent: string
 }

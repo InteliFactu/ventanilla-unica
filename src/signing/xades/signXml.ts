@@ -43,7 +43,12 @@ export const signXml = (
       ? buildContentObject(context, content)
       : undefined,
   )
-  const document = placeSignature(options.mode, content, skeleton.signature)
+  const document = placeSignature(
+    options.mode,
+    context,
+    content,
+    skeleton.signature,
+  )
   for (const pending of skeleton.references)
     pending.digest.value = computeReferenceDigest(
       document,

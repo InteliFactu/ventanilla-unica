@@ -8,6 +8,10 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `firmar xml --modo internally-detached` writes AutoFirma's "XAdES Detached":
+  an `AFIRMA` root holding the content in a `CONTENT` node (base64 for non-XML)
+  with the signature as its sibling. `--modo detached` keeps meaning a signature
+  over an external file.
 - `firmar xml --politica age` signs XAdES-EPES under the AGE policy v1.9 with
   its SPURI, as AutoFirma does on `expPolicy=FirmaAGE`; `SignaturePolicy` gains
   `qualifier`.

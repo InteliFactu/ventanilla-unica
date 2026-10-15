@@ -13,7 +13,8 @@ export const resolveSignatureContext = (
   content: SignedContent,
 ): SignatureContext => {
   const wrapped =
-    options.mode === 'enveloping' && content.document === undefined
+    (options.mode === 'enveloping' || options.mode === 'internally-detached') &&
+    content.document === undefined
   return {
     ...resolveSignatureProfile(options),
     certificates,

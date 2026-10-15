@@ -5,7 +5,9 @@ import type { XadesIds } from '../types/XadesIds'
 /**
  * Every Id, AutoFirma style: `Signature-<uuid>` and its `-SignedInfo`,
  * `-SignatureValue`, `-KeyInfo`, `-SignedProperties`, `-QualifyingProperties`
- * and `-Object` suffixes, plus `Reference-<uuid>`; any of them overridable.
+ * and `-Object` suffixes, plus `Reference-<uuid>`, and the `AFIRMA-Root-<uuid>`
+ * and `CONTENT-<uuid>` of an internally detached signature; any of them
+ * overridable.
  */
 export const resolveXadesIds = (
   overrides: Partial<XadesIds> = {},
@@ -20,6 +22,8 @@ export const resolveXadesIds = (
     qualifyingProperties: `${signature}-QualifyingProperties`,
     reference: `Reference-${randomUUID()}`,
     object: `${signature}-Object`,
+    detachedRoot: `AFIRMA-Root-${randomUUID()}`,
+    detachedContent: `CONTENT-${randomUUID()}`,
     ...overrides,
   }
 }

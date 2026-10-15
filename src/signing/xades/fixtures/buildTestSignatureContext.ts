@@ -17,6 +17,8 @@ export const buildTestSignatureContext = (
     qualifyingProperties: 'S-QualifyingProperties',
     reference: 'R',
     object: 'S-Object',
+    detachedRoot: 'AFIRMA-Root',
+    detachedContent: 'CONTENT',
   },
   keyInfo: { chain: true, keyValue: false, reference: true },
   signingCertificateVersion: 1,

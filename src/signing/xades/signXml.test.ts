@@ -12,6 +12,7 @@ import { canonicalizeSubtree } from '../xml/mappers/canonicalizeSubtree'
 import { parseXmlDocument } from '../xml/parsers/parseXmlDocument'
 import { selectElementPath } from '../xml/selectors/selectElementPath'
 import type { XmlElement } from '../xml/types/XmlElement'
+import { agePolicy } from './agePolicy'
 import { facturaePolicy } from './facturaePolicy'
 import { parseCertificateChain } from './parsers/parseCertificateChain'
 import { signXml } from './signXml'
@@ -52,12 +53,12 @@ const xmlsecVerifies = (xml: Buffer, detached?: Buffer): string => {
       '--insecure',
       '--enabled-reference-uris',
       'empty,same-doc,local,remote',
-      '--id-attr:Id',
-      'http://uri.etsi.org/01903/v1.3.2#:SignedProperties',
-      '--id-attr:Id',
-      'http://www.w3.org/2000/09/xmldsig#:KeyInfo',
-      '--id-attr:Id',
-      'http://www.w3.org/2000/09/xmldsig#:Object',
+      ...[
+        'http://uri.etsi.org/01903/v1.3.2#:SignedProperties',
+        'http://www.w3.org/2000/09/xmldsig#:KeyInfo',
+        'http://www.w3.org/2000/09/xmldsig#:Object',
+        'CONTENT',
+      ].flatMap((node) => ['--id-attr:Id', node]),
       'signed.xml',
     ],
     { cwd: dir, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] },
@@ -145,6 +146,19 @@ describe('signXml', () => {
         signingCertificateVersion: 2,
       })
       expect(xmlsecVerifies(result.xml, invoice)).toBe('')
+    },
+  )
+
+  it.skipIf(!hasXmlsec).each([invoice, Buffer.from([0, 1, 2])])(
+    'passes xmlsec1 --verify internally detached, AutoFirma layout',
+    (content: Buffer) => {
+      const result = signXml(identity, content, {
+        mode: 'internally-detached',
+        policy: agePolicy,
+      })
+      expect(parseXmlDocument(result.xml).root.name).toBe('AFIRMA')
+      expect(signedInfoVerifies(result.xml)).toBe(true)
+      expect(xmlsecVerifies(result.xml)).toBe('')
     },
   )
 
