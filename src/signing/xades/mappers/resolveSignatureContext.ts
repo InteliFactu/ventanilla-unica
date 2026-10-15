@@ -3,6 +3,7 @@ import type { SignedContent } from '../types/SignedContent'
 import type { SignerCertificate } from '../types/SignerCertificate'
 import type { SignXmlOptions } from '../types/SignXmlOptions'
 import { xadesUris } from '../xadesUris'
+import { resolveSignatureProfile } from './resolveSignatureProfile'
 import { resolveXadesIds } from './resolveXadesIds'
 
 /** Apply the documented defaults to the caller's options. */
@@ -14,6 +15,7 @@ export const resolveSignatureContext = (
   const wrapped =
     options.mode === 'enveloping' && content.document === undefined
   return {
+    ...resolveSignatureProfile(options),
     certificates,
     prefixes: { ds: 'ds', xades: 'xades', ...options.prefixes },
     ids: resolveXadesIds(options.ids),
@@ -26,8 +28,6 @@ export const resolveSignatureContext = (
     signingCertificateVersion: options.signingCertificateVersion ?? 1,
     policy: options.policy,
     signingTime: options.signingTime ?? new Date(),
-    signatureDigest: options.signatureDigest ?? 'sha256',
-    referencesDigest: options.referencesDigest ?? 'sha256',
     mimeType:
       options.mimeType ??
       (content.document === undefined

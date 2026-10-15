@@ -1,13 +1,16 @@
 import type { XmlElement } from '../../xml/types/XmlElement'
 import type { SignatureContext } from '../types/SignatureContext'
+import { buildDataObjectFormat } from './buildDataObjectFormat'
 import { buildElement } from './buildElement'
 import { buildSignaturePolicyIdentifier } from './buildSignaturePolicyIdentifier'
+import { buildSignerRole } from './buildSignerRole'
 import { buildSigningCertificate } from './buildSigningCertificate'
 import { buildTextElement } from './buildTextElement'
 
 /**
  * xades:SignedProperties: SigningTime (UTC), SigningCertificate, the policy
- * when EPES, and a DataObjectFormat for the signed content.
+ * when EPES, the SignerRole when roles are claimed, and a DataObjectFormat for
+ * the signed content.
  */
 export const buildSignedProperties = (
   context: SignatureContext,
@@ -17,10 +20,10 @@ export const buildSignedProperties = (
     context.policy === undefined
       ? []
       : [buildSignaturePolicyIdentifier(context.prefixes, context.policy)]
-  const encoding =
-    context.encoding === undefined
+  const role =
+    context.signerRoles.length === 0
       ? []
-      : [buildTextElement(`${xades}:Encoding`, context.encoding)]
+      : [buildSignerRole(xades, context.signerRoles)]
   const signingTime = context.signingTime
     .toISOString()
     .replace(/\.\d{3}Z$/, 'Z')
@@ -32,16 +35,10 @@ export const buildSignedProperties = (
         buildTextElement(`${xades}:SigningTime`, signingTime),
         buildSigningCertificate(context),
         ...policy,
+        ...role,
       ]),
       buildElement(`${xades}:SignedDataObjectProperties`, {}, [
-        buildElement(
-          `${xades}:DataObjectFormat`,
-          { ObjectReference: `#${context.ids.reference}` },
-          [
-            buildTextElement(`${xades}:MimeType`, context.mimeType),
-            ...encoding,
-          ],
-        ),
+        buildDataObjectFormat(context),
       ]),
     ],
   )

@@ -6,7 +6,8 @@ import { xadesUris } from '../xadesUris'
 
 /**
  * The Reference to the signed content: `URI=""` (or `#node` when one
- * element is signed) with the enveloped-signature and C14N transforms; `#<object>` for enveloping (a base64 transform when the
+ * element is signed) with the enveloped-signature and, unless the context
+ * drops it, C14N transforms; `#<object>` for enveloping (a base64 transform when the
  * content is not XML); the given URI over the raw bytes when detached.
  */
 export const contentReferenceSpec = (
@@ -21,7 +22,9 @@ export const contentReferenceSpec = (
     return {
       id,
       uri: node === undefined ? '' : `#${node}`,
-      transforms: [xadesUris.envelopedSignature, xadesUris.c14n],
+      transforms: context.contentC14nTransform
+        ? [xadesUris.envelopedSignature, xadesUris.c14n]
+        : [xadesUris.envelopedSignature],
       target:
         node === undefined
           ? { kind: 'enveloped' }

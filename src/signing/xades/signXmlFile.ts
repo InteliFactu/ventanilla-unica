@@ -1,7 +1,7 @@
 import { basename } from 'node:path'
 
 import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
-import { facturaePolicy } from './facturaePolicy'
+import { facturaeProfile } from './facturaeProfile'
 import { readContentFile } from './fetchers/readContentFile'
 import { signXmlFileNotes } from './mappers/signXmlFileNotes'
 import { parseOptionalXml } from './parsers/parseOptionalXml'
@@ -18,7 +18,7 @@ export const signXmlFile = async (
   const content = await readContentFile(request.input)
   const result = signXml(identity, content, {
     mode: request.mode,
-    ...(request.policy === 'facturae' ? { policy: facturaePolicy } : {}),
+    ...(request.policy === 'facturae' ? facturaeProfile : {}),
     ...(request.mode === 'detached'
       ? { detachedUri: basename(request.input) }
       : {}),

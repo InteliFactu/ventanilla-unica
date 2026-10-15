@@ -25,6 +25,15 @@ export type SignXmlOptions = {
   readonly referencesDigest?: DigestName | undefined
   /** Default: now. */
   readonly signingTime?: Date | undefined
+  /** xades:SignerRole ClaimedRoles; default none. Facturae claims `emisor`. */
+  readonly signerRoles?: readonly string[] | undefined
+  /**
+   * Enveloped only: follow the enveloped-signature transform with C14N.
+   * Default true; Facturae signs with the enveloped transform alone.
+   */
+  readonly contentC14nTransform?: boolean | undefined
+  /** DataObjectFormat ObjectIdentifier (OIDAsURN), e.g. `urn:oid:1.2.840.10003.5.109.10`; default none. */
+  readonly objectIdentifier?: string | undefined
   /** DataObjectFormat MimeType; default `text/xml`, or `application/octet-stream` for non-XML. */
   readonly mimeType?: string | undefined
   /** Reference URI of detached content; required in detached mode. */

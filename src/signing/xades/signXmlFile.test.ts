@@ -29,7 +29,12 @@ describe('signXmlFile', () => {
       signer: 'CN=VENTANILLA UNICA TEST',
       notes: [],
     })
-    expect(written.toString()).toContain('politica_de_firma_formato_facturae')
+    const text = written.toString()
+    expect(text).toContain('politica_de_firma_formato_facturae')
+    expect(text).toContain('<xades:ClaimedRole>emisor</xades:ClaimedRole>')
+    expect(text).toContain('<ds:RSAKeyValue>')
+    expect(text).not.toContain('REC-xml-c14n-20010315"></ds:Transform>')
+    expect(text.match(/xmlenc#sha512/g)).toHaveLength(4)
   })
 
   it('references the input by file name when detached', async () => {

@@ -19,6 +19,16 @@ describe('contentReferenceSpec', () => {
       target: { kind: 'enveloped' },
     })
   })
+  it('keeps the enveloped transform alone when the context drops C14N', () => {
+    expect(
+      contentReferenceSpec(
+        'enveloped',
+        buildTestSignatureContext({ contentC14nTransform: false }),
+        xml,
+        undefined,
+      ).transforms,
+    ).toEqual([xadesUris.envelopedSignature])
+  })
   it('signs one node by id when the context names it', () => {
     expect(
       contentReferenceSpec(

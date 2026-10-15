@@ -8,6 +8,11 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `firmar xml --politica facturae` emits AutoFirma's Facturae profile, matched
+  against a signature FACe accepted: the `emisor` SignerRole, the
+  enveloped-signature transform alone, the RSA key value, SHA-512 references and
+  CertDigest, and the text/xml ObjectIdentifier. `signXml` gains `signerRoles`,
+  `contentC14nTransform` and `objectIdentifier`.
 - Signing digests are selectable: `signXml` takes `signatureDigest` and
   `referencesDigest` (SHA-1, SHA-256, SHA-384 or SHA-512; the CertDigest follows
   the references, as in AutoFirma), and attached CAdES takes `digest` and an
