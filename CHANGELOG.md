@@ -39,6 +39,8 @@ All notable changes to this project are documented here. The format follows
 
 ### Fixed
 
+- `firmar pdf` refuses a PDF certified with no changes allowed (DocMDP P=1),
+  which a new signature would invalidate; it used to sign it silently.
 - The cookie jar now honours deletions (`Expires` in the past, `Max-Age=0`).
   WebSphere Portal clears `com.ibm.portal.SUA_WPReqURL` that way, and replaying
   the stale value made every Importass `myportal` page redirect to itself.

@@ -3,6 +3,7 @@ import { readPdfDocument } from './parsers/readPdfDocument'
 import { selectCommonName } from './selectors/selectCommonName'
 import type { SignPdfOptions } from './types/SignPdfOptions'
 import { planSignatureObjects } from './update/planSignatureObjects'
+import { validateSignablePdf } from './validators/validateSignablePdf'
 import { appendUpdate } from './writers/appendUpdate'
 import { patchSignature } from './writers/patchSignature'
 
@@ -16,6 +17,7 @@ export const signPdf = (
   options: SignPdfOptions = {},
 ): Buffer => {
   const doc = readPdfDocument(pdf)
+  validateSignablePdf(doc)
   const objects = planSignatureObjects(doc, {
     commonName: selectCommonName(identity),
     date: options.date ?? new Date(),
