@@ -11,7 +11,7 @@ describe('parseRelecSlots', () => {
         '61_NEWtipo': '2017',
         '61_NEWrequired': 'true',
         '61_NEWDocReq': '61',
-        '62_NEWname': 'Memoria',
+        '62_NEWname': String.raw`Fotograf\u00EDas`,
         '62_NEWDocReq': '62',
         '61_2000DocReq': '61',
       }),
@@ -25,7 +25,7 @@ describe('parseRelecSlots', () => {
       },
       {
         dboid: '62',
-        name: 'Memoria',
+        name: 'Fotografías',
         description: '',
         required: false,
         typeDboid: '',

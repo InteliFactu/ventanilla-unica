@@ -15,6 +15,11 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `caceres instancia` plans an "Instancia general" at the Cáceres sede: the PDFs
+  checked, the Relec form opened and each PDF mapped to its row, with the
+  required rows left empty named. `--confirmar si` refuses until the submission
+  is captured. `caceres procedimiento` now decodes the `\uXXXX` escapes in row
+  names and descriptions.
 - `reg` portal, the Registro Electrónico General (REG, formerly REC) of the AGE:
   `reg registros`, `reg registro --uuid [--out]` (detail, SIR trace and every
   document, the signed justificante included) and `reg organismos --buscar`

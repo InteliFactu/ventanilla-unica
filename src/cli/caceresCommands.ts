@@ -1,6 +1,7 @@
 import { caceresAportar } from './commands/caceresAportar'
 import { caceresDatosContacto } from './commands/caceresDatosContacto'
 import { caceresExpedientes } from './commands/caceresExpedientes'
+import { caceresInstancia } from './commands/caceresInstancia'
 import { caceresNotificaciones } from './commands/caceresNotificaciones'
 import { caceresProcedimiento } from './commands/caceresProcedimiento'
 import { caceresRegistros } from './commands/caceresRegistros'
@@ -14,4 +15,5 @@ export const caceresCommands: readonly Command[] = [
   caceresProcedimiento,
   caceresDatosContacto,
   caceresAportar,
+  caceresInstancia,
 ]
