@@ -30,10 +30,13 @@ export const runCli = async (
     write(JSON.stringify(offline, null, 2) + '\n')
     return 0
   }
-  const identity = await loadCertificateIdentity({
-    cert: options['cert'],
-    key: options['key'],
-  })
+  const identity =
+    command.login === 'password'
+      ? undefined
+      : await loadCertificateIdentity({
+          cert: options['cert'],
+          key: options['key'],
+        })
   const result = await command.run(
     createHttpClient(identity),
     options,

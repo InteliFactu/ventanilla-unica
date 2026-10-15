@@ -8,6 +8,20 @@
 
 ### 2026-10
 
+- [x] 2026-10-16 — **Rayuela:** password-authenticated read-only readers for the
+      Educarex parent area.
+  - Result:
+    `rayuela hijos|mensajes|horario|faltas|profesorado [--hijo <id|name>]`;
+    credentials only from
+    `VENTANILLA_UNICA_RAYUELA_USUARIO`/`VENTANILLA_UNICA_RAYUELA_CLAVE`; no
+    certificate is sent (`Command.login: 'password'`); messages read from list
+    previews, never opened; empty absences page ("No existen datos") answers
+    `[]`.
+  - Evidence: live run with the owner's parent account: 2 children, 200 of 388
+    inbox previews, timetable 7 slots x 5 days, 5 absences for one child and
+    `[]` for the other via `--hijo`, 13 teachers; `pnpm check:ci` green (763
+    files, 1783 tests).
+
 - [x] 2026-10-16 — **Future Ideas:** STA read commands for the holder's contact
       data and padrón status.
   - Result: `caceres datos-personales` and `junta datos-personales` read

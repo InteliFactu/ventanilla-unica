@@ -6,6 +6,7 @@
 export const isAdministrationHost = (host: string): boolean => {
   const domains = [
     'gob.es',
+    'educarex.es',
     'agenciatributaria.es',
     'seg-social.es',
     'redsara.es',

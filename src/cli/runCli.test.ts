@@ -79,3 +79,24 @@ describe('parseCliOptions', () => {
     })
   })
 })
+
+it('runs password commands without loading a certificate or using the offline client', async () => {
+  const command: Command = {
+    ...echo,
+    login: 'password',
+    run: async (client, _options, identity) => {
+      expect(identity).toBeUndefined()
+      expect(client.cookie('rayuela.educarex.es', 'session')).toBeUndefined()
+      return Promise.resolve({ password: true })
+    },
+  }
+  const output: string[] = []
+  expect(
+    await runCli(
+      ['demo', 'echo', '--cert', '/nonexistent/cert'],
+      [command],
+      (text) => output.push(text),
+    ),
+  ).toBe(0)
+  expect(JSON.parse(output.join(''))).toEqual({ password: true })
+})

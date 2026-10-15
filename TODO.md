@@ -354,25 +354,11 @@
       Signing, plus a WS-Security envelope signer.
 - [ ] RED SARA REC general registry filing.
 - [ ] BOE fixed-width modelo writer and validator.
-- [ ] **Rayuela (Educarex) portal:
-      `rayuela mensajes|horario|faltas|profesorado|calificaciones`.** Mapped
-      live on 2026-09-29 with the owner's parent account; the full flow is in
-      `~/p/wiki/brain/topics/rayuela-headless.md`. Login is a plain form POST
-      (`usuario`, `clave`, `tipo_acceso=NORMAL`, `nombre-pagina=identificacion`,
-      `nombre-pagina-destino=comprobar-usuario`) to
-      `modulo_acceso/controlador.rayuela;jsessionid=...`; certificate and Cl@ve
-      buttons also exist (`peticionCertificadoDigital()`, `peticionClavePIN()`),
-      so the holder's certificate path fits the package. The message list page
-      carries each message's subject and HTML body in a hidden `.jsonLinea` JSON
-      per row (truncated for long bodies), so the inbox reads without opening a
-      message, which would mark it read. The whole read path was replayed with
-      curl on 2026-09-29, so no HAR is needed: login POST, then
-      `seleccion-modulo` POST with
-      `aplicacionSeleccionada=SEGUIMIENTO_EDUCATIVO` returns an
-      `EntradaDirectaUsuario.jsp?token=...` URL whose GET answers JSON with
-      `nombreVentana`; every page is then
-      `segedu/jsp/Principal.jsp?COD_PAGINA=<c_ code from menu.html>&X_MENU=...&N_V_=<nombreVentana>`
-      (ISO-8859-1). Child switch is `cambiaAlumnoDirecto.jsp?alumnoSalto=<id>`;
-      attachments are `PrincipalPPL.jsp` `idPPL=DOCADJMEN` then
-      `EnviarFichero.jsp`. Endpoints and page names are in the brain page. Next
-      step: port the read-only commands on that flow.
+- [ ] **Rayuela: `calificaciones`, message paging and attachments.**
+      `rayuela hijos|mensajes|horario|faltas|profesorado` read live on
+      2026-10-16. Not done: grades (no menu code mapped), inbox pages after the
+      first 200 messages, attachment download (`PrincipalPPL.jsp`
+      `idPPL=DOCADJMEN` then `EnviarFichero.jsp`), and the empty layouts of the
+      timetable, teachers and inbox pages, which were only seen populated. Next
+      step: capture the grades menu entry for one child during an evaluation
+      period. Flow notes: `~/p/wiki/brain/topics/rayuela-headless.md`.

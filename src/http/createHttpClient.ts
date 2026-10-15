@@ -14,7 +14,9 @@ import type { HttpResponse } from './types/HttpResponse'
  * No request, first hop or redirect, leaves the administrations' hosts: each
  * one would receive the certificate on its handshake.
  */
-export const createHttpClient = (identity: CertificateIdentity): HttpClient => {
+export const createHttpClient = (
+  identity?: CertificateIdentity,
+): HttpClient => {
   const jar = new CookieJar()
   const maxRedirects = 10
   const request = async (

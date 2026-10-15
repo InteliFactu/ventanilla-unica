@@ -33,3 +33,10 @@ describe('isAdministrationHost', () => {
       expect(isAdministrationHost(host)).toBe(false)
   })
 })
+
+it('allows Educarex and its subdomains, excluding lookalikes', () => {
+  expect(isAdministrationHost('educarex.es')).toBe(true)
+  expect(isAdministrationHost('rayuela.educarex.es')).toBe(true)
+  expect(isAdministrationHost('evil-educarex.es')).toBe(false)
+  expect(isAdministrationHost('educarex.es.evil.example')).toBe(false)
+})

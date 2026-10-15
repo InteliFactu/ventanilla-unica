@@ -10,6 +10,8 @@ export type Command = {
   readonly description: string
   /** Option names the command accepts beyond the global ones (`--cert`, `--key`, `--out`). */
   readonly options: readonly string[]
+  /** Password commands use a network client without a certificate. */
+  readonly login?: 'password' | undefined
   /** False for offline commands (validators, calendars) that must run without a certificate. */
   readonly needsCertificate?: false | undefined
   /** What the command does beyond reading; `read` when absent. */

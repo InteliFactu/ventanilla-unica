@@ -13,7 +13,7 @@ import type { HttpResponse } from './types/HttpResponse'
 /** One HTTPS exchange with the client certificate offered to the host; redirects are the caller's. */
 export const performRequest = async (
   url: string,
-  identity: CertificateIdentity,
+  identity: CertificateIdentity | undefined,
   jar: CookieJar,
   options: HttpRequestOptions,
 ): Promise<HttpResponse> => {
@@ -28,9 +28,13 @@ export const performRequest = async (
     port: target.port === '' ? undefined : Number(target.port),
     path: target.pathname + target.search,
     method,
-    cert: identity.cert,
-    key: identity.key,
-    passphrase: identity.passphrase,
+    ...(identity === undefined
+      ? {}
+      : {
+          cert: identity.cert,
+          key: identity.key,
+          passphrase: identity.passphrase,
+        }),
     ca: [...trustedCertificateAuthorities],
     headers: buildRequestHeaders(target, jar, options, body),
     timeout: options.timeoutMs ?? defaultTimeoutMs,

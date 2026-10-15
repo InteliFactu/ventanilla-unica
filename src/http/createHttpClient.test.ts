@@ -93,3 +93,19 @@ describe('createHttpClient', () => {
     expect(client.cookie('sede.sepe.gob.es', 'none')).toBeUndefined()
   })
 })
+
+it('builds a password-session client without a certificate identity', async () => {
+  const mocked = vi.mocked(performRequest)
+  mocked.mockReset()
+  mocked.mockResolvedValueOnce({
+    url: 'https://rayuela.educarex.es/',
+    status: 200,
+    headers: {},
+    body: Buffer.alloc(0),
+    text: 'login',
+  })
+  expect(
+    (await createHttpClient().request('https://rayuela.educarex.es/')).text,
+  ).toBe('login')
+  expect(mocked.mock.calls[0]?.[1]).toBeUndefined()
+})
