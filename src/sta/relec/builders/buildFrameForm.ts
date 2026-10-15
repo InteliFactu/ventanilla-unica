@@ -1,7 +1,7 @@
-import { relecProcedure } from '../relecProcedure'
-
-/** The `frame.jsp` body the catalogue's "Tramitar" link posts to open the Relec form inside the sede frame. */
-export const buildFrameForm = (): Readonly<Record<string, string>> => ({
+/** The `frame.jsp` body the catalogue's "Tramitar" link posts to open a procedure's Relec form inside the sede frame. */
+export const buildFrameForm = (
+  procedure: string,
+): Readonly<Record<string, string>> => ({
   eventScreenId: '',
   eventComponent: '',
   eventObject: '',
@@ -13,9 +13,9 @@ export const buildFrameForm = (): Readonly<Record<string, string>> => ({
   ROOTID: '1',
   HFC: 'HEADER#FOOTER',
   SESSION_REQUIRED: 'false',
-  dboidSolicitud: relecProcedure,
+  dboidSolicitud: procedure,
   autoFirma: 'true',
   fire: 'false',
   url: 'Relec/TramitaForm',
-  urlBack: ` /sta/CarpetaPublic/?APP_CODE=STA&PAGE_CODE=CATALOGO&DETALLE=${relecProcedure}`,
+  urlBack: ` /sta/CarpetaPublic/?APP_CODE=STA&PAGE_CODE=CATALOGO&DETALLE=${procedure}`,
 })

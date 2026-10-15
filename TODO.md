@@ -277,10 +277,14 @@
       live with the owner's certificate: the same holder, representative and
       address fields as Aportación, plus `Asunto` (`ANNOT_TEXT_EXTRACT`) and
       `gruposDoc` with eleven document slots, and without the four
-      `aportadoc_*`/`referenciaAporDoc` fields. Next: take the procedure id as a
-      parameter in `openRelecForm`/`buildFrameForm`, map the asunto and the
-      slots, build `caceres instancia` plan-first; the submit stays unverified
-      until an owner-authorised filing.
+      `aportadoc_*`/`referenciaAporDoc` fields. `caceres procedimiento --dboid`
+      now opens any EREG procedure and lists its fields and rows (live
+      2026-10-15: 13 rows, only "Instancia General Mod-201" required). The rows
+      differ from Aportación's: keyed by the row's `DocReq` dboid (not 0, 1...),
+      with `pid` and `CUD` inputs and a fixed type each, so `buildDocumentPairs`
+      does not fit. Next: `caceres instancia` plan-first on top of
+      `readRelecProcedure`, with the asunto in `DinVarANNOT_TEXT_EXTRACT`; the
+      submit stays unverified until an owner-authorised filing.
 - [~] **`reg presentar`, the first `signAutoScript` consumer, never ran
   confirmed.** 2026-10-15: login, `reg registros`, `reg registro --out` (signed
   justificante downloaded) and `reg organismos` ran live with the owner's

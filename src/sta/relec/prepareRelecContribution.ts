@@ -7,6 +7,7 @@ import { openRelecForm } from './fetchers/openRelecForm'
 import { mapRelecDocuments } from './mappers/mapRelecDocuments'
 import { mapRelecPlan } from './mappers/mapRelecPlan'
 import { parseRelecForm } from './parsers/parseRelecForm'
+import { relecProcedure } from './relecProcedure'
 import type { RelecPreparation } from './types/RelecPreparation'
 import type { RelecQuery } from './types/RelecQuery'
 import { assertPdfSignable } from './validators/assertPdfSignable'
@@ -27,7 +28,7 @@ export const prepareRelecContribution = async (
   for (const file of files) await assertPdfSignable(identity, file.path)
   const origin = staOrigins.caceres
   await openStaSession(client, origin)
-  const page = await openRelecForm(client, origin)
+  const page = await openRelecForm(client, origin, relecProcedure)
   const form = parseRelecForm(page.text, page.url)
   const types = await fetchDocumentTypes(client, origin)
   const documents = mapRelecDocuments(files, query, types)
