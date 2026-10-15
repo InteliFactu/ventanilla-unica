@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest'
 
 import { buildTestIdentity } from '../fixtures/buildTestIdentity'
 import { buildClassicPdf } from '../pades/fixtures/buildClassicPdf'
+import { verifyDetachedCms } from '../pades/fixtures/verifyDetachedCms'
 import { signAutoScript } from './signAutoScript'
 
 const identity = buildTestIdentity()
@@ -112,5 +113,21 @@ describe('signAutoScript', () => {
         ...change,
       }),
     ).toThrow()
+  })
+
+  it('signs CAdES with an EC certificate', () => {
+    const ec = buildTestIdentity(undefined, undefined, 'ec')
+    const result = signAutoScript(ec, {
+      data: base64(marker),
+      algorithm: 'SHA256withECDSA',
+      format: 'CAdES',
+    })
+    expect(
+      verifyDetachedCms(
+        Buffer.from(result.signature, 'base64'),
+        Buffer.from(marker),
+        ec.cert,
+      ),
+    ).toBe(true)
   })
 })

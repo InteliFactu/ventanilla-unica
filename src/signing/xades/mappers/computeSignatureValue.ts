@@ -21,7 +21,12 @@ export const computeSignatureValue = (
       exclusive: false,
     }),
   )
-  const signature = signData(identity, signedInfo, context.signatureDigest)
+  const signature = signData(
+    identity,
+    signedInfo,
+    context.signatureDigest,
+    'ieee-p1363',
+  )
   assertSignatureVerifies(
     context.certificates.signer,
     signedInfo,

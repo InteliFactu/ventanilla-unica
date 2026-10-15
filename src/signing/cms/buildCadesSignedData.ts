@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto'
+import { createHash, X509Certificate } from 'node:crypto'
 
 import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
 import { derContext } from '../asn1/derContext'
@@ -8,6 +8,7 @@ import { derOid } from '../asn1/derOid'
 import { derSequence } from '../asn1/derSequence'
 import { derSetOf } from '../asn1/derSetOf'
 import { readCertificateParts } from '../asn1/parsers/readCertificateParts'
+import { selectSigningKeyType } from '../selectors/selectSigningKeyType'
 import { signData } from '../signData'
 import { cadesSignedAttributes } from './cadesSignedAttributes'
 import { cmsDigestOids } from './cmsDigestOids'
@@ -50,7 +51,15 @@ export const buildCadesSignedData = (
         : [derContext(0, derOctetString(content))]),
     ]),
     derSetOf([certificates.signer, ...certificates.chain], 0xa0),
-    derSetOf([signerInfo({ signer, digest, attributes, signature })]),
+    derSetOf([
+      signerInfo({
+        signer,
+        keyType: selectSigningKeyType(new X509Certificate(certificates.signer)),
+        digest,
+        attributes,
+        signature,
+      }),
+    ]),
   ])
   return derSequence([derOid(cmsOids.signedData), derContext(0, signedData)])
 }

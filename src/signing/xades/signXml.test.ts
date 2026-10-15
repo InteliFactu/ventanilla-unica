@@ -170,4 +170,22 @@ describe('signXml', () => {
       expect(() => xmlsecVerifies(tampered)).toThrow()
     },
   )
+
+  it.skipIf(!hasXmlsec).each(['enveloped', 'enveloping'] as const)(
+    'signs %s with an EC key: ECDSA r||s, no KeyValue, xmlsec1 verifies',
+    (mode: XadesMode) => {
+      const ec = buildTestIdentity(undefined, undefined, 'ec')
+      const { xml } = signXml(ec, invoice, {
+        mode,
+        keyInfo: { keyValue: true },
+        signatureDigest: 'sha512',
+      })
+      const text = xml.toString()
+      expect(text).toContain(
+        'Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha512"',
+      )
+      expect(text).not.toContain('KeyValue')
+      expect(xmlsecVerifies(xml)).toBe('')
+    },
+  )
 })

@@ -16,6 +16,7 @@ describe('signerInfo', () => {
     )
     const der = signerInfo({
       signer,
+      keyType: 'rsa',
       digest: 'sha256',
       attributes: [derNull()],
       signature: Buffer.from([9]),

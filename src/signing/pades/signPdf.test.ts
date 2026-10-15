@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { derOid } from '../asn1/derOid'
 import { agePolicyCms } from '../cms/agePolicyCms'
+import { cmsOids } from '../cms/cmsOids'
 import { buildTestIdentity } from '../fixtures/buildTestIdentity'
 import { buildClassicPdf } from './fixtures/buildClassicPdf'
 import { buildObjectStreamPdf } from './fixtures/buildObjectStreamPdf'
@@ -55,5 +56,12 @@ describe('signPdf', () => {
     expect(verifyDetachedCms(parts.cms, parts.content, identity.cert)).toBe(
       true,
     )
+  })
+
+  it('signs with an EC key as ecdsa-with-SHA256', () => {
+    const ec = buildTestIdentity(undefined, undefined, 'ec')
+    const parts = extractSignedParts(signPdf(ec, buildClassicPdf()))
+    expect(verifyDetachedCms(parts.cms, parts.content, ec.cert)).toBe(true)
+    expect(parts.cms.includes(derOid(cmsOids.ecdsaWithSha256))).toBe(true)
   })
 })

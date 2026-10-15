@@ -13,6 +13,10 @@ export const cmsOids = {
   sha384: '2.16.840.1.101.3.4.2.2',
   sha512: '2.16.840.1.101.3.4.2.3',
   rsaEncryption: '1.2.840.113549.1.1.1',
+  ecdsaWithSha1: '1.2.840.10045.4.1',
+  ecdsaWithSha256: '1.2.840.10045.4.3.2',
+  ecdsaWithSha384: '1.2.840.10045.4.3.3',
+  ecdsaWithSha512: '1.2.840.10045.4.3.4',
   sha256WithRsa: '1.2.840.113549.1.1.11',
   commonName: '2.5.4.3',
 } as const

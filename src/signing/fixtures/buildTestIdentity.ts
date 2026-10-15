@@ -11,18 +11,22 @@ import { derSetOf } from '../asn1/derSetOf'
 import { derUtcTime } from '../asn1/derUtcTime'
 import { cmsOids } from '../cms/cmsOids'
 import { signData } from '../signData'
+import type { SigningKeyType } from '../types/SigningKeyType'
 
 /**
- * A synthetic self-signed RSA certificate and key, built in memory for tests:
- * no real certificate and no private key ever lives in the repository.
+ * A synthetic self-signed RSA (or P-256 EC) certificate and key, built in
+ * memory for tests: no real certificate and no private key ever lives in the
+ * repository.
  */
 export const buildTestIdentity = (
   commonName = 'VENTANILLA UNICA TEST',
   nameOid: string = cmsOids.commonName,
+  keyType: SigningKeyType = 'rsa',
 ): CertificateIdentity => {
-  const { privateKey, publicKey } = generateKeyPairSync('rsa', {
-    modulusLength: 2048,
-  })
+  const { privateKey, publicKey } =
+    keyType === 'ec'
+      ? generateKeyPairSync('ec', { namedCurve: 'P-256' })
+      : generateKeyPairSync('rsa', { modulusLength: 2048 })
   const key = Buffer.from(privateKey.export({ type: 'pkcs8', format: 'pem' }))
   const name = derSequence([
     derSetOf([
@@ -32,7 +36,10 @@ export const buildTestIdentity = (
       ]),
     ]),
   ])
-  const algorithm = derSequence([derOid(cmsOids.sha256WithRsa), derNull()])
+  const algorithm =
+    keyType === 'ec'
+      ? derSequence([derOid(cmsOids.ecdsaWithSha256)])
+      : derSequence([derOid(cmsOids.sha256WithRsa), derNull()])
   const tbs = derSequence([
     derContext(0, derInteger(2)),
     derInteger(Buffer.from([0x01, 0x23, 0x45])),

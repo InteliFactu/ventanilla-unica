@@ -8,6 +8,9 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- CAdES, PAdES and XAdES sign with EC certificates (ecdsa-with-SHA* in CMS,
+  `ecdsa-sha*` with r||s values in XML-DSig, no KeyValue, as AutoFirma does);
+  `signAutoScript` no longer refuses an EC certificate outside `NONE`.
 - `signAutoScript(identity, request)` signs what a sede page hands
   `AutoScript.sign(data, algorithm, format, extraParams)` the way AutoFirma
   does: NONE, CAdES (explicit by default, implicit under the AGE policy below 1

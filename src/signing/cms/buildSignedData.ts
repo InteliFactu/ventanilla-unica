@@ -1,3 +1,5 @@
+import { X509Certificate } from 'node:crypto'
+
 import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
 import { derContext } from '../asn1/derContext'
 import { derInteger } from '../asn1/derInteger'
@@ -5,6 +7,7 @@ import { derOid } from '../asn1/derOid'
 import { derSequence } from '../asn1/derSequence'
 import { derSetOf } from '../asn1/derSetOf'
 import { readCertificateParts } from '../asn1/parsers/readCertificateParts'
+import { selectSigningKeyType } from '../selectors/selectSigningKeyType'
 import { signData } from '../signData'
 import { cmsDigestOids } from './cmsDigestOids'
 import { cmsOids } from './cmsOids'
@@ -38,7 +41,15 @@ export const buildSignedData = (
     derSetOf([derSequence([derOid(cmsDigestOids[digest])])]),
     derSequence([derOid(cmsOids.data)]),
     derSetOf([certificates.signer, ...certificates.chain], 0xa0),
-    derSetOf([signerInfo({ signer, digest, attributes, signature })]),
+    derSetOf([
+      signerInfo({
+        signer,
+        keyType: selectSigningKeyType(new X509Certificate(certificates.signer)),
+        digest,
+        attributes,
+        signature,
+      }),
+    ]),
   ])
   return derSequence([derOid(cmsOids.signedData), derContext(0, signedData)])
 }

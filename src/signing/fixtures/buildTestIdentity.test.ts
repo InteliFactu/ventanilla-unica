@@ -11,4 +11,14 @@ describe('buildTestIdentity', () => {
     expect(certificate.subject).toBe('CN=FIXTURE')
     expect(certificate.verify(certificate.publicKey)).toBe(true)
   })
+
+  it('builds an EC P-256 one on request', () => {
+    const certificate = new X509Certificate(
+      buildTestIdentity(undefined, undefined, 'ec').cert,
+    )
+    expect(certificate.publicKey.asymmetricKeyDetails?.namedCurve).toBe(
+      'prime256v1',
+    )
+    expect(certificate.verify(certificate.publicKey)).toBe(true)
+  })
 })

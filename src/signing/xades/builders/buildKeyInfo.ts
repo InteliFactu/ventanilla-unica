@@ -1,10 +1,14 @@
+import { selectSigningKeyType } from '../../selectors/selectSigningKeyType'
 import type { XmlElement } from '../../xml/types/XmlElement'
-import { rsaKeyValue } from '../mappers/rsaKeyValue'
 import type { SignatureContext } from '../types/SignatureContext'
 import { buildElement } from './buildElement'
+import { buildKeyValue } from './buildKeyValue'
 import { buildTextElement } from './buildTextElement'
 
-/** ds:KeyInfo: X509Data with the signer (and chain), optionally RSAKeyValue. */
+/**
+ * ds:KeyInfo: X509Data with the signer (and chain), optionally its
+ * RSAKeyValue; an EC key gets no KeyValue, as in AutoFirma.
+ */
 export const buildKeyInfo = (context: SignatureContext): XmlElement => {
   const { ds } = context.prefixes
   const { signer, chain } = context.certificates
@@ -15,16 +19,10 @@ export const buildKeyInfo = (context: SignatureContext): XmlElement => {
         certificate.raw.toString('base64'),
       ),
   )
-  const keyValue = context.keyInfo.keyValue ? [rsaKeyValue(signer)] : []
   return buildElement(`${ds}:KeyInfo`, { Id: context.ids.keyInfo }, [
     buildElement(`${ds}:X509Data`, {}, certificates),
-    ...keyValue.map(({ modulus, exponent }) =>
-      buildElement(`${ds}:KeyValue`, {}, [
-        buildElement(`${ds}:RSAKeyValue`, {}, [
-          buildTextElement(`${ds}:Modulus`, modulus),
-          buildTextElement(`${ds}:Exponent`, exponent),
-        ]),
-      ]),
-    ),
+    ...(context.keyInfo.keyValue && selectSigningKeyType(signer) === 'rsa'
+      ? [buildKeyValue(ds, signer)]
+      : []),
   ])
 }
