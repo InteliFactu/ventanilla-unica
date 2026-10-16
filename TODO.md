@@ -34,8 +34,16 @@
   notification followed on 2026-10-05. 2026-10-16: Vibra Lab's nota informativa
   mercantil (datos generales + administradores, 3,58 € before tax) was ordered
   at registradores.org with every e-mail field set to that address, and
-  `registradores nota` now automates the order. Next: pay the order at the card
-  checkout, then confirm the nota reached notasregistrales@.
+  `registradores nota` now automates the order. Two card payments failed the
+  same day ("Pago rechazado por la institución financiera", then pasarela "Error
+  en la transacción" and the sede marked it cancelled). Suspect, not confirmed:
+  `pagar` was posted from code with placeholder `payerBrowserInfoForm` (3DS
+  data) while the card was typed in another browser without the sede session.
+  The session was moved to Orca and the `pago` page left there for the owner to
+  pay (card or PayPal) in the browser. Next: pay, confirm the nota reached
+  notasregistrales@; if the browser payment works, make
+  `registradores nota --confirmar si` stop at the `pago` page and hand the
+  session to a browser instead of posting `pagar` itself.
 - [!] **TGSS `aplazamiento` and `adjuntar` refuse `--confirmar si`.** The "firma
   optimizada" is implemented and tested. The protocol is no longer uncaptured:
   on 2026-09-22 a real deferral (registro 20265990000981409) and a CEUS
