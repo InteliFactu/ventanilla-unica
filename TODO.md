@@ -31,8 +31,11 @@
   POST and the "Nueva Pregunta" form read-only, then port. Same mailbox, ROLECE
   2026-10-03: "REQUERIMIENTO SUBSANACIÓN (DOCUMENTACIÓN BÁSICA) Debe remitirse
   nota mercantil simple a notasregistrales@patrimoniodelestado.es"; a
-  notification followed on 2026-10-05. Next: request Vibra Lab's nota
-  informativa mercantil at registradores.org and send it there.
+  notification followed on 2026-10-05. 2026-10-16: Vibra Lab's nota informativa
+  mercantil (datos generales + administradores, 3,58 € before tax) was ordered
+  at registradores.org with every e-mail field set to that address, and
+  `registradores nota` now automates the order. Next: pay the order at the card
+  checkout, then confirm the nota reached notasregistrales@.
 - [!] **TGSS `aplazamiento` and `adjuntar` refuse `--confirmar si`.** The "firma
   optimizada" is implemented and tested. The protocol is no longer uncaptured:
   on 2026-09-22 a real deferral (registro 20265990000981409) and a CEUS
@@ -225,8 +228,12 @@
       Cuentas Depositadas" list may be free for subscribers (unconfirmed). The
       authoritative answer is a paid nota informativa mercantil (identification
       2,103542 + accounts relation 0,601012 + 0,601012 per legalised book,
-      before tax). Next: decide whether to buy one per SL or build
-      `registro nota` behind `--confirmar si`.
+      before tax). 2026-10-16: `registradores nota` orders it behind
+      `--confirmar si`, and its free plan run already answers
+      `accountsDepositAvailable` from the tipos-informacion page ("no tiene
+      depósito de cuentas disponibles"), so whether accounts are deposited is
+      now a free read; legalised books still need the paid nota. Next: decide
+      whether to buy one per SL.
 
 - [ ] **TEA: `tea expedientes` refuses a list with rows.** Only the empty "Mis
       expedientes" page has been seen live. Next step: capture the page of a

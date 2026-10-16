@@ -33,6 +33,7 @@ import { oargtLiquidaciones } from './commands/oargtLiquidaciones'
 import { oargtRecibos } from './commands/oargtRecibos'
 import { placspEstado } from './commands/placspEstado'
 import { placspPregunta } from './commands/placspPregunta'
+import { registradoresNota } from './commands/registradoresNota'
 import { roleceEstado } from './commands/roleceEstado'
 import { roleceSolicitud } from './commands/roleceSolicitud'
 import { sepeCertificado } from './commands/sepeCertificado'
@@ -89,6 +90,7 @@ export const commandRegistry: readonly Command[] = [
   justiciaExpedientes,
   justiciaDocumentos,
   nicCorreo,
+  registradoresNota,
   ...regCommands,
   ...rayuelaCommands,
   firmarPdf,

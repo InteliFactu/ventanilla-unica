@@ -8,6 +8,23 @@
 
 ### 2026-10
 
+- [x] 2026-10-16 — **Registro:** `registradores nota` orders a company's nota
+      informativa mercantil at sede.registradores.org behind `--confirmar si`.
+  - Result: certificate login through the F5 front and both SAML service
+    providers (every request sends `Connection: close`: the F5 drops kept-alive
+    sockets after its 302s and the next request dies with ECONNRESET), search by
+    NIF, company selection, nota and segments; the plan stops on the
+    identification page and prints the company, `accountsDepositAvailable` and
+    every identification field (representative from the certificate, province
+    from `api/validate/sociedad`, town from `api/location/towns`). Confirmed, it
+    posts identification, card payment, polls `orden-completa` and prints the
+    hosted checkout URL (`--out` writes a page that opens it); it never pays.
+  - Evidence: live plan run 2026-10-16 for B22903801 (VIBRA LAB SL, IRUS and
+    Registro Mercantil de Cáceres found, `accountsDepositAvailable: false`,
+    billing town Cáceres 10/37); the confirmed path is covered by synthetic
+    fixtures only (an order had already been created by hand that day);
+    `pnpm check:ci` green.
+
 - [x] 2026-10-16 — **TEA:** `tea expedientes --nif` reads the Tribunales
       Económico-Administrativos case list.
   - Result: one certificate GET to

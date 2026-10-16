@@ -6,13 +6,14 @@ import { selectSamlHopForm } from './selectors/selectSamlHopForm'
 /**
  * Play the Cl@ve relay after the IdP choice: every page carrying a SAML form
  * is posted to its real target (the `idpUrl` field or the action) with the
- * page as Referer; the certificate is presented by mTLS on the
+ * page as Referer, plus any headers the caller adds; the certificate is presented by mTLS on the
  * AuthenticateCitizen hop. The walk ends on the first page without a SAML
  * form, which is the service (SEPE, CIRBE, the Junta sede).
  */
 export const walkSamlChain = async (
   client: HttpClient,
   entry: HttpResponse,
+  headers?: Readonly<Record<string, string>>,
 ): Promise<HttpResponse> => {
   const maxHops = 5
   const hopTimeoutMs = 120_000
@@ -25,6 +26,7 @@ export const walkSamlChain = async (
       method: 'POST',
       form: next.fields,
       referer: response.url,
+      headers,
       timeoutMs: hopTimeoutMs,
     })
   }

@@ -23,6 +23,10 @@ All notable changes to this project are documented here. The format follows
   extra span.
 - `tea expedientes --nif` says whether the Tribunales Económico-Administrativos
   hold a case for the certificate holder, and refuses a list that has rows.
+- `registradores nota` orders a company's nota informativa mercantil at
+  sede.registradores.org (write, `--confirmar si`): the plan finds the company
+  and says whether its accounts deposit is available; confirmed, it creates the
+  order for card payment and prints the hosted checkout URL. It never pays.
 - `oargt liquidaciones` says whether the holder has OARGT liquidations, own or
   as representative, and stops at the contact-data gate.
 - `caceres datos-personales` and `junta datos-personales` read the contact ways
