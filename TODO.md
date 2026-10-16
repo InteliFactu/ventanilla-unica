@@ -48,9 +48,11 @@
   cause. A fresh checkout (`pagar` posted with the owner's real Chrome values:
   colorDepth 30, 1728x1117, es-ES, -120) opened in the real Chrome went through
   3DS and the owner reports it paid; the return landed on the sede login (Chrome
-  had no sede session), so the order status is unconfirmed. Next: confirm the
-  charge in the bank and that the nota reached notasregistrales@ (every e-mail
-  field points there, so our mailboxes get nothing).
+  had no sede session), so the order status is unconfirmed. The owner confirmed
+  the bank charge the same day, so the nota is paid. Next: confirm ROLECE
+  accepts the subsanación (the nota goes only to notasregistrales@), and make
+  `registradores nota --confirmar si` hand the payment to the real Chrome
+  (Orca's embedded browser failed the card payment twice).
 - [!] **TGSS `aplazamiento` and `adjuntar` refuse `--confirmar si`.** The "firma
   optimizada" is implemented and tested. The protocol is no longer uncaptured:
   on 2026-09-22 a real deferral (registro 20265990000981409) and a CEUS
