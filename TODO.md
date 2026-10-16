@@ -43,7 +43,14 @@
   pay (card or PayPal) in the browser. Next: pay, confirm the nota reached
   notasregistrales@; if the browser payment works, make
   `registradores nota --confirmar si` stop at the `pago` page and hand the
-  session to a browser instead of posting `pagar` itself.
+  session to a browser instead of posting `pagar` itself. Later the same day the
+  Orca payment failed the same way, so placeholder browser info is not the
+  cause. A fresh checkout (`pagar` posted with the owner's real Chrome values:
+  colorDepth 30, 1728x1117, es-ES, -120) opened in the real Chrome went through
+  3DS and the owner reports it paid; the return landed on the sede login (Chrome
+  had no sede session), so the order status is unconfirmed. Next: confirm the
+  charge in the bank and that the nota reached notasregistrales@ (every e-mail
+  field points there, so our mailboxes get nothing).
 - [!] **TGSS `aplazamiento` and `adjuntar` refuse `--confirmar si`.** The "firma
   optimizada" is implemented and tested. The protocol is no longer uncaptured:
   on 2026-09-22 a real deferral (registro 20265990000981409) and a CEUS
