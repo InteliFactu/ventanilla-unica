@@ -22,4 +22,16 @@ describe('Carpeta registration evidence', () => {
     )
     expect(readCarpetaRegistration(error)).toBeUndefined()
   })
+  it('recognizes a receipt separated by the live page line breaks and nested markup', () => {
+    expect(
+      readCarpetaRegistration(
+        '<span>Su petición ha sido registrada<br /> con nº <b>2026000000000002</b> y fecha 21/10/2026</span>',
+      ),
+    ).toBe('2026000000000002')
+    expect(
+      readCarpetaFilingError(
+        '<span>Código: 40090.<br />Error: Error al guardar los documentos adjuntos</span> Valore su experiencia:',
+      ),
+    ).toBe('Código: 40090. Error: Error al guardar los documentos adjuntos')
+  })
 })

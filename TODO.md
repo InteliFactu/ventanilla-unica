@@ -11,17 +11,6 @@
 
 ## Blocked Tasks
 
-- [!] **Junta P5145 registration can fail with portal code 40090.** A live
-  confirmed account-registration application reached the qualified-signature
-  callback, then the sede returned "Error al guardar los documentos adjuntos".
-  The same session's P5637 profile update registered successfully. The
-  subsequent live expediente list showed the profile update only.
-  `junta alta-terceros` preserves the failure and does not retry; completed
-  registration and account activation remain unverified. Next: recover the exact
-  P5145 draft and inspect the portal's attachment persistence, or obtain a
-  technical-support resolution before retrying. Captures and identifiers belong
-  in the holder's private fiscal archive, not this repository.
-
 - [!] **PLACSP `pregunta` refuses `--confirmar si`.** The plan reads the public
   tender detail (expediente, órgano, estado, deadline, art. 138.3 date). The
   "Solicitar Información" tab, "Nueva Pregunta" and "Enviar" exist only with a
@@ -87,6 +76,15 @@
   then. Next step: capture the OARGT form when the first request is made.
 
 ## Maintenance
+
+- [~] **Junta P5145 intermittent error 40090:** An owner-authorized retry
+  registered successfully and the live expediente reached "Operación tramitada".
+  The original "Error al guardar los documentos adjuntos" failure remains
+  unexplained; there is no automatic retry. Receipt/error parsers now normalize
+  JSF markup, with a regression for the line break between "registrada" and the
+  registry number. Next: retain a private capture if the persistence error
+  recurs naturally; inspect it before another submission. Live identities and
+  registry identifiers stay in the holder's fiscal archive.
 
 - [ ] **braces waiver expires 2026-11-15.** GHSA-vfj7-8cjw-p6xm (braces <=3.0.3,
       dev-only through type-coverage) had no patched release on 2026-10-15.
