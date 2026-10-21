@@ -8,6 +8,26 @@
 
 ### 2026-10
 
+- [x] 2026-10-22 — **Pre-commit backlog validation:** Run Tadu doctor on every
+      commit through the existing Lefthook configuration, with fail-closed
+      installation guidance and isolated synthetic hook coverage.
+  - Result: Added the no-glob tadu-doctor pre-commit command, actionable
+    missing-CLI installation guidance and contributor PATH instructions.
+    Existing hooks are preserved. Synthetic fixtures use the actual
+    configuration with a staged TypeScript file, fake Tadu exits 0 and 7, a
+    missing CLI and a trap for unrelated jobs; fixture content remains unchanged
+    and no Git hook is installed. Git and Lefthook environment overrides are
+    stripped from every child; system/global Git configuration is disabled and a
+    sibling index sentinel remains byte-identical.
+  - Evidence: pnpm exec vitest run src/tooling/lefthook.test.ts --maxWorkers=1:
+    3 passed (all 3 failed before the hook existed); targeted ESLint and pnpm
+    run type-check pass. tadu doctor . and git diff --check pass. No
+    administration CLI, production operation or package install was executed.
+    Final `pnpm check:ci` exited 0: 788 files and 1843 tests passed with
+    coverage, plus lint, types, formatting, duplication and Knip checks. Knip
+    retains its existing xmlsec1 binary warning and redundant-entry hint. The
+    actual selected local Lefthook tadu-doctor job also exited 0.
+
 - [x] 2026-10-16 — **Registro:** `registradores nota` orders a company's nota
       informativa mercantil at sede.registradores.org behind `--confirmar si`.
   - Result: certificate login through the F5 front and both SAML service

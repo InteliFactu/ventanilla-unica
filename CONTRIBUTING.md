@@ -19,9 +19,19 @@
 ## Setup
 
 ```sh
+uv tool install tadu # install the read-only backlog validator once
 pnpm install         # installs the lefthook hooks too
 pnpm check:ci        # oxlint, tsc, eslint, prettier, vitest with coverage, jscpd, knip
 ```
+
+Every commit runs `tadu doctor .` without changing the backlog. Install Tadu
+using the
+[supported installation instructions](https://github.com/syntopica/tadu#install),
+and ensure its executable is on the PATH inherited by Git, including GUI
+clients. With `uv tool install`, check that the tool's executable directory is
+available to that client; a missing Tadu executable blocks the commit and prints
+the installation link. A nonzero doctor result also blocks the commit until the
+reported backlog errors are corrected.
 
 The tests run without any certificate. `src/http/performRequest.test.ts` creates
 a throwaway self-signed certificate with `openssl` at test time.

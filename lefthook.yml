@@ -1,7 +1,14 @@
-# Mirrors createLefthookConfig() in @syntopica/quality-config/lefthook.
+# Shared quality hooks mirror createLefthookConfig(); Tadu validates this backlog.
 pre-commit:
   parallel: true
   commands:
+    tadu-doctor:
+      run: |
+        if ! command -v tadu >/dev/null 2>&1; then
+          printf '%s\n' 'Tadu is required on Git PATH. Install: https://github.com/syntopica/tadu#install' >&2
+          exit 127
+        fi
+        tadu doctor .
     lint:fast:
       glob: '*.{js,jsx,ts,tsx,vue,astro,mjs,cjs}'
       run: pnpm exec oxlint --deny-warnings {staged_files}
