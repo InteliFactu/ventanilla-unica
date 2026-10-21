@@ -1,3 +1,5 @@
+minimumReleaseAge: 1440
+blockExoticSubdeps: true
 # pnpm 11+: build scripts run only for the dependencies listed here.
 allowBuilds:
   esbuild: true
