@@ -70,6 +70,21 @@
 
 ## Owner requests
 
+- [!] **Verify the TGSS debt-PDF path with a fresh eligible response.** Routed
+  from the general September launch reminder on 2026-10-21. The old task
+  requested a holder/day for which a debt document had not already been emitted;
+  no completed verification was found in the owning log. First reconcile
+  existing evidence so an already completed run is not repeated, then capture a
+  redacted fixture through the supported read path when the owner provides a
+  suitable case. No filing, deferral or attachment may be submitted merely to
+  obtain a trace; do not publish holder data.
+- [!] **Decide whether to publish the prepared launch follow-up on LinkedIn.**
+  The old v0.1.0 launch task was superseded on 2026-10-06 and its log explicitly
+  leaves the LinkedIn post unverified. Verify whether a post already exists;
+  otherwise obtain owner content/send approval before publishing. This is
+  separate from the awesome-spain re-proposal; no external post was sent by this
+  reconciliation.
+
 - [!] **`oargt fraccionar` (write, `--confirmar si`).** Requests a
   fraccionamiento in ejecutiva (ordinance: up to 6 months from 100,01 to 600, no
   guarantee below 30.000). The owner wants it once he has a job; blocked until
