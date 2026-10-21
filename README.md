@@ -163,6 +163,48 @@ npm install -g ventanilla-unica      # or: pnpm add -g ventanilla-unica, or npx 
 
 Node 22 or newer.
 
+## Junta payment-account registration
+
+`junta alta-terceros --iban <Spanish-IBAN> --telefono <nine-digits> --out <directory>`
+prepares a plan without contacting the portal. With `--confirmar si`, it
+creates, signs and submits the P5145 application. It requests an account
+registration (ALTA) and authorizes the Junta to verify AEAT identity and bank
+ownership. It does not change a grant application or submit a BAJA.
+
+The old Carpeta profile must contain the province, municipality and notification
+email. For a legal entity,
+`junta carpeta-completar --comunidad <code> --provincia <code> --municipio <code> --telefono <nine-digits> --correo <email> --out <directory>`
+plans that prerequisite update. `--confirmar si` signs and submits it. The codes
+must occur in the portal's dependent dropdowns. The command preserves the street
+address and uses numeric street numbering; review the existing address before
+confirming.
+
+Each filing saves the draft PDF and redacted signing responses under `--out`. A
+registry number in the response is required for `registered: true`. HTTP 200 or
+a generic signing-success modal is insufficient. The portal can reject
+registration with code 40090, "Error al guardar los documentos adjuntos". The
+CLI preserves that error and does not retry. Check the live expediente list and
+recover the same draft before another submission. A filed registration request
+does not prove that the account is already active.
+
+Protocol: authenticate through the existing Cl@ve certificate relay; open
+`/SEDE/privado/ciudadanos/exterior.jsf?cod=5145` (account) or `cod=5637`
+(profile); submit the JSF/A4J form pages; save the draft and pass
+`/SEDE/privado/docAdjuntos.jsf`; review the live `/SEDE/VisorPdf/<draft>.pdf`;
+prepare `/SEDE/privado/ciudadanos/firmarSolicitud.jsf`; reproduce
+`MiniApplet.sign` with SHA512withRSA, XAdES Detached and the AGE 1.9 policy from
+`/SEDE/common-js/scriptFirma.js`; submit the real signature callback and inspect
+the registration response. JSF component identifiers and ViewState are
+session-specific. The client resolves button identifiers from the current page
+and updates every ViewState copy after a fragment.
+
+To recapture a failure, retain the redacted response, draft number and preview
+in a private evidence directory. Re-open the exact draft with the holder's
+certificate and inspect the live form and its scripts. Do not copy live
+identities, IBANs, signatures, client state or credentials into fixtures. The
+certificate environment variables described below are sufficient; this flow adds
+no credentials.
+
 ## The certificate
 
 The portals accept the qualified certificates FNMT issues to people and to legal
