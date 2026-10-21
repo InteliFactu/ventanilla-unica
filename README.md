@@ -300,3 +300,34 @@ message or marks it read. Grades are not supported.
 ## License
 
 MIT, see `LICENSE`.
+
+### AEAT appointments
+
+`aeat cita` lists in-person appointment slots for the holder without booking.
+Use a five-digit postal code, a search date and the earliest acceptable time.
+The default service is Aplazamientos (`C324163`); `--servicio` accepts a code
+actually offered for that holder. Province names are not accepted: the captured
+form's handling of accented names was ambiguous, while postal codes were
+verified against the live source.
+
+```sh
+ventanilla-unica aeat cita --nif 00000000T --nombre "TEST HOLDER" \
+  --postal 10000 --fecha 2026-10-23 --hora 11:00
+```
+
+To prepare an exact offered slot, add `--centro` and its exact `--hora`. Without
+`--confirmar si`, the last booking request is never sent. Confirmed reservations
+also require `--email`, `--telefono` (digits, Spanish +34 prefix), `--out` and
+optionally `--detalle` (250 characters maximum). The CLI rechecks the selected
+centre, date and time against current offers. It submits the final request once,
+saves its HTML response with owner-only permissions and reports transmission
+separately from confirmation. Inspect that receipt before retrying: a timeout or
+an unrecognized result must not cause a duplicate reservation. Booking does not
+apply for a deferral, change a payment plan, accept notifications or pay a debt.
+
+The captured protocol is the public `TOCP-MUTE/internet` flow: GET
+`identificacion`, POST holder identification, POST `procedimiento` with an
+offered service, POST `cita` with explicit in-person/date/time/postal filters,
+POST `cita` to prepare an offered slot, then POST `confirmacion` only after
+confirmation. The same HTTP client retains the session cookies; slot codes must
+be recaptured in each session. No browser or runtime dependency is needed.

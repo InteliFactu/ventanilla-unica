@@ -410,3 +410,17 @@
       timetable, teachers and inbox pages, which were only seen populated. Next
       step: capture the grades menu entry for one child during an evaluation
       period. Flow notes: `~/p/wiki/brain/topics/rayuela-headless.md`.
+
+## AEAT appointments
+
+- [~] **Validate the final appointment receipt with a confirmed live
+  reservation.** `aeat cita` now lists in-person offers, rechecks an exact slot
+  and prepares the confirmation page through the public TOCP-MUTE HTTP flow. The
+  final POST is guarded by `--confirmar si`, requires contact details and saves
+  the response privately; transmission is deliberately separate from verified
+  booking. Synthetic tests cover the guard, expired pages, stale confirmation
+  identity and exact-slot matching. Live listing and an unconfirmed plan were
+  verified on 2026-10-21. Next: use an owner-approved exact slot, submit once,
+  capture and sanitize the final receipt, and add a source-backed success parser
+  before claiming automatic end-to-end booking verification. Never retry a final
+  request merely because its response was lost.
