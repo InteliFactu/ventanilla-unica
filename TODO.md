@@ -11,6 +11,25 @@
 
 ## Blocked Tasks
 
+- [ ] **Justicia downloads can overwrite distinct documents with repeated event
+      numbers.** Observed 2026-10-22: JVB 174/2020 returns 152 document rows but
+      `writeJusticiaDocument` produces only 104 distinct paths because filenames
+      use procedure plus event number. A temporary operational build recovered
+      all versions with unique per-row suffixes; the repository implementation
+      remains unchanged. Next: use a stable unique document identity in
+      filenames and test repeated numbers across tree branches.
+- [ ] **Justicia bulk retrieval stops at one refused document.** Observed
+      2026-10-22: ETJ 153/2026 event 31 is an accessible-marked separate-piece
+      link with an empty barcode; the visor refuses it and
+      `saveJusticiaDocuments` aborts before later documents. Next: preserve a
+      per-document download error and continue, including the complete inventory
+      in the result.
+- [!] **DEHU certificate login fails before read-only listing or served-document
+  retrieval.** Reproduced 2026-10-22 with `dehu list --year 2026` and
+  `dehu documentos --year 2026 --id <already-served-ids> --out <directory>`:
+  `login-clave-form did not return JSON (status 200)`. Next: inspect the
+  supported login response and repair parsing without accepting a notification.
+
 - [!] **PLACSP `pregunta` refuses `--confirmar si`.** The plan reads the public
   tender detail (expediente, órgano, estado, deadline, art. 138.3 date). The
   "Solicitar Información" tab, "Nueva Pregunta" and "Enviar" exist only with a
