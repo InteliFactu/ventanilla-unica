@@ -442,4 +442,19 @@
   verified on 2026-10-21. Next: use an owner-approved exact slot, submit once,
   capture and sanitize the final receipt, and add a source-backed success parser
   before claiming automatic end-to-end booking verification. Never retry a final
-  request merely because its response was lost.
+  request merely because its response was lost. 2026-10-28: first live booking
+  confirmed (Aplazamientos, Caceres centre 10600, 12:30); the portal answered
+  "Su cita ha sido confirmada" and `gestioncita` lists it under "Sus Citas".
+- [ ] **A plan run holds the slot it inspects.** `fetchAppointmentConfirmation`
+      posts the `cita` step with `fhora`/`faccion=V`, which leaves the slot
+      "Cita pendiente de confirmar" at the AEAT: on 2026-10-28 two unconfirmed
+      plans and one refused confirmed run (missing `--email`) at 12:00 made
+      12:00 vanish from the offers, and it was not booked (`gestioncita` showed
+      only 12:30). Next: validate contact details before any portal request, and
+      in plan mode stop after the offer list instead of preselecting the slot.
+- [ ] **Search fails once the holder has a booking.** After the 12:30 booking,
+      `aeat cita` for the same NIF throws "did not return a valid offer page"; a
+      manual replay of the `procedimiento` step answers "Se ha producido un
+      error interno en el Sistema". Next: capture the portal's
+      existing-appointment page and report it (with its `gestioncita` link)
+      instead of failing.
