@@ -12,4 +12,6 @@ export type JusticiaDocument = {
   /** Set when `--out` saved the file. */
   readonly path?: string | undefined
   readonly bytes?: number | undefined
+  /** Why `--out` could not download it (the visor refused it, or the download failed). */
+  readonly error?: string | undefined
 }

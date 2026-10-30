@@ -8,6 +8,17 @@
 
 ### 2026-10
 
+- [x] 2026-10-30 — **Blocked Tasks:** **Justicia bulk retrieval stops at one
+      refused document.** Observed 2026-10-22: ETJ 153/2026 event 31 is an
+      accessible-marked separate-piece link with an empty barcode; the visor
+      refuses it and `saveJusticiaDocuments` aborts before later documents.
+      Next: preserve a per-document download error and continue, including the
+      complete inventory in the result.
+  - Result: A refused or failed visor download is kept as the document's `error`
+    and the loop continues; every document is returned.
+  - Evidence: saveJusticiaDocuments.test.ts (refused empty-barcode document,
+    failed download, write failure) and pnpm check:ci exit 0
+
 - [x] 2026-10-22 — **Pre-commit backlog validation:** Run Tadu doctor on every
       commit through the existing Lefthook configuration, with fail-closed
       installation guidance and isolated synthetic hook coverage.
