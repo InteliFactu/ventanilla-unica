@@ -8,6 +8,7 @@ import { aeatCertificadoCorriente } from './commands/aeatCertificadoCorriente'
 import { aeatCita } from './commands/aeatCita'
 import { aeatComparecer } from './commands/aeatComparecer'
 import { aeatContacto } from './commands/aeatContacto'
+import { aeatCotejo } from './commands/aeatCotejo'
 import { aeatDeclaraciones } from './commands/aeatDeclaraciones'
 import { aeatDeudas } from './commands/aeatDeudas'
 import { aeatDomicilio } from './commands/aeatDomicilio'
@@ -30,6 +31,7 @@ export const aeatCommands: readonly Command[] = [
   aeatCita,
   aeatComparecer,
   aeatContacto,
+  aeatCotejo,
   aeatDeclaraciones,
   aeatDeudas,
   aeatDomicilio,

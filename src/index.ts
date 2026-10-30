@@ -9,6 +9,7 @@ export type { CensalCertificateRequest } from './aeat/census/types/CensalCertifi
 export type { CensalCertificateResult } from './aeat/census/types/CensalCertificateResult'
 export * from './aeat/compliance/index'
 export * from './aeat/contact/index'
+export * from './aeat/csvDocument/index'
 export { sweepAeatDebts } from './aeat/debts/sweepAeatDebts'
 export type { AeatDebtReport } from './aeat/debts/types/AeatDebtReport'
 export * from './aeat/expedientes/index'

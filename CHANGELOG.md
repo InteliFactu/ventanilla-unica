@@ -15,6 +15,8 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `aeat cotejo --csv --out [--nif]` saves the PDF behind an AEAT CSV (Cotejo de
+  documentos) with the certificate session.
 - `tgss autorizado-naf` reads which Sistema RED authorisation manages the
   holder's NAF (RETC0002) and the earlier ones, with their dates.
 - `dehu quitar-email --email` removes one address from the DEHU notice e-mails
