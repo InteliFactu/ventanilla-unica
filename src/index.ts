@@ -21,6 +21,7 @@ export { generatePaymentLetter } from './aeat/paymentLetter/generatePaymentLette
 export { listAeatPayments } from './aeat/payments/listAeatPayments'
 export type { AeatPayment } from './aeat/payments/types/AeatPayment'
 export type { AeatPaymentsReport } from './aeat/payments/types/AeatPaymentsReport'
+export * from './aeat/powers/index'
 export { changeTaxAddress } from './aeat/taxAddress/changeTaxAddress'
 export * from './carpeta/index'
 export { loadCertificateIdentity } from './certificate/loadCertificateIdentity'

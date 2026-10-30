@@ -15,6 +15,10 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `aeat apoderamientos --nif [--tipo otorgados|recibidos]` lists the holder's
+  Registro de apoderamientos (ITTI-APOD), each row keyed by the column labels
+  the page prints; it refuses another holder's page, an unknown page and a full
+  first page, whose following pages it does not read yet.
 - Rayuela (Educarex) password login and read-only children, inbox previews,
   timetable, absences and teachers commands, with optional child selection.
 
