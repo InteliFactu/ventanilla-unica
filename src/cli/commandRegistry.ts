@@ -8,6 +8,7 @@ import { dgsfpReclamacion } from './commands/dgsfpReclamacion'
 import { dgtContacto } from './commands/dgtContacto'
 import { dgtDatos } from './commands/dgtDatos'
 import { dgtSanciones } from './commands/dgtSanciones'
+import { dgtVehiculos } from './commands/dgtVehiculos'
 import { firmarPdf } from './commands/firmarPdf'
 import { firmarXml } from './commands/firmarXml'
 import { justiciaDocumentos } from './commands/justiciaDocumentos'
@@ -56,6 +57,7 @@ export const commandRegistry: readonly Command[] = [
   dgsfpReclamacion,
   dgtDatos,
   dgtSanciones,
+  dgtVehiculos,
   dgtContacto,
   justiciaExpedientes,
   justiciaDocumentos,

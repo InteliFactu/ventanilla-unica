@@ -13,6 +13,8 @@ export const dgtUrls = {
   /** The counters the Mi DGT home fills itself with, one `?<name>=true` call each. */
   miDgtCounters:
     'https://sede.dgt.gob.es/system/modules/es.trafico.dgt.sedeV5/elements/mi_dgt/ajaxCalls.jsp',
+  /** "Mis vehiculos": the vehicles registered to the holder, server-rendered in `table.tabla-vehiculos`. */
+  vehiclesPage: 'https://sede.dgt.gob.es/es/mi_dgt/mis-vehiculos/',
   /** "Mis sanciones": the holder's fines, server-rendered in `#datatable_sanciones`. */
   sanctionsPage: 'https://sede.dgt.gob.es/es/mi_dgt/mis-sanciones/',
   /** One fine's detail page, `?numExpediente=<n>&a=`. */
