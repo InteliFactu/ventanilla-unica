@@ -15,6 +15,8 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `tgss autorizado-naf` reads which Sistema RED authorisation manages the
+  holder's NAF (RETC0002) and the earlier ones, with their dates.
 - `dehu quitar-email --email` removes one address from the DEHU notice e-mails
   (write, `--confirmar si`): the plan shows the addresses that would remain;
   confirmed, it sends the front's contact PUT, walks the Cl@ve re-authentication

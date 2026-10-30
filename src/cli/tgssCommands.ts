@@ -1,6 +1,7 @@
 import { tgssAdjuntar } from './commands/tgssAdjuntar'
 import { tgssAlta } from './commands/tgssAlta'
 import { tgssAplazamiento } from './commands/tgssAplazamiento'
+import { tgssAutorizadoNaf } from './commands/tgssAutorizadoNaf'
 import { tgssBases } from './commands/tgssBases'
 import { tgssCcc } from './commands/tgssCcc'
 import { tgssContacto } from './commands/tgssContacto'
@@ -27,6 +28,7 @@ export const tgssCommands: readonly Command[] = [
   tgssAlta,
   tgssEmpresario,
   tgssCcc,
+  tgssAutorizadoNaf,
   tgssBases,
   tgssAplazamiento,
   tgssAdjuntar,
