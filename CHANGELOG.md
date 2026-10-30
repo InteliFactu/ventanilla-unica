@@ -139,6 +139,10 @@ All notable changes to this project are documented here. The format follows
 
 ### Fixed
 
+- `justicia documentos --out` no longer stops at a document the visor refuses
+  (an accessible-marked piece with an empty barcode, as in ETJ 153/2026): the
+  refusal or failed download is kept as that document's `error`, the later
+  documents are still saved, and the result lists every document.
 - An enveloped XAdES over an XML that already carried a signature had a wrong
   reference digest: the XPath filter `not(ancestor-or-self::ds:Signature)` drops
   every signature, and only our own was left out.

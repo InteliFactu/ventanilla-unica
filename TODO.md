@@ -18,12 +18,6 @@
       all versions with unique per-row suffixes; the repository implementation
       remains unchanged. Next: use a stable unique document identity in
       filenames and test repeated numbers across tree branches.
-- [ ] **Justicia bulk retrieval stops at one refused document.** Observed
-      2026-10-22: ETJ 153/2026 event 31 is an accessible-marked separate-piece
-      link with an empty barcode; the visor refuses it and
-      `saveJusticiaDocuments` aborts before later documents. Next: preserve a
-      per-document download error and continue, including the complete inventory
-      in the result.
 - [!] **DEHU certificate login fails before read-only listing or served-document
   retrieval.** Reproduced 2026-10-22 with `dehu list --year 2026` and
   `dehu documentos --year 2026 --id <already-served-ids> --out <directory>`:
