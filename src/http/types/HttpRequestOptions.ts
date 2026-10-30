@@ -1,6 +1,6 @@
 /** Per-request options; everything is optional and defaults to a plain GET that follows redirects. */
 export type HttpRequestOptions = {
-  readonly method?: 'GET' | 'POST' | undefined
+  readonly method?: 'GET' | 'POST' | 'PUT' | undefined
   /** A form body (`application/x-www-form-urlencoded`) or a raw body: text, or bytes for a multipart upload. */
   readonly form?: Readonly<Record<string, string>> | undefined
   readonly body?: string | Buffer | undefined

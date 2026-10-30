@@ -15,6 +15,11 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `dehu quitar-email --email` removes one address from the DEHU notice e-mails
+  (write, `--confirmar si`): the plan shows the addresses that would remain;
+  confirmed, it sends the front's contact PUT, walks the Cl@ve re-authentication
+  that applies it and reads the contact back. It refuses an address that is not
+  listed and the last notice channel.
 - `aeat apoderamientos --nif [--tipo otorgados|recibidos]` lists the holder's
   Registro de apoderamientos (ITTI-APOD), each row keyed by the column labels
   the page prints; it refuses another holder's page, an unknown page and a full

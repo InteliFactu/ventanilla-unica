@@ -229,7 +229,9 @@
       mapped. Map it when a holder's channels need changing.
 - [ ] **DEHU contact phone.** `dehu contacto` reads `telefono`, but the DEHU
       front offers no field for it (e-mails and push only), so no write is
-      built; `v1/contact/<base64 NIF>` accepts PUT/POST, unverified.
+      built. `dehu quitar-email` uses the front's PUT
+      `v1/contact/<base64     NIF>`, which answers a Cl@ve form that applies the
+      change; adding an e-mail (and its `verify-email` code) is not built yet.
 - [ ] **dgt: `dgt domicilio` (CDI change of address), plan only so far.** Owner
       has not decided on a new domicile (2026-10-11), so nothing was built. Live
       map: page `/es/servicios-sede/cambio-de-direccion/`, choose
