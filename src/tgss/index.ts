@@ -8,6 +8,7 @@ export type { EmploymentAtDateResult } from './affiliation/types/EmploymentAtDat
 export type { VidaLaboralQuery } from './affiliation/types/VidaLaboralQuery'
 export type { VidaLaboralResult } from './affiliation/types/VidaLaboralResult'
 export { attachToExpediente } from './attachments/attachToExpediente'
+export * from './autonomousActivities/index'
 export { certificateKinds } from './certificates/certificateKinds'
 export { emitUpToDateCertificate } from './certificates/emitUpToDateCertificate'
 export type { CertificateKind } from './certificates/types/CertificateKind'

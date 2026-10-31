@@ -1,3 +1,4 @@
+import { tgssActividades } from './commands/tgssActividades'
 import { tgssAdjuntar } from './commands/tgssAdjuntar'
 import { tgssAlta } from './commands/tgssAlta'
 import { tgssAplazamiento } from './commands/tgssAplazamiento'
@@ -25,6 +26,7 @@ export const tgssCommands: readonly Command[] = [
   tgssNss,
   tgssDatos,
   tgssDatosPersonales,
+  tgssActividades,
   tgssAlta,
   tgssEmpresario,
   tgssCcc,
