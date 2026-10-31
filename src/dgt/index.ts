@@ -1,3 +1,5 @@
+export { planDgtAddressChange } from './address/planDgtAddressChange'
+export type { DgtAddressQuery } from './address/types/DgtAddressQuery'
 export type { DgtContactContext } from './contact/types/DgtContactContext'
 export type { DgtContactQuery } from './contact/types/DgtContactQuery'
 export type { DgtContactUpdate } from './contact/types/DgtContactUpdate'

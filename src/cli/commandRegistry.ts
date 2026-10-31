@@ -7,6 +7,7 @@ import { cirbeInforme } from './commands/cirbeInforme'
 import { dgsfpReclamacion } from './commands/dgsfpReclamacion'
 import { dgtContacto } from './commands/dgtContacto'
 import { dgtDatos } from './commands/dgtDatos'
+import { dgtDomicilio } from './commands/dgtDomicilio'
 import { dgtSanciones } from './commands/dgtSanciones'
 import { dgtVehiculos } from './commands/dgtVehiculos'
 import { firmarPdf } from './commands/firmarPdf'
@@ -59,6 +60,7 @@ export const commandRegistry: readonly Command[] = [
   dgtSanciones,
   dgtVehiculos,
   dgtContacto,
+  dgtDomicilio,
   justiciaExpedientes,
   justiciaDocumentos,
   nicCorreo,

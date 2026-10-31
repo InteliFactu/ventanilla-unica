@@ -17,6 +17,8 @@ All notable changes to this project are documented here. The format follows
 
 - `tgss actividades` downloads the Importass informe de actividades de trabajo
   autónomo (activities, company and role per activity, RD 504/2022).
+- `dgt domicilio` plans the DGT change of notification address (CDI): it reads
+  the current address and lists the requests; `--confirmar si` is refused.
 - `dgt vehiculos` lists the vehicles registered to the holder in Mi DGT.
 - `aeat cotejo --csv --out [--nif]` saves the PDF behind an AEAT CSV (Cotejo de
   documentos) with the certificate session.

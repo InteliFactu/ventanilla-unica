@@ -232,16 +232,16 @@
       built. `dehu quitar-email` uses the front's PUT
       `v1/contact/<base64     NIF>`, which answers a Cl@ve form that applies the
       change; adding an e-mail (and its `verify-email` code) is not built yet.
-- [ ] **dgt: `dgt domicilio` (CDI change of address), plan only so far.** Owner
-      has not decided on a new domicile (2026-10-11), so nothing was built. Live
-      map: page `/es/servicios-sede/cambio-de-direccion/`, choose
-      `radio_direcion=notificacion-nueva`; address fields take ids from
-      `service_sadd.jsp` lookups (tipoVia, via, numero, planta, puerta,
-      provincia, municipio, localidad, cp). Act: POST `service_cond.jsp`
-      `{nifTitular, domicilioNuevo: JSON, tramite: 'CDI', token}` where `token`
-      equals cookie `token-tramite-cond` (16 random chars set by JS, 5 s
-      expiry), then `service_rele.jsp` (registry, asunto `SCDCB`) for the
-      justificante. Write it behind `--confirmar si` when the owner decides.
+- [~] **dgt: `dgt domicilio` (CDI change of address), plan only so far.** Built
+  plan-only on 2026-10-31 (login on `/es/servicios-sede/cambio-de-direccion/`,
+  ATEX holder and current address, the CDI requests listed; `--confirmar si`
+  refused before any request; unit tests). Remains: capture the
+  `service_sadd.jsp` lookups (request and answer, giving the ids of tipoVia,
+  via, provincia, municipio, localidad) and the exact `domicilioNuevo` JSON of
+  `service_cond.jsp` plus the `service_rele.jsp` call, from the logged-in page's
+  inline JS; then submit with the `token-tramite-cond` cookie (16 random chars
+  set by JS, 5 s expiry) behind `--confirmar si`, once the owner chooses a new
+  domicile (deferred 2026-10-11).
 - [ ] **ses / catastro / clave / inss: contact and domicile readers.** Not
       explored yet (2026-10-11). Cl@ve phone/email change with certificate lives
       under AEAT "Cl@ve > Otras gestiones"; SES contact data is in Centro de
