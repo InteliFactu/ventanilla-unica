@@ -3,13 +3,14 @@ import type { DgtAddressQuery } from '../types/DgtAddressQuery'
 
 /**
  * True when the notification address ATEX holds already equals the requested
- * one. ATEX carries no locality, so the comparison covers the fields it has,
- * ignoring case and surrounding spaces.
+ * one, ignoring case and surrounding spaces. ATEX carries no locality, so a
+ * request naming one can never be proven equal and is always planned.
  */
 export const isSameDgtAddress = (
   current: DgtAddress,
   query: DgtAddressQuery,
 ): boolean =>
+  query.localidad === '' &&
   (
     [
       'tipoVia',

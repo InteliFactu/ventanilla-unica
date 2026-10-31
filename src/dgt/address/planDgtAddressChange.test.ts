@@ -41,6 +41,16 @@ describe('planDgtAddressChange', () => {
     expect(result.plan[0]).toMatch(/already notifies to this address/)
   })
 
+  it('plans a requested locality, which ATEX cannot confirm', async () => {
+    const result = await planDgtAddressChange(
+      plannedClient(),
+      { ...same, localidad: 'ARAVACA' },
+      false,
+    )
+    expect(result.plan[0]).toBe('Holder ANA PEREZ GIL (12345678Z)')
+    expect(result.plan.join('\n')).not.toMatch(/already notifies/)
+  })
+
   it('lists the CDI requests for another address and posts nothing else', async () => {
     const client = plannedClient()
     const result = await planDgtAddressChange(
