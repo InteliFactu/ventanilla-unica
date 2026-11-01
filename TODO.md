@@ -299,10 +299,6 @@
       back: no listing of the holder's presentations or drafts was found in the
       sede bundles. Next step: capture Carpeta/Mis presentaciones (if any) or
       read the registry entry through Carpeta Ciudadana by its REGAGE number.
-- [ ] **dgsfp: the request document is rendered locally.** The browser renders
-      it with react-pdf; the CLI writes an equivalent text PDF (same sections,
-      values, hashes and HMAC) and signs it PAdES. The sede accepted it on
-      2026-10-05 (REGAGE26e00086595724). Revisit only if the DGSFP objects.
 - [ ] **dgsfp: drafts accumulate.** Each confirmed run saves a
       `guardarBorradorPresentacion` draft before registering; a failed register
       leaves it on the sede. Next step: find the draft delete call if one

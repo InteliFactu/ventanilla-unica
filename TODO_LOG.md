@@ -6,6 +6,22 @@
 
 ## 2026
 
+### 2026-11
+
+- [-] 2026-11-01 — **Integrations:** **dgsfp: the request document is rendered
+  locally.** The browser renders it with react-pdf; the CLI writes an equivalent
+  text PDF (same sections, values, hashes and HMAC) and signs it PAdES. The sede
+  accepted it on 2026-10-05 (REGAGE26e00086595724). Revisit only if the DGSFP
+  objects.
+  - Resolution: Not a defect but a standing design note: the sede accepted the
+    locally rendered, PAdES-signed request document on 2026-10-05
+    (REGAGE26e00086595724) and no DGSFP objection has been recorded since. The
+    equivalence claim (title, visible sections and fields, attachment names and
+    SHA-256 hashes, HMAC HUELLA, header, footer, page numbers; hidden sections
+    and ocultarInformeFinal fields left out) is now pinned by
+    src/dgsfp/builders/buildRequestDocument.test.ts. Open a new item if the
+    DGSFP objects.
+
 ### 2026-10
 
 - [x] 2026-10-30 — **Blocked Tasks:** **Justicia bulk retrieval stops at one
