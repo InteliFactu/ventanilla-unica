@@ -15,6 +15,10 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `aeat actividades` files a modelo 036 casilla 127 alta of economic activities
+  carried on outside a fixed premises, with the tipo, sección, epígrafe and
+  description of the AEAT activity finder; `--validar si` runs the AEAT
+  validation without filing.
 - `tgss actividades` downloads the Importass informe de actividades de trabajo
   autónomo (activities, company and role per activity, RD 504/2022).
 - `dgt domicilio` plans the DGT change of notification address (CDI): it reads

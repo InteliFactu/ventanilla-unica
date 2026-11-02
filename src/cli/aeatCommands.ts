@@ -1,3 +1,4 @@
+import { aeatActividades } from './commands/aeatActividades'
 import { aeatApoderamientos } from './commands/aeatApoderamientos'
 import { aeatAportar } from './commands/aeatAportar'
 import { aeatBaja } from './commands/aeatBaja'
@@ -21,6 +22,7 @@ import type { Command } from './types/Command'
 
 /** AEAT command registration. */
 export const aeatCommands: readonly Command[] = [
+  aeatActividades,
   aeatApoderamientos,
   aeatAportar,
   aeatBaja,
