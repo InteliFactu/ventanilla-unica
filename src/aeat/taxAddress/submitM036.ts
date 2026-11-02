@@ -9,7 +9,13 @@ import type { M036Session } from './types/M036Session'
 import type { TaxAddressReceipt } from './types/TaxAddressReceipt'
 import { blockingM036Errors } from './validators/blockingM036Errors'
 
-/** THE ACT: "Firmar y Enviar", accept the submission and echo `onPresenvali`. */
+/**
+ * THE ACT: "Firmar y Enviar" and "Aceptar envío", which registers the 036 and
+ * mints its expediente and CSV, then the desktop-level `onPresenvali` echo the
+ * page script sends (no target widget, payload wrapped in an array), which only
+ * renders the receipt. Never retry after "Aceptar envío": each retry files
+ * another 036.
+ */
 export const submitM036 = async (
   session: M036Session,
 ): Promise<TaxAddressReceipt> => {
@@ -26,8 +32,7 @@ export const submitM036 = async (
   )
   const presented = await dispatchM036Event(session, {
     cmd: 'onPresenvali',
-    uuid: findWidgetUuid(session.blobs, 'ventanaPrincipal'),
-    data: parsePresenvaliPayload(accepted),
+    data: { '': [parsePresenvaliPayload(accepted)] },
   })
   return parseTaxAddressReceipt(presented)
 }

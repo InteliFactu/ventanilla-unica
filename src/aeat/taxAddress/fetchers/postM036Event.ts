@@ -3,7 +3,7 @@ import { aeatBaseUrl } from '../../session/aeatBaseUrl'
 import { asciiJson } from '../mappers/asciiJson'
 import type { M036Event } from '../types/M036Event'
 
-/** Send one ZK event to the BU36-M036 `zkau`, in the browser's field order. */
+/** Send one ZK event to the BU36-M036 `zkau`, in the browser's field order; no `uuid_0` for a desktop-level event. */
 export const postM036Event = async (
   client: HttpClient,
   desktopId: string,
@@ -14,7 +14,7 @@ export const postM036Event = async (
     form: {
       dtid: desktopId,
       cmd_0: event.cmd,
-      uuid_0: event.uuid,
+      ...(event.uuid === undefined ? {} : { uuid_0: event.uuid }),
       data_0: asciiJson(event.data),
     },
     referer: `${aeatBaseUrl}/wlpl/BU36-M036/MOD036/index.zul`,

@@ -46,6 +46,8 @@ describe('changeTaxAddress', () => {
       labels: ['Presentación realizada'],
       urls: ['/wlpl/BU36-M036/justificante?id=1'],
     })
+    const echo = portal.mock.calls.at(-1)?.[1]?.form
+    expect(echo?.['data_0']).toBe('{"":[{"kls":"k1","codErr":"0"}]}')
     expect(events(portal)).toEqual([
       'onCheck:c122',
       'onChange:lug',
@@ -67,7 +69,7 @@ describe('changeTaxAddress', () => {
       'onClick:bFirm',
       'onCheck:chA',
       'onClick:bAE',
-      'onPresenvali:vp',
+      'onPresenvali:',
     ])
     expect(
       portal.mock.calls.find(([url]) => url.endsWith('/zkau'))?.[1]?.form?.[

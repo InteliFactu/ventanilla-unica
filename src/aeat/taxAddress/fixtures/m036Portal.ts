@@ -23,7 +23,7 @@ export const m036Portal = (
     bVal: "[{value:'00000'},{value:'Sin errores'}]",
     bFirm: `[{value:'00000'},{value:'OK'}]${widget('chA', 'chAceptar')}${widget('bAE', 'btnAceptarEnvio')}`,
     bAE: "['onPresenvali',[{'kls':'k1','codErr':'0'}]]",
-    vp: "[{label:'Presentaci\\xf3n realizada'},{value:' '}] <a href='/wlpl/BU36-M036/justificante?id=1'>",
+    '': "[{label:'Presentaci\\xf3n realizada'},{value:' '}] <a href='/wlpl/BU36-M036/justificante?id=1'>",
     ...overrides,
   }
   return vi.fn<HttpClient['request']>(async (url, options) => {

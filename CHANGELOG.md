@@ -161,6 +161,11 @@ All notable changes to this project are documented here. The format follows
 
 ### Fixed
 
+- Every 036 filing (`aeat domicilio`, `aeat baja`, `aeat actividades`) echoes
+  `onPresenvali` as the page does, desktop-level with the payload in an array;
+  the old echo to `ventanaPrincipal` answered "error inesperado" after the 036
+  had already been registered at "Aceptar envío", which invited a retry that
+  files a second 036.
 - `justicia documentos --out` no longer stops at a document the visor refuses
   (an accessible-marked piece with an empty barcode, as in ETJ 153/2026): the
   refusal or failed download is kept as that document's `error`, the later

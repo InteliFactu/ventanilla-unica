@@ -29,6 +29,21 @@ describe('036 fetchers', () => {
     ).rejects.toThrow('HTTP 403')
   })
 
+  it('POSTs a desktop-level event without uuid_0', async () => {
+    const request = vi
+      .fn<HttpClient['request']>()
+      .mockResolvedValue(answer(200))
+    await postM036Event({ request, cookie: () => undefined }, 'z_1', {
+      cmd: 'onPresenvali',
+      data: { '': [{ kls: 'K1' }] },
+    })
+    expect(request.mock.calls[0]?.[1]?.form).toEqual({
+      dtid: 'z_1',
+      cmd_0: 'onPresenvali',
+      data_0: '{"":[{"kls":"K1"}]}',
+    })
+  })
+
   it('POSTs a zkau event in browser field order', async () => {
     const request = vi
       .fn<HttpClient['request']>()

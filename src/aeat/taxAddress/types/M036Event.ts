@@ -7,6 +7,7 @@ export type M036Event = {
     | 'onSelect'
     | 'onPresenvali'
     | 'onValorDevuelto'
-  readonly uuid: string
+  /** The target widget; absent for a desktop-level event such as the `onPresenvali` echo. */
+  readonly uuid?: string
   readonly data: Readonly<Record<string, unknown>>
 }
