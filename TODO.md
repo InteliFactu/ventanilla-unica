@@ -369,15 +369,14 @@
       owner's go-ahead, validate one synthetic XAdES and one PAdES at
       valide.redsara.es. 2026-10-15: its form (`validarFirmaForm`, multipart
       `fileData`) requires an image CAPTCHA (`codigoSeguridad`), so the owner
-      has to solve it in Orca while the files are uploaded.
+      has to solve it in Orca while the files are uploaded. If it objects,
+      suspect first the three known AutoFirma differences: CAdES `contentHint`,
+      `application/octet-stream` where AutoFirma sniffs `text/plain`, and NULL
+      digest parameters (AutoFirma 1.9 `verify` accepts all three, 2026-11-03).
 - [ ] **Multisignature limits:** countersignatures ignore AutoFirma's `target`
       and countersign every top-level signer (nested ones are not
       countersigned); detached and internally detached XAdES cannot be cosigned.
       Next: when a sede sends one.
-- [ ] **Minor AutoFirma differences left:** CAdES `contentHint`, MIME sniffing
-      (AutoFirma writes `text/plain` where we write `application/octet-stream`),
-      and NULL digest parameters. All valid either way. Next: only if a
-      validator objects.
 
 ## Future Ideas
 
