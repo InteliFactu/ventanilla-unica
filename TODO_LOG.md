@@ -8,6 +8,19 @@
 
 ### 2026-11
 
+- [-] 2026-11-03 — **Signing:** Minor AutoFirma differences (CAdES contentHint,
+  MIME sniffing, NULL digest parameters) left as they are.
+  - Result: Checked offline instead of changing live-verified signature output:
+    AutoFirma 1.9's own validator (autofirma.jar verify) reports 'Firma valida'
+    for synthetic CAdES implicit and explicit, XAdES enveloped and enveloping
+    over XML, XAdES enveloping and internally detached over plain text (MimeType
+    application/octet-stream), and PAdES; tampered copies of the CAdES, XAdES
+    and PAdES are reported 'Firma no valida'. No code changed.
+  - Resolution: No validator objects, which was this item's only trigger; the
+    one external validator not yet tried, valide.redsara.es, stays tracked under
+    'FACe and valide.redsara.es never tried', which now names these three
+    differences as the first suspects if it objects.
+
 - [-] 2026-11-01 — **Integrations:** **dgsfp: the request document is rendered
   locally.** The browser renders it with react-pdf; the CLI writes an equivalent
   text PDF (same sections, values, hashes and HMAC) and signs it PAdES. The sede
