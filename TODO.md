@@ -21,6 +21,14 @@
   owner-authorized real inscription, verify message delivery, link/session
   behavior and the actual receipt before claiming end-to-end live filing
   support. Never submit merely to obtain a trace.
+- [ ] **Garantía Juvenil step 4 work experience is a sub-flow the command cannot
+      drive.** Observed 2026-11-04: `experienciaLaboral.tcodOcupacion` is
+      disabled until `tengoExperiencia=Si` is posted with the `checkExperiencia`
+      button; the occupation is then added with `annadirExperienciaLaboral` and
+      the draft keeps it (`experienciaAsociada=true`) across sessions. Done once
+      by hand for the authorized holder with a `/tmp` probe on the live draft.
+      Next: accept `--respuestas` step 4 `experienciaLaboral.tcodOcupacion` and
+      run check, then add, before `siguiente`.
 - [!] **Garantía Juvenil enrolled-record and PDF paths need live fixtures.**
   Observed 2026-11-04: the authorized holder had no consolidated inscription,
   date or offered certificate. Explicit alta/baja/pending parsing and offered
