@@ -5,6 +5,7 @@ import type { CarpetaProfileRequest } from '../types/CarpetaProfileRequest'
 export const buildCarpetaProfileFields = (
   html: string,
   request: CarpetaProfileRequest,
+  personType: string,
 ): Readonly<Record<string, string>> => ({
   'formulario:cas54': readCarpetaOptionLabel(html, 'cas54', request.region),
   'formulario:cas54_ids': request.region,
@@ -16,8 +17,8 @@ export const buildCarpetaProfileFields = (
     request.municipality,
   ),
   'formulario:cas37_ids': request.municipality,
-  'formulario:cas270': 'Persona Jurídica',
-  'formulario:cas270_ids': '2',
+  'formulario:cas270': readCarpetaOptionLabel(html, 'cas270', personType),
+  'formulario:cas270_ids': personType,
   'formulario:cas27': 'Num',
   'formulario:cas27_ids': '1',
   'formulario:cas42': request.phone,

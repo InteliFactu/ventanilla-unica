@@ -2,7 +2,7 @@ import { completeCarpetaProfile } from '../../gobex/filing/completeCarpetaProfil
 import { isConfirmed } from '../../write/isConfirmed'
 import type { Command } from '../types/Command'
 
-/** Complete the territorial codes of an existing legal-entity profile without replacing its street address. */
+/** Complete the territorial codes of an existing natural-person or legal-entity profile without replacing its street address. */
 export const juntaCarpetaCompletar: Command = {
   portal: 'junta',
   action: 'carpeta-completar',

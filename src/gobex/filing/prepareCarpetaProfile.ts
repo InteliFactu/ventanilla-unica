@@ -7,7 +7,7 @@ import { buildCarpetaProfileFields } from './mappers/buildCarpetaProfileFields'
 import { readCarpetaForm } from './parsers/readCarpetaForm'
 import type { CarpetaProfileRequest } from './types/CarpetaProfileRequest'
 
-/** Complete the existing address codes and contact fields without replacing the address. */
+/** Complete the existing address codes and contact fields without replacing the address or the person type. */
 export const prepareCarpetaProfile = async (
   client: HttpClient,
   request: CarpetaProfileRequest,
@@ -15,13 +15,12 @@ export const prepareCarpetaProfile = async (
   let page = await client.request(
     'https://sede.gobex.es/SEDE/privado/ciudadanos/exterior.jsf?cod=5637',
   )
-  if (
-    readCarpetaForm(page.text, page.url, 'formulario').fields[
-      'formulario:cas270_ids'
-    ] !== '2'
-  )
+  const personType = readCarpetaForm(page.text, page.url, 'formulario').fields[
+    'formulario:cas270_ids'
+  ]
+  if (personType !== '1' && personType !== '2')
     throw new Error(
-      'Junta: profile completion currently supports legal entities only',
+      'Junta: profile completion supports natural persons and legal entities only',
     )
   page = await fetchCarpetaLocationSelection(client, page, {
     field: 'cas54',
@@ -38,7 +37,7 @@ export const prepareCarpetaProfile = async (
   const button = await advanceCarpetaPage(client, page, {
     form: 'formulario',
     image: 'bt_continuar',
-    fields: buildCarpetaProfileFields(page.text, request),
+    fields: buildCarpetaProfileFields(page.text, request, personType),
   })
   if (!button.url.includes('xhtml5637V12'))
     throw new Error(

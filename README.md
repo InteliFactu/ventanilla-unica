@@ -180,7 +180,7 @@ registration (ALTA) and authorizes the Junta to verify AEAT identity and bank
 ownership. It does not change a grant application or submit a BAJA.
 
 The old Carpeta profile must contain the province, municipality and notification
-email. For a legal entity,
+email. For a natural person or a legal entity,
 `junta carpeta-completar --comunidad <code> --provincia <code> --municipio <code> --telefono <nine-digits> --correo <email> --out <directory>`
 plans that prerequisite update. `--confirmar si` signs and submits it. The codes
 must occur in the portal's dependent dropdowns. The command preserves the street
