@@ -273,6 +273,11 @@ root as well; see `src/index.ts`.
 - It never pays, and it never acts without `--confirmar si`.
 - It never stores portal data, session cookies or tokens beyond the running
   command, and it sends nothing anywhere but to the portal you named.
+- It does not submit PLACSP bids. Offers are prepared and sent with the
+  platform's own Java desktop tool (Herramienta de Preparación y Presentación de
+  Ofertas), which encrypts each sobre on the client to the contracting body's
+  key and signs it with AutoFirma; no submission API is published, and the open
+  data and CODICE feeds are read-only.
 
 Some reads are emissions: documents the portal generates on request (TGSS
 reports and certificates, the AEAT census and up-to-date certificates, the SEPE

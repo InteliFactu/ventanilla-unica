@@ -190,6 +190,11 @@ procesos.
 - Nunca paga, y nunca actúa sin `--confirmar si`.
 - Nunca guarda datos de la sede, cookies ni tokens más allá del comando, y no
   envía nada a ningún sitio que no sea la sede que nombras.
+- No presenta ofertas en PLACSP. Se preparan y envían con la herramienta de
+  escritorio Java de la propia Plataforma (Herramienta de Preparación y
+  Presentación de Ofertas), que cifra cada sobre en el cliente con la clave del
+  órgano de contratación y lo firma con AutoFirma; no hay API de presentación
+  publicada, y los datos abiertos y la sindicación CODICE son solo de lectura.
 
 Algunos comandos emiten un documento (informes y certificados de la TGSS,
 certificados censal y de estar al corriente de la AEAT, certificado del SEPE,
