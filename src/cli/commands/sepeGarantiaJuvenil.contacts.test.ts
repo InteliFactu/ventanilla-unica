@@ -113,7 +113,7 @@ describe('inscription with municipality and contact verification', () => {
     )
     expect(steps).toHaveLength(9)
     expect(steps[4]?.[1]?.form).toMatchObject({
-      validar: 'Siguiente',
+      siguiente: 'Siguiente',
       token: 'after-link',
       confirmaMovil: '1',
       'datosDireccionDomicilio.tcodMunicipio': '10037',

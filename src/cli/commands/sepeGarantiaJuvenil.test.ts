@@ -106,7 +106,7 @@ describe('sepe garantia-juvenil command', () => {
     )
     expect(submissions).toHaveLength(6)
     expect(submissions[1]?.[1]).toMatchObject({
-      form: { token: 'synthetic-2', choice: 'A', validar: 'Siguiente' },
+      form: { token: 'synthetic-2', choice: 'A', siguiente: 'Siguiente' },
     })
     expect(submissions[5]?.[1]?.form).not.toHaveProperty('limpiar')
   })
