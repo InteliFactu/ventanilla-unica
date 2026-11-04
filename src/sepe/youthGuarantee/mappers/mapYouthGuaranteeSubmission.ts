@@ -1,9 +1,7 @@
-import { readAttribute } from '../../../html/readAttribute'
 import type { HtmlForm } from '../../../html/types/HtmlForm'
-import { unescapeHtml } from '../../../html/unescapeHtml'
+import { readYouthGuaranteeButton } from '../parsers/readYouthGuaranteeButton'
 import { readYouthGuaranteeFields } from '../parsers/readYouthGuaranteeFields'
 import { readYouthGuaranteeForm } from '../parsers/readYouthGuaranteeForm'
-import { readYouthGuaranteeFormHtml } from '../parsers/readYouthGuaranteeFormHtml'
 import type { YouthGuaranteeAnswers } from '../types/YouthGuaranteeAnswers'
 import { youthGuaranteeUrls } from '../youthGuaranteeUrls'
 
@@ -26,10 +24,7 @@ export const mapYouthGuaranteeSubmission = (
     )
   const buttonName =
     step === 6 ? 'confirmarInscripcion' : step === 2 ? 'validar' : 'siguiente'
-  const button = [
-    ...readYouthGuaranteeFormHtml(html, step).matchAll(/<input\b[^>]*>/gi),
-  ].find(([tag]) => readAttribute(tag, 'name') === buttonName)?.[0]
-  if (!button) throw new Error('Garantía Juvenil: missing forward button')
+  const buttonValue = readYouthGuaranteeButton(html, step, buttonName)
   const fields = readYouthGuaranteeFields(html)
   const declared = Object.fromEntries(
     Object.entries(answers[String(step)] ?? {}).filter(
@@ -43,7 +38,7 @@ export const mapYouthGuaranteeSubmission = (
     fields: {
       ...form.fields,
       ...declared,
-      [buttonName]: unescapeHtml(readAttribute(button, 'value') ?? ''),
+      [buttonName]: buttonValue,
     },
   }
 }

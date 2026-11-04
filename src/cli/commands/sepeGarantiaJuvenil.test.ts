@@ -14,7 +14,7 @@ describe('sepe garantia-juvenil command', () => {
       portal: 'sepe',
       action: 'garantia-juvenil',
       effect: 'write',
-      options: ['inscribir', 'respuestas'],
+      options: ['inscribir', 'respuestas', 'pin-fichero', 'enlace-fichero'],
     })
   })
   it('reads without an inscription flag', async () => {
@@ -93,6 +93,8 @@ describe('sepe garantia-juvenil command', () => {
     const result = await sepeGarantiaJuvenil.run(client, {
       inscribir: 'si',
       confirmar: 'si',
+      'pin-fichero': '/synthetic/pin',
+      'enlace-fichero': '/synthetic/link',
       respuestas: JSON.stringify(youthGuaranteeAnswers),
     })
     expect(result).toMatchObject({
@@ -118,6 +120,8 @@ describe('sepe garantia-juvenil command', () => {
       sepeGarantiaJuvenil.run(client, {
         inscribir: 'si',
         confirmar: 'si',
+        'pin-fichero': '/synthetic/pin',
+        'enlace-fichero': '/synthetic/link',
         respuestas: JSON.stringify(youthGuaranteeAnswers),
       }),
     ).rejects.toThrow(/explicitly unregistered/)
@@ -146,6 +150,8 @@ describe('sepe garantia-juvenil command', () => {
     const result = await sepeGarantiaJuvenil.run(client, {
       inscribir: 'si',
       confirmar: 'si',
+      'pin-fichero': '/synthetic/pin',
+      'enlace-fichero': '/synthetic/link',
       respuestas: JSON.stringify(youthGuaranteeAnswers),
       out: '/unused',
     })

@@ -228,8 +228,9 @@ Pass declared answers through `--respuestas` as a JSON object keyed by step
 number (`"1"` to `"6"`), then by the exact control names returned in `form`. All
 values are strings: use the offered option codes, `"true"` for checked
 declarations and `"false"` for unchecked checkboxes. Only offered editable
-controls are accepted; callers cannot override hidden tokens or action buttons.
-Do not infer answers from eligibility assumptions.
+controls are accepted; callers cannot override hidden tokens, action buttons or
+`pinSMS` (the code comes exclusively from the verification file). Do not infer
+answers from eligibility assumptions.
 
 Step 1 requires the holder to explicitly declare these five controls as
 `"true"`: `situacionSolicitante.checkCompromisoEstudiosN`,
@@ -243,17 +244,85 @@ truthful information and an active participation commitment. Step 6 requires
 `checkConsentimiento`. Personal, contact, address, education and other answers
 must come from the holder and use the fields and codes offered in that session.
 
-After setting `GJ_ANSWERS` to the complete, reviewed JSON, this is the
-submission invocation. It is documented but was not executed against the live
-portal:
+Step-2 municipality controls accept a name such as `"CACERES"` with province
+`"10"`, or an offered municipality ID. This applies to
+`datosDireccionDomicilio.tcodMunicipio`, `datosDireccionContacto.tcodMunicipio`
+and `datosContacto.notificaApartadoCorreos.tcodMunicipio`; each needs its
+matching `.tcodProvincia`. A confirmed write POSTs JSON `{"idProvincia":"10"}`
+to `/cargarMunicipios.action` and resolves `listadoMunicipios[].denominacionC`
+to `idMunicipioC`. Name matching ignores case, accents and surrounding
+whitespace. Missing or ambiguous matches stop the inscription. Plan mode accepts
+these names locally and does not call the AJAX endpoint.
 
-```sh
-ventanilla-unica sepe garantia-juvenil --inscribir si --respuestas "$GJ_ANSWERS" --confirmar si --out ./garantia-juvenil-submission
+This is the answers shape, with synthetic contact details. Add every other
+required control from the six GET pages using the holder's reviewed answers;
+empty objects below illustrate the step keys and do not supply education, work
+or interest answers:
+
+```json
+{
+  "1": {
+    "situacionSolicitante.checkCompromisoEstudiosN": "true",
+    "situacionSolicitante.checkCompromisoFormacionN": "true",
+    "situacionSolicitante.checkEmpadronamientoN": "true",
+    "situacionSolicitante.checkResponsabilidadN": "true",
+    "situacionSolicitante.checkNeetN": "true"
+  },
+  "2": {
+    "datosContacto.movilC": "600000000",
+    "datosContacto.correoElectronicoC": "holder@example.test",
+    "datosContacto.correoElectronicoCR": "holder@example.test",
+    "datosDireccionDomicilio.tcodProvincia": "10",
+    "datosDireccionDomicilio.tcodMunicipio": "CACERES"
+  },
+  "3": {},
+  "4": {},
+  "5": {},
+  "6": { "checkLOPD": "true" }
+}
 ```
 
-Confirmation authorizes saving the six form steps and sending the page-6
-`Confirmar solicitud` action. This submits the holder's declarations to the
-Sistema Nacional de Garantía Juvenil; it is not merely a status lookup.
+For confirmed submission, provide two different local handoff paths through
+`--pin-fichero` and `--enlace-fichero`. Use new or empty private files for each
+attempt. The files may initially be absent. The command checks each pending file
+every 5 seconds for up to 30 minutes, keeping the process, certificate client
+and cookies alive. It never prints their contents or deletes the files.
+
+On step 2, the command submits `confirmarMovil` for an unverified or changed
+mobile, which sends a real SMS. It prints `SMS requested` to stderr so the
+holder or supervisor knows to write only the received digits into the PIN file.
+The portal advertises a 4-hour code lifetime. Once digits arrive, the command
+submits `pinSMS` with `confirmarOTP` and requires the returned hidden
+`confirmaMovil` to equal `1`.
+
+For an unverified or changed email, the command submits `confirmarCorreo` on the
+same form and prints a waiting message. The holder or supervisor writes the
+received confirmation URL into the link file. The command GETs that URL using
+the same client, then GETs step 2 again and requires `confirmaCorreo=1`. In the
+captured JavaScript, `0` means unverified and `2` means awaiting confirmation;
+`confirmaCorreo` has an `id` but no submitted `name`. Links and every redirect
+must use HTTPS on `garantiajuvenil.sepe.es` or another administration host
+allowed by the HTTP client. URLs containing credentials or a nonstandard port
+are refused. Already verified, unchanged contacts do not receive new messages.
+
+From this checkout, run `pnpm build` first. After configuring
+`VENTANILLA_UNICA_CERT` and `VENTANILLA_UNICA_KEY` as PEM file paths and setting
+`GJ_ANSWERS` to the complete, reviewed JSON, run:
+
+```sh
+node dist/cli/main.js sepe garantia-juvenil --inscribir si --respuestas "$GJ_ANSWERS" --pin-fichero /private/tmp/gj-pin.txt --enlace-fichero /private/tmp/gj-email-link.txt --confirmar si --out ./garantia-juvenil-submission
+```
+
+This confirmed command is documented and covered by synthetic HTTP/file tests;
+it was not run against the live portal. Without `--confirmar si`, the command
+only logs in and reads pages: it does not save a step, resolve municipalities,
+request verification messages, read handoff files or visit a confirmation link.
+Confirmed mode requires both handoff paths before saving any step.
+
+Confirmation authorizes the municipality lookup, real SMS and email verification
+requests, visiting the confirmation link, saving the six form steps and sending
+the page-6 `Confirmar solicitud` action. This submits the holder's declarations
+to the Sistema Nacional de Garantía Juvenil; it is not merely a status lookup.
 `executed: true` means the final action was sent. An explicit submission
 confirmation and a plausible registry number are both required for
 `receipt.registered: true`; an HTTP-200 response, a draft or a further signature
@@ -262,13 +331,15 @@ action and receipt in the JSON, with an error note. The command does not retry
 uncertain writes. Inspect the portal before repeating a request after an error
 or an unverified receipt.
 
-The implemented write sequence has synthetic HTTP tests and has not been
-exercised live. Dependent dropdown population, email/SMS verification and any
-signature step after confirmation are not automated. A holder requiring those
-steps must complete them in the portal; do not treat this command as a verified
-end-to-end filing client. The live READ verification covered an unregistered
-holder and all six form pages. Alta/baja/pending records and offered PDF
-downloads have synthetic tests but still need an eligible live record.
+The implemented write sequence, including dependent municipalities and SMS/email
+verification, has synthetic HTTP tests and has not been exercised live. Any
+signature step after confirmation still requires portal interaction;
+registration requires the explicit receipt evidence described above. Timeouts,
+failed codes, expired sessions and ambiguous write responses stop the process
+without resending messages or retrying steps. Inspect the portal before starting
+another attempt. Live READ verification covered an unregistered holder and all
+six form pages. Alta/baja/pending records and offered PDF downloads still need
+an eligible live record.
 
 Protocol: GET `/loginClave`, post the returned SAML request to Cl@ve, choose
 `AFIRMA`, and replay the SAML relay to `/j_spring_security_check`. READ then

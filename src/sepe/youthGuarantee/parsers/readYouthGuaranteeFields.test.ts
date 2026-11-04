@@ -43,7 +43,11 @@ describe('wizard controls', () => {
       ),
     ).toEqual({
       action: 'https://garantiajuvenil.sepe.es/solicitudPaso2Token.action',
-      fields: { 'struts.token.name': 'token', token: 'synthetic-2' },
+      fields: {
+        'struts.token.name': 'token',
+        token: 'synthetic-2',
+        confirmaMovil: '1',
+      },
     })
   })
   it('rejects missing or stale wizard pages', () => {

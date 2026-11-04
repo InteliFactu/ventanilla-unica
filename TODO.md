@@ -13,12 +13,14 @@
 
 - [!] **Garantía Juvenil inscription needs live filing acceptance.** Observed
   2026-11-04: certificate READ reaches the unconsolidated wizard, its six GET
-  pages and an empty inscription history. The implemented confirmed WRITE posts
-  the captured six wizard actions, but no inscription POST was executed.
-  Dependent dropdowns, contact verification and any final signature are not
-  automated. Next: on a separately owner-authorized real inscription, capture
-  and sanitize those steps and the actual receipt before claiming end-to-end
-  filing support. Never submit merely to obtain a trace.
+  pages and an empty inscription history. The confirmed WRITE now resolves
+  dependent municipality names, requests SMS/email verification and waits for
+  local PIN/link handoffs before forwarding step 2. These paths have synthetic
+  tests only; no inscription or verification POST was executed. Any final
+  signature remains outside the automation. Next: on a separately
+  owner-authorized real inscription, verify message delivery, link/session
+  behavior and the actual receipt before claiming end-to-end live filing
+  support. Never submit merely to obtain a trace.
 - [!] **Garantía Juvenil enrolled-record and PDF paths need live fixtures.**
   Observed 2026-11-04: the authorized holder had no consolidated inscription,
   date or offered certificate. Explicit alta/baja/pending parsing and offered

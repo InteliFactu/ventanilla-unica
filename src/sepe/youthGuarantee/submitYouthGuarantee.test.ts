@@ -4,6 +4,7 @@ import { htmlResponse } from '../../http/fixtures/htmlResponse'
 import { scriptedClient } from '../../http/fixtures/scriptedClient'
 import { youthGuaranteeAnswers } from './fixtures/youthGuaranteeAnswers'
 import { youthGuaranteePage } from './fixtures/youthGuaranteePage'
+import { youthGuaranteeVerificationFiles } from './fixtures/youthGuaranteeVerificationFiles'
 import { submitYouthGuarantee } from './submitYouthGuarantee'
 import { youthGuaranteeUrls } from './youthGuaranteeUrls'
 
@@ -15,6 +16,16 @@ describe('inscription submission boundary (synthetic HTTP only)', () => {
     ).rejects.toThrow(/requires --confirmar/)
     expect(client.request.mock.calls).toHaveLength(0)
   })
+  it.each([{}, { pinFile: '/same', linkFile: '/same' }])(
+    'refuses missing or shared handoff paths before saving any step',
+    async (files) => {
+      const client = scriptedClient()
+      await expect(
+        submitYouthGuarantee(client, youthGuaranteeAnswers, true, files),
+      ).rejects.toThrow(/--pin-fichero/)
+      expect(client.request.mock.calls).toHaveLength(0)
+    },
+  )
   it('refuses a changed action before sending answers', async () => {
     const client = scriptedClient(
       htmlResponse(
@@ -26,7 +37,12 @@ describe('inscription submission boundary (synthetic HTTP only)', () => {
       ),
     )
     await expect(
-      submitYouthGuarantee(client, youthGuaranteeAnswers, true),
+      submitYouthGuarantee(
+        client,
+        youthGuaranteeAnswers,
+        true,
+        youthGuaranteeVerificationFiles,
+      ),
     ).rejects.toThrow(/action or CSRF/)
     expect(client.request.mock.calls).toHaveLength(1)
   })
@@ -36,7 +52,12 @@ describe('inscription submission boundary (synthetic HTTP only)', () => {
       htmlResponse(youthGuaranteeUrls.page(1), youthGuaranteePage(1)),
     )
     await expect(
-      submitYouthGuarantee(client, youthGuaranteeAnswers, true),
+      submitYouthGuarantee(
+        client,
+        youthGuaranteeAnswers,
+        true,
+        youthGuaranteeVerificationFiles,
+      ),
     ).rejects.toThrow(/step 1 was sent.*Do not retry/)
     expect(client.request.mock.calls).toHaveLength(2)
   })
@@ -46,7 +67,12 @@ describe('inscription submission boundary (synthetic HTTP only)', () => {
     )
     client.request.mockRejectedValueOnce(new Error('socket closed'))
     await expect(
-      submitYouthGuarantee(client, youthGuaranteeAnswers, true),
+      submitYouthGuarantee(
+        client,
+        youthGuaranteeAnswers,
+        true,
+        youthGuaranteeVerificationFiles,
+      ),
     ).rejects.toThrow(/step 1 was sent/)
     expect(client.request.mock.calls).toHaveLength(2)
   })
@@ -61,7 +87,12 @@ describe('inscription submission boundary (synthetic HTTP only)', () => {
       redirect,
     )
     await expect(
-      submitYouthGuarantee(client, youthGuaranteeAnswers, true),
+      submitYouthGuarantee(
+        client,
+        youthGuaranteeAnswers,
+        true,
+        youthGuaranteeVerificationFiles,
+      ),
     ).rejects.toThrow(/outcome is unverified/)
     expect(client.request.mock.calls).toHaveLength(2)
   })
@@ -80,7 +111,12 @@ describe('inscription submission boundary (synthetic HTTP only)', () => {
       ),
     )
     expect(
-      await submitYouthGuarantee(client, youthGuaranteeAnswers, true),
+      await submitYouthGuarantee(
+        client,
+        youthGuaranteeAnswers,
+        true,
+        youthGuaranteeVerificationFiles,
+      ),
     ).toMatchObject({ registered: false, registrationNumber: null })
   })
 })

@@ -8,6 +8,17 @@
 
 ### 2026-11
 
+- [x] 2026-11-04 — **SEPE:** **Garantía Juvenil step-2 verification support.**
+      Implement municipality-name resolution, SMS PIN and email-link handoffs
+      under explicit confirmation, with synthetic tests and operator
+      documentation.
+  - Result: Added province-scoped municipio name resolution, same-session SMS
+    PIN and email-link handoffs, verification-state checks, CLI flags and
+    operator documentation.
+  - Evidence: pnpm check:ci; pnpm build; synthetic HTTP/file tests for municipio
+    resolution, SMS/email waits, redirects, rejected verification and plan-only
+    safety. No live inscription or verification POST was executed.
+
 - [-] 2026-11-04 — **Future Ideas:** Cáceres padrón catalogue filing idea.
   - Resolution: Superseded by caceres tramite, the own-name catalogue filing
     command. The live padrón alta plan maps the requested PDFs without

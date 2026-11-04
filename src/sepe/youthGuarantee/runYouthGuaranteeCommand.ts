@@ -13,9 +13,14 @@ export const runYouthGuaranteeCommand = async (
   if (inscription !== undefined && inscription !== 'si')
     throw new Error('Garantía Juvenil: --inscribir accepts only si')
   if (inscription === undefined) {
-    if (isConfirmed(options) || options['respuestas'] !== undefined)
+    if (
+      isConfirmed(options) ||
+      options['respuestas'] !== undefined ||
+      options['pin-fichero'] !== undefined ||
+      options['enlace-fichero'] !== undefined
+    )
       throw new Error(
-        'Garantía Juvenil: --confirmar and --respuestas require --inscribir si',
+        'Garantía Juvenil: --confirmar, --respuestas and verification files require --inscribir si',
       )
     return readYouthGuarantee(client, options['out'])
   }
@@ -23,6 +28,10 @@ export const runYouthGuaranteeCommand = async (
     client,
     parseYouthGuaranteeAnswers(options['respuestas']),
     isConfirmed(options),
-    options['out'],
+    {
+      out: options['out'],
+      pinFile: options['pin-fichero'],
+      linkFile: options['enlace-fichero'],
+    },
   )
 }
