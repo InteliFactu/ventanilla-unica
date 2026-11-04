@@ -11,24 +11,26 @@
 
 ## Blocked Tasks
 
-- [!] **Garantía Juvenil inscription needs live filing acceptance.** Observed
-  2026-11-04: certificate READ reaches the unconsolidated wizard, its six GET
-  pages and an empty inscription history. The confirmed WRITE now resolves
-  dependent municipality names, requests SMS/email verification and waits for
-  local PIN/link handoffs before forwarding step 2. These paths have synthetic
-  tests only; no inscription or verification POST was executed. Any final
-  signature remains outside the automation. Next: on a separately
-  owner-authorized real inscription, verify message delivery, link/session
-  behavior and the actual receipt before claiming end-to-end live filing
-  support. Never submit merely to obtain a trace.
-- [ ] **Garantía Juvenil step 4 work experience is a sub-flow the command cannot
-      drive.** Observed 2026-11-04: `experienciaLaboral.tcodOcupacion` is
-      disabled until `tengoExperiencia=Si` is posted with the `checkExperiencia`
-      button; the occupation is then added with `annadirExperienciaLaboral` and
-      the draft keeps it (`experienciaAsociada=true`) across sessions. Done once
-      by hand for the authorized holder with a `/tmp` probe on the live draft.
-      Next: accept `--respuestas` step 4 `experienciaLaboral.tcodOcupacion` and
-      run check, then add, before `siguiente`.
+- [~] **Garantía Juvenil inscription: steps 4 and 5 sub-flows and the SMS
+  signature are still manual.** Observed 2026-11-04 on the owner-authorized live
+  inscription of 78117074N (número de ingreso 202604969568, 04/11/2026 20:16:57,
+  "SOLICITUD ACEPTADA", then "pendiente de validación por el tramitador"): SMS
+  and email verification, municipio resolution and steps 1-6 now run live
+  (41ac226). The SMS arrived 25 minutes late and its code is alphanumeric
+  ("CODIGO FIRMA GJ", reusable for 4 hours, the same code signs). Still done by
+  hand with `/tmp` probes: step 4 experience (post `tengoExperiencia=Si` with
+  `checkExperiencia`, then the occupation with `annadirExperienciaLaboral`),
+  step 5 interest and sector (`annadirExperienciaLaboralOcupacion` with
+  `tcodInteresOcupacion`, `annadirExperienciaLaboral` with `tcodSector`), and
+  the final signature (POST `/firmaSolicitud.action` with `solicitudJson`,
+  `firmaSolicitud`, `numIntentos`, `pinSMS` and
+  `firmarSolicitudAnonimamente=Firmar con SMS`, answered by
+  `/acuseRecibo.action` with `situacionSolicitante.numExpedienteC`,
+  `fxSolicitudFxFormat` and `fxSolicitudHoraFxFormat`). After filing, login
+  lands on `solicitudFinalizada.action` ("Solicitud en estado Finalizado"),
+  which the status reader reports as unknown. Next: drive the two sub-flows from
+  `--respuestas`, sign with the PIN file, parse the acuse, and read the
+  finalizada page as pending.
 - [!] **Garantía Juvenil enrolled-record and PDF paths need live fixtures.**
   Observed 2026-11-04: the authorized holder had no consolidated inscription,
   date or offered certificate. Explicit alta/baja/pending parsing and offered
