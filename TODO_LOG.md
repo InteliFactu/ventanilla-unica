@@ -8,6 +8,12 @@
 
 ### 2026-11
 
+- [-] 2026-11-04 — **Future Ideas:** RED SARA REC general registry filing.
+  - Resolution: Superseded: shipped as the `reg` portal in d76a7b3 (REC moved to
+    reg.redsara.es); `reg registros|registro|organismos` verified live
+    2026-10-15 and `reg presentar` plan-verified. The never-run confirmed filing
+    stays tracked under the [~] signAutoScript item in TODO.md (Signing).
+
 - [-] 2026-11-04 — **Future Ideas:** **PLACSP bid submission ("Preparación y
   Presentación de ofertas"): design note, not planned.** Evidence, Guía de
   licitación electrónica v9.1 and Guía del Operador Económico v5.3: offers are

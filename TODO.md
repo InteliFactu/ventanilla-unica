@@ -397,7 +397,6 @@
       `afirma_bridge.py`). Port it here with the local XAdES signer rather than
       the AutoFirma bridge. Needs the Facturae profile and digest items under
       Signing, plus a WS-Security envelope signer.
-- [ ] RED SARA REC general registry filing.
 - [ ] BOE fixed-width modelo writer and validator.
 - [ ] **Rayuela: `calificaciones`, message paging and attachments.**
       `rayuela hijos|mensajes|horario|faltas|profesorado` read live on
