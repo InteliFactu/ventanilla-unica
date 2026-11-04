@@ -7,6 +7,7 @@ import { caceresNotificaciones } from './commands/caceresNotificaciones'
 import { caceresPadron } from './commands/caceresPadron'
 import { caceresProcedimiento } from './commands/caceresProcedimiento'
 import { caceresRegistros } from './commands/caceresRegistros'
+import { caceresTramite } from './commands/caceresTramite'
 import type { Command } from './types/Command'
 
 /** The Ayuntamiento de Cáceres sede commands: STA reads, Relec procedure forms, the contact-data gate and the Relec contribution. */
@@ -20,4 +21,5 @@ export const caceresCommands: readonly Command[] = [
   caceresDatosContacto,
   caceresAportar,
   caceresInstancia,
+  caceresTramite,
 ]

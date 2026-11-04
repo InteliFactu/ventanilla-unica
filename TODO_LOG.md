@@ -8,6 +8,11 @@
 
 ### 2026-11
 
+- [-] 2026-11-04 — **Future Ideas:** Cáceres padrón catalogue filing idea.
+  - Resolution: Superseded by caceres tramite, the own-name catalogue filing
+    command. The live padrón alta plan maps the requested PDFs without
+    uploading; confirmed live acceptance remains tracked under Testing.
+
 - [-] 2026-11-04 — **Future Ideas:** RED SARA REC general registry filing.
   - Resolution: Superseded: shipped as the `reg` portal in d76a7b3 (REC moved to
     reg.redsara.es); `reg registros|registro|organismos` verified live

@@ -6,10 +6,13 @@ export const selectRelecSlot = (
   row: string,
 ): RelecSlot => {
   const wanted = row.toLowerCase()
-  const slot = slots.find(
+  const matches = slots.filter(
     (candidate) =>
       candidate.dboid === row || candidate.name.toLowerCase() === wanted,
   )
+  if (matches.length > 1)
+    throw new Error(`the form row "${row}" is ambiguous; use its DocReq id`)
+  const [slot] = matches
   if (slot === undefined)
     throw new Error(
       `the form has no row "${row}"; rows: ${slots.map((candidate) => candidate.name).join(', ')}`,

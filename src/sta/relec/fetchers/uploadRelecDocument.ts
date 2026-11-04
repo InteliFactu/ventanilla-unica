@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises'
 import type { HttpClient } from '../../../http/types/HttpClient'
 import { buildMultipartBody } from '../../registry/builders/buildMultipartBody'
 import { mapHexText } from '../mappers/mapHexText'
+import { selectRelecUploadMaxSize } from '../selectors/selectRelecUploadMaxSize'
 import type { RelecUploadTarget } from '../types/RelecUploadTarget'
 
 /**
@@ -17,13 +18,14 @@ export const uploadRelecDocument = async (
 ): Promise<void> => {
   const { origin, slot, document } = target
   const file = mapHexText(document.uploadName)
+  const maxSize = String(selectRelecUploadMaxSize(target))
   // the path is the holder's own --documentos choice, not attacker input.
   // eslint-disable-next-line security/detect-non-literal-fs-filename
   const bytes = await readFile(document.path)
   const { body, contentType } = buildMultipartBody(
     {
       tipoDocumento: String(slot),
-      maxSize: '50000',
+      maxSize,
       file,
       urlBack:
         'https%3A%2F%2Fsede.caceres.es%2Fsta%2FCarpetaPublic%2FdoEvent%3FAPP_CODE%3DSTA%26PAGE_CODE%3DCATALOGO',
@@ -37,7 +39,7 @@ export const uploadRelecDocument = async (
     },
   )
   const response = await client.request(
-    `${origin}/sta/FileUploader?file=${file}&action=savefile&sessionid=${session}&tipo=${String(slot)}&maxSize=50000&checkPdf=true&accionfirma=firma&signatureField=Telematico`,
+    `${origin}/sta/FileUploader?file=${file}&action=savefile&sessionid=${session}&tipo=${String(slot)}&maxSize=${maxSize}&checkPdf=true&accionfirma=firma&signatureField=Telematico`,
     {
       method: 'POST',
       body,

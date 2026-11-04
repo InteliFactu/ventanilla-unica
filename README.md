@@ -106,6 +106,7 @@ anything does not match what the plan read (holder, amount, document).
 | `ventanilla-unica oargt datos-contacto --correo m [--telefono t]`                                                                                                                                                          | OARGT Cáceres (sede.oargt.es)                     | Answers the OARGT sede contact-data gate: saves --correo/--telefono when the sede holds none, otherwise only presses "Sí"; plan only without `--confirmar si`                                                                                                                                                                                                                                                                                                                                                     |
 | `ventanilla-unica caceres aportar --referencia AÑO/NUMERO\|ENT... --documentos a.pdf,b.pdf --tipos DECL,ALTER --descripciones 'd1\|d2' [--informacion t] [--correo m] [--telefono t] [--out d]`                            | Cáceres                                           | Contributes documents to an expediente or registry entry ("Aportación de documentación", the sede's Relec form) as representative of the entity the certificate represents: uploads each PDF and signs it PAdES, signs the registry form XAdES (no AutoFirma), registers it and saves the justificante. `--tipos` takes the sede's type codes (DECL, ALTER, CERTI, OTROE, FIAN, CAPA, JUST...); e-mail and phone default to the form's prefilled contact. Confirmed, it counts as presented that day              |
 | `ventanilla-unica caceres instancia --asunto s --documentos a.pdf,b.pdf --filas 'Instancia General\|Otros documentos de entrada' [--representado NIF] [--correo m] [--telefono t]`                                         | Cáceres                                           | Plans an "Instancia general" (the sede's Relec form): checks the PDFs, logs in, opens the form and maps each PDF to a form row by name or DocReq id (see `caceres procedimiento`), naming the required rows left empty ("Instancia General Mod-201"). Plan only: `--confirmar si` refuses until the submission is captured                                                                                                                                                                                        |
+| `ventanilla-unica caceres tramite --dboid ID --asunto text --documentos a.pdf,b.pdf --slots slotDboid,slotName [--correo m] [--telefono t] [--out d]`                                                                      | Cáceres                                           | Files a catalogue Relec procedure in the certificate holder's own name, with one PDF per slot. Plans by default; `--confirmar si` uploads and signs the PDFs and form, registers the filing, and saves the justificante and JSON receipt with `--out`.                                                                                                                                                                                                                                                            |
 | `ventanilla-unica junta carpeta-comparecer --id <n> [--out d]`                                                                                                                                                             | Junta                                             | Accepts a pending notification in the Carpeta Ciudadana (the sede signs the acuse itself); it counts as notified that day and its legal deadlines start. An already accepted one is only downloaded                                                                                                                                                                                                                                                                                                               |
 | `ventanilla-unica dehu comparecer --id a,b [--out d]`                                                                                                                                                                      | DEHU                                              | Appears at pending DEHU notifications (a second Cl@ve re-authentication, then the acceptance); each counts as notified that day and its legal deadlines start. With `--out` it saves the act and the acuse                                                                                                                                                                                                                                                                                                        |
 | `ventanilla-unica ine asignar --orden 1005484700I --clave x [--aviso-correo si]`                                                                                                                                           | INE                                               | Assigns the survey of an INE letter (nº de orden and contraseña) to the certificate's IRIA account, optionally with an e-mail notice when each questionnaire opens                                                                                                                                                                                                                                                                                                                                                |
@@ -124,6 +125,59 @@ anything does not match what the plan read (holder, amount, document).
 | `ventanilla-unica reg presentar --organismo DIR3 --asunto a --expone e --solicita s --documentos a.pdf,b.pdf --tipo-via t --via v --cp n --provincia p --municipio m [--email m] [--telefono t] [--out d]`                 | REG                                               | Files a writ with up to five PDFs to any DIR3 unit in the holder's own name: Cl@ve certificate login, uploads, the entry summary signed locally as AutoFirma does (XAdES detached, SHA-512), and saves the justificante. Legal effect: a registry entry at the addressee with the presentation date and time the REG stamps                                                                                                                                                                                       |
 | `ventanilla-unica dgt contacto --nif <NIF> --correo m --telefono t`                                                                                                                                                        | DGT                                               | Registers or changes the holder's email and phone in Mi DGT ("Mis datos de contacto y suscripciones"), which subscribes them to the DGT's avisos service; the DGT then uses them for its communications, never for sanctions or notifications, which keep going to the DEV and the postal address. The postal address is not touched. Reads the data back and refuses if it does not match                                                                                                                        |
 | `ventanilla-unica dgt domicilio --nif <NIF> --tipo-via t --via v --numero n [--planta p --puerta d] --codigo-postal c --municipio m --provincia p [--localidad l]`                                                         | DGT                                               | Plan only: shows the address the DGT notifies to by post and the Cambio de domicilio (CDI) requests that would change it. The address lookups and the act are not captured, so `--confirmar si` is refused before any request                                                                                                                                                                                                                                                                                     |
+
+## Cáceres catalogue filings
+
+`caceres tramite` files a catalogue procedure in the certificate holder's own
+name. Find its procedure ID and document slots with
+`caceres procedimiento --dboid ID`. Set `PROCEDURE_DBOID` to that ID, `SUBJECT`
+to the requested Asunto, `PDF_PATHS` to comma-separated PDF paths and `SLOT_IDS`
+to the corresponding comma-separated slot IDs. With the certificate environment
+variables configured, run this plan from a built checkout:
+
+```sh
+node dist/cli/main.js caceres tramite --dboid "$PROCEDURE_DBOID" --asunto "$SUBJECT" --documentos "$PDF_PATHS" --slots "$SLOT_IDS"
+```
+
+Each slot accepts exactly one PDF. `--slots` also accepts exact,
+case-insensitive slot names; use IDs when a name contains a comma or is
+ambiguous. Every required slot must be covered, and optional slots may be
+omitted. The command checks PDF content, size, SHA-256 and local PAdES
+compatibility, logs in, opens the form and reads the holder's contact defaults.
+Unknown slots, duplicate assignments, missing required slots and unsupported
+uploaders are rejected before uploading. `--correo` and `--telefono` override
+the defaults; confirmation requires an email for electronic notification. The
+Asunto is limited to 2500 characters and goes in `DinVarANNOT_TEXT_EXTRACT`. A
+procedure must expose that field and signed PDF upload slots.
+
+Without `--confirmar si`, the command returns `executed: false` and prints the
+filing plan. Even with `--out`, it uploads nothing, sends no signing or
+registration request, and creates no output directory. Adding
+`--confirmar si --out ./caceres-receipt` uploads each PDF to its selected slot,
+signs it locally as PAdES, signs the registry form locally as XAdES and sends
+`TramitaJustif`. That final request files the procedure in the holder's name
+with electronic notification. The command offers no representation option.
+
+With `--out`, successful submissions save
+`justificante-<registry-number-or-CSV>.pdf` and `aportacion-<CSV>.json`, using
+the same receipt writer as `caceres aportar`. The JSON contains the receipt and
+the reviewed filing, including document hashes and slot IDs. A failed download
+or save is reported alongside the executed receipt. The command never retries a
+submission; inspect `caceres registros` before repeating a run after a timeout
+or an uncertain response.
+
+The shared submission pipeline also serves `caceres aportar`; catalogue uploads
+use the selected slot's DocReq ID and the holder's person ID, preserving the
+form's fixed `pid`, `CUD`, type and required metadata. The contact script must
+be read after opening the form in the same session. `caceres instancia` retains
+its existing plan-only behavior.
+
+Verification: `pnpm check:ci` covers the confirmation boundary, slot validation,
+signed uploads, own-name form body, shared contribution behavior and receipt
+saving with synthetic responses. The padrón alta procedure has been checked live
+only in plan mode. Live acceptance of a confirmed catalogue filing and its
+actual justificante remain unverified; other procedure-specific fields beyond
+Asunto are not configurable through this command.
 
 ## Garantía Juvenil
 

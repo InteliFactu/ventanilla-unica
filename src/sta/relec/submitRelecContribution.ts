@@ -1,15 +1,11 @@
 import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
 import type { HttpClient } from '../../http/types/HttpClient'
 import { buildTramitaSignPairs } from './builders/buildTramitaSignPairs'
-import { signRelecFormXml } from './fetchers/signRelecFormXml'
-import { submitTramitaJustif } from './fetchers/submitTramitaJustif'
-import { submitTramitaSign } from './fetchers/submitTramitaSign'
-import { parseRelecResult } from './parsers/parseRelecResult'
-import { parseSignPage } from './parsers/parseSignPage'
+import { mapRelecContributionTargets } from './mappers/mapRelecContributionTargets'
 import { selectRepresented } from './selectors/selectRepresented'
+import { submitRelecFiling } from './submitRelecFiling'
 import type { RelecPreparation } from './types/RelecPreparation'
 import type { RelecReceipt } from './types/RelecReceipt'
-import { uploadRelecDocuments } from './uploadRelecDocuments'
 
 /**
  * The confirmed half: attach and sign the PDFs, post the form ("Continuar"),
@@ -22,16 +18,15 @@ export const submitRelecContribution = async (
   identity: CertificateIdentity,
 ): Promise<RelecReceipt> => {
   const { origin, form, formUrl, plan, types } = prepared
-  await uploadRelecDocuments(client, prepared, identity)
   const pairs = buildTramitaSignPairs(
     form,
     selectRepresented(form),
     plan,
     types[0]?.dboid ?? '',
   )
-  const summary = await submitTramitaSign(client, formUrl, pairs)
-  const page = parseSignPage(summary.text, summary.url)
-  await signRelecFormXml(client, origin, page, identity)
-  const result = await submitTramitaJustif(client, page, summary.url)
-  return parseRelecResult(result.text, result.url)
+  return submitRelecFiling(
+    client,
+    { origin, formUrl, pairs, targets: mapRelecContributionTargets(prepared) },
+    identity,
+  )
 }

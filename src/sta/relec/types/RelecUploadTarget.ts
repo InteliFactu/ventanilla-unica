@@ -4,8 +4,10 @@ import type { RelecDocumentType } from './RelecDocumentType'
 /** One document slot of the form: its index, the represented entity's dboid, the document and its type. */
 export type RelecUploadTarget = {
   readonly origin: string
-  readonly slot: number
+  readonly slot: number | string
   readonly person: string
   readonly document: RelecDocument
   readonly type: RelecDocumentType
+  /** Catalogue slots carry their own uploader arguments in openUploader(). */
+  readonly popupUrl?: string | undefined
 }

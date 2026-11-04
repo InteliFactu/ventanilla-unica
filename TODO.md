@@ -142,6 +142,18 @@
 
 ## Testing
 
+- [~] **Cáceres catalogue filing needs live submission acceptance.** Observed
+  2026-11-04: `caceres tramite` implements own-name Relec catalogue filings, one
+  PDF per slot, required-slot coverage, local PAdES/XAdES and shared receipt
+  saving. The padrón alta plan opened the live form and mapped three
+  owner-provided PDFs without uploading or registering. Synthetic tests cover
+  the confirmation boundary, fixed slot IDs, holder contacts, signatures,
+  failures and receipts. Live `TramitaSign`/`TramitaJustif` acceptance and the
+  actual justificante remain unverified. Other procedure-specific fields beyond
+  Asunto cannot be configured. Next: on a separately owner-authorized filing,
+  preserve the actual receipt and sanitize the response structure; never
+  register merely to obtain a trace.
+
 - [~] **`aeat aportar` act and receipt unverified.** Verified live on 2026-10-06
   with a real sancionador CSV: the form opens as GZ706 for a representative,
   five PDFs upload and attach, and the "Firma y envío" screen lists them and
@@ -366,9 +378,10 @@
   before any request. Not built: the submission, whose rows are keyed by their
   `DocReq` dboid with `pid` and `CUD` inputs and a fixed type each, so
   `buildDocumentPairs` does not fit; the asunto goes in
-  `DinVarANNOT_TEXT_EXTRACT`. Next: capture one owner-authorised Instancia
-  general in the browser (TramitaSign body), then build the act on
-  `uploadRelecDocuments`/`submitRelecContribution`.
+  `DinVarANNOT_TEXT_EXTRACT`. The own-name catalogue pipeline is now available
+  through `caceres tramite`; this command still refuses confirmation and its
+  representation path remains unverified. Next: capture a separately
+  owner-authorized represented filing before extending `caceres instancia`.
 - [~] **`reg presentar`, the first `signAutoScript` consumer, never ran
   confirmed.** 2026-10-15: login, `reg registros`, `reg registro --out` (signed
   justificante downloaded) and `reg organismos` ran live with the owner's
@@ -408,9 +421,6 @@
       (`IMPRIMIR` `EPOB_VC_0010` individual, `EPOB_VC_0030` histórico, through
       `/sta/docs/GetDocumentServlet`), which emit a document. Next: capture one
       certificate download when the owner needs one.
-- [ ] **Cáceres padrón change ("alta por cambio de residencia"): not needed
-      now.** The owner dropped it on 2026-10-11. Could be built later on the
-      generalRegistryProcedures path (registry entry with DNI and escritura).
 
 - [ ] FACe invoice submission. A production pipeline already exists in
       `~/p/wiki/tools/face/` (`face_client.py` SOAP with WS-Security,
