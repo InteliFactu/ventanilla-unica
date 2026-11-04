@@ -8,6 +8,29 @@
 
 ### 2026-11
 
+- [-] 2026-11-04 — **Future Ideas:** **PLACSP bid submission ("Preparación y
+  Presentación de ofertas"): design note, not planned.** Evidence, Guía de
+  licitación electrónica v9.1 and Guía del Operador Económico v5.3: offers are
+  prepared in a Java 1.8 desktop application launched by JNLP from the logged-in
+  operator area, with Autofirma; documents stay on the client until sent, each
+  sobre is encrypted client-side to the contracting body's key, the tool
+  computes a "huella electrónica" and the platform answers a signed
+  justificante. It requires an operator account with the additional company data
+  filled in. No HTTP or web-service API for submission is published (the open
+  data and the CODICE/sindicación feeds are read-only). Doing it over plain HTTP
+  would mean reverse-engineering that applet's upload, sobre encryption and
+  signature protocol, which no guide documents; the practical path is the
+  official tool. Revisit only if a published submission API appears.
+  - Result: No code: the design note now lives in the README's 'What it will not
+    do' (and README.es.md 'Lo que no hace'), which says bids go through the
+    official Java desktop tool because sobres are encrypted client-side and no
+    submission API is published. A web search on 2026-11-04 found no published
+    PLACSP submission API, only the read-only ATOM/CODICE feeds.
+  - Resolution: Not work but a standing design decision: submission over HTTP
+    would mean reverse-engineering the undocumented applet upload, sobre
+    encryption and signature protocol, so the CLI leaves bids to the official
+    tool. Open a new item only if PLACSP publishes a submission API.
+
 - [-] 2026-11-03 — **Signing:** Minor AutoFirma differences (CAdES contentHint,
   MIME sniffing, NULL digest parameters) left as they are.
   - Result: Checked offline instead of changing live-verified signature output:

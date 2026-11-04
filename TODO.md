@@ -391,19 +391,6 @@
       now.** The owner dropped it on 2026-10-11. Could be built later on the
       generalRegistryProcedures path (registry entry with DNI and escritura).
 
-- [ ] **PLACSP bid submission ("Preparación y Presentación de ofertas"): design
-      note, not planned.** Evidence, Guía de licitación electrónica v9.1 and
-      Guía del Operador Económico v5.3: offers are prepared in a Java 1.8
-      desktop application launched by JNLP from the logged-in operator area,
-      with Autofirma; documents stay on the client until sent, each sobre is
-      encrypted client-side to the contracting body's key, the tool computes a
-      "huella electrónica" and the platform answers a signed justificante. It
-      requires an operator account with the additional company data filled in.
-      No HTTP or web-service API for submission is published (the open data and
-      the CODICE/sindicación feeds are read-only). Doing it over plain HTTP
-      would mean reverse-engineering that applet's upload, sobre encryption and
-      signature protocol, which no guide documents; the practical path is the
-      official tool. Revisit only if a published submission API appears.
 - [ ] FACe invoice submission. A production pipeline already exists in
       `~/p/wiki/tools/face/` (`face_client.py` SOAP with WS-Security,
       `facturae.py`, XAdES SHA-512 byte-compatible with AutoFirma through
