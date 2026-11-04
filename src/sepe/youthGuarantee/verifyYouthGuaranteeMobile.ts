@@ -20,7 +20,7 @@ export const verifyYouthGuaranteeMobile = async (
     'mobile SMS request',
   )
   process.stderr.write(
-    'Garantía Juvenil: SMS requested (valid for 4 hours). Write only the received digits to --pin-fichero; waiting up to 30 minutes.\n',
+    'Garantía Juvenil: SMS requested (valid for 4 hours). Write only the received code (letters and digits) to --pin-fichero; waiting up to 30 minutes.\n',
   )
   const pin = await waitForYouthGuaranteeFile(pinFile, 'pin')
   const form = mapYouthGuaranteeVerification(requested, answers, 'confirmarOTP')

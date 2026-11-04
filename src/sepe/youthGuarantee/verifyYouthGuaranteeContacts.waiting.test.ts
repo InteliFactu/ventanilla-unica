@@ -77,7 +77,7 @@ describe('contact verification waits in the existing session', () => {
     expect(
       client.request.mock.calls
         .slice(0, 3)
-        .every(([, options]) => options?.form?.['validar'] === undefined),
+        .every(([, options]) => options?.form?.['siguiente'] === undefined),
     ).toBe(true)
     expect(stderr.mock.calls.flat().join('')).toContain('SMS requested')
     expect(stderr.mock.calls.flat().join('')).not.toContain('012345')

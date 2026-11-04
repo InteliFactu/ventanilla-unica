@@ -78,7 +78,7 @@ describe('step-2 contact verification (synthetic HTTP and files)', () => {
     expect(client.request.mock.calls).toHaveLength(0)
   })
   it('requests verification again when the declared mobile differs from the verified one', async () => {
-    vi.mocked(readFile).mockResolvedValue('not-digits')
+    vi.mocked(readFile).mockResolvedValue('not a code!')
     vi.spyOn(process.stderr, 'write').mockReturnValue(true)
     const page = htmlResponse(
       youthGuaranteeUrls.page(2),
@@ -98,7 +98,7 @@ describe('step-2 contact verification (synthetic HTTP and files)', () => {
         },
         youthGuaranteeVerificationFiles,
       ),
-    ).rejects.toThrow(/only digits/)
+    ).rejects.toThrow(/only letters and digits/)
     expect(client.request.mock.calls[0]?.[1]?.form).toHaveProperty(
       'confirmarMovil',
     )

@@ -9,8 +9,10 @@ export const waitForYouthGuaranteeFile = async (
   while (Date.now() <= deadline) {
     const value = await readYouthGuaranteeVerificationFile(path)
     if (value) {
-      if (kind === 'pin' && !/^\d+$/.test(value))
-        throw new Error('Garantía Juvenil: PIN file must contain only digits')
+      if (kind === 'pin' && !/^[a-z\d]+$/i.test(value))
+        throw new Error(
+          'Garantía Juvenil: PIN file must contain only letters and digits',
+        )
       return value
     }
     if (Date.now() >= deadline) break

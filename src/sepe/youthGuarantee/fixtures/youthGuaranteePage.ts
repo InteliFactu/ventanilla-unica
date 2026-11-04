@@ -1,7 +1,6 @@
 /** Synthetic portal structure; no captured holder or session values. */
 export const youthGuaranteePage = (step: number): string => {
-  const name =
-    step === 6 ? 'confirmarInscripcion' : step === 2 ? 'validar' : 'siguiente'
+  const name = step === 6 ? 'confirmarInscripcion' : 'siguiente'
   const declarations = [
     'Estudios',
     'Formacion',

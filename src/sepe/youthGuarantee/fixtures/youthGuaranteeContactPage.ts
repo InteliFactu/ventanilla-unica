@@ -17,7 +17,7 @@ export const youthGuaranteeContactPage = (
       `id="confirmaCorreo" type="hidden" value="${email}"`,
     )
     .replace(
-      '<input name="validar"',
+      '<input name="siguiente"',
       `<input id="movilActual" name="movilActual" type="hidden" value="600000000"><input id="correoconfirmacion" type="hidden" value="holder@example.test">
       <input id="movil" name="datosContacto.movilC" type="text" required>
       <input id="correoElectronico" name="datosContacto.correoElectronicoC" type="text" required>
@@ -29,5 +29,5 @@ export const youthGuaranteeContactPage = (
       <input name="confirmarOTP" type="submit" value="Confirmar código">
       <input name="confirmarCorreo" type="submit" value="Verificar correo">
       <input name="refresh" type="submit" value="Ya he verificado">
-      <input name="validar"`,
+      <input name="siguiente"`,
     )

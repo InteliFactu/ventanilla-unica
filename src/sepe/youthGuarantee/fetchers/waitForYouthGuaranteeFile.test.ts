@@ -46,10 +46,18 @@ describe('verification file polling', () => {
       waitForYouthGuaranteeFile(youthGuaranteeVerificationFiles.pinFile, 'pin'),
     ).rejects.toThrow('cannot read verification file')
   })
-  it('rejects non-digits without including the content in the error', async () => {
+  it('rejects anything but letters and digits without including the content in the error', async () => {
     vi.mocked(readFile).mockResolvedValue('sensitive-content')
     await expect(
       waitForYouthGuaranteeFile(youthGuaranteeVerificationFiles.pinFile, 'pin'),
-    ).rejects.toThrow('Garantía Juvenil: PIN file must contain only digits')
+    ).rejects.toThrow(
+      'Garantía Juvenil: PIN file must contain only letters and digits',
+    )
+  })
+  it('accepts the alphanumeric code the SEPE sends (CODIGO FIRMA GJ)', async () => {
+    vi.mocked(readFile).mockResolvedValue('AB12CD34\n')
+    await expect(
+      waitForYouthGuaranteeFile(youthGuaranteeVerificationFiles.pinFile, 'pin'),
+    ).resolves.toBe('AB12CD34')
   })
 })

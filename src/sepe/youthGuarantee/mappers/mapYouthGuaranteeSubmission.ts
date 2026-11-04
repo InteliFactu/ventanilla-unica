@@ -1,7 +1,9 @@
 import type { HtmlForm } from '../../../html/types/HtmlForm'
 import { readYouthGuaranteeButton } from '../parsers/readYouthGuaranteeButton'
+import { readYouthGuaranteeDefaults } from '../parsers/readYouthGuaranteeDefaults'
 import { readYouthGuaranteeFields } from '../parsers/readYouthGuaranteeFields'
 import { readYouthGuaranteeForm } from '../parsers/readYouthGuaranteeForm'
+import { readYouthGuaranteeFormHtml } from '../parsers/readYouthGuaranteeFormHtml'
 import type { YouthGuaranteeAnswers } from '../types/YouthGuaranteeAnswers'
 import { youthGuaranteeUrls } from '../youthGuaranteeUrls'
 
@@ -22,8 +24,7 @@ export const mapYouthGuaranteeSubmission = (
     throw new Error(
       'Garantía Juvenil: inscription action or CSRF token changed; nothing was submitted for this step',
     )
-  const buttonName =
-    step === 6 ? 'confirmarInscripcion' : step === 2 ? 'validar' : 'siguiente'
+  const buttonName = step === 6 ? 'confirmarInscripcion' : 'siguiente'
   const buttonValue = readYouthGuaranteeButton(html, step, buttonName)
   const fields = readYouthGuaranteeFields(html)
   const declared = Object.fromEntries(
@@ -36,6 +37,7 @@ export const mapYouthGuaranteeSubmission = (
   return {
     action: form.action,
     fields: {
+      ...readYouthGuaranteeDefaults(readYouthGuaranteeFormHtml(html, step)),
       ...form.fields,
       ...declared,
       [buttonName]: buttonValue,

@@ -12,7 +12,7 @@ export const mapYouthGuaranteeVerification = (
 ): HtmlForm => {
   const form = mapYouthGuaranteeSubmission(page.text, page.url, 2, answers)
   const fields = { ...form.fields }
-  delete fields['validar']
+  delete fields['siguiente']
   return {
     action: form.action,
     fields: {

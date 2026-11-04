@@ -6,12 +6,20 @@ import { loginYouthGuarantee } from './loginYouthGuarantee'
 import { readYouthGuaranteeDocuments } from './parsers/readYouthGuaranteeDocuments'
 import { readYouthGuaranteeStatus } from './parsers/readYouthGuaranteeStatus'
 import type { YouthGuaranteeResult } from './types/YouthGuaranteeResult'
+import { isResumedYouthGuaranteeDraft } from './validators/isResumedYouthGuaranteeDraft'
+import { validateYouthGuaranteePage } from './validators/validateYouthGuaranteePage'
+import { youthGuaranteeUrls } from './youthGuaranteeUrls'
 
 export const readYouthGuarantee = async (
   client: HttpClient,
   out?: string,
 ): Promise<YouthGuaranteeResult> => {
-  const page = await loginYouthGuarantee(client)
+  const landing = await loginYouthGuarantee(client)
+  const page = isResumedYouthGuaranteeDraft(landing.url)
+    ? validateYouthGuaranteePage(
+        await client.request(youthGuaranteeUrls.page(1)),
+      )
+    : landing
   const status = readYouthGuaranteeStatus(page.text)
   const history =
     status.inscribed === false
