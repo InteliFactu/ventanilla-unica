@@ -20,6 +20,7 @@ describe('isAdministrationHost', () => {
       'www.nic.es',
       'iria.ine.es',
       'sede.registradores.org',
+      'garantiajuvenil.sepe.es',
     ])
       expect(isAdministrationHost(host)).toBe(true)
   })
@@ -30,6 +31,8 @@ describe('isAdministrationHost', () => {
       'gob.es.example',
       'example.com',
       'bde.es.evil.net',
+      'garantiajuvenil.sepe.es.evil.net',
+      'evil.sepe.es',
     ])
       expect(isAdministrationHost(host)).toBe(false)
   })

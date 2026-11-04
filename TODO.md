@@ -11,6 +11,27 @@
 
 ## Blocked Tasks
 
+- [!] **Garantía Juvenil inscription needs live filing acceptance.** Observed
+  2026-11-04: certificate READ reaches the unconsolidated wizard, its six GET
+  pages and an empty inscription history. The implemented confirmed WRITE posts
+  the captured six wizard actions, but no inscription POST was executed.
+  Dependent dropdowns, contact verification and any final signature are not
+  automated. Next: on a separately owner-authorized real inscription, capture
+  and sanitize those steps and the actual receipt before claiming end-to-end
+  filing support. Never submit merely to obtain a trace.
+- [!] **Garantía Juvenil enrolled-record and PDF paths need live fixtures.**
+  Observed 2026-11-04: the authorized holder had no consolidated inscription,
+  date or offered certificate. Explicit alta/baja/pending parsing and offered
+  PDF saving have synthetic tests only. Next: read an owner-provided enrolled
+  holder and capture sanitized status/date and offered-document structure
+  without modifying the record.
+- [!] **Project recall unavailable for Garantía Juvenil implementation.**
+  Observed 2026-11-04: `atrium context` for the project returned
+  `context_service_timeout`, `index_status: unavailable` and no evidence.
+  Current source and live GET/login evidence were used. Next: restore the
+  context service and reconcile any earlier project-specific access decisions
+  before relying on historical assumptions.
+
 - [ ] **Justicia downloads can overwrite distinct documents with repeated event
       numbers.** Observed 2026-10-22: JVB 174/2020 returns 152 document rows but
       `writeJusticiaDocument` produces only 104 distinct paths because filenames

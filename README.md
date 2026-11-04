@@ -69,6 +69,7 @@ administrations' side of its customers' books up to date.
 | `ventanilla-unica caceres padron`                                                                                                | Ayuntamiento de Cáceres                                            | The holder's padrón entry: alta date, address, birth, education, census district and section, and the people registered at the same address; `registered: false` when the sede says they are not inscribed                                                                                                        |
 | `ventanilla-unica sepe prestacion`                                                                                               | Servicio Público de Empleo Estatal (SEPE)                          | The last unemployment benefit: dates, days of right, consumed and remaining                                                                                                                                                                                                                                       |
 | `ventanilla-unica sepe certificado --out d`                                                                                      | SEPE                                                               | The "certificado de situacion" of benefits as PDF (emits it)                                                                                                                                                                                                                                                      |
+| `ventanilla-unica sepe garantia-juvenil [--out d]`                                                                               | SEPE, Sistema Nacional de Garantía Juvenil                         | Registration status and date, offered certificate PDFs, or the inscription form fields and options                                                                                                                                                                                                                |
 | `ventanilla-unica dgt datos --nif <NIF>`                                                                                         | Dirección General de Tráfico (DGT)                                 | What the DGT holds about the holder: identity, the postal address it notifies to (taken from the INE padrón unless changed), the email and phone it has, and the Mi DGT counters (vehicles, sanctions, points, licences, registry entries, appointments)                                                          |
 | `ventanilla-unica dgt sanciones [--out d]`                                                                                       | DGT                                                                | The holder's fines in "Mis sanciones" (finished ones stay listed six months): expediente, state, date, province, amount, and the detail page (offence, article, paid); `--out` saves each "Datos de Expediente" PDF                                                                                               |
 | `ventanilla-unica dgt vehiculos`                                                                                                 | DGT                                                                | The vehicles registered to the holder in Mi DGT ("Mis vehículos"): plate, first registration, make, model and fuel                                                                                                                                                                                                |
@@ -123,6 +124,112 @@ anything does not match what the plan read (holder, amount, document).
 | `ventanilla-unica reg presentar --organismo DIR3 --asunto a --expone e --solicita s --documentos a.pdf,b.pdf --tipo-via t --via v --cp n --provincia p --municipio m [--email m] [--telefono t] [--out d]`                 | REG                                               | Files a writ with up to five PDFs to any DIR3 unit in the holder's own name: Cl@ve certificate login, uploads, the entry summary signed locally as AutoFirma does (XAdES detached, SHA-512), and saves the justificante. Legal effect: a registry entry at the addressee with the presentation date and time the REG stamps                                                                                                                                                                                       |
 | `ventanilla-unica dgt contacto --nif <NIF> --correo m --telefono t`                                                                                                                                                        | DGT                                               | Registers or changes the holder's email and phone in Mi DGT ("Mis datos de contacto y suscripciones"), which subscribes them to the DGT's avisos service; the DGT then uses them for its communications, never for sanctions or notifications, which keep going to the DEV and the postal address. The postal address is not touched. Reads the data back and refuses if it does not match                                                                                                                        |
 | `ventanilla-unica dgt domicilio --nif <NIF> --tipo-via t --via v --numero n [--planta p --puerta d] --codigo-postal c --municipio m --provincia p [--localidad l]`                                                         | DGT                                               | Plan only: shows the address the DGT notifies to by post and the Cambio de domicilio (CDI) requests that would change it. The address lookups and the act are not captured, so `--confirmar si` is refused before any request                                                                                                                                                                                                                                                                                     |
+
+## Garantía Juvenil
+
+`sepe garantia-juvenil` reads the certificate holder's record at
+`https://garantiajuvenil.sepe.es`. It uses the young person's certificate
+through the site's Cl@ve certificate option, rather than the separate SEPE
+benefits service.
+
+```sh
+ventanilla-unica sepe garantia-juvenil --out ./garantia-juvenil-documents
+```
+
+The JSON contains `inscribed`, `state`, `registrationDate`, `evidence`,
+`documents` and `form`. An explicit record can report `alta`, `baja` or
+`pendiente`; `inscribed: true` includes a historical inscription now in `baja`.
+A pending application has `inscribed: null`. A new, unconsolidated inscription
+wizard with no history reports `inscribed: false`, `state: "not-inscribed"` and
+no registration date. Unrecognized pages or conflicting history report
+`unknown`, never an invented negative result.
+
+For an unregistered holder, `form` lists the six pages: responsible
+declarations, personal and contact details, education, work experience,
+interests, and data protection. Each field has its portal `name`, label, type,
+required marker, read-only marker and offered options. Prefilled personal
+values, CSRF tokens and cookies are excluded. Options reflect the initial GET
+pages; dependent choices may require another selection. No form answers are
+saved or remotely validated during READ or plan mode.
+
+`--out` downloads offered certificate or justificante links as
+`sepe-garantia-juvenil-1.pdf`, and subsequent numbered files, using private
+permissions. Existing files are preserved; use a fresh directory for another
+download. A document must be a same-origin PDF download: generation buttons,
+JavaScript-only downloads and redirects are not invoked. An empty `documents`
+list means that the returned page offered no supported download.
+
+### Inscription plans and submission
+
+Add `--inscribir si` to request the inscription action. Without
+`--confirmar si`, the command returns the standard WRITE result with
+`executed: false`, the current read result, a plan and notes. This empty plan is
+runnable before choosing answers:
+
+```sh
+ventanilla-unica sepe garantia-juvenil --inscribir si --respuestas '{}'
+```
+
+Pass declared answers through `--respuestas` as a JSON object keyed by step
+number (`"1"` to `"6"`), then by the exact control names returned in `form`. All
+values are strings: use the offered option codes, `"true"` for checked
+declarations and `"false"` for unchecked checkboxes. Only offered editable
+controls are accepted; callers cannot override hidden tokens or action buttons.
+Do not infer answers from eligibility assumptions.
+
+Step 1 requires the holder to explicitly declare these five controls as
+`"true"`: `situacionSolicitante.checkCompromisoEstudiosN`,
+`situacionSolicitante.checkCompromisoFormacionN`,
+`situacionSolicitante.checkEmpadronamientoN`,
+`situacionSolicitante.checkResponsabilidadN` and
+`situacionSolicitante.checkNeetN`. These declare no educational or training
+activity on the preceding calendar day, registration as resident in Spain,
+truthful information and an active participation commitment. Step 6 requires
+`checkLOPD: "true"`; optional consent uses the separately offered
+`checkConsentimiento`. Personal, contact, address, education and other answers
+must come from the holder and use the fields and codes offered in that session.
+
+After setting `GJ_ANSWERS` to the complete, reviewed JSON, this is the
+submission invocation. It is documented but was not executed against the live
+portal:
+
+```sh
+ventanilla-unica sepe garantia-juvenil --inscribir si --respuestas "$GJ_ANSWERS" --confirmar si --out ./garantia-juvenil-submission
+```
+
+Confirmation authorizes saving the six form steps and sending the page-6
+`Confirmar solicitud` action. This submits the holder's declarations to the
+Sistema Nacional de Garantía Juvenil; it is not merely a status lookup.
+`executed: true` means the final action was sent. An explicit submission
+confirmation and a plausible registry number are both required for
+`receipt.registered: true`; an HTTP-200 response, a draft or a further signature
+page does not prove registration. PDF download failures preserve the executed
+action and receipt in the JSON, with an error note. The command does not retry
+uncertain writes. Inspect the portal before repeating a request after an error
+or an unverified receipt.
+
+The implemented write sequence has synthetic HTTP tests and has not been
+exercised live. Dependent dropdown population, email/SMS verification and any
+signature step after confirmation are not automated. A holder requiring those
+steps must complete them in the portal; do not treat this command as a verified
+end-to-end filing client. The live READ verification covered an unregistered
+holder and all six form pages. Alta/baja/pending records and offered PDF
+downloads have synthetic tests but still need an eligible live record.
+
+Protocol: GET `/loginClave`, post the returned SAML request to Cl@ve, choose
+`AFIRMA`, and replay the SAML relay to `/j_spring_security_check`. READ then
+uses GET `/tablaHistoricoSitSolicitante.action` and `/solicitudPaso1` through
+`/solicitudPaso6` for an unconsolidated wizard. Confirmed writes use each page's
+fresh Struts token and `/solicitudPasoNToken.action`, with `siguiente` on steps
+1, 3, 4 and 5, `validar` on step 2 and `confirmarInscripcion` on step 6. Only
+the exact Garantía Juvenil host accepts legacy folded response headers; TLS
+certificate verification remains enabled.
+
+To recapture a portal change, use the holder's own certificate and retain only
+synthetic fixtures with the current control names and page structure. Login
+relay POSTs are authentication; inscription `Token.action` requests are writes
+and require explicit confirmation. Never log cookies, private keys or SAML
+payloads.
 
 ## Signing
 

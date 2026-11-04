@@ -24,6 +24,7 @@ import { registradoresNota } from './commands/registradoresNota'
 import { roleceEstado } from './commands/roleceEstado'
 import { roleceSolicitud } from './commands/roleceSolicitud'
 import { sepeCertificado } from './commands/sepeCertificado'
+import { sepeGarantiaJuvenil } from './commands/sepeGarantiaJuvenil'
 import { sepePrestacion } from './commands/sepePrestacion'
 import { teaExpedientes } from './commands/teaExpedientes'
 import { validarNif } from './commands/validarNif'
@@ -49,6 +50,7 @@ export const commandRegistry: readonly Command[] = [
   ...ineCommands,
   sepePrestacion,
   sepeCertificado,
+  sepeGarantiaJuvenil,
   cirbeInforme,
   cirbeEstado,
   roleceEstado,

@@ -22,7 +22,8 @@ export const isAdministrationHost = (host: string): boolean => {
     'registradores.org',
   ]
   const name = host.toLowerCase()
-  return domains.some(
-    (domain) => name === domain || name.endsWith(`.${domain}`),
+  return (
+    name === 'garantiajuvenil.sepe.es' ||
+    domains.some((domain) => name === domain || name.endsWith(`.${domain}`))
   )
 }

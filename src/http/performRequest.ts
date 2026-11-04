@@ -28,6 +28,9 @@ export const performRequest = async (
     port: target.port === '' ? undefined : Number(target.port),
     path: target.pathname + target.search,
     method,
+    // This portal emits an obsolete folded Content-Security-Policy header.
+    // Keep strict parsing everywhere else, including the Cl@ve relay.
+    insecureHTTPParser: target.hostname === 'garantiajuvenil.sepe.es',
     ...(identity === undefined
       ? {}
       : {
