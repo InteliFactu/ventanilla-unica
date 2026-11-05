@@ -5,6 +5,7 @@ import { buildMultipartBody } from '../../registry/builders/buildMultipartBody'
 import { mapHexText } from '../mappers/mapHexText'
 import { selectRelecUploadMaxSize } from '../selectors/selectRelecUploadMaxSize'
 import type { RelecUploadTarget } from '../types/RelecUploadTarget'
+import { assertRelecUploadAccepted } from '../validators/assertRelecUploadAccepted'
 
 /**
  * Upload one PDF into its row: `POST /sta/FileUploader?file=<hex name>&action=savefile`
@@ -47,8 +48,5 @@ export const uploadRelecDocument = async (
       timeoutMs: 300_000,
     },
   )
-  if (!response.text.includes('uploadEnd'))
-    throw new Error(
-      `FileUploader refused ${document.uploadName} (${String(response.status)}): ${response.text.slice(0, 200)}`,
-    )
+  assertRelecUploadAccepted(response, document.uploadName, document.path)
 }

@@ -8,6 +8,26 @@
 
 ### 2026-11
 
+- [x] 2026-11-05 — **Testing:** **Relec FileUploader rejects a PDF that already
+      carries a signature field, with a misleading size error.** Observed
+      2026-11-04: an Iberdrola invoice (PDF 1.6, 369 KB, Quadient Inspire,
+      AcroForm with `/Sig`) failed three times with
+      `alert("Tamaño de archivo excedido. Limite 50000 KBytes")` in any slot
+      order; the same file rewritten by
+      `gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4` uploaded and registered.
+      Next: detect that alert in `uploadRelecDocument`, report it as "the sede
+      refused the PDF (likely an existing signature or form)" and suggest
+      flattening, instead of a size error.
+  - Result: uploadRelecDocument now reports the FileUploader size alert as the
+    sede refusing the PDF (likely an existing signature or form) and suggests
+    flattening with gs pdfwrite, the command reading the holder's local source
+    path shell-quoted (not the sanitised upload name); other non-uploadEnd
+    answers keep the generic error.
+  - Evidence: pnpm check:ci green; isRelecSizeAlert.test.ts,
+    assertRelecUploadAccepted.test.ts, mapShellArgument.test.ts and
+    relecFetcherErrors.test.ts cover the alert and the quoted path; not re-run
+    against the live sede.
+
 - [x] 2026-11-04 — **SEPE:** **Garantía Juvenil step-2 verification support.**
       Implement municipality-name resolution, SMS PIN and email-link handoffs
       under explicit confirmation, with synthetic tests and operator
