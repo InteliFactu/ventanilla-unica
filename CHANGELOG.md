@@ -161,6 +161,10 @@ All notable changes to this project are documented here. The format follows
 
 ### Fixed
 
+- `aeat cita` without `--confirmar si` stops after the offer list instead of
+  preselecting the slot, which the AEAT held as "Cita pendiente de confirmar"
+  and hid from later searches; a confirmed run checks `--out` and the contact
+  details before any portal request.
 - Every 036 filing (`aeat domicilio`, `aeat baja`, `aeat actividades`) echoes
   `onPresenvali` as the page does, desktop-level with the payload in an array;
   the old echo to `ventanaPrincipal` answered "error inesperado" after the 036

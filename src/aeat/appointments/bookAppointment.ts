@@ -6,13 +6,19 @@ import type { AppointmentBooking } from './types/AppointmentBooking'
 import type { AppointmentBookingResult } from './types/AppointmentBookingResult'
 import type { AppointmentQuery } from './types/AppointmentQuery'
 import { validateAppointmentConfirmation } from './validators/validateAppointmentConfirmation'
+import { validateAppointmentContact } from './validators/validateAppointmentContact'
 
-/** Recheck the exact offer and refuse the final reservation unless explicitly confirmed. */
+/**
+ * Recheck the exact offer and reserve it only when explicitly confirmed. A plan
+ * stops after the offer list: preparing the slot (the `cita` step with `fhora`)
+ * already holds it at the AEAT as pending confirmation.
+ */
 export const bookAppointment = async (
   client: HttpClient,
   query: AppointmentQuery,
   booking: AppointmentBooking,
 ): Promise<AppointmentBookingResult> => {
+  if (booking.confirm) validateAppointmentContact(booking)
   const offered = await listAppointments(client, query)
   const selected = offered.find(
     (slot) =>
@@ -24,16 +30,8 @@ export const bookAppointment = async (
   )
   if (!selected)
     throw new Error('The exact in-person appointment is no longer offered')
+  if (!booking.confirm) return { executed: false }
   const confirmation = await fetchAppointmentConfirmation(client, selected)
   validateAppointmentConfirmation(confirmation, query, selected)
-  if (!booking.confirm) return { executed: false }
-  if (
-    !booking.email.includes('@') ||
-    !/^\d{9,15}$/u.test(booking.phone) ||
-    booking.detail.length > 250
-  )
-    throw new Error(
-      'Booking requires valid contact details and at most 250 detail characters',
-    )
   return { executed: true, html: await submitAppointment(client, booking) }
 }
