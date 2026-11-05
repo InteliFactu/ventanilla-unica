@@ -4,8 +4,10 @@ import { appointmentClient } from './fixtures/appointmentClient'
 import { appointmentQuery } from './fixtures/appointmentQuery'
 import { appointmentSlot } from './fixtures/appointmentSlot'
 
+const email = 'holder@example.test'
+
 describe('bookAppointment', () => {
-  it('never sends final confirmation without the explicit flag', async () => {
+  it('never sends or preselects the slot without the explicit flag', async () => {
     const client = appointmentClient()
     expect(
       await bookAppointment(client, appointmentQuery, {
@@ -16,9 +18,12 @@ describe('bookAppointment', () => {
         confirm: false,
       }),
     ).toEqual({ executed: false })
-    expect(client.request.mock.calls).toHaveLength(5)
+    expect(client.request.mock.calls).toHaveLength(4)
     expect(
-      client.request.mock.calls.some(([url]) => url.endsWith('/confirmacion')),
+      client.request.mock.calls.some(
+        ([url, init]) =>
+          url.endsWith('/confirmacion') || init?.form?.['fhora'] !== undefined,
+      ),
     ).toBe(false)
   })
   it('rejects a stale confirmation before the final reservation', async () => {
@@ -29,7 +34,7 @@ describe('bookAppointment', () => {
     await expect(
       bookAppointment(client, appointmentQuery, {
         slot: appointmentSlot,
-        email: 'holder@example.test',
+        email,
         phone: '600000000',
         detail: '',
         confirm: true,
@@ -42,15 +47,15 @@ describe('bookAppointment', () => {
     await expect(
       bookAppointment(client, appointmentQuery, {
         slot: { ...appointmentSlot, centre: '99999' },
-        email: '',
-        phone: '',
+        email,
+        phone: '600000000',
         detail: '',
         confirm: true,
       }),
     ).rejects.toThrow('no longer offered')
     expect(client.request.mock.calls).toHaveLength(4)
   })
-  it('requires contact details before confirming', async () => {
+  it('requires contact details before any portal request', async () => {
     const client = appointmentClient()
     await expect(
       bookAppointment(client, appointmentQuery, {
@@ -61,13 +66,13 @@ describe('bookAppointment', () => {
         confirm: true,
       }),
     ).rejects.toThrow('valid contact')
-    expect(client.request.mock.calls).toHaveLength(5)
+    expect(client.request.mock.calls).toHaveLength(0)
   })
   it('submits once and reports transmission separately from receipt confirmation', async () => {
     const client = appointmentClient()
     const result = await bookAppointment(client, appointmentQuery, {
       slot: appointmentSlot,
-      email: 'holder@example.test',
+      email,
       phone: '600000000',
       detail: 'Review payment plan',
       confirm: true,
@@ -78,7 +83,7 @@ describe('bookAppointment', () => {
     expect(client.request.mock.calls.at(-1)?.[1]?.form).toMatchObject({
       faccion: 'V',
       ftel1: '600000000',
-      femail1: 'holder@example.test',
+      femail1: email,
     })
   })
 })

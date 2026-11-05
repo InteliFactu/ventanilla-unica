@@ -8,6 +8,21 @@
 
 ### 2026-11
 
+- [x] 2026-11-05 — **AEAT appointments:** **A plan run holds the slot it
+      inspects.** `fetchAppointmentConfirmation` posts the `cita` step with
+      `fhora`/`faccion=V`, which leaves the slot "Cita pendiente de confirmar"
+      at the AEAT: on 2026-10-28 two unconfirmed plans and one refused confirmed
+      run (missing `--email`) at 12:00 made 12:00 vanish from the offers, and it
+      was not booked (`gestioncita` showed only 12:30). Next: validate contact
+      details before any portal request, and in plan mode stop after the offer
+      list instead of preselecting the slot.
+  - Result: Plan runs stop after the offer list and never post the cita step
+    with fhora; confirmed runs validate --out and contact details before any
+    portal request.
+  - Evidence: pnpm check:ci green (2046 tests); bookAppointment and
+    runAppointmentCommand tests assert 0 requests on bad contacts and no fhora
+    request in plan mode
+
 - [x] 2026-11-05 — **Testing:** **Relec FileUploader rejects a PDF that already
       carries a signature field, with a misleading size error.** Observed
       2026-11-04: an Iberdrola invoice (PDF 1.6, 369 KB, Quadient Inspire,
