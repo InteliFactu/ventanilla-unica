@@ -62,6 +62,17 @@ describe('Relec fetchers refuse unexpected answers', () => {
       uploadRelecDocument(answering('<p>Error</p>'), target, 'S'),
     ).rejects.toThrow('FileUploader refused a.pdf')
     await expect(
+      uploadRelecDocument(
+        answering(
+          '<script>alert("Tamaño de archivo excedido. Limite 50000 KBytes");</script>',
+        ),
+        target,
+        'S',
+      ),
+    ).rejects.toThrow(
+      'the sede refused the PDF a.pdf (likely an existing signature or form, not its size); flatten it',
+    )
+    await expect(
       signRelecDocument(answering('bm9wZGY='), target, identity),
     ).rejects.toThrow('AutofirmaDownload10 did not return a.pdf')
     await expect(

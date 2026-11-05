@@ -182,15 +182,6 @@
   owner-approved padrón alta of 78117074N registered as ENT2026045269 (CSV
   16336616500125416247), all three PDFs on the justificante, `caceres registros`
   lists it. Still open: procedure fields beyond Asunto.
-- [ ] **Relec FileUploader rejects a PDF that already carries a signature field,
-      with a misleading size error.** Observed 2026-11-04: an Iberdrola invoice
-      (PDF 1.6, 369 KB, Quadient Inspire, AcroForm with `/Sig`) failed three
-      times with `alert("Tamaño de archivo excedido. Limite 50000 KBytes")` in
-      any slot order; the same file rewritten by
-      `gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4` uploaded and registered.
-      Next: detect that alert in `uploadRelecDocument`, report it as "the sede
-      refused the PDF (likely an existing signature or form)" and suggest
-      flattening, instead of a size error.
 
 - [~] **`aeat aportar` act and receipt unverified.** Verified live on 2026-10-06
   with a real sancionador CSV: the form opens as GZ706 for a representative,
