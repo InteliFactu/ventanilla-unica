@@ -48,5 +48,5 @@ export const uploadRelecDocument = async (
       timeoutMs: 300_000,
     },
   )
-  assertRelecUploadAccepted(response, document.uploadName)
+  assertRelecUploadAccepted(response, document.uploadName, document.path)
 }

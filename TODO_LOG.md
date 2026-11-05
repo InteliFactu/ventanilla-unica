@@ -20,11 +20,13 @@
       flattening, instead of a size error.
   - Result: uploadRelecDocument now reports the FileUploader size alert as the
     sede refusing the PDF (likely an existing signature or form) and suggests
-    flattening with gs pdfwrite; other non-uploadEnd answers keep the generic
-    error.
-  - Evidence: pnpm check:ci green (836 files, 2040 tests);
-    isRelecSizeAlert.test.ts and relecFetcherErrors.test.ts cover the alert; not
-    re-run against the live sede.
+    flattening with gs pdfwrite, the command reading the holder's local source
+    path shell-quoted (not the sanitised upload name); other non-uploadEnd
+    answers keep the generic error.
+  - Evidence: pnpm check:ci green; isRelecSizeAlert.test.ts,
+    assertRelecUploadAccepted.test.ts, mapShellArgument.test.ts and
+    relecFetcherErrors.test.ts cover the alert and the quoted path; not re-run
+    against the live sede.
 
 - [x] 2026-11-04 — **SEPE:** **Garantía Juvenil step-2 verification support.**
       Implement municipality-name resolution, SMS PIN and email-link handoffs
