@@ -1,3 +1,5 @@
+export { payByAccountDebit } from './aeat/accountPayment/payByAccountDebit'
+export type { AccountPaymentPlan } from './aeat/accountPayment/types/AccountPaymentPlan'
 export { appearAtNotification } from './aeat/appearance/appearAtNotification'
 export { bookAppointment } from './aeat/appointments/bookAppointment'
 export { listAppointments } from './aeat/appointments/listAppointments'

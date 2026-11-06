@@ -15,6 +15,12 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `aeat pagar` pays an AEAT liquidación (modelo 002, 004, 008, 010, 031, 032,
+  060, 061, 069) by debit to an account at a collaborating bank (write,
+  `--confirmar si`) and returns the NRC, saving the receipt PDF with `--out`.
+  The plan validates the payment with the AEAT up to its summary page, checks
+  the bank against the adhered entities and, for the certificate's own NIF,
+  refuses a justificante MisPagos already lists as paid.
 - `aeat actividades` files a modelo 036 casilla 127 alta of economic activities
   carried on outside a fixed premises, with the tipo, sección, epígrafe and
   description of the AEAT activity finder; `--validar si` runs the AEAT

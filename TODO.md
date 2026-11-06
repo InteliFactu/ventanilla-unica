@@ -219,6 +219,15 @@
 
 ## Integrations
 
+- [~] **aeat: `aeat pagar` confirm path has not run live.** Plan mode was
+  verified live on 2026-11-06 (form, first step, summary, adhered banks,
+  MisPagos duplicate guard, first-step error parsing). The final "Firmar y
+  Enviar" page of LiquidacionesCuenta was never captured: the NRC parser and the
+  refusal parser are built on the card flow's final page and on the first step's
+  error block. Next step: the owner's first real payment with
+  `--confirmar si --out`; check the NRC and PDF, rewrite the final page into a
+  synthetic fixture, and adjust `parsePaymentNrc` / `parsePaymentAlerts` if it
+  differs.
 - [ ] **sepe: `sepe datos-contacto` (write) for the "Comunicación de variación
       de datos personales" service.** Entry
       `https://sede.sepe.gob.es/PNuevosServiciosSede/pantallas/?servicio=1`,

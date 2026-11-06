@@ -17,6 +17,7 @@ import { aeatExpedientes } from './commands/aeatExpedientes'
 import { aeatInformativa } from './commands/aeatInformativa'
 import { aeatInformativas } from './commands/aeatInformativas'
 import { aeatModelo190 } from './commands/aeatModelo190'
+import { aeatPagar } from './commands/aeatPagar'
 import { aeatPagos } from './commands/aeatPagos'
 import type { Command } from './types/Command'
 
@@ -41,5 +42,6 @@ export const aeatCommands: readonly Command[] = [
   aeatInformativa,
   aeatInformativas,
   aeatModelo190,
+  aeatPagar,
   aeatPagos,
 ]
