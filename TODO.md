@@ -228,6 +228,13 @@
   `--confirmar si --out`; check the NRC and PDF, rewrite the final page into a
   synthetic fixture, and adjust `parsePaymentNrc` / `parsePaymentAlerts` if it
   differs.
+- [ ] **aeat: `aeat pagar` cannot check a third party's MisPagos when the payer
+      differs from the obligado.** Debiting the account needs the account
+      holder's certificate, but the already-paid guard reads MisPagos for the
+      certificate holder only. Verified 2026-11-06: an entity's paid 010 is
+      detected when the plan runs with that entity's certificate, and is
+      invisible with the payer's. Smallest step: an optional second certificate
+      (`--cert-obligado/--key-obligado`) used only for the MisPagos check.
 - [ ] **sepe: `sepe datos-contacto` (write) for the "Comunicación de variación
       de datos personales" service.** Entry
       `https://sede.sepe.gob.es/PNuevosServiciosSede/pantallas/?servicio=1`,
