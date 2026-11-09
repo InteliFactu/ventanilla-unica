@@ -482,6 +482,32 @@
       timetable, teachers and inbox pages, which were only seen populated. Next
       step: capture the grades menu entry for one child during an evaluation
       period. Flow notes: `~/p/wiki/brain/topics/rayuela-headless.md`.
+- [ ] **Rayuela: `--hijo` cannot select the child the session starts on.** On
+      2026-11-09 `rayuela faltas --hijo Leia` failed with "Rayuela child is
+      unknown or ambiguous; offered children: 927147: Quintanilla García, Mía",
+      because the switcher omits the current child. Leia was only readable by
+      omitting `--hijo`, and after a switch to Mía there is no way back in the
+      same run. Next step: resolve `--hijo` against `rayuela hijos` (NIA and
+      name) and treat the current child as a no-op selection.
+- [ ] **Rayuela: readers for Exámenes, Trabajos, Notas de clase, Comportamiento
+      and Conductas contrarias.** On 2026-11-09 upcoming exams, homework and
+      marks were only visible as platform notices in the inbox
+      (`Leia: tiene un examen`, `calificación de un examen`), duplicated when a
+      teacher re-announces (Maths of 12 Nov came twice). The per-child pages
+      exist (see the flow notes) but have no command. Next step: map their menu
+      codes from the menu HTML and add `rayuela examenes|trabajos` first.
+- [ ] **Rayuela: absolute message dates and a "since" filter.**
+      `rayuela mensajes` returns `dateText` as shown in the list ("Jueves",
+      "Martes", "30 Oct"), so a refresh has to infer the date, and there is no
+      way to ask for messages after a known id. Next step: resolve the relative
+      text to an ISO date and add `--desde-id <X_IDENTIFICADOR>`.
+- [ ] **Rayuela: read credentials from 1Password references.** The commands take
+      `VENTANILLA_UNICA_RAYUELA_USUARIO|CLAVE` only; on 2026-11-09 the password
+      had to be read from a plaintext wiki line because the 1Password item sat
+      in vault Personal, which the service account cannot read. It now lives at
+      `op://Familia/egxfxphnzxzny6d4kmg5igqtcq/password`. Next step: document
+      `op run` with an env file of `op://` references in the README Rayuela
+      section.
 
 ## AEAT appointments
 
