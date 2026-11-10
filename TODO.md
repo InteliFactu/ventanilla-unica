@@ -9,6 +9,10 @@
 > verified complete · `[-]` obsolete or superseded. Closed work moves to
 > `TODO_LOG.md`.
 
+## Bugs
+
+- [ ] **`aeat deudas` returns `debts: []` while the holders have enforced debts (2026-11-10).** Live run for 76048463K and 08885194H: `debts` empty and `entity` swallows the whole sede footer ("... Otros enlaces de interés"), while on 2026-10-31 the same command listed 11 keys / 11.316,81 and 14 keys / 20.156,46 and no payment was made since. `agreements` still parse. Likely the ConsultaDdas page layout changed. Also `aeat expedientes` fails for both with "AEAT: expediente row has no detail link". Next: capture the current ConsultaDdas HTML for 76048463K and fix the parser against it.
+
 ## Blocked Tasks
 
 - [ ] **Garantía Juvenil write path: three review findings (Codex, 2026-11-04)
