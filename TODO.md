@@ -11,7 +11,21 @@
 
 ## Bugs
 
-- [ ] **`aeat deudas` returns `debts: []` while the holders have enforced debts (2026-11-10).** Live run for 76048463K and 08885194H: `debts` empty and `entity` swallows the whole sede footer ("... Otros enlaces de interés"), while on 2026-10-31 the same command listed 11 keys / 11.316,81 and 14 keys / 20.156,46 and no payment was made since. `agreements` still parse. Likely the ConsultaDdas page layout changed. Also `aeat expedientes` fails for both with "AEAT: expediente row has no detail link". Next: capture the current ConsultaDdas HTML for 76048463K and fix the parser against it.
+- [ ] **`registradores nota --out <dir>` fails when the directory does not exist
+      (2026-11-10).** Confirmed run for B22903801 created the order (3,58 EUR,
+      checkout URL printed), then the notes said
+      `ENOENT: no such file or directory, open '<dir>/registradores-nota-B22903801-2026-11-10-pago.html'`.
+      The order is fine; only the payment page file is lost. Smallest next step:
+      create the `--out` directory recursively before writing.
+
+- [ ] **`aeat deudas` returns `debts: []` while the holders have enforced debts
+      (2026-11-10).** Live run for 76048463K and 08885194H: `debts` empty and
+      `entity` swallows the whole sede footer ("... Otros enlaces de interés"),
+      while on 2026-10-31 the same command listed 11 keys / 11.316,81 and 14
+      keys / 20.156,46 and no payment was made since. `agreements` still parse.
+      Likely the ConsultaDdas page layout changed. Also `aeat expedientes` fails
+      for both with "AEAT: expediente row has no detail link". Next: capture the
+      current ConsultaDdas HTML for 76048463K and fix the parser against it.
 
 ## Blocked Tasks
 
