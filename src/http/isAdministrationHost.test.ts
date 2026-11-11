@@ -21,6 +21,7 @@ describe('isAdministrationHost', () => {
       'iria.ine.es',
       'sede.registradores.org',
       'garantiajuvenil.sepe.es',
+      'saludextremadura.ses.es',
     ])
       expect(isAdministrationHost(host)).toBe(true)
   })

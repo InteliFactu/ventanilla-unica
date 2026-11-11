@@ -15,6 +15,12 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `inss contacto` reads the mobile and e-mail of Tu Seguridad Social "Tus
+  datos", through the same PGIS/IPCE login as Importass, now shared as
+  `loginToSeguridadSocialPortal`.
+- `ses contacto` reads the e-mail and phones of Centro de Salud Online "Mis
+  datos" (Servicio Extremeño de Salud); `ses.es` joins the administration hosts.
+  The certificate login's redirect to the plain-HTTP home is not followed.
 - `aeat pagar` pays an AEAT liquidación (modelo 002, 004, 008, 010, 031, 032,
   060, 061, 069) by debit to an account at a collaborating bank (write,
   `--confirmar si`) and returns the NRC, saving the receipt PDF with `--out`.

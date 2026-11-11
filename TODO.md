@@ -338,11 +338,27 @@
   inline JS; then submit with the `token-tramite-cond` cookie (16 random chars
   set by JS, 5 s expiry) behind `--confirmar si`, once the owner chooses a new
   domicile (deferred 2026-10-11).
-- [ ] **ses / catastro / clave / inss: contact and domicile readers.** Not
-      explored yet (2026-10-11). Cl@ve phone/email change with certificate lives
-      under AEAT "Cl@ve > Otras gestiones"; SES contact data is in Centro de
-      Salud Online (`ses.es` is not in `isAdministrationHost`); Catastro titular
-      domicile via sedecatastro. Email/phone only; addresses wait for the owner.
+- [~] **ses / catastro / clave / inss: contact and domicile readers.** Cl@ve
+  phone/email change with certificate lives under AEAT "Cl@ve > Otras
+  gestiones"; SES contact data is in Centro de Salud Online (`ses.es` joined
+  `isAdministrationHost` on 2026-11-11); Catastro titular domicile via
+  sedecatastro. Email/phone only; addresses wait for the owner.
+  - 2026-11-11: `inss contacto` and `ses contacto` done, verified live with the
+    owner's personafisica certificate (INSS: mobile, e-mail blank on the page;
+    SES: e-mail, care-contact phone, phones 1 and 2). The SES certificate login
+    302s to the plain-HTTP home; the reader stops at that 302 and reads over
+    HTTPS.
+  - [!] Cl@ve: both certificate paths (`BUCV-JDIT/ModificaTelClvCert` after its
+    auto-submit, and `ModificaCorreoeClvCertPin`) stop at
+    `RecogidaDatoContrasteh`, which asks for `NUMSOPORTE`, the DNI/NIE support
+    number, before showing anything. Unblock: the owner records the holder's
+    support number (1Password) or says a reader should take `--soporte`; a
+    guessed number is never posted, as failed attempts may lock Cl@ve.
+  - Catastro: not built, and unverified. A 2026-10-31 exploration (lost branch,
+    no evidence kept) reported no contact data of its own at sedecatastro: its
+    avisos going to the DEHU e-mail `dehu contacto` already reads, and the
+    titular area listing only properties and procedures. Re-check live before
+    relying on that conclusion or building a reader.
 
 - [ ] **morosos: `experian acceso` and `equifax acceso` for the debtor files
       (BADEXCUG, ASNEF).** Mapped live 2026-10-09 for Alba (78117074N). Neither
