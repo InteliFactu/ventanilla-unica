@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { htmlResponse } from '../../http/fixtures/htmlResponse'
 import { scriptedClient } from '../../http/fixtures/scriptedClient'
+import type { HttpResponse } from '../../http/types/HttpResponse'
 import { sesUrls } from '../session/sesUrls'
 import { readSesContact } from './readSesContact'
 
@@ -36,5 +37,45 @@ describe('readSesContact', () => {
       htmlResponse(sesUrls.personalData, '<p>Acceso</p>'),
     )
     await expect(readSesContact(client)).rejects.toThrow('no contact data')
+  })
+
+  const loggedIn = (page: HttpResponse) =>
+    scriptedClient(
+      { ...htmlResponse(sesUrls.certificateLogin, ''), status: 302 },
+      page,
+    )
+
+  it('refuses an error page that names the spans only in a comment', async () => {
+    const page = `<p>Error de autenticación</p><!-- ${datos} -->`
+    await expect(
+      readSesContact(loggedIn(htmlResponse(sesUrls.personalData, page))),
+    ).rejects.toThrow('no contact data')
+  })
+
+  it('refuses a page missing one of the contact spans', async () => {
+    const page = datos.replace(/<span id="[^"]*tlf2"><\/span>/, '')
+    await expect(
+      readSesContact(loggedIn(htmlResponse(sesUrls.personalData, page))),
+    ).rejects.toThrow('no contact data')
+  })
+
+  it('reads present but empty spans as null', async () => {
+    const blank = datos.replaceAll(/(tabViewDatos:\w+">)[^<]*/g, '$1')
+    await expect(
+      readSesContact(loggedIn(htmlResponse(sesUrls.personalData, blank))),
+    ).resolves.toEqual({
+      email: null,
+      careContactPhone: null,
+      phone1: null,
+      phone2: null,
+    })
+  })
+
+  it('refuses a contact page that answers an error status', async () => {
+    await expect(
+      readSesContact(
+        loggedIn({ ...htmlResponse(sesUrls.personalData, datos), status: 500 }),
+      ),
+    ).rejects.toThrow('HTTP 500')
   })
 })

@@ -43,4 +43,32 @@ describe('readInssContact', () => {
       ),
     ).rejects.toThrow('no contact block')
   })
+
+  it('refuses an error page that names the inputs only in a comment', async () => {
+    const page = `<p>Error de autenticación</p><!-- ${datos} -->`
+    await expect(
+      readInssContact(loggedInClient(vi.fn<HttpClient['request']>(), '', page)),
+    ).rejects.toThrow('no contact block')
+  })
+
+  it('reads present but empty inputs as null', async () => {
+    const blank = datos.replaceAll(/value="[^"]*"/g, 'value=""')
+    await expect(
+      readInssContact(
+        loggedInClient(vi.fn<HttpClient['request']>(), '', blank),
+      ),
+    ).resolves.toEqual({ mobilePrefix: null, mobile: null, email: null })
+  })
+
+  it('refuses a contact page that answers an error status', async () => {
+    const request = vi.fn<HttpClient['request']>()
+    request.mockResolvedValueOnce(htmlResponse(tussUrls.entry, ''))
+    request.mockResolvedValueOnce({
+      ...htmlResponse(tussUrls.personalData, datos),
+      status: 500,
+    })
+    await expect(
+      readInssContact({ request, cookie: () => 'token' }),
+    ).rejects.toThrow('HTTP 500')
+  })
 })

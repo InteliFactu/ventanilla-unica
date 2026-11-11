@@ -14,5 +14,9 @@ export const readSesContact = async (
 ): Promise<SesContact> => {
   await client.request(sesUrls.certificateLogin, { followRedirects: false })
   const page = await client.request(sesUrls.personalData)
+  if (page.status !== 200)
+    throw new Error(
+      `Centro de Salud Online: Mis datos answered HTTP ${String(page.status)}`,
+    )
   return parseSesContactPage(page.text)
 }

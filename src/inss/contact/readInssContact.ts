@@ -13,5 +13,9 @@ export const readInssContact = async (
 ): Promise<InssContact> => {
   await loginToSeguridadSocialPortal(client, tussUrls.entry, tussUrls.host)
   const page = await client.request(tussUrls.personalData)
+  if (page.status !== 200)
+    throw new Error(
+      `Tu Seguridad Social: Tus datos answered HTTP ${String(page.status)}`,
+    )
   return parseInssContactPage(page.text)
 }
