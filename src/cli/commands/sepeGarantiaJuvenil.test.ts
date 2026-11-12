@@ -14,7 +14,14 @@ describe('sepe garantia-juvenil command', () => {
       portal: 'sepe',
       action: 'garantia-juvenil',
       effect: 'write',
-      options: ['inscribir', 'respuestas', 'pin-fichero', 'enlace-fichero'],
+      options: [
+        'inscribir',
+        'respuestas',
+        'pin-fichero',
+        'enlace-fichero',
+        'sms',
+        'correo',
+      ],
     })
   })
   it('reads without an inscription flag', async () => {
@@ -43,7 +50,13 @@ describe('sepe garantia-juvenil command', () => {
       ).toEqual([])
     },
   )
-  it.each([{ confirmar: 'si' }, { respuestas: '{}' }, { inscribir: 'yes' }])(
+  it.each([
+    { confirmar: 'si' },
+    { respuestas: '{}' },
+    { inscribir: 'yes' },
+    { sms: 'solicitar' },
+    { correo: 'reutilizar' },
+  ])(
     'rejects an incomplete or misspelled action before login',
     async (options) => {
       const client = scriptedClient()
@@ -53,6 +66,20 @@ describe('sepe garantia-juvenil command', () => {
       expect(client.request.mock.calls).toHaveLength(0)
     },
   )
+  it.each([
+    ['sms', 'si'],
+    ['correo', 'reenviar'],
+  ])('rejects --%s %s before login', async (flag, value) => {
+    const client = scriptedClient()
+    await expect(
+      sepeGarantiaJuvenil.run(client, {
+        inscribir: 'si',
+        respuestas: '{}',
+        [flag]: value,
+      }),
+    ).rejects.toThrow(`--${flag} accepts only solicitar or reutilizar`)
+    expect(client.request.mock.calls).toHaveLength(0)
+  })
   it('rejects token overrides without a single inscription write', async () => {
     const client = scriptedClient(...youthGuaranteeReadResponses())
     await expect(

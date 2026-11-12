@@ -3,6 +3,7 @@ import type { HttpResponse } from '../../http/types/HttpResponse'
 import type { YouthGuaranteeAnswers } from './types/YouthGuaranteeAnswers'
 import type { YouthGuaranteeVerificationFiles } from './types/YouthGuaranteeVerificationFiles'
 import { isYouthGuaranteeMobileVerified } from './validators/isYouthGuaranteeMobileVerified'
+import { validateYouthGuaranteeContactIntents } from './validators/validateYouthGuaranteeContactIntents'
 import { verifyYouthGuaranteeEmail } from './verifyYouthGuaranteeEmail'
 import { verifyYouthGuaranteeMobile } from './verifyYouthGuaranteeMobile'
 
@@ -12,17 +13,13 @@ export const verifyYouthGuaranteeContacts = async (
   answers: YouthGuaranteeAnswers,
   files: YouthGuaranteeVerificationFiles,
 ): Promise<HttpResponse> => {
-  const mobile = await verifyYouthGuaranteeMobile(
-    client,
-    page,
-    answers,
-    files.pinFile ?? '',
-  )
+  validateYouthGuaranteeContactIntents(page.text, answers, files)
+  const mobile = await verifyYouthGuaranteeMobile(client, page, answers, files)
   const verified = await verifyYouthGuaranteeEmail(
     client,
     mobile,
     answers,
-    files.linkFile ?? '',
+    files,
   )
   if (!isYouthGuaranteeMobileVerified(verified.text, answers))
     throw new Error(

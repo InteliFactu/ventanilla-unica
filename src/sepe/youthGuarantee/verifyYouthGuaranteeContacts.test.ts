@@ -20,7 +20,7 @@ describe('step-2 contact verification (synthetic HTTP and files)', () => {
     vi.resetAllMocks()
   })
   it('stops after a rejected OTP without requesting email or advancing the form', async () => {
-    vi.mocked(readFile).mockResolvedValue('123456')
+    vi.mocked(readFile).mockResolvedValueOnce('').mockResolvedValue('123456')
     vi.spyOn(process.stderr, 'write').mockReturnValue(true)
     const page = htmlResponse(
       youthGuaranteeUrls.page(2),
@@ -38,7 +38,9 @@ describe('step-2 contact verification (synthetic HTTP and files)', () => {
     expect(client.request.mock.calls).toHaveLength(2)
   })
   it('does not trust an awaiting-email flag after following the link', async () => {
-    vi.mocked(readFile).mockResolvedValue(youthGuaranteeEmailLink)
+    vi.mocked(readFile)
+      .mockResolvedValueOnce('')
+      .mockResolvedValue(youthGuaranteeEmailLink)
     vi.spyOn(process.stderr, 'write').mockReturnValue(true)
     const page = htmlResponse(
       youthGuaranteeUrls.page(2),
@@ -78,7 +80,9 @@ describe('step-2 contact verification (synthetic HTTP and files)', () => {
     expect(client.request.mock.calls).toHaveLength(0)
   })
   it('requests verification again when the declared mobile differs from the verified one', async () => {
-    vi.mocked(readFile).mockResolvedValue('not a code!')
+    vi.mocked(readFile)
+      .mockResolvedValueOnce('')
+      .mockResolvedValue('not a code!')
     vi.spyOn(process.stderr, 'write').mockReturnValue(true)
     const page = htmlResponse(
       youthGuaranteeUrls.page(2),
@@ -104,7 +108,9 @@ describe('step-2 contact verification (synthetic HTTP and files)', () => {
     )
   })
   it('rejects a link that only proves the previously verified email address', async () => {
-    vi.mocked(readFile).mockResolvedValue(youthGuaranteeEmailLink)
+    vi.mocked(readFile)
+      .mockResolvedValueOnce('')
+      .mockResolvedValue(youthGuaranteeEmailLink)
     vi.spyOn(process.stderr, 'write').mockReturnValue(true)
     const page = htmlResponse(
       youthGuaranteeUrls.page(2),
@@ -131,6 +137,7 @@ describe('step-2 contact verification (synthetic HTTP and files)', () => {
     ).rejects.toThrow(/declared email/)
   })
   it('does not resend an SMS after its response is lost', async () => {
+    vi.mocked(readFile).mockResolvedValue('')
     const client = scriptedClient()
     client.request.mockRejectedValueOnce(new Error('lost response'))
     await expect(
@@ -142,6 +149,7 @@ describe('step-2 contact verification (synthetic HTTP and files)', () => {
       ),
     ).rejects.toThrow(/mobile SMS request was sent.*Do not retry/)
     expect(client.request.mock.calls).toHaveLength(1)
-    expect(readFile).not.toHaveBeenCalled()
+    // Only the emptiness check before the request; nothing waits for a code.
+    expect(readFile).toHaveBeenCalledTimes(1)
   })
 })

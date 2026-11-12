@@ -269,6 +269,12 @@ truthful information and an active participation commitment. Step 6 requires
 `checkConsentimiento`. Personal, contact, address, education and other answers
 must come from the holder and use the fields and codes offered in that session.
 
+Steps 4 and 5 add occupation, interest and sector rows through sub-flows the
+command does not drive. Answers for `experienciaLaboral.tcodOcupacion`,
+`interesOcupacion.tcodInteresOcupacion` and `interesSector.tcodSector` are
+refused, and a page that marks one of them required stops the command before any
+write: posting the select alone would not add the row.
+
 Step-2 municipality controls accept a name such as `"CACERES"` with province
 `"10"`, or an offered municipality ID. This applies to
 `datosDireccionDomicilio.tcodMunicipio`, `datosDireccionContacto.tcodMunicipio`
@@ -308,34 +314,44 @@ or interest answers:
 ```
 
 For confirmed submission, provide two different local handoff paths through
-`--pin-fichero` and `--enlace-fichero`. Use new or empty private files for each
-attempt. The files may initially be absent. The command checks each pending file
-every 5 seconds for up to 30 minutes, keeping the process, certificate client
-and cookies alive. It never prints their contents or deletes the files.
+`--pin-fichero` and `--enlace-fichero`. The files may initially be absent. The
+command checks each pending file every 5 seconds for up to 30 minutes, keeping
+the process, certificate client and cookies alive. It never prints their
+contents or deletes the files.
 
-On step 2, the command submits `confirmarMovil` for an unverified or changed
-mobile, which sends a real SMS. It prints `SMS requested` to stderr so the
-holder or supervisor knows to write only the received digits into the PIN file.
-The portal advertises a 4-hour code lifetime. Once digits arrive, the command
-submits `pinSMS` with `confirmarOTP` and requires the returned hidden
+A mobile or email that is not verified, including one with a pending,
+unconfirmed request, needs explicit intent: `--sms solicitar` or
+`--correo solicitar` sends a new message, while `--sms reutilizar` or
+`--correo reutilizar` submits the still-valid code or link already in its file
+without sending anything (an empty file is refused). Without the flag the
+command stops at step 2 before any message. Before `solicitar`, the file must be
+absent or empty, so whatever arrives afterwards is the new code and never a
+stale one. Contacts already verified and unchanged need neither flag.
+
+On step 2, `--sms solicitar` submits `confirmarMovil` for an unverified or
+changed mobile, which sends a real SMS. It prints `SMS requested` to stderr so
+the holder or supervisor knows to write only the received digits into the PIN
+file. The portal advertises a 4-hour code lifetime. Once digits arrive, the
+command submits `pinSMS` with `confirmarOTP` and requires the returned hidden
 `confirmaMovil` to equal `1`.
 
-For an unverified or changed email, the command submits `confirmarCorreo` on the
-same form and prints a waiting message. The holder or supervisor writes the
-received confirmation URL into the link file. The command GETs that URL using
-the same client, then GETs step 2 again and requires `confirmaCorreo=1`. In the
-captured JavaScript, `0` means unverified and `2` means awaiting confirmation;
-`confirmaCorreo` has an `id` but no submitted `name`. Links and every redirect
-must use HTTPS on `garantiajuvenil.sepe.es` or another administration host
-allowed by the HTTP client. URLs containing credentials or a nonstandard port
-are refused. Already verified, unchanged contacts do not receive new messages.
+For an unverified or changed email, `--correo solicitar` submits
+`confirmarCorreo` on the same form and prints a waiting message. The holder or
+supervisor writes the received confirmation URL into the link file. The command
+GETs that URL using the same client, then GETs step 2 again and requires
+`confirmaCorreo=1`. In the captured JavaScript, `0` means unverified and `2`
+means awaiting confirmation; `confirmaCorreo` has an `id` but no submitted
+`name`. Links and every redirect must use HTTPS on `garantiajuvenil.sepe.es` or
+another administration host allowed by the HTTP client. URLs containing
+credentials or a nonstandard port are refused. Already verified, unchanged
+contacts do not receive new messages.
 
 From this checkout, run `pnpm build` first. After configuring
 `VENTANILLA_UNICA_CERT` and `VENTANILLA_UNICA_KEY` as PEM file paths and setting
 `GJ_ANSWERS` to the complete, reviewed JSON, run:
 
 ```sh
-node dist/cli/main.js sepe garantia-juvenil --inscribir si --respuestas "$GJ_ANSWERS" --pin-fichero /private/tmp/gj-pin.txt --enlace-fichero /private/tmp/gj-email-link.txt --confirmar si --out ./garantia-juvenil-submission
+node dist/cli/main.js sepe garantia-juvenil --inscribir si --respuestas "$GJ_ANSWERS" --pin-fichero /private/tmp/gj-pin.txt --enlace-fichero /private/tmp/gj-email-link.txt --sms solicitar --correo solicitar --confirmar si --out ./garantia-juvenil-submission
 ```
 
 This confirmed command is documented and covered by synthetic HTTP/file tests;

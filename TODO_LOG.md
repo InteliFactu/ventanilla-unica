@@ -8,6 +8,32 @@
 
 ### 2026-11
 
+- [x] 2026-11-12 — **Blocked Tasks:** **Garantía Juvenil write path: three
+      review findings (Codex, 2026-11-04) still open.** (1) Row-dependent
+      answers (step 4 occupation, step 5 interest and sector) are accepted while
+      the add-row sub-flows are not driven, so the command can reach
+      `confirmarInscripcion` without those rows: reject them before any write
+      unless the rows are verified in the draft. (2) `waitForYouthGuaranteeFile`
+      consumes a PIN or link already in the handoff file, so a stale code is
+      submitted at once after a new SMS: require the files to be absent before
+      the request and fresh after it, with an explicit flag for reusing a
+      still-valid code (the live run relied on reuse). (3) Any state other than
+      verified requests a new SMS or email, including a pending challenge after
+      an ambiguous response: require explicit resend intent. Fixed already:
+      pre-ticked checkboxes (consents) are no longer sent by default, after the
+      live run sent `checkAutoCampaniaN` this way.
+  - Result: Row answers for step-4 occupation and step-5 interest/sector are
+    refused before any write, and a required row field stops the command (rows
+    cannot yet be verified in the draft); a new SMS or email needs
+    --sms/--correo solicitar and a handoff file that is absent or empty before
+    the request, while reutilizar submits the still-valid code or link without
+    sending; any unverified or pending contact without intent stops at step 2
+    before any message.
+  - Evidence: pnpm check:ci exit 0 (2108 tests), including
+    verifyYouthGuaranteeContacts.intent.test.ts,
+    validateYouthGuaranteeRowFields.test.ts and the CLI flag tests; synthetic
+    HTTP/file tests only, no request sent to SEPE.
+
 - [x] 2026-11-05 — **AEAT appointments:** **A plan run holds the slot it
       inspects.** `fetchAppointmentConfirmation` posts the `cita` step with
       `fhora`/`faccion=V`, which leaves the slot "Cita pendiente de confirmar"
