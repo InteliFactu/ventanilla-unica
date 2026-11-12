@@ -22,10 +22,12 @@ describe('contact verification waits in the existing session', () => {
   it('requests each message once, submits the PIN and follows the email link in the same session', async () => {
     vi.useFakeTimers()
     vi.mocked(readFile)
+      .mockResolvedValueOnce('')
       .mockRejectedValueOnce(
         Object.assign(new Error('pending'), { code: 'ENOENT' }),
       )
       .mockResolvedValueOnce('012345\n')
+      .mockResolvedValueOnce('')
       .mockResolvedValueOnce('')
       .mockResolvedValueOnce(`${youthGuaranteeEmailLink}\n`)
     const stderr = vi.spyOn(process.stderr, 'write').mockReturnValue(true)

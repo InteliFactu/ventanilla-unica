@@ -3,6 +3,7 @@ import type { HttpClient } from '../../http/types/HttpClient'
 import { isConfirmed } from '../../write/isConfirmed'
 import { inscribeYouthGuarantee } from './inscribeYouthGuarantee'
 import { parseYouthGuaranteeAnswers } from './parsers/parseYouthGuaranteeAnswers'
+import { parseYouthGuaranteeContactIntent } from './parsers/parseYouthGuaranteeContactIntent'
 import { readYouthGuarantee } from './readYouthGuarantee'
 
 export const runYouthGuaranteeCommand = async (
@@ -17,10 +18,12 @@ export const runYouthGuaranteeCommand = async (
       isConfirmed(options) ||
       options['respuestas'] !== undefined ||
       options['pin-fichero'] !== undefined ||
-      options['enlace-fichero'] !== undefined
+      options['enlace-fichero'] !== undefined ||
+      options['sms'] !== undefined ||
+      options['correo'] !== undefined
     )
       throw new Error(
-        'Garantía Juvenil: --confirmar, --respuestas and verification files require --inscribir si',
+        'Garantía Juvenil: --confirmar, --respuestas, --sms, --correo and verification files require --inscribir si',
       )
     return readYouthGuarantee(client, options['out'])
   }
@@ -32,6 +35,11 @@ export const runYouthGuaranteeCommand = async (
       out: options['out'],
       pinFile: options['pin-fichero'],
       linkFile: options['enlace-fichero'],
+      mobileIntent: parseYouthGuaranteeContactIntent(options['sms'], 'sms'),
+      emailIntent: parseYouthGuaranteeContactIntent(
+        options['correo'],
+        'correo',
+      ),
     },
   )
 }

@@ -92,7 +92,9 @@ describe('inscription with municipality and contact verification', () => {
       ),
     )
     vi.mocked(readFile)
+      .mockResolvedValueOnce('')
       .mockResolvedValueOnce('123456')
+      .mockResolvedValueOnce('')
       .mockResolvedValueOnce(
         'https://garantiajuvenil.sepe.es/verify?token=synthetic',
       )
@@ -103,6 +105,8 @@ describe('inscription with municipality and contact verification', () => {
       respuestas: JSON.stringify(youthGuaranteeContactAnswers),
       'pin-fichero': '/synthetic/pin',
       'enlace-fichero': '/synthetic/link',
+      sms: 'solicitar',
+      correo: 'solicitar',
     })
     expect(result).toMatchObject({
       executed: true,

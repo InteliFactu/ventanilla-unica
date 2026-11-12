@@ -1,5 +1,6 @@
 import type { YouthGuaranteePage } from '../types/YouthGuaranteePage'
 import { isYouthGuaranteeMunicipalityField } from './isYouthGuaranteeMunicipalityField'
+import { validateYouthGuaranteeRowAnswer } from './validateYouthGuaranteeRowAnswer'
 
 export const validateYouthGuaranteeFieldAnswer = (
   page: YouthGuaranteePage,
@@ -11,6 +12,7 @@ export const validateYouthGuaranteeFieldAnswer = (
     throw new Error(
       `Garantía Juvenil: ${name} is not an offered editable control on step ${String(page.step)}`,
     )
+  validateYouthGuaranteeRowAnswer(page.step, name)
   if (field.type === 'checkbox' && value === 'false') return
   // GET pages omit dependent options; only confirmed writes resolve these.
   if (page.step === 2 && isYouthGuaranteeMunicipalityField(name)) return

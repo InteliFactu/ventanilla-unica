@@ -1,6 +1,8 @@
+import { validateYouthGuaranteeHandoffValue } from '../validators/validateYouthGuaranteeHandoffValue'
 import { readYouthGuaranteeVerificationFile } from './readYouthGuaranteeVerificationFile'
 
-/** Missing or empty files are pending; malformed input is never submitted. */
+/** Missing or empty files are pending; malformed input is never submitted.
+ * Callers must prove the file empty before the request so any value is fresh. */
 export const waitForYouthGuaranteeFile = async (
   path: string,
   kind: 'pin' | 'link',
@@ -8,13 +10,7 @@ export const waitForYouthGuaranteeFile = async (
   const deadline = Date.now() + 30 * 60 * 1000
   while (Date.now() <= deadline) {
     const value = await readYouthGuaranteeVerificationFile(path)
-    if (value) {
-      if (kind === 'pin' && !/^[a-z\d]+$/i.test(value))
-        throw new Error(
-          'Garantía Juvenil: PIN file must contain only letters and digits',
-        )
-      return value
-    }
+    if (value) return validateYouthGuaranteeHandoffValue(value, kind)
     if (Date.now() >= deadline) break
     await new Promise<void>((resolve) => {
       setTimeout(resolve, 5000)
