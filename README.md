@@ -585,11 +585,16 @@ an env file that holds no secret values, and let `op run` resolve them for one
 command. The vault must be readable by the service account (the Rayuela password
 lives in vault Familia, not Personal):
 
-```sh
-# rayuela.env
+Save this as `rayuela.env` (dotenv format, references only):
+
+```dotenv
 VENTANILLA_UNICA_RAYUELA_USUARIO=op://<Vault>/<Item>/username
 VENTANILLA_UNICA_RAYUELA_CLAVE=op://<Vault>/<Item>/password
+```
 
+Then run the command through `op run`:
+
+```sh
 op run --env-file rayuela.env -- ventanilla-unica rayuela hijos
 ```
 
