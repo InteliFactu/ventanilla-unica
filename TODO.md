@@ -521,13 +521,6 @@
       "Martes", "30 Oct"), so a refresh has to infer the date, and there is no
       way to ask for messages after a known id. Next step: resolve the relative
       text to an ISO date and add `--desde-id <X_IDENTIFICADOR>`.
-- [ ] **Rayuela: read credentials from 1Password references.** The commands take
-      `VENTANILLA_UNICA_RAYUELA_USUARIO|CLAVE` only; on 2026-11-09 the password
-      had to be read from a plaintext wiki line because the 1Password item sat
-      in vault Personal, which the service account cannot read. It now lives at
-      `op://Familia/egxfxphnzxzny6d4kmg5igqtcq/password`. Next step: document
-      `op run` with an env file of `op://` references in the README Rayuela
-      section.
 
 ## AEAT appointments
 

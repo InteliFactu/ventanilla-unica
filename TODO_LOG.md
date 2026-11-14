@@ -8,6 +8,19 @@
 
 ### 2026-11
 
+- [x] 2026-11-14 — **Future Ideas:** **Rayuela: read credentials from 1Password
+      references.** The commands take `VENTANILLA_UNICA_RAYUELA_USUARIO|CLAVE`
+      only; on 2026-11-09 the password had to be read from a plaintext wiki line
+      because the 1Password item sat in vault Personal, which the service
+      account cannot read. It now lives at
+      `op://Familia/egxfxphnzxzny6d4kmg5igqtcq/password`. Next step: document
+      `op run` with an env file of `op://` references in the README Rayuela
+      section.
+  - Result: README Rayuela section documents op run with an env file of op://
+    references.
+  - Evidence: README.md Rayuela password login section; prettier --check
+    README.md passes
+
 - [x] 2026-11-12 — **Blocked Tasks:** **Garantía Juvenil write path: three
       review findings (Codex, 2026-11-04) still open.** (1) Row-dependent
       answers (step 4 occupation, step 5 interest and sector) are accepted while
