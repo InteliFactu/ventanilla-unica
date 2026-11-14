@@ -578,11 +578,30 @@ says otherwise.
 ## Rayuela password login
 
 Set `VENTANILLA_UNICA_RAYUELA_USUARIO` and `VENTANILLA_UNICA_RAYUELA_CLAVE` in
-the environment. Credentials are never accepted as command arguments. `--hijo`
-selects an offered child by id or an unambiguous case-insensitive name fragment;
-the current child is not in the switcher. Messages include only the first inbox
-page, its total and embedded previews, which may be truncated. Nothing opens a
-message or marks it read. Grades are not supported.
+the environment. Credentials are never accepted as command arguments.
+
+To keep the password out of shell history and files, put 1Password references in
+an env file that holds no secret values, and let `op run` resolve them for one
+command. The vault must be readable by the service account (the Rayuela password
+lives in vault Familia, not Personal):
+
+Save this as `rayuela.env` (dotenv format, references only):
+
+```dotenv
+VENTANILLA_UNICA_RAYUELA_USUARIO=op://<Vault>/<Item>/username
+VENTANILLA_UNICA_RAYUELA_CLAVE=op://<Vault>/<Item>/password
+```
+
+Then run the command through `op run`:
+
+```sh
+op run --env-file rayuela.env -- ventanilla-unica rayuela hijos
+```
+
+`--hijo` selects an offered child by id or an unambiguous case-insensitive name
+fragment; the current child is not in the switcher. Messages include only the
+first inbox page, its total and embedded previews, which may be truncated.
+Nothing opens a message or marks it read. Grades are not supported.
 
 ## License
 
