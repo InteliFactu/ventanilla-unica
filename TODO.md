@@ -543,3 +543,17 @@
       error interno en el Sistema". Next: capture the portal's
       existing-appointment page and report it (with its `gestioncita` link)
       instead of failing.
+
+## Routed from ~/p/TODO.md (2026-11-15)
+
+- [ ] 2026-11-11 — **Public notifications with a deadline (about 10 days, so
+      around 2026-11-20).** AEAT "Aviso de notificación de la Agencia
+      Tributaria", 2026-11-10: 2 on djcristiandeluxe@gmail.com, 4 on
+      ipowerpink@gmail.com. DEHU noreply.dehu@correo.gob.es, 2026-11-09/10, 8
+      postal notifications on familiadqg@gmail.com ("Organismo emisor: Agencia
+      Estatal de Administración Tributaria"). Junta de Extremadura
+      soporte.sede@juntaex.es, 2026-11-04, 2 on albapriieto4@gmail.com
+      ("Solicitud de alta y modificación de datos personales"); SEPE Garantía
+      Juvenil "Tiene notificaciones pendientes", 2026-11-07. Next: read them
+      through `~/p/ventanilla-unica`.
+  - Routed 2026-11-15 from `~/p/TODO.md`.
