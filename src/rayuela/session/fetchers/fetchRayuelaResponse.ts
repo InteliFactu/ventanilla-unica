@@ -25,7 +25,7 @@ export const fetchRayuelaResponse = async (
     if (next === undefined) {
       if (response.status !== 200)
         throw new Error(
-          `Rayuela request failed (HTTP ${String(response.status)})`,
+          `Rayuela request failed (HTTP ${String(response.status)}): ${response.body.toString('latin1').replace(/\s+/g, ' ').slice(0, 400)}`,
         )
       return response
     }

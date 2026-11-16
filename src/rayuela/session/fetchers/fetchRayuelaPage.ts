@@ -4,15 +4,20 @@ import { parseRayuelaChildrenChoices } from '../parsers/parseRayuelaChildrenChoi
 import { parseRayuelaPageUrl } from '../parsers/parseRayuelaPageUrl'
 import { selectRayuelaChild } from '../selectors/selectRayuelaChild'
 import { fetchRayuelaResponse } from './fetchRayuelaResponse'
-/** Fetch a menu page; child switching changes only the session selection. */
+/** Fetch a menu page; child switching changes only the session selection, `query` adds page parameters such as `BANDEJA`. */
 export const fetchRayuelaPage = async (
   client: HttpClient,
   name: string,
   child?: string,
+  query: Readonly<Record<string, string>> = {},
 ): Promise<string> => {
   const session = await openRayuelaSession(client)
   const menu = await fetchRayuelaResponse(client, session.menu)
-  const url = parseRayuelaPageUrl(menu.text, name, session)
+  const url = `${parseRayuelaPageUrl(menu.text, name, session)}${Object.entries(
+    query,
+  )
+    .map(([key, value]) => `&${key}=${encodeURIComponent(value)}`)
+    .join('')}`
   if (child !== undefined) {
     const navigation = await fetchRayuelaResponse(client, session.navigation)
     const selected = selectRayuelaChild(

@@ -516,6 +516,15 @@
       teacher re-announces (Maths of 12 Nov came twice). The per-child pages
       exist (see the flow notes) but have no command. Next step: map their menu
       codes from the menu HTML and add `rayuela examenes|trabajos` first.
+- [~] **Rayuela: `responder` accents are fixed in code but not proven live.**
+  The first live reply on 2026-11-16 (sent-box id 320526470) arrived as mojibake
+  ("pudi&Atilde;&copy;ramos"): the form went out as UTF-8 without a charset, and
+  the server read it as Latin-1. `fetchRayuelaTemplate` now sends
+  `charset=UTF-8` as the portal's jQuery does, covered only by a unit test.
+  `rayuela mensajes` also prints subjects and previews with raw HTML entities.
+  Next step: on the next real reply, read it back with
+  `rayuela mensajes --bandeja ENV` and check the accents, then decode entities
+  in the list mapper.
 - [ ] **Rayuela: absolute message dates and a "since" filter.**
       `rayuela mensajes` returns `dateText` as shown in the list ("Jueves",
       "Martes", "30 Oct"), so a refresh has to infer the date, and there is no
