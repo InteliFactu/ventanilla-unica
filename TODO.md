@@ -27,6 +27,18 @@
       for both with "AEAT: expediente row has no detail link". Next: capture the
       current ConsultaDdas HTML for 76048463K and fix the parser against it.
 
+- [ ] **`aeat deudas` agreements carry no instalment calendar (2026-11-17).**
+      Live run for B22903801 returned four granted agreements with `acuerdo`,
+      `importe`, `notificado` and `primerPlazo`, but `plazos` is empty and
+      `instalments` holds the debts table (Deuda / Solicitud / Importe deuda),
+      not the per-plazo dates and amounts. InteliFactu needs the calendar to
+      show each deferred debt's next instalment as a deadline (its TODO
+      `administraciones: cargar los plazos de cada aplazamiento`). Evidence: the
+      charges are monthly on day 5 (05-10 124,62 and 59,86; 05-11 125,05 and
+      60,06), so 102640313675Q looks like 6 plazos and 102640313692X like 4.
+      Next: capture the AcuAccDeta HTML of 102640313692X (or the plazos page it
+      links to) and parse number of plazos, dates and amounts.
+
 ## Blocked Tasks
 
 - [~] **Garantía Juvenil inscription: steps 4 and 5 sub-flows and the SMS
