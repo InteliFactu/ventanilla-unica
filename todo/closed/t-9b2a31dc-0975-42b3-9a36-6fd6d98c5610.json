@@ -1,0 +1,17 @@
+{
+  "tadu": 2,
+  "id": "t-9b2a31dc-0975-42b3-9a36-6fd6d98c5610",
+  "title": "Repository moved from BusiRocket to",
+  "state": "done",
+  "category": "infrastructure",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    `InteliFactu/sedes`, Spanish README added."
+  ],
+  "closed": "2026-09-25",
+  "result": "Repository moved from BusiRocket to",
+  "evidence": [
+    "commit `b4412e1`; GitHub redirects the old URL."
+  ]
+}

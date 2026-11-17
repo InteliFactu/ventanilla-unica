@@ -1,0 +1,20 @@
+{
+  "tadu": 2,
+  "id": "t-5a6bfcb2-5f1a-42af-a3b1-82543ebf888b",
+  "title": "TGSS `contacto` confirmed save and `domicilio` save",
+  "state": "in_progress",
+  "category": "testing",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "2026-10-11",
+    "",
+    "`tgss datos-personales` and both plans ran live (persona física cert); the",
+    "contact data already matched, so the `ACC_GUARDAR_DATOS_CONTACTO` POST has",
+    "never run and its answer page is assumed to re-render the datos personales",
+    "page (the command re-reads it and fails otherwise). `domicilio` refuses",
+    "`--confirmar si`: capture the `ACC_GUARDAR_DOMICILIO` answer (it may chain a",
+    "locality lookup, `urlCodPostal` `AC_CARGA_LOCALIDADES`) on an owner-authorised",
+    "change. Done when each has one live confirmed run."
+  ]
+}

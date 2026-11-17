@@ -1,0 +1,11 @@
+{
+  "tadu": 2,
+  "id": "t-ba501791-36cf-4e78-948a-8cd2d2b46391",
+  "title": "vida laboral header older than Importass",
+  "state": "cancelled",
+  "category": "testing",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "closed": "2026-10-15",
+  "resolution": "on 2026-10-15 the informe header and `tgss datos-personales` both show CL LOS LIRIOS 1, 10004 Cáceres; the 2026-10-11 difference was propagation lag between the two TGSS records."
+}

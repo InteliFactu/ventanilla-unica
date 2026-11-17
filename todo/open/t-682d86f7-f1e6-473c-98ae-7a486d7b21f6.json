@@ -1,0 +1,16 @@
+{
+  "tadu": 2,
+  "id": "t-682d86f7-f1e6-473c-98ae-7a486d7b21f6",
+  "title": "**`registradores nota --out <dir>` fails when the directory does not exist",
+  "state": "pending",
+  "category": "bugs",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    (2026-11-10).** Confirmed run for B22903801 created the order (3,58 EUR,",
+    "    checkout URL printed), then the notes said",
+    "    `ENOENT: no such file or directory, open '<dir>/registradores-nota-B22903801-2026-11-10-pago.html'`.",
+    "    The order is fine; only the payment page file is lost. Smallest next step:",
+    "    create the `--out` directory recursively before writing."
+  ]
+}

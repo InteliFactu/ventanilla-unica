@@ -1,0 +1,23 @@
+{
+  "tadu": 2,
+  "id": "t-a1a4c340-ca32-443f-b24e-0701a5c35508",
+  "title": "registro: cuentas anuales and legalised books have no free read route",
+  "state": "pending",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    Investigated 2026-10-08 against sede.registradores.org: the CSV checker",
+    "    needs a real CSV plus requester NIF and a captcha; \"Mis presentaciones\"",
+    "    only shows the presenter's own filings (the gestoría's); the \"Sociedad con",
+    "    Cuentas Depositadas\" list may be free for subscribers (unconfirmed). The",
+    "    authoritative answer is a paid nota informativa mercantil (identification",
+    "    2,103542 + accounts relation 0,601012 + 0,601012 per legalised book,",
+    "    before tax). 2026-10-16: `registradores nota` orders it behind",
+    "    `--confirmar si`, and its free plan run already answers",
+    "    `accountsDepositAvailable` from the tipos-informacion page (\"no tiene",
+    "    depósito de cuentas disponibles\"), so whether accounts are deposited is",
+    "    now a free read; legalised books still need the paid nota. Next: decide",
+    "    whether to buy one per SL."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "tadu": 2,
+  "id": "t-e818e399-9cb3-471c-932e-60294c474890",
+  "title": "`--help` column sized to the longest",
+  "state": "done",
+  "category": "documentation",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    command."
+  ],
+  "closed": "2026-10-15",
+  "result": "`commandLabelWidth` pads to the longest `portal action` plus two spaces (7ca9f36); `aeat certificado-corriente` no longer runs into its description.",
+  "evidence": [
+    "`usageText.test.ts`; `tsx src/cli/main.ts --help` output checked."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "tadu": 2,
+  "id": "t-0bef3a30-2474-402b-ae33-2218b29b8d83",
+  "title": "Final name chosen by the owner:",
+  "state": "done",
+  "category": "pending-decisions",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    `ventanilla-unica`."
+  ],
+  "closed": "2026-09-26",
+  "result": "package, binary, environment variables and GitHub repository renamed; nothing had been published as `sedes`.",
+  "evidence": [
+    "rename commit on `main`, `pnpm check:ci` green."
+  ]
+}

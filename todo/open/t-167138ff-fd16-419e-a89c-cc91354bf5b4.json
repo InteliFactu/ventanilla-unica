@@ -1,0 +1,33 @@
+{
+  "tadu": 2,
+  "id": "t-167138ff-fd16-419e-a89c-cc91354bf5b4",
+  "title": "ses / catastro / clave / inss: contact and domicile readers",
+  "state": "in_progress",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "Cl@ve",
+    "",
+    "phone/email change with certificate lives under AEAT \"Cl@ve > Otras",
+    "gestiones\"; SES contact data is in Centro de Salud Online (`ses.es` joined",
+    "`isAdministrationHost` on 2026-11-11); Catastro titular domicile via",
+    "sedecatastro. Email/phone only; addresses wait for the owner.",
+    "- 2026-11-11: `inss contacto` and `ses contacto` done, verified live with the",
+    "  owner's personafisica certificate (INSS: mobile, e-mail blank on the page;",
+    "  SES: e-mail, care-contact phone, phones 1 and 2). The SES certificate login",
+    "  302s to the plain-HTTP home; the reader stops at that 302 and reads over",
+    "  HTTPS.",
+    "- [!] Cl@ve: both certificate paths (`BUCV-JDIT/ModificaTelClvCert` after its",
+    "  auto-submit, and `ModificaCorreoeClvCertPin`) stop at",
+    "  `RecogidaDatoContrasteh`, which asks for `NUMSOPORTE`, the DNI/NIE support",
+    "  number, before showing anything. Unblock: the owner records the holder's",
+    "  support number (1Password) or says a reader should take `--soporte`; a",
+    "  guessed number is never posted, as failed attempts may lock Cl@ve.",
+    "- Catastro: not built, and unverified. A 2026-10-31 exploration (lost branch,",
+    "  no evidence kept) reported no contact data of its own at sedecatastro: its",
+    "  avisos going to the DEHU e-mail `dehu contacto` already reads, and the",
+    "  titular area listing only properties and procedures. Re-check live before",
+    "  relying on that conclusion or building a reader."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "tadu": 2,
+  "id": "t-38896dbf-2779-4061-97f5-824b2a59d41e",
+  "title": "`caceres aportar` and `junta aportar` verified live",
+  "state": "done",
+  "category": "general",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "closed": "2026-10-09",
+  "result": "`caceres aportar` (64a48b6, Relec form over HTTP) registered ENT2026041263 (CSV 16336616641771423311, four PDFs as DECL/ALTER/CERTI/OTROE to expediente 2026/00032519N, VIBRA LAB SL as interesado, holder as representative); the sede accepted the local XAdES form signature and the PAdES documents, and the registry number appears only in the justificante. `junta aportar` (3eee739) registered ENT20260859077 for expediente 2026/25777D. Evidence: justificantes under `ArchivoFiscal/Vibra Lab S.L./Subvenciones-Ayudas/2026/`.",
+  "evidence": [
+    "legacy item migrated to format 2 without a recorded evidence"
+  ]
+}

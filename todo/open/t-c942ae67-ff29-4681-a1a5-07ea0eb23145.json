@@ -1,0 +1,30 @@
+{
+  "tadu": 2,
+  "id": "t-c942ae67-ff29-4681-a1a5-07ea0eb23145",
+  "title": "**Garantía Juvenil inscription: steps 4 and 5 sub-flows and the SMS",
+  "state": "in_progress",
+  "category": "blocked-tasks",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "signature are still manual.** Observed 2026-11-04 on the owner-authorized live",
+    "inscription of 78117074N (número de ingreso 202604969568, 04/11/2026 20:16:57,",
+    "\"SOLICITUD ACEPTADA\", then \"pendiente de validación por el tramitador\"): SMS",
+    "and email verification, municipio resolution and steps 1-6 now run live",
+    "(41ac226). The SMS arrived 25 minutes late and its code is alphanumeric",
+    "(\"CODIGO FIRMA GJ\", reusable for 4 hours, the same code signs). Still done by",
+    "hand with `/tmp` probes: step 4 experience (post `tengoExperiencia=Si` with",
+    "`checkExperiencia`, then the occupation with `annadirExperienciaLaboral`),",
+    "step 5 interest and sector (`annadirExperienciaLaboralOcupacion` with",
+    "`tcodInteresOcupacion`, `annadirExperienciaLaboral` with `tcodSector`), and",
+    "the final signature (POST `/firmaSolicitud.action` with `solicitudJson`,",
+    "`firmaSolicitud`, `numIntentos`, `pinSMS` and",
+    "`firmarSolicitudAnonimamente=Firmar con SMS`, answered by",
+    "`/acuseRecibo.action` with `situacionSolicitante.numExpedienteC`,",
+    "`fxSolicitudFxFormat` and `fxSolicitudHoraFxFormat`). After filing, login",
+    "lands on `solicitudFinalizada.action` (\"Solicitud en estado Finalizado\"),",
+    "which the status reader reports as unknown. Next: drive the two sub-flows from",
+    "`--respuestas`, sign with the PIN file, parse the acuse, and read the",
+    "finalizada page as pending."
+  ]
+}

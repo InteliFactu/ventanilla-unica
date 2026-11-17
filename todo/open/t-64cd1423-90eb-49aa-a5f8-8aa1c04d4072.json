@@ -1,0 +1,19 @@
+{
+  "tadu": 2,
+  "id": "t-64cd1423-90eb-49aa-a5f8-8aa1c04d4072",
+  "title": "STA: \"Modificar\" contact data and the padrón certificates",
+  "state": "pending",
+  "category": "future-ideas",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "The read",
+    "",
+    "    side is done (`caceres|junta datos-personales`, `caceres padron`). Left: a",
+    "    write for \"Modificar\" (`PERSCONTACT_MODIFY`; capture its `submitAjax.aa`",
+    "    body) if ever needed, and the padrón page's certificate buttons",
+    "    (`IMPRIMIR` `EPOB_VC_0010` individual, `EPOB_VC_0030` histórico, through",
+    "    `/sta/docs/GetDocumentServlet`), which emit a document. Next: capture one",
+    "    certificate download when the owner needs one."
+  ]
+}

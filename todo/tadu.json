@@ -1,0 +1,30 @@
+{
+  "tadu": 2,
+  "categories": {
+    "aeat-appointments": "AEAT appointments",
+    "backend": "Backend",
+    "blocked-done": "Blocked → done",
+    "blocked-tasks": "Blocked Tasks",
+    "bugs": "Bugs",
+    "documentation": "Documentation",
+    "future-ideas": "Future Ideas",
+    "general": "General",
+    "infrastructure": "Infrastructure",
+    "integrations": "Integrations",
+    "junta-p5145-intermittent-error-40090": "Junta P5145 intermittent error 40090",
+    "maintenance": "Maintenance",
+    "multisignature-limits": "Multisignature limits",
+    "owner-requests": "Owner requests",
+    "pending-decisions": "Pending Decisions",
+    "pre-commit-backlog-validation": "Pre-commit backlog validation",
+    "rayuela": "Rayuela",
+    "refactors": "Refactors",
+    "registro": "Registro",
+    "routed-from-p-todo-md-2026-11-15": "Routed from ~/p/TODO.md (2026-11-15)",
+    "security": "Security",
+    "sepe": "SEPE",
+    "signing": "Signing",
+    "tea": "TEA",
+    "testing": "Testing"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "tadu": 2,
+  "id": "t-777826f4-f577-4721-a034-4fc50a1e01ec",
+  "title": "aeat: `aeat pagar` confirm path has not run live",
+  "state": "in_progress",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "Plan mode was",
+    "",
+    "verified live on 2026-11-06 (form, first step, summary, adhered banks,",
+    "MisPagos duplicate guard, first-step error parsing). The final \"Firmar y",
+    "Enviar\" page of LiquidacionesCuenta was never captured: the NRC parser and the",
+    "refusal parser are built on the card flow's final page and on the first step's",
+    "error block. Next step: the owner's first real payment with",
+    "`--confirmar si --out`; check the NRC and PDF, rewrite the final page into a",
+    "synthetic fixture, and adjust `parsePaymentNrc` / `parsePaymentAlerts` if it",
+    "differs."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "tadu": 2,
+  "id": "t-f9fd9156-55f2-42dc-abea-05c75ca9f437",
+  "title": "Duplicate AEAT client in InteliFactu",
+  "state": "pending",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    `intelifactu/packages/core/src/aeat/` reimplements part of this package.",
+    "    Decide whether InteliFactu depends on `ventanilla-unica` or keeps its own,",
+    "    and file the result in both backlogs."
+  ]
+}

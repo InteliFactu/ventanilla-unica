@@ -1,0 +1,10 @@
+{
+  "tadu": 2,
+  "id": "t-c6211ca5-1f3b-4524-b845-a094fe69720a",
+  "title": "Garantía Juvenil enrolled-record and PDF paths need live fixtures",
+  "state": "blocked",
+  "category": "blocked-tasks",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "blocker": "Observed 2026-11-04: the authorized holder had no consolidated inscription, date or offered certificate. Explicit alta/baja/pending parsing and offered PDF saving have synthetic tests only. Next: read an owner-provided enrolled holder and capture sanitized status/date and offered-document structure without modifying the record."
+}

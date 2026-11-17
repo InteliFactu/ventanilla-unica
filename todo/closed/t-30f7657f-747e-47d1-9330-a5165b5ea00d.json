@@ -1,0 +1,17 @@
+{
+  "tadu": 2,
+  "id": "t-30f7657f-747e-47d1-9330-a5165b5ea00d",
+  "title": "`--out` directories are created before",
+  "state": "done",
+  "category": "maintenance",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    writing."
+  ],
+  "closed": "2026-10-15",
+  "result": "the ten writers that joined a file under `outDir` without creating it (TGSS PROSA reports including `vida-laboral`, TGSS debt, SEPE, DEHU, AEAT payments, informatives and censal, DGSFP draft and named PDFs, STA justificante) now `mkdir -p` first, as the AEAT writers already did (9b6f6a1). Single-file `--out` paths (model 190, signed files) unchanged.",
+  "evidence": [
+    "new `writeProsaPdf` test writes under a missing nested directory; `pnpm check:ci` passes (1720 tests)."
+  ]
+}

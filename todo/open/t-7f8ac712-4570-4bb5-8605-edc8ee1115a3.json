@@ -1,0 +1,16 @@
+{
+  "tadu": 2,
+  "id": "t-7f8ac712-4570-4bb5-8605-edc8ee1115a3",
+  "title": "dgsfp: read commands",
+  "state": "pending",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "`dgsfp reclamacion` files but nothing reads",
+    "",
+    "    back: no listing of the holder's presentations or drafts was found in the",
+    "    sede bundles. Next step: capture Carpeta/Mis presentaciones (if any) or",
+    "    read the registry entry through Carpeta Ciudadana by its REGAGE number."
+  ]
+}

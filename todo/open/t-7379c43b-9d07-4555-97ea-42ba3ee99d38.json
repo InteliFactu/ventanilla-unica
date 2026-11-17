@@ -1,0 +1,10 @@
+{
+  "tadu": 2,
+  "id": "t-7379c43b-9d07-4555-97ea-42ba3ee99d38",
+  "title": "Decide whether to publish the prepared launch follow-up on LinkedIn",
+  "state": "blocked",
+  "category": "owner-requests",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "blocker": "The old v0.1.0 launch task was superseded on 2026-10-06 and its log explicitly leaves the LinkedIn post unverified. Verify whether a post already exists; otherwise obtain owner content/send approval before publishing. This is separate from the awesome-spain re-proposal; no external post was sent by this reconciliation."
+}

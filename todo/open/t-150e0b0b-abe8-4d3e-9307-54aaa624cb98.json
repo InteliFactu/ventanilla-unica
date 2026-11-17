@@ -1,0 +1,26 @@
+{
+  "tadu": 2,
+  "id": "t-150e0b0b-abe8-4d3e-9307-54aaa624cb98",
+  "title": "Cáceres catalogue filing needs live submission acceptance",
+  "state": "in_progress",
+  "category": "testing",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "Observed",
+    "",
+    "2026-11-04: `caceres tramite` implements own-name Relec catalogue filings, one",
+    "PDF per slot, required-slot coverage, local PAdES/XAdES and shared receipt",
+    "saving. The padrón alta plan opened the live form and mapped three",
+    "owner-provided PDFs without uploading or registering. Synthetic tests cover",
+    "the confirmation boundary, fixed slot IDs, holder contacts, signatures,",
+    "failures and receipts. Live `TramitaSign`/`TramitaJustif` acceptance and the",
+    "actual justificante remain unverified. Other procedure-specific fields beyond",
+    "Asunto cannot be configured. Next: on a separately owner-authorized filing,",
+    "preserve the actual receipt and sanitize the response structure; never",
+    "register merely to obtain a trace. 2026-11-04 live acceptance: the",
+    "owner-approved padrón alta of 78117074N registered as ENT2026045269 (CSV",
+    "16336616500125416247), all three PDFs on the justificante, `caceres registros`",
+    "lists it. Still open: procedure fields beyond Asunto."
+  ]
+}

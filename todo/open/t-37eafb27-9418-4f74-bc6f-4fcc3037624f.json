@@ -1,0 +1,20 @@
+{
+  "tadu": 2,
+  "id": "t-37eafb27-9418-4f74-bc6f-4fcc3037624f",
+  "title": "FACe and valide.redsara.es never tried",
+  "state": "pending",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "(external acts). Next: with the",
+    "",
+    "    owner's go-ahead, validate one synthetic XAdES and one PAdES at",
+    "    valide.redsara.es. 2026-10-15: its form (`validarFirmaForm`, multipart",
+    "    `fileData`) requires an image CAPTCHA (`codigoSeguridad`), so the owner",
+    "    has to solve it in Orca while the files are uploaded. If it objects,",
+    "    suspect first the three known AutoFirma differences: CAdES `contentHint`,",
+    "    `application/octet-stream` where AutoFirma sniffs `text/plain`, and NULL",
+    "    digest parameters (AutoFirma 1.9 `verify` accepts all three, 2026-11-03)."
+  ]
+}

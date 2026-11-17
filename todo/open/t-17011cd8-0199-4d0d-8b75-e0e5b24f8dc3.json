@@ -1,0 +1,15 @@
+{
+  "tadu": 2,
+  "id": "t-17011cd8-0199-4d0d-8b75-e0e5b24f8dc3",
+  "title": "`oargt fraccionar` (write, `--confirmar si`)",
+  "state": "blocked",
+  "category": "owner-requests",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "blocker": "Requests a",
+  "notes": [
+    "fraccionamiento in ejecutiva (ordinance: up to 6 months from 100,01 to 600, no",
+    "guarantee below 30.000). The owner wants it once he has a job; blocked until",
+    "then. Next step: capture the OARGT form when the first request is made."
+  ]
+}

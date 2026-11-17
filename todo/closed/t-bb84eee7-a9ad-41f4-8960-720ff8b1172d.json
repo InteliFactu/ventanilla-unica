@@ -1,0 +1,14 @@
+{
+  "tadu": 2,
+  "id": "t-bb84eee7-a9ad-41f4-8960-720ff8b1172d",
+  "title": "read paths re-run live",
+  "state": "done",
+  "category": "testing",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "closed": "2026-10-15",
+  "result": "`sepe prestacion` and `sepe certificado --out` work again for Alba (the sede outage is over); `cirbe estado --out` downloaded both PDFs of the resolved request I2026092600003100 into a new nested directory; `tgss vida-laboral --out` wrote into a missing nested directory (fix 9b6f6a1 confirmed live).",
+  "evidence": [
+    "2026-10-15 runs with the owner's and Alba's certificates; 37682-byte SEPE PDF, 170439 and 164991-byte CIRBE PDFs, 156962-byte vida laboral."
+  ]
+}

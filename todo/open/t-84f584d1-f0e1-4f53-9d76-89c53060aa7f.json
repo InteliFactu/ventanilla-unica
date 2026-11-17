@@ -1,0 +1,15 @@
+{
+  "tadu": 2,
+  "id": "t-84f584d1-f0e1-4f53-9d76-89c53060aa7f",
+  "title": "Rayuela: absolute message dates and a \"since\" filter",
+  "state": "pending",
+  "category": "future-ideas",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    `rayuela mensajes` returns `dateText` as shown in the list (\"Jueves\",",
+    "    \"Martes\", \"30 Oct\"), so a refresh has to infer the date, and there is no",
+    "    way to ask for messages after a known id. Next step: resolve the relative",
+    "    text to an ISO date and add `--desde-id <X_IDENTIFICADOR>`."
+  ]
+}

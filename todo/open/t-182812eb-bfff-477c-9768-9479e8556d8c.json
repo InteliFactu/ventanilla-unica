@@ -1,0 +1,24 @@
+{
+  "tadu": 2,
+  "id": "t-182812eb-bfff-477c-9768-9479e8556d8c",
+  "title": "Cáceres general registry: `caceres instancia` files nothing yet",
+  "state": "in_progress",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "2026-10-16: `caceres instancia --asunto --documentos --filas [--representado]`",
+    "runs plan-only on the \"Instancia general\" Relec form (dboid",
+    "`6269000000342016807935`): PDFs checked, form opened, each PDF mapped to its",
+    "row by name or `DocReq` dboid, required rows left empty named. Live the same",
+    "day with the persona física certificate (own name) and the Vibra Lab one",
+    "(`--representado B22903801`, prefilled contact read). `--confirmar si` refuses",
+    "before any request. Not built: the submission, whose rows are keyed by their",
+    "`DocReq` dboid with `pid` and `CUD` inputs and a fixed type each, so",
+    "`buildDocumentPairs` does not fit; the asunto goes in",
+    "`DinVarANNOT_TEXT_EXTRACT`. The own-name catalogue pipeline is now available",
+    "through `caceres tramite`; this command still refuses confirmation and its",
+    "representation path remains unverified. Next: capture a separately",
+    "owner-authorized represented filing before extending `caceres instancia`."
+  ]
+}

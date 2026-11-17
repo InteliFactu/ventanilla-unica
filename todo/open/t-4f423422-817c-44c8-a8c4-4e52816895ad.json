@@ -1,0 +1,18 @@
+{
+  "tadu": 2,
+  "id": "t-4f423422-817c-44c8-a8c4-4e52816895ad",
+  "title": "Re-propose to `awesome-spain`",
+  "state": "blocked",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "blocker": "GeiserX/awesome-spain#45 was closed on",
+  "notes": [
+    "2026-09-26 by the maintainer, kindly: too new (no stars or visible use,",
+    "versions still shipping), it asks for the holder's certificate and acts on",
+    "AEAT/TGSS/DEHU with write paths still \"plan only\", and it is the engine of a",
+    "paid closed product. He invited a new proposal once it has use and stars and",
+    "the write side is closed. Unblock: a few months of use, then reopen with that",
+    "evidence."
+  ]
+}

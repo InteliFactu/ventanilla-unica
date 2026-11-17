@@ -1,0 +1,15 @@
+{
+  "tadu": 2,
+  "id": "t-9281c3c4-b3e9-4949-a2a2-188a87b28bc1",
+  "title": "AEAT avisos channels write",
+  "state": "pending",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "`aeat contacto` reads the mobile and",
+    "",
+    "    e-mail of `TOAG-JDIT` (MDAPL); the modification form behind it is not",
+    "    mapped. Map it when a holder's channels need changing."
+  ]
+}

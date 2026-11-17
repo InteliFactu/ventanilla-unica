@@ -1,0 +1,14 @@
+{
+  "tadu": 2,
+  "id": "t-8f8496f0-d6bd-4d8d-b48e-ee4f2f571891",
+  "title": "what an OARGT receipt charges for",
+  "state": "done",
+  "category": "owner-requests",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "closed": "2026-10-15",
+  "result": "the receipts JSON already carries `accounyear`; `oargt recibos` now returns it as `accountingPeriod` (666bc4b). Deluxe's 261243480 (ref 117) is \"2026 / 6\", the June Aldealab tasa, domiciliada, voluntaria until 20/10/2026. No detail page was needed. A receipt PDF was not built: the \"Obtener\" carta de pago issues a payment document counted against `numDocIngMaxPermitidos`, and paid receipts expose their justificante as a `GetDocumentServlet?CUD=` link only once generated.",
+  "evidence": [
+    "live `oargt recibos` with the Deluxe certificate lists a period on all eight receipts; `parseReceiptRows.test.ts`."
+  ]
+}

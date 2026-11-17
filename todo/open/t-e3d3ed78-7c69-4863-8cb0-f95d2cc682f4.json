@@ -1,0 +1,18 @@
+{
+  "tadu": 2,
+  "id": "t-e3d3ed78-7c69-4863-8cb0-f95d2cc682f4",
+  "title": "An owner-authorized retry",
+  "state": "in_progress",
+  "category": "junta-p5145-intermittent-error-40090",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "registered successfully and the live expediente reached \"Operación tramitada\".",
+    "The original \"Error al guardar los documentos adjuntos\" failure remains",
+    "unexplained; there is no automatic retry. Receipt/error parsers now normalize",
+    "JSF markup, with a regression for the line break between \"registrada\" and the",
+    "registry number. Next: retain a private capture if the persistence error",
+    "recurs naturally; inspect it before another submission. Live identities and",
+    "registry identifiers stay in the holder's fiscal archive."
+  ]
+}

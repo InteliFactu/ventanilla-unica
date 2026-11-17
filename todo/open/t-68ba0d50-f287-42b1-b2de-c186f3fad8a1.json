@@ -1,0 +1,19 @@
+{
+  "tadu": 2,
+  "id": "t-68ba0d50-f287-42b1-b2de-c186f3fad8a1",
+  "title": "Verify the TGSS debt-PDF path with a fresh eligible response",
+  "state": "blocked",
+  "category": "owner-requests",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "blocker": "Routed",
+  "notes": [
+    "from the general September launch reminder on 2026-10-21. The old task",
+    "requested a holder/day for which a debt document had not already been emitted;",
+    "no completed verification was found in the owning log. First reconcile",
+    "existing evidence so an already completed run is not repeated, then capture a",
+    "redacted fixture through the supported read path when the owner provides a",
+    "suitable case. No filing, deferral or attachment may be submitted merely to",
+    "obtain a trace; do not publish holder data."
+  ]
+}

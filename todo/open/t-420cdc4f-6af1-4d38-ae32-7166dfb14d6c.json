@@ -1,0 +1,16 @@
+{
+  "tadu": 2,
+  "id": "t-420cdc4f-6af1-4d38-ae32-7166dfb14d6c",
+  "title": "FACe invoice submission. A production pipeline already exists in",
+  "state": "pending",
+  "category": "future-ideas",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    `~/p/wiki/tools/face/` (`face_client.py` SOAP with WS-Security,",
+    "    `facturae.py`, XAdES SHA-512 byte-compatible with AutoFirma through",
+    "    `afirma_bridge.py`). Port it here with the local XAdES signer rather than",
+    "    the AutoFirma bridge. Needs the Facturae profile and digest items under",
+    "    Signing, plus a WS-Security envelope signer."
+  ]
+}

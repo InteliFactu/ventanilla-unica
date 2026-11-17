@@ -1,0 +1,14 @@
+{
+  "tadu": 2,
+  "id": "t-be913206-872b-4e50-8bc0-3558b6260e66",
+  "title": "CI red on `main` fixed at the root",
+  "state": "done",
+  "category": "maintenance",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "closed": "2026-10-15",
+  "result": "the two failing jobs were `check:quality` (depcruise `no-circular` on the `XmlElement`/`XmlNode` type pair, broken in 149f67f) and `check:security` (GHSA-68fv-2mgg-jv7q source-map-js, overridden to ^1.2.2; GHSA-vfj7-8cjw-p6xm braces, no patched release, dev-only through type-coverage, waived in `.baseline-advisories.json` until 2026-11-15) (8e7cf59). The two `minimumReleaseAgeExclude` entries, plus the prettier one, were dropped: all three releases are past the window.",
+  "evidence": [
+    "locally `pnpm check:ci && pnpm check:quality && pnpm check:security` exit 0; `pnpm install` leaves the lockfile resolving. Hosted CI run 38736559373 on 1a54bcb: all three jobs success."
+  ]
+}

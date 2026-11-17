@@ -1,0 +1,19 @@
+{
+  "tadu": 2,
+  "id": "t-0666d15b-1450-4a7c-ba7c-b02ab20bc59e",
+  "title": "Rayuela: `--hijo` cannot select the child the session starts on",
+  "state": "pending",
+  "category": "future-ideas",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "On",
+    "",
+    "    2026-11-09 `rayuela faltas --hijo Leia` failed with \"Rayuela child is",
+    "    unknown or ambiguous; offered children: 927147: Quintanilla García, Mía\",",
+    "    because the switcher omits the current child. Leia was only readable by",
+    "    omitting `--hijo`, and after a switch to Mía there is no way back in the",
+    "    same run. Next step: resolve `--hijo` against `rayuela hijos` (NIA and",
+    "    name) and treat the current child as a no-op selection."
+  ]
+}

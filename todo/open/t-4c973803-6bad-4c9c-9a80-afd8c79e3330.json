@@ -1,0 +1,10 @@
+{
+  "tadu": 2,
+  "id": "t-4c973803-6bad-4c9c-9a80-afd8c79e3330",
+  "title": "Project recall unavailable for Garantía Juvenil implementation",
+  "state": "blocked",
+  "category": "blocked-tasks",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "blocker": "Observed 2026-11-04: `atrium context` for the project returned `context_service_timeout`, `index_status: unavailable` and no evidence. Current source and live GET/login evidence were used. Next: restore the context service and reconcile any earlier project-specific access decisions before relying on historical assumptions."
+}

@@ -1,0 +1,18 @@
+{
+  "tadu": 2,
+  "id": "t-63519e9a-13aa-41c0-b2cc-6b1af5f50347",
+  "title": "LICENSE copyright holder set to Vibra",
+  "state": "done",
+  "category": "pending-decisions",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    Lab S.L., the legal owner of InteliFactu per the wiki's project page;",
+    "    BusiRocket, the previous holder, is a trade name of the same company."
+  ],
+  "closed": "2026-09-26",
+  "result": "LICENSE copyright holder set to Vibra",
+  "evidence": [
+    "legacy item migrated to format 2 without a recorded evidence"
+  ]
+}

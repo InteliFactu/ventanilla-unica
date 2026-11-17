@@ -1,0 +1,15 @@
+{
+  "tadu": 2,
+  "id": "t-2455866d-3e87-4d5e-a58e-8ce22fc5ad22",
+  "title": "TEA: `tea expedientes` refuses a list with rows",
+  "state": "pending",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "Only the empty \"Mis",
+    "",
+    "    expedientes\" page has been seen live. Next step: capture the page of a",
+    "    holder with an open reclamación and map its rows and detail."
+  ]
+}

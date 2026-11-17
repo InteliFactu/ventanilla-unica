@@ -1,0 +1,11 @@
+{
+  "tadu": 2,
+  "id": "t-8a3fe479-1843-4c22-b8e0-2dd6b4ec9866",
+  "title": "Rename to `papeleo`",
+  "state": "cancelled",
+  "category": "pending-decisions",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "closed": "2026-09-26",
+  "resolution": "applied without the owner's approval in `9baee9b`, reverted in `a1fb987` with the GitHub repository renamed back. The name stays open in `TODO.md`."
+}

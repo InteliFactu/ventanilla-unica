@@ -1,0 +1,28 @@
+{
+  "tadu": 2,
+  "id": "t-1fa995df-023e-490d-bde4-1c305c83e12a",
+  "title": "**sepe: `sepe datos-contacto` (write) for the \"Comunicación de variación",
+  "state": "pending",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    de datos personales\" service.** Entry",
+    "    `https://sede.sepe.gob.es/PNuevosServiciosSede/pantallas/?servicio=1`,",
+    "    reached through the same GetAccess/Cl@ve relay (`loginWithCertificate`",
+    "    lands on it). Per the SEPE's own guide (GUIA-USO-COMUNICACION-VARIACION-",
+    "    SITUACION.pdf): residence address and identity are read-only there, the",
+    "    \"datos a efectos de comunicaciones\" address and the e-mail are editable,",
+    "    and the phone only changes in the holder's Cl@ve account. Not captured: on",
+    "    2026-10-11 ~03:10 the page answered \"EL SITIO AL QUE INTENTA ACCEDER NO SE",
+    "    ENCUENTRA DISPONIBLE\" and every certificate service landed on",
+    "    `GesUsuariosSEDE/.../error.jsp?errorcode=[TSEG_4003011]` (two different",
+    "    holders, so a sede outage). Next step: capture the variation screens in",
+    "    working hours, build plan mode first. On 2026-10-15 the sede was up and",
+    "    Alba's login reached the service page, which shows only \"Actualmente no",
+    "    consta en los sistemas que disponga de una prestación activa\" and no form:",
+    "    the variation screens exist only for a holder with an active prestación,",
+    "    so capture waits for one. Pending use: Alba's e-mail to",
+    "    albapriieto4@gmail.com (owner: no address change at SEPE for now)."
+  ]
+}

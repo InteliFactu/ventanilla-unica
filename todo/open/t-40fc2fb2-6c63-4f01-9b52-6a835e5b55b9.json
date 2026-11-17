@@ -1,0 +1,25 @@
+{
+  "tadu": 2,
+  "id": "t-40fc2fb2-6c63-4f01-9b52-6a835e5b55b9",
+  "title": "TGSS `aplazamiento` and `adjuntar` refuse `--confirmar si`",
+  "state": "blocked",
+  "category": "blocked-tasks",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "blocker": "The \"firma",
+  "notes": [
+    "optimizada\" is implemented and tested. The protocol is no longer uncaptured:",
+    "on 2026-09-22 a real deferral (registro 20265990000981409) and a CEUS",
+    "attachment (justificante 20265990000982555) were filed from",
+    "`~/p/wiki/tools/tgss/` (`xv207a01-aplazamiento.mjs`, `ceus-adjuntar.mjs`,",
+    "`expose-node-signer.mjs`, `patch-autoscript.browser.mjs`), and",
+    "`~/p/wiki/brain/topics/tgss-headless.md` section \"XV207A01\" documents the",
+    "button walk, the Garantias radio pair, the field limits, the PEM-only",
+    "certificate trap that 500s `PREPARARXML`, and the `SPM.ACC.FIRMAR` response.",
+    "Those scripts drive Playwright and let the TGSS page's own JS build the",
+    "FIRMA_* requests, so the HTTP bodies are still not on disk. Next step: rerun",
+    "`ceus-expediente.mjs` (read-only) with Playwright request logging to record",
+    "the CEUS bodies, then port; the deferral bodies need the next real deferral",
+    "the owner authorises."
+  ]
+}

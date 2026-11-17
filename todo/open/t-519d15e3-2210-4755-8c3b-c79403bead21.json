@@ -1,0 +1,15 @@
+{
+  "tadu": 2,
+  "id": "t-519d15e3-2210-4755-8c3b-c79403bead21",
+  "title": "Sistema RED (FR101, RETC)",
+  "state": "pending",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "has Playwright-only walks in",
+    "",
+    "    `~/p/wiki/tools/tgss/` (`sede-red*.mjs`, `fr101-walk.mjs`). Capture at",
+    "    HTTP level before a port."
+  ]
+}

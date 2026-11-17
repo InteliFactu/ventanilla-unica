@@ -1,0 +1,17 @@
+{
+  "tadu": 2,
+  "id": "t-4077f1e4-c917-4ace-9c6f-fcbaa9739f25",
+  "title": "Write layer with plan mode, local PAdES and",
+  "state": "done",
+  "category": "backend",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    XAdES signing, CIRBE, offline NIF validation and fiscal calendar."
+  ],
+  "closed": "2026-09-26",
+  "result": "30 commands; writes act only with `--confirmar si`; no live act executed.",
+  "evidence": [
+    "commit `308dea4`, `pnpm check:ci` 457 files and 1010 tests passing; signatures verified with openssl, pdfsig, qpdf and xmlsec1."
+  ]
+}

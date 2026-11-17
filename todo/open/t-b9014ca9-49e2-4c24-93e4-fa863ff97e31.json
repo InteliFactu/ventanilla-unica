@@ -1,0 +1,22 @@
+{
+  "tadu": 2,
+  "id": "t-b9014ca9-49e2-4c24-93e4-fa863ff97e31",
+  "title": "dgt: `dgt domicilio` (CDI change of address), plan only so far",
+  "state": "in_progress",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "Built",
+    "",
+    "plan-only on 2026-10-31 (login on `/es/servicios-sede/cambio-de-direccion/`,",
+    "ATEX holder and current address, the CDI requests listed; `--confirmar si`",
+    "refused before any request; unit tests). Remains: capture the",
+    "`service_sadd.jsp` lookups (request and answer, giving the ids of tipoVia,",
+    "via, provincia, municipio, localidad) and the exact `domicilioNuevo` JSON of",
+    "`service_cond.jsp` plus the `service_rele.jsp` call, from the logged-in page's",
+    "inline JS; then submit with the `token-tramite-cond` cookie (16 random chars",
+    "set by JS, 5 s expiry) behind `--confirmar si`, once the owner chooses a new",
+    "domicile (deferred 2026-10-11)."
+  ]
+}

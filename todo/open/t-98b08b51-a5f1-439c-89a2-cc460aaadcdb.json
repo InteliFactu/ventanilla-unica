@@ -1,0 +1,17 @@
+{
+  "tadu": 2,
+  "id": "t-98b08b51-a5f1-439c-89a2-cc460aaadcdb",
+  "title": "**aeat: `aeat pagar` cannot check a third party's MisPagos when the payer",
+  "state": "pending",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    differs from the obligado.** Debiting the account needs the account",
+    "    holder's certificate, but the already-paid guard reads MisPagos for the",
+    "    certificate holder only. Verified 2026-11-06: an entity's paid 010 is",
+    "    detected when the plan runs with that entity's certificate, and is",
+    "    invisible with the payer's. Smallest step: an optional second certificate",
+    "    (`--cert-obligado/--key-obligado`) used only for the MisPagos check."
+  ]
+}

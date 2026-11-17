@@ -1,0 +1,14 @@
+{
+  "tadu": 2,
+  "id": "t-3fa365f3-f865-4a16-a8f9-b8f4e9255180",
+  "title": "Mi DGT counters in `dgt datos`",
+  "state": "done",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "closed": "2026-10-15",
+  "result": "after the Cl@ve login the command loads `/es/mi_dgt/` and reads the seven `ajaxCalls.jsp?<name>=true` counters into `contadores` (5496b5d). Loading the home first is what the earlier `-`/HTML answers lacked. One live run of four missed the vehicle counter, so a field is absent rather than guessed when the DGT gives no number.",
+  "evidence": [
+    "live 2026-10-15 with the owner's certificate: 3 vehicles, 1 sanción, 15 points, 1 licence, 1 registry entry, no appointments or representations; `readHolderData.test.ts`."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "tadu": 2,
+  "id": "t-0b4c30ed-914c-493f-8050-0945c5209f74",
+  "title": "TGSS debt report PDF path with a real debt",
+  "state": "pending",
+  "category": "testing",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "Unexercised through the",
+    "",
+    "    package. 2026-10-15 `tgss deuda --tipo detallado --out` for 76048463K,",
+    "    E10501278 and B22903801 answered \"NO SE HA ENCONTRADO DEUDA\", and",
+    "    E10484822 \"SIN DATOS O NO EXISTE CCC/NAF PRINCIPAL\": no holder has a TGSS",
+    "    debt today. Run it when one does."
+  ]
+}

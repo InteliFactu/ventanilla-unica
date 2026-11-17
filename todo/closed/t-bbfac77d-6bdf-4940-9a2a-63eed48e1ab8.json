@@ -1,0 +1,18 @@
+{
+  "tadu": 2,
+  "id": "t-bbfac77d-6bdf-4940-9a2a-63eed48e1ab8",
+  "title": "Read waves: AEAT pagos, declaraciones,",
+  "state": "done",
+  "category": "backend",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    informativas and certificado censal; DEHU documents; TGSS vida laboral,",
+    "    affiliation reports, bases and certificates; SEPE; OARGT amounts."
+  ],
+  "closed": "2026-09-25",
+  "result": "each verified live once on the holder's certificate.",
+  "evidence": [
+    "commits `ee586c9`, `f26f614`."
+  ]
+}

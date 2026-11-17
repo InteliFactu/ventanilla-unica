@@ -1,0 +1,17 @@
+{
+  "tadu": 2,
+  "id": "t-bfe148f4-d12d-4f9c-af4e-aaee337db534",
+  "title": "`src/index.ts` split by portal; STA",
+  "state": "done",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    registry exported."
+  ],
+  "closed": "2026-10-15",
+  "result": "`src/tgss/index.ts` and `src/sta/index.ts`; the package index went from 99 to 67 lines and now exports `fileStaRegistryEntry`, `downloadStaRegistryReceipt` and their types (96ad235).",
+  "evidence": [
+    "`pnpm check:ci` passes (eslint, tsc, knip)."
+  ]
+}

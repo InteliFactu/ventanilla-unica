@@ -1,0 +1,17 @@
+{
+  "tadu": 2,
+  "id": "t-71ebc7a7-2af9-4655-93fb-2cf686b03c7f",
+  "title": "DEHU contact phone",
+  "state": "pending",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "`dehu contacto` reads `telefono`, but the DEHU",
+    "",
+    "    front offers no field for it (e-mails and push only), so no write is",
+    "    built. `dehu quitar-email` uses the front's PUT",
+    "    `v1/contact/<base64     NIF>`, which answers a Cl@ve form that applies the",
+    "    change; adding an e-mail (and its `verify-email` code) is not built yet."
+  ]
+}

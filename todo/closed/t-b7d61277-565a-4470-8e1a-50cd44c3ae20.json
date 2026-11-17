@@ -1,0 +1,14 @@
+{
+  "tadu": 2,
+  "id": "t-b7d61277-565a-4470-8e1a-50cd44c3ae20",
+  "title": "`aeat comparecer --confirmar si` live",
+  "state": "done",
+  "category": "testing",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "closed": "2026-10-07",
+  "result": "notification 2699864820446 (an interest liquidation) opened in the AEAT sede; the receipt parsed (fechaNotificacion, CSV) and both the act and the acuse PDFs were saved with `--out`.",
+  "evidence": [
+    "legacy item migrated to format 2 without a recorded evidence"
+  ]
+}

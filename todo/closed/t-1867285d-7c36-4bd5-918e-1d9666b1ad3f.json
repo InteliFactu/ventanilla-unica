@@ -1,0 +1,18 @@
+{
+  "tadu": 2,
+  "id": "t-1867285d-7c36-4bd5-918e-1d9666b1ad3f",
+  "title": "Local checkout moved from `~/p/sedes` to",
+  "state": "done",
+  "category": "refactors",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    `~/p/ventanilla-unica`; the wiki page is now",
+    "    `projects/ventanilla-unica.md`."
+  ],
+  "closed": "2026-09-26",
+  "result": "Local checkout moved from `~/p/sedes` to",
+  "evidence": [
+    "wiki `794125f1`, `~/p` `c472fa7`; `brain graph` reports 0 dangling links."
+  ]
+}

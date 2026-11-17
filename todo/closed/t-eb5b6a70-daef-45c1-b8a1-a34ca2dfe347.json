@@ -1,0 +1,14 @@
+{
+  "tadu": 2,
+  "id": "t-eb5b6a70-daef-45c1-b8a1-a34ca2dfe347",
+  "title": "Layout by portal, feature and kind",
+  "state": "done",
+  "category": "refactors",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "closed": "2026-09-25",
+  "result": "179 files moved, API and CLI unchanged.",
+  "evidence": [
+    "commit `9ebb1a4`, `pnpm check:ci` green."
+  ]
+}

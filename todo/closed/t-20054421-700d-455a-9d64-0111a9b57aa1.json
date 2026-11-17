@@ -1,0 +1,14 @@
+{
+  "tadu": 2,
+  "id": "t-20054421-700d-455a-9d64-0111a9b57aa1",
+  "title": "attached CAdES now carries signingTime",
+  "state": "done",
+  "category": "signing",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "closed": "2026-10-15",
+  "result": "`buildAttachedSignedData` signs `cadesSignedAttributes` (the PAdES set plus signingTime, OID 1.2.840.113549.1.9.5), as ETSI EN 319 122-1 CAdES-B-B requires and AutoFirma always does; PAdES keeps its set without it. Found reading AutoFirma's source; affects the `nic correo` signature.",
+  "evidence": [
+    "`pnpm check:ci` green (1531 tests); a test-identity signature passes `openssl cms -verify -noverify` and `-cmsout -print` shows the signingTime UTCTime. Not yet re-run live against ES-NIC."
+  ]
+}

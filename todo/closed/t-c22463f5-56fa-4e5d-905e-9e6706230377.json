@@ -1,0 +1,17 @@
+{
+  "tadu": 2,
+  "id": "t-c22463f5-56fa-4e5d-905e-9e6706230377",
+  "title": "Certificate HTTP client, Cl@ve relay and CLI",
+  "state": "done",
+  "category": "backend",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    skeleton, then the AEAT, TGSS, DEHU and OARGT debt reads."
+  ],
+  "closed": "2026-09-25",
+  "result": "`sedes <portal> <action>` with JSON on stdout, zero runtime dependencies, verified live on every holder the same day.",
+  "evidence": [
+    "commits `867495e`, `5f03b02`, fixes from the live run in `4043a2e`."
+  ]
+}

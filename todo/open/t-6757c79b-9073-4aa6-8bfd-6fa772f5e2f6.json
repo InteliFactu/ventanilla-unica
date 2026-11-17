@@ -1,0 +1,14 @@
+{
+  "tadu": 2,
+  "id": "t-6757c79b-9073-4aa6-8bfd-6fa772f5e2f6",
+  "title": "Dated AECPSED1 certificates (types 4, 8, 9)",
+  "state": "pending",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "are refused until the date",
+    "",
+    "    field of the request is captured."
+  ]
+}

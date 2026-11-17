@@ -1,0 +1,15 @@
+{
+  "tadu": 2,
+  "id": "t-83cc5a30-9806-42ac-9d7d-ddbd879938ce",
+  "title": "AEAT `carta-pago` and `domicilio`",
+  "state": "in_progress",
+  "category": "testing",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "ran live only in plan mode; the",
+    "",
+    "pages after the signature are inferred from the wiki flows and fail safe. Done",
+    "when each has one owner-authorised live run and its receipt parsed."
+  ]
+}

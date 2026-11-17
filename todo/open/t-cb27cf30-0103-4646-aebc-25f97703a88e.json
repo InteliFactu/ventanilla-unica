@@ -1,0 +1,18 @@
+{
+  "tadu": 2,
+  "id": "t-cb27cf30-0103-4646-aebc-25f97703a88e",
+  "title": "Search fails once the holder has a booking",
+  "state": "pending",
+  "category": "aeat-appointments",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "After the 12:30 booking,",
+    "",
+    "    `aeat cita` for the same NIF throws \"did not return a valid offer page\"; a",
+    "    manual replay of the `procedimiento` step answers \"Se ha producido un",
+    "    error interno en el Sistema\". Next: capture the portal's",
+    "    existing-appointment page and report it (with its `gestioncita` link)",
+    "    instead of failing."
+  ]
+}

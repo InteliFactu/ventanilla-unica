@@ -1,0 +1,17 @@
+{
+  "tadu": 2,
+  "id": "t-8ec234b2-742b-4bee-8011-67e30d28a414",
+  "title": "`dgsfp reclamacion` files a complaint",
+  "state": "done",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    (TEL43) at sededgsfp.gob.es (72566d04)."
+  ],
+  "closed": "2026-10-05",
+  "result": "certificate login through Cl@ve (`createClave2Request`, AFIRMA), form values rebuilt from `obtenerFormularioProcedimiento` and the reusable sections, FilePond uploads keyed by SHA-256, `comprobarAdjuntoPresentacion`, `guardarBorradorPresentacion`, the request document signed locally PAdES, and `registrarPresentacionTelematica`. Used live for the MyBox Salud complaint against CaixaBank: registry REGAGE26e00086595724, 05/10/2026 17:14:22, CSV GEISER-2ddf-3df3-93c5-4e04-bb4c-bcb9-ad59-0cac; the justificante lists all four attachments with their hashes. `pnpm check:ci` green.",
+  "evidence": [
+    "legacy item migrated to format 2 without a recorded evidence"
+  ]
+}

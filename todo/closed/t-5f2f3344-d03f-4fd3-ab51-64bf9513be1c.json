@@ -1,0 +1,19 @@
+{
+  "tadu": 2,
+  "id": "t-5f2f3344-d03f-4fd3-ab51-64bf9513be1c",
+  "title": "Garantía Juvenil step-2 verification support",
+  "state": "done",
+  "category": "sepe",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    Implement municipality-name resolution, SMS PIN and email-link handoffs",
+    "    under explicit confirmation, with synthetic tests and operator",
+    "    documentation."
+  ],
+  "closed": "2026-11-04",
+  "result": "Added province-scoped municipio name resolution, same-session SMS PIN and email-link handoffs, verification-state checks, CLI flags and operator documentation.",
+  "evidence": [
+    "pnpm check:ci; pnpm build; synthetic HTTP/file tests for municipio resolution, SMS/email waits, redirects, rejected verification and plan-only safety. No live inscription or verification POST was executed."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "tadu": 2,
+  "id": "t-60db61a5-c81b-4d18-94b4-a66df32d5e7b",
+  "title": "First releases on npm",
+  "state": "done",
+  "category": "infrastructure",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "closed": "2026-09-26",
+  "result": "`0.1.0` published by the owner from a clean clone of the tag; trusted publisher created with `npm trust github` for `InteliFactu/ventanilla-unica` and `publish.yml`; `0.1.1` (bin path without `./`) published by the workflow with provenance.",
+  "evidence": [
+    "tags `v0.1.0`, `v0.1.1`; Actions run 36235925200; `npm audit signatures` reports a verified signature and attestation."
+  ]
+}

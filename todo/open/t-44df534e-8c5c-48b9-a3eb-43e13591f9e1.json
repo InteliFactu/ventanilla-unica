@@ -1,0 +1,19 @@
+{
+  "tadu": 2,
+  "id": "t-44df534e-8c5c-48b9-a3eb-43e13591f9e1",
+  "title": "Carpeta Ciudadana: alert groups and address change (plan only)",
+  "state": "pending",
+  "category": "integrations",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "The",
+    "",
+    "    e-mail alone switches no alert group on (`/api/v3/preferencias-usuario`",
+    "    does, not built). The address change service at",
+    "    `cambiodomicilio.redsara.es/pcd` is not built: the owner deferred any",
+    "    address change at AEAT/DEHU/Carpeta on 2026-10-11 (it fixes where a future",
+    "    self-employment counts as located for an aid); build it plan-only when",
+    "    that is decided."
+  ]
+}

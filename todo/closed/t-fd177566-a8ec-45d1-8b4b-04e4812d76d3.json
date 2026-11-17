@@ -1,0 +1,17 @@
+{
+  "tadu": 2,
+  "id": "t-fd177566-a8ec-45d1-8b4b-04e4812d76d3",
+  "title": "`aeat informativa --confirmar si` presents a",
+  "state": "done",
+  "category": "testing",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "notes": [
+    "    real modelo 190 through TGVI."
+  ],
+  "closed": "2026-10-07",
+  "result": "the first real filing went through on 2026-10-07 16:48, a modelo 190-2025 for a dissolved ESPJ, signed by a member's personal certificate \"en representación de\". The validation run answered 7 records valid and 0 failing, `PresentarEnvio` was accepted, and the cotejo returned the justificante PDF with its registry number and CSV, saved with `--out`. Before filing, an adversarial review compared the file with the AEAT 2025 logical design: placement was correct, but two input rows had the wrong province (the employer's, not the perceptor's home) and a temporary contract end payment had been put in L05. Those mistakes are now documented in the README.",
+  "evidence": [
+    "legacy item migrated to format 2 without a recorded evidence"
+  ]
+}
