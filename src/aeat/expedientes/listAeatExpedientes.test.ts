@@ -50,6 +50,32 @@ describe('listAeatExpedientes', () => {
     expect(request).toHaveBeenCalledTimes(3)
   })
 
+  it('keeps an IRPF row that links to its declaration, without a detail page', async () => {
+    const request = vi.fn(async (url: string) => {
+      if (url.endsWith('/BUGC-JDIT/MdcAcceso'))
+        return Promise.resolve(page('', url))
+      if (url.endsWith('/TEWV-CORE/ResumenVlt'))
+        return Promise.resolve(
+          page(
+            `<title>Mis expedientes 00000000T</title><span>1 expediente</span><table title='Listado de expedientes asociados'><tr><td>2025</td><td>IRPF. Modelo 100</td><td>Presentada</td><td>30/06/2026</td><td><a href="https://www1.agenciatributaria.gob.es/wlpl/DASR-CORE/AccesoDR2025RVlt?exp=2025TEST">2025TEST</a></td></tr></table>`,
+            url,
+          ),
+        )
+      throw new Error(`Unexpected request: ${url}`)
+    })
+    const client: HttpClient = { request, cookie: () => undefined }
+
+    const report = await listAeatExpedientes(client, '00000000T')
+
+    expect(report.expedientes[0]).toMatchObject({
+      reference: '2025TEST',
+      detailUrl:
+        'https://www1.agenciatributaria.gob.es/wlpl/DASR-CORE/AccesoDR2025RVlt?exp=2025TEST',
+      acts: [],
+    })
+    expect(request).toHaveBeenCalledTimes(2)
+  })
+
   it('rejects a list for another holder', async () => {
     const request = vi.fn(async (url: string) =>
       Promise.resolve(page('<title>Mis expedientes C00000000</title>', url)),

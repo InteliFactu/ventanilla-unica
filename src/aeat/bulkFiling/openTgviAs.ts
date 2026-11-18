@@ -1,6 +1,6 @@
 import type { HttpClient } from '../../http/types/HttpClient'
+import { switchAeatHolder } from '../session/switchAeatHolder'
 import { fetchTgviPage } from './fetchers/fetchTgviPage'
-import { switchRepresentedHolder } from './fetchers/switchRepresentedHolder'
 import { parseActingNif } from './parsers/parseActingNif'
 import type { BulkFile } from './types/BulkFile'
 
@@ -11,7 +11,12 @@ export const openTgviAs = async (
 ): Promise<void> => {
   const page = await fetchTgviPage(client, file.modelo, file.ejercicio)
   if (parseActingNif(page) === file.nif) return
-  const switched = await switchRepresentedHolder(client, file.nif, file.nombre)
+  const switched = await switchAeatHolder(
+    client,
+    file.nif,
+    file.nombre,
+    '/wlpl/OVPT-NTGV/TGVIOnline',
+  )
   const acting = parseActingNif(switched)
   if (acting !== file.nif)
     throw new Error(

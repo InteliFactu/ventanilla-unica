@@ -109,4 +109,16 @@ describe('sweepAeatDebts', () => {
       'unexpected page instead of the debt list',
     )
   })
+
+  it('skips the SRAF agreements when told to, saying why', async () => {
+    const client = buildClient({
+      'https://www1.agenciatributaria.gob.es/wlpl/BUGC-JDIT/MdcAcceso': () =>
+        page(''),
+      'https://www1.agenciatributaria.gob.es/wlpl/SRVO-JDIT/ConsultaDdas': () =>
+        page(consultaNoDebtsHtml),
+    })
+    const report = await sweepAeatDebts(client, 'B12345678', false)
+    expect(report.agreements).toEqual([])
+    expect(report.agreementsNote).toMatch(/only the certificate holder/)
+  })
 })

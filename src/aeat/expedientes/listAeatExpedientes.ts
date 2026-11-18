@@ -22,6 +22,10 @@ export const listAeatExpedientes = async (
     throw new Error('AEAT: expediente list count does not match its rows')
   const expedientes: AeatExpediente[] = []
   for (const row of rows) {
+    if (!row.detailUrl.includes('/TEWV-CORE/DetalleVlt?')) {
+      expedientes.push(row)
+      continue
+    }
     const detail = await fetchExpedienteDetail(client, row.detailUrl)
     if (!detail.includes(`Detalle ${row.reference}`))
       throw new Error(`AEAT: wrong detail page for ${row.reference}`)

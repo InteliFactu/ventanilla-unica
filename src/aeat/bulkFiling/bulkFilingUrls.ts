@@ -2,8 +2,7 @@ import { aeatBaseUrl } from '../session/aeatBaseUrl'
 
 /**
  * TGVI Online ("Transmisión de Grandes Volúmenes"), the sede's file
- * presentation of the informative returns (190, 347, 180...), and the
- * representation dialog that sets on whose behalf the session acts.
+ * presentation of the informative returns (190, 347, 180...).
  */
 export const bulkFilingUrls = {
   page: `${aeatBaseUrl}/wlpl/OVPT-NTGV/TGVIOnline`,
@@ -12,5 +11,4 @@ export const bulkFilingUrls = {
   errors: `${aeatBaseUrl}/wlpl/OVPT-NTGV/RecuperarErrores`,
   signatureDialog: `${aeatBaseUrl}/wlpl/OVPT-NTGV/MostrarDlgFirma`,
   present: `${aeatBaseUrl}/wlpl/OVPT-NTGV/PresentarEnvio`,
-  representation: `${aeatBaseUrl}/wlpl/OVCT-CXEW/DialogoRepresentacion`,
 } as const

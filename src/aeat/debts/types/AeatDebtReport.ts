@@ -7,6 +7,8 @@ export type AeatDebtReport = {
   readonly entity?: string | undefined
   readonly debts: readonly Debt[]
   readonly agreements: readonly Agreement[]
+  /** Why `agreements` was not read, when it was not. */
+  readonly agreementsNote?: string | undefined
   readonly totals: { readonly pendiente: number; readonly aIngresar: number }
   readonly hint?: string | undefined
 }

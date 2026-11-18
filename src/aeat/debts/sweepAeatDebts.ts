@@ -14,11 +14,14 @@ import type { Debt } from './types/Debt'
 
 /**
  * Read-only AEAT debt sweep for one NIF: open the session, read the pending
- * debts with their detail, and read every SRAF deferral agreement.
+ * debts with their detail, and read every SRAF deferral agreement. SRAF
+ * lists only the certificate holder's agreements whatever NIF is asked
+ * (checked 2026-11-18), so callers skip them for another NIF.
  */
 export const sweepAeatDebts = async (
   client: HttpClient,
   nif: string,
+  withAgreements = true,
 ): Promise<AeatDebtReport> => {
   await openAeatSession(client)
   const listHtml = await fetchDebtList(client, nif)
@@ -34,12 +37,15 @@ export const sweepAeatDebts = async (
     const detailHtml = await fetchDebtDetail(client, nif, row.clave)
     debts.push(buildDebt(row, parseDebtDetail(detailHtml)))
   }
-  const agreements = await fetchAgreements(client)
+  const agreements = withAgreements ? await fetchAgreements(client) : []
   return {
     nif,
     entity,
     debts,
     agreements,
+    agreementsNote: withAgreements
+      ? undefined
+      : 'SRAF agreements not read: SRAF lists only the certificate holder’s, not those of this NIF',
     totals: sumDebtTotals(debts),
     hint,
   }

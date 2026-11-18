@@ -2,12 +2,17 @@
   "tadu": 2,
   "id": "t-c49710d4-0a7c-470a-b558-4a27f7a63c2c",
   "title": "Let aeat expedientes read a holder represented through an AEAT apoderamiento",
-  "state": "pending",
+  "state": "done",
   "category": "general",
   "type": "feature",
   "priority": "normal",
   "created": "2026-11-18",
   "notes": [
     "Observed 2026-11-18: with Christian 76048463K certificate and a confirmed GENERALLEY58 power from Andres 09208758H (ref. 20261117105123139004), `aeat expedientes --nif 09208758H` fails \"AEAT: Mis Expedientes is not showing holder 09208758H\": fetchExpedienteList posts ResumenVlt with empty nifr and never switches the represented holder, while `aeat aportar --como representante` on the same holder works. Smallest next step: reuse the represented-holder switch (bulkFiling/switchRepresentedHolder or the nifr field) before fetching the list, with a fixture test."
+  ],
+  "closed": "2026-11-18",
+  "result": "Let aeat expedientes read a holder represented through an AEAT apoderamiento",
+  "evidence": [
+    "aeat expedientes|declaraciones|informativas take --nombre and switch through OVCT-CXEW/DialogoRepresentacion (actAsAeatHolder). Live 2026-11-18: --nif 09208758H --nombre 'ALVAREZ DE LA CRUZ ANDRES' lists 17 rows incl. DASR IRPF rows; --nif E67686287 --nombre 'AJN HOSTELERIA ESPJ' lists 16 rows, 14 acts. vitest 2137 passed."
   ]
 }

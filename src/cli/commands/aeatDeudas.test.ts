@@ -5,6 +5,11 @@ import type { HttpClient } from '../../http/types/HttpClient'
 import { aeatDeudas } from './aeatDeudas'
 
 vi.mock('../../aeat/debts/sweepAeatDebts', () => ({ sweepAeatDebts: vi.fn() }))
+vi.mock('../../certificate/certificateNifs', () => ({
+  certificateNifs: () => ['00000000T'],
+}))
+
+const identity = { cert: Buffer.alloc(0), key: Buffer.alloc(0) }
 
 const client: HttpClient = { request: vi.fn(), cookie: () => undefined }
 
@@ -30,7 +35,12 @@ describe('aeatDeudas', () => {
     }
     vi.mocked(sweepAeatDebts).mockResolvedValueOnce(report)
     const result = await aeatDeudas.run(client, { nif: '12345678Z' })
-    expect(sweepAeatDebts).toHaveBeenCalledWith(client, '12345678Z')
+    expect(sweepAeatDebts).toHaveBeenCalledWith(client, '12345678Z', true)
     expect(result).toBe(report)
+  })
+
+  it('skips the agreements for a NIF the certificate is not issued to', async () => {
+    await aeatDeudas.run(client, { nif: 'B12345678' }, identity)
+    expect(sweepAeatDebts).toHaveBeenLastCalledWith(client, 'B12345678', false)
   })
 })

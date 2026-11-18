@@ -14,10 +14,10 @@ export const parseExpedienteRow = (row: string): AeatExpediente | undefined => {
     string,
     string,
   ]
-  const link =
-    /<a[^>]*href=['"]([^'"]*\/TEWV-CORE\/DetalleVlt\?evt=[^'"]+)['"][^>]*>([\s\S]*?)<\/a>/i.exec(
-      referenceCell,
-    )
+  // IRPF rows link to their declaration (DASR-CORE) rather than to DetalleVlt.
+  const link = /<a[^>]*href=['"]([^'"]+)['"][^>]*>([\s\S]*?)<\/a>/i.exec(
+    referenceCell,
+  )
   if (!link) throw new Error('AEAT: expediente row has no detail link')
   return {
     period: htmlToText(period),

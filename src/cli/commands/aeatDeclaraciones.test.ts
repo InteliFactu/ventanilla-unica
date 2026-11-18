@@ -1,10 +1,11 @@
 import { describe, expect, it, vi } from 'vitest'
 
+import { actAsAeatHolder } from '../../aeat/session/actAsAeatHolder'
 import type { HttpClient } from '../../http/types/HttpClient'
 import { aeatDeclaraciones } from './aeatDeclaraciones'
 
-vi.mock('../../certificate/certificateNifs', () => ({
-  certificateNifs: () => ['76048463K'],
+vi.mock('../../aeat/session/actAsAeatHolder', () => ({
+  actAsAeatHolder: vi.fn(async () => Promise.resolve()),
 }))
 
 vi.mock('../../aeat/filings/listAeatFilings', () => ({
@@ -19,15 +20,17 @@ const client: HttpClient = {
 const identity = { cert: Buffer.alloc(0), key: Buffer.alloc(0) }
 
 describe('aeatDeclaraciones', () => {
-  it("refuses a NIF that is not the certificate's: SCEJ would list the holder's", async () => {
-    await expect(
-      aeatDeclaraciones.run(
-        client,
-        { nif: 'E67686287', modelo: '303', ejercicio: '2025' },
-        identity,
-      ),
-    ).rejects.toThrow(
-      /only the certificate holder's declarations \(76048463K\)/,
+  it('acts for the asked holder before reading SCEJ', async () => {
+    await aeatDeclaraciones.run(
+      client,
+      { nif: 'B00000000', nombre: 'ACME SL', modelo: '303', ejercicio: '2025' },
+      identity,
+    )
+    expect(actAsAeatHolder).toHaveBeenCalledWith(
+      client,
+      identity,
+      'B00000000',
+      'ACME SL',
     )
   })
 
@@ -55,7 +58,7 @@ describe('aeatDeclaraciones', () => {
     expect(aeatDeclaraciones).toMatchObject({
       portal: 'aeat',
       action: 'declaraciones',
-      options: ['nif', 'modelo', 'ejercicio', 'periodo'],
+      options: ['nif', 'nombre', 'modelo', 'ejercicio', 'periodo'],
     })
   })
 })
