@@ -1,4 +1,3 @@
-import { draftSimulatorBaseUrl } from '../draftSimulatorBaseUrl'
 import { draftAppPath } from '../mappers/draftAppPath'
 import type { DraftEvent } from '../types/DraftEvent'
 import type { DraftSession } from '../types/DraftSession'
@@ -10,7 +9,7 @@ export const postDraftEvent = async (
 ): Promise<string> => {
   session.sid += 1
   const response = await session.client.request(
-    `${draftSimulatorBaseUrl}${draftAppPath(session.modelo)}/pwda/zkau`,
+    `${session.baseUrl}${draftAppPath(session.modelo)}/pwda/zkau`,
     {
       method: 'POST',
       form: {

@@ -19,6 +19,7 @@ import { aeatInformativas } from './commands/aeatInformativas'
 import { aeatModelo190 } from './commands/aeatModelo190'
 import { aeatPagar } from './commands/aeatPagar'
 import { aeatPagos } from './commands/aeatPagos'
+import { aeatValidarAutoliquidacion } from './commands/aeatValidarAutoliquidacion'
 import type { Command } from './types/Command'
 
 /** AEAT command registration. */
@@ -44,4 +45,5 @@ export const aeatCommands: readonly Command[] = [
   aeatModelo190,
   aeatPagar,
   aeatPagos,
+  aeatValidarAutoliquidacion,
 ]

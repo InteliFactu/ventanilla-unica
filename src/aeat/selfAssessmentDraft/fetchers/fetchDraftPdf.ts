@@ -1,4 +1,3 @@
-import { draftSimulatorBaseUrl } from '../draftSimulatorBaseUrl'
 import { parseDraftPdfPath } from '../parsers/parseDraftPdfPath'
 import type { DraftSession } from '../types/DraftSession'
 import { postDraftEvent } from './postDraftEvent'
@@ -16,12 +15,9 @@ export const fetchDraftPdf = async (
   const path = parseDraftPdfPath(answer)
   if (path === undefined)
     throw new Error('AEAT: Vista previa answered without a PDF')
-  const response = await session.client.request(
-    `${draftSimulatorBaseUrl}${path}`,
-    {
-      referer: session.pageUrl,
-    },
-  )
+  const response = await session.client.request(`${session.baseUrl}${path}`, {
+    referer: session.pageUrl,
+  })
   if (!response.body.subarray(0, 5).equals(Buffer.from('%PDF-')))
     throw new Error('AEAT: the Vista previa document is not a PDF')
   return response.body

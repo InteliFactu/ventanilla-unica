@@ -1,4 +1,5 @@
 import type { HttpClient } from '../../http/types/HttpClient'
+import { draftSimulatorBaseUrl } from './draftSimulatorBaseUrl'
 import { fetchDraftPdf } from './fetchers/fetchDraftPdf'
 import { postDraftEvent } from './fetchers/postDraftEvent'
 import { uploadDraftFile } from './fetchers/uploadDraftFile'
@@ -26,6 +27,7 @@ export const buildSelfAssessmentDraft = async (
   const form = parseDraftForm((await client.request(pageUrl)).text)
   const session: DraftSession = {
     client,
+    baseUrl: draftSimulatorBaseUrl,
     modelo: header.modelo,
     desktopId: form.desktopId,
     pageUrl,

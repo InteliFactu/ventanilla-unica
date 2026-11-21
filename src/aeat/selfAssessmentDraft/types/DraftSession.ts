@@ -7,6 +7,8 @@ import type { HttpClient } from '../../../http/types/HttpClient'
  */
 export type DraftSession = {
   readonly client: HttpClient
+  /** Host of the form: the open simulator (www2) or the presentation form (www1). */
+  readonly baseUrl: string
   readonly modelo: string
   readonly desktopId: string
   readonly pageUrl: string
