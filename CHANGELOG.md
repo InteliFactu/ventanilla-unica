@@ -15,6 +15,10 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `aeat presentar-autoliquidacion` files a 303 file (ordinary or rectificativa)
+  through its holder's presentation form, as holder or apoderado. Without
+  `--confirmar si` it validates and stops at the signature dialog, reporting
+  result, forma de pago and who signs for whom.
 - `inss contacto` reads the mobile and e-mail of Tu Seguridad Social "Tus
   datos", through the same PGIS/IPCE login as Importass, now shared as
   `loginToSeguridadSocialPortal`.

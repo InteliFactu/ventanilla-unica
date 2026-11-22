@@ -12,7 +12,7 @@ export const postDraftEvent = async (
     form: {
       dtid: session.desktopId,
       cmd_0: event.cmd,
-      uuid_0: event.uuid,
+      ...(event.uuid === undefined ? {} : { uuid_0: event.uuid }),
       data_0: JSON.stringify(event.data),
     },
     headers: { 'ZK-SID': String(session.sid) },

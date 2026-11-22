@@ -1,4 +1,4 @@
-/** The uuid of the widget with ZK id `widgetId`, from the newest answer that declares it. */
+/** The uuid of the ZK widget with id `widgetId` (036, 303 forms), from the newest answer that declares it. */
 export const findWidgetUuid = (
   blobs: readonly string[],
   widgetId: string,
@@ -10,5 +10,5 @@ export const findWidgetUuid = (
     const uuid = /'(\w+)$/.exec(blob.slice(Math.max(0, at - 64), at))?.[1]
     if (uuid) return uuid
   }
-  throw new Error(`AEAT: 036 widget ${widgetId} not found`)
+  throw new Error(`AEAT: widget ${widgetId} not found`)
 }

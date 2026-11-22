@@ -30,5 +30,5 @@ export const openPresentationForm = async (
     pageUrl,
     sid: 0,
   }
-  return { session, form, validateUuid }
+  return { session, html, form, validateUuid }
 }
