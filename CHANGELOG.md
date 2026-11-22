@@ -15,6 +15,9 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `aeat presentar-declaracion` files a 390 file through the model's Envío
+  Fichero page, as holder or apoderado. Without `--confirmar si` it reads the
+  file and stops at the signature dialog, reporting who signs for whom.
 - `aeat presentar-autoliquidacion` files a 303 file (ordinary or rectificativa)
   through its holder's presentation form, as holder or apoderado. Without
   `--confirmar si` it validates and stops at the signature dialog, reporting

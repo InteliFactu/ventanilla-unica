@@ -1,0 +1,16 @@
+{
+  "tadu": 2,
+  "id": "t-601ccc13-968a-4fb6-a231-d373946b7ba5",
+  "title": "Make format:check pass: 27 committed todo/closed JSON files are not Prettier-formatted",
+  "state": "pending",
+  "category": "maintenance",
+  "type": "bug",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-22",
+  "notes": [
+    "Observed 2026-11-22: pnpm check:ci fails only at format:check; the [warn] list is 27 files under todo/closed/, no source file.",
+    "Smallest next step: either add todo/ to .prettierignore (tadu owns that format) or run prettier --write todo/closed once and check tadu doctor still passes."
+  ],
+  "done_when": ["pnpm check:ci passes end to end on a clean main"]
+}

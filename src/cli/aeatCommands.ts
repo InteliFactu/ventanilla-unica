@@ -20,6 +20,7 @@ import { aeatModelo190 } from './commands/aeatModelo190'
 import { aeatPagar } from './commands/aeatPagar'
 import { aeatPagos } from './commands/aeatPagos'
 import { aeatPresentarAutoliquidacion } from './commands/aeatPresentarAutoliquidacion'
+import { aeatPresentarDeclaracion } from './commands/aeatPresentarDeclaracion'
 import { aeatValidarAutoliquidacion } from './commands/aeatValidarAutoliquidacion'
 import { aeatValidarDeclaracion } from './commands/aeatValidarDeclaracion'
 import type { Command } from './types/Command'
@@ -48,6 +49,7 @@ export const aeatCommands: readonly Command[] = [
   aeatPagar,
   aeatPagos,
   aeatPresentarAutoliquidacion,
+  aeatPresentarDeclaracion,
   aeatValidarAutoliquidacion,
   aeatValidarDeclaracion,
 ]
