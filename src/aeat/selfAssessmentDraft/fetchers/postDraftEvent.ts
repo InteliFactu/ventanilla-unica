@@ -1,4 +1,3 @@
-import { draftAppPath } from '../mappers/draftAppPath'
 import type { DraftEvent } from '../types/DraftEvent'
 import type { DraftSession } from '../types/DraftSession'
 
@@ -8,19 +7,16 @@ export const postDraftEvent = async (
   event: DraftEvent,
 ): Promise<string> => {
   session.sid += 1
-  const response = await session.client.request(
-    `${session.baseUrl}${draftAppPath(session.modelo)}/pwda/zkau`,
-    {
-      method: 'POST',
-      form: {
-        dtid: session.desktopId,
-        cmd_0: event.cmd,
-        uuid_0: event.uuid,
-        data_0: JSON.stringify(event.data),
-      },
-      headers: { 'ZK-SID': String(session.sid) },
-      referer: session.pageUrl,
+  const response = await session.client.request(session.zkauUrl, {
+    method: 'POST',
+    form: {
+      dtid: session.desktopId,
+      cmd_0: event.cmd,
+      uuid_0: event.uuid,
+      data_0: JSON.stringify(event.data),
     },
-  )
+    headers: { 'ZK-SID': String(session.sid) },
+    referer: session.pageUrl,
+  })
   return response.text
 }

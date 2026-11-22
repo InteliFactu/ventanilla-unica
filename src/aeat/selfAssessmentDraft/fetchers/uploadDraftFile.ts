@@ -1,5 +1,4 @@
 import { buildMultipartBody } from '../../../sta/registry/builders/buildMultipartBody'
-import { draftAppPath } from '../mappers/draftAppPath'
 import type { DraftSession } from '../types/DraftSession'
 
 /**
@@ -27,7 +26,7 @@ export const uploadDraftFile = async (
     sid: '0',
   })
   await session.client.request(
-    `${session.baseUrl}${draftAppPath(session.modelo)}/pwda/zkau/dropupload?${query.toString()}`,
+    `${session.zkauUrl}/dropupload?${query.toString()}`,
     {
       method: 'POST',
       body,

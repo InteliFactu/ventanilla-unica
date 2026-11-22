@@ -4,6 +4,7 @@ import { fetchDraftPdf } from './fetchers/fetchDraftPdf'
 import { postDraftEvent } from './fetchers/postDraftEvent'
 import { uploadDraftFile } from './fetchers/uploadDraftFile'
 import { draftFormUrl } from './mappers/draftFormUrl'
+import { draftZkauUrl } from './mappers/draftZkauUrl'
 import { parseDraftFileHeader } from './parsers/parseDraftFileHeader'
 import { parseDraftForm } from './parsers/parseDraftForm'
 import { parseDraftNotices } from './parsers/parseDraftNotices'
@@ -28,7 +29,7 @@ export const buildSelfAssessmentDraft = async (
   const session: DraftSession = {
     client,
     baseUrl: draftSimulatorBaseUrl,
-    modelo: header.modelo,
+    zkauUrl: draftZkauUrl(draftSimulatorBaseUrl, header.modelo),
     desktopId: form.desktopId,
     pageUrl,
     sid: 0,

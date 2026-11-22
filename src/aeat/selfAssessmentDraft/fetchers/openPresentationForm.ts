@@ -1,4 +1,5 @@
 import type { HttpClient } from '../../../http/types/HttpClient'
+import { draftZkauUrl } from '../mappers/draftZkauUrl'
 import { presentationFormUrl } from '../mappers/presentationFormUrl'
 import { parseDraftForm } from '../parsers/parseDraftForm'
 import { parseZkButtonUuid } from '../parsers/parseZkButtonUuid'
@@ -24,7 +25,7 @@ export const openPresentationForm = async (
   const session = {
     client,
     baseUrl: presentationBaseUrl,
-    modelo: header.modelo,
+    zkauUrl: draftZkauUrl(presentationBaseUrl, header.modelo),
     desktopId: form.desktopId,
     pageUrl,
     sid: 0,
