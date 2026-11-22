@@ -6,8 +6,12 @@
   "category": "integrations",
   "type": "untriaged",
   "priority": "untriaged",
-  "notes": ["    registry exported."],
+  "notes": [
+    "    registry exported."
+  ],
   "closed": "2026-10-15",
   "result": "`src/tgss/index.ts` and `src/sta/index.ts`; the package index went from 99 to 67 lines and now exports `fileStaRegistryEntry`, `downloadStaRegistryReceipt` and their types (96ad235).",
-  "evidence": ["`pnpm check:ci` passes (eslint, tsc, knip)."]
+  "evidence": [
+    "`pnpm check:ci` passes (eslint, tsc, knip)."
+  ]
 }

@@ -6,7 +6,9 @@
   "category": "documentation",
   "type": "untriaged",
   "priority": "untriaged",
-  "notes": ["    command."],
+  "notes": [
+    "    command."
+  ],
   "closed": "2026-10-15",
   "result": "`commandLabelWidth` pads to the longest `portal action` plus two spaces (7ca9f36); `aeat certificado-corriente` no longer runs into its description.",
   "evidence": [

@@ -6,7 +6,9 @@
   "category": "rayuela",
   "type": "untriaged",
   "priority": "untriaged",
-  "notes": ["    Educarex parent area."],
+  "notes": [
+    "    Educarex parent area."
+  ],
   "closed": "2026-10-16",
   "result": "`rayuela hijos|mensajes|horario|faltas|profesorado [--hijo <id|name>]`; credentials only from `VENTANILLA_UNICA_RAYUELA_USUARIO`/`VENTANILLA_UNICA_RAYUELA_CLAVE`; no certificate is sent (`Command.login: 'password'`); messages read from list previews, never opened; empty absences page (\"No existen datos\") answers `[]`.",
   "evidence": [

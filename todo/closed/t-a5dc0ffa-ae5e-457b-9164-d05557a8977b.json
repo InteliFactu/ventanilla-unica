@@ -6,8 +6,12 @@
   "category": "blocked-done",
   "type": "untriaged",
   "priority": "untriaged",
-  "notes": ["    notifications over plain HTTP."],
+  "notes": [
+    "    notifications over plain HTTP."
+  ],
   "closed": "2026-10-07",
   "result": "the owner authorised opening every pending notification. One (Deluxe, OARGT) was accepted through the wiki's Playwright flow with a HAR recorded; the exchange is legal text id, `appearance-login-form`, a second Cl@ve relay that skips the IdP chooser, a fresh bearer from `appearance-login-check`, and POST `voucher` `{\"operation\":\"aceptar\"}`. The new command then accepted two more live (an OARGT providencia for a natural person and a court LexNET notification delivered as a ZIP), each in about a minute, and saved document and acuse. `pnpm check:ci` green.",
-  "evidence": ["legacy item migrated to format 2 without a recorded evidence"]
+  "evidence": [
+    "legacy item migrated to format 2 without a recorded evidence"
+  ]
 }

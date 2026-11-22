@@ -6,7 +6,9 @@
   "category": "testing",
   "type": "untriaged",
   "priority": "untriaged",
-  "notes": ["coverage."],
+  "notes": [
+    "coverage."
+  ],
   "closed": "2026-10-15",
   "resolution": "not reproducible. `signXml` tests run in 20-36 ms at load ~80, and the full suite passed three times on 2026-10-15 (1,727 tests); the one timeout on 2026-10-07 was machine contention, so the timeout stays."
 }

@@ -6,8 +6,12 @@
   "category": "pending-decisions",
   "type": "untriaged",
   "priority": "untriaged",
-  "notes": ["    `ventanilla-unica`."],
+  "notes": [
+    "    `ventanilla-unica`."
+  ],
   "closed": "2026-09-26",
   "result": "package, binary, environment variables and GitHub repository renamed; nothing had been published as `sedes`.",
-  "evidence": ["rename commit on `main`, `pnpm check:ci` green."]
+  "evidence": [
+    "rename commit on `main`, `pnpm check:ci` green."
+  ]
 }

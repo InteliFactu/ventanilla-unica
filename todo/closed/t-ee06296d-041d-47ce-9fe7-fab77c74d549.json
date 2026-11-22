@@ -6,7 +6,9 @@
   "category": "backend",
   "type": "untriaged",
   "priority": "untriaged",
-  "notes": ["    reads, released as 0.2.0."],
+  "notes": [
+    "    reads, released as 0.2.0."
+  ],
   "closed": "2026-09-26",
   "result": "a shared T-Systems STA reader (`src/sta/`) gives `junta|caceres expedientes|notificaciones|registros` over the direct certificate login, listing notifications without opening them and refusing the contact-data confirmation gate. `src/gobex/` logs into the Carpeta Ciudadana through Cl@ve and gives `junta deudas|tasas|pagos`, posting no button but the search one. The FNMT server root is trusted alongside Node's roots; `juntaex.es`, `gobex.es` and `caceres.es` joined the host allowlist.",
   "evidence": [
