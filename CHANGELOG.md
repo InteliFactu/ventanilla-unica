@@ -15,6 +15,12 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `aeat escrito` files a writing at the AEAT registry under a procedure's
+  trámite (GZ285 for rectificación de autoliquidaciones) when there is no
+  notification CSV, in the holder's own name or, with `--nif`, en representación
+  de terceros. Without `--confirmar si` it only opens the trámite form;
+  confirmed, it signs only when step 2 lists exactly the files and names the
+  `--nif` as interesado.
 - `aeat presentar-declaracion` files a 390 file through the model's Envío
   Fichero page, as holder or apoderado. Without `--confirmar si` it reads the
   file and stops at the signature dialog, reporting who signs for whom.

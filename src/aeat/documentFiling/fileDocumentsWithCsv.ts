@@ -35,7 +35,7 @@ export const fileDocumentsWithCsv = async (
     }
   let page = form.page
   for (const document of documents)
-    page = await attachDocument(client, page, document, query.subject)
+    page = await attachDocument(client, page, document, query)
   const screen = await fetchSignatureScreen(client, page, query)
   const expected = documents.map((document) => document.name).join(', ')
   if (screen.fileNames.join(', ') !== expected)

@@ -6,9 +6,7 @@
   "category": "backend",
   "type": "untriaged",
   "priority": "untriaged",
-  "notes": [
-    "    skeleton, then the AEAT, TGSS, DEHU and OARGT debt reads."
-  ],
+  "notes": ["    skeleton, then the AEAT, TGSS, DEHU and OARGT debt reads."],
   "closed": "2026-09-25",
   "result": "`sedes <portal> <action>` with JSON on stdout, zero runtime dependencies, verified live on every holder the same day.",
   "evidence": [

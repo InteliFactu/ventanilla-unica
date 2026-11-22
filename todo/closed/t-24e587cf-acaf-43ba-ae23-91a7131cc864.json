@@ -6,9 +6,7 @@
   "category": "security",
   "type": "untriaged",
   "priority": "untriaged",
-  "notes": [
-    "    the first release."
-  ],
+  "notes": ["    the first release."],
   "closed": "2026-09-26",
   "result": "cookies scoped to a public suffix or a foreign domain are dropped; redirects to another host outside the administrations are refused; responses and undeclared decompression are capped at 64 MiB; DEHU file names are sanitised and writes outside `--out` are refused.",
   "evidence": [

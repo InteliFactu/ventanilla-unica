@@ -13,6 +13,7 @@ import { aeatCotejo } from './commands/aeatCotejo'
 import { aeatDeclaraciones } from './commands/aeatDeclaraciones'
 import { aeatDeudas } from './commands/aeatDeudas'
 import { aeatDomicilio } from './commands/aeatDomicilio'
+import { aeatEscrito } from './commands/aeatEscrito'
 import { aeatExpedientes } from './commands/aeatExpedientes'
 import { aeatInformativa } from './commands/aeatInformativa'
 import { aeatInformativas } from './commands/aeatInformativas'
@@ -42,6 +43,7 @@ export const aeatCommands: readonly Command[] = [
   aeatDeclaraciones,
   aeatDeudas,
   aeatDomicilio,
+  aeatEscrito,
   aeatExpedientes,
   aeatInformativa,
   aeatInformativas,

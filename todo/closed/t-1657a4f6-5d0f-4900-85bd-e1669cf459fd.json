@@ -6,9 +6,7 @@
   "category": "signing",
   "type": "untriaged",
   "priority": "untriaged",
-  "notes": [
-    "    `0d7f3cf`)."
-  ],
+  "notes": ["    `0d7f3cf`)."],
   "closed": "2026-10-15",
   "result": "Facturae profile (`emisor` role, enveloped transform only, RSA key value, SHA-512 references); selectable digests (`signData` replaces `signPkcs1Sha256`); AGE policy for XAdES and CAdES; internally detached XAdES; ECDSA for AutoScript `NONE`; DocMDP P=1 guard in `firmar pdf`; PAdES digest and policy; the generic `signAutoScript` adapter.",
   "evidence": [

@@ -12,7 +12,5 @@
   ],
   "closed": "2026-09-25",
   "result": "each verified live once on the holder's certificate.",
-  "evidence": [
-    "commits `ee586c9`, `f26f614`."
-  ]
+  "evidence": ["commits `ee586c9`, `f26f614`."]
 }

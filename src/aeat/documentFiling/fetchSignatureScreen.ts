@@ -5,14 +5,14 @@ import { signatureScreenFields } from './mappers/signatureScreenFields'
 import { parseSignatureScreen } from './parsers/parseSignatureScreen'
 import { readFormFields } from './parsers/readFormFields'
 import type { AeatPage } from './types/AeatPage'
-import type { DocumentFilingQuery } from './types/DocumentFilingQuery'
+import type { FilingContact } from './types/FilingContact'
 import type { SignatureScreen } from './types/SignatureScreen'
 
 /** Step 2, "Firma y envío": showing it is not the act; it lists what the signature would file. */
 export const fetchSignatureScreen = async (
   client: HttpClient,
   page: AeatPage,
-  query: DocumentFilingQuery,
+  query: FilingContact,
 ): Promise<SignatureScreen> =>
   parseSignatureScreen(
     await postRegistryForm(

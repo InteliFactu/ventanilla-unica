@@ -11,11 +11,13 @@ import { uploadAnswer } from './uploadAnswer'
 /**
  * A registry that answers each step with its synthetic page: uploads get
  * keys K0, K1..., `FGGraba` lists the keys so far, `FG` with `pAccionForm2`
- * the signature screen for `listed`, and the signature the receipt page.
+ * the signature screen for `listed` (naming `interesado` when given), and
+ * the signature the receipt page.
  */
 export const fakeFilingClient = (
   listed: readonly string[],
   receipt = '<p>Recibo CSV=ZZZZYYYYXXXXWWWW</p>',
+  interesado?: string,
 ): HttpClient & RecordingHttpClientExtras => {
   const calls: RecordedHttpCall[] = []
   const keys: string[] = []
@@ -44,7 +46,8 @@ export const fakeFilingClient = (
         return respond(url, '%PDF-1.4 justificante')
       if (url.endsWith('/FG') && body.includes('FIR=FirmaBasica'))
         return respond(url, receipt)
-      if (url.endsWith('/FG')) return respond(url, signatureScreenPage(listed))
+      if (url.endsWith('/FG'))
+        return respond(url, signatureScreenPage(listed, interesado))
       return respond(url, filingFormPage())
     },
   )

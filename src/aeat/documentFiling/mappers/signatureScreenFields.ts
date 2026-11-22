@@ -1,4 +1,4 @@
-import type { DocumentFilingQuery } from '../types/DocumentFilingQuery'
+import type { FilingContact } from '../types/FilingContact'
 
 /**
  * What `firmaryEnviar` posts to reach step 2: the second form with every
@@ -8,7 +8,7 @@ import type { DocumentFilingQuery } from '../types/DocumentFilingQuery'
 export const signatureScreenFields = (
   form: Readonly<Record<string, string>>,
   form2: Readonly<Record<string, string>>,
-  query: DocumentFilingQuery,
+  query: FilingContact,
 ): Record<string, string> => {
   const copied = [
     'fCSV',
@@ -24,7 +24,7 @@ export const signatureScreenFields = (
     pAccionForm2: '2',
     fTramiteAvanzar: form['fTramite'] ?? '',
     fOcurrenciaAvanzar: form['fOcurrencia'] ?? '',
-    fNifAvanzar: form['fNif'] ?? '',
+    fNifAvanzar: query.nif ?? form['fNif'] ?? '',
     fExpedienteAvanzar: form['fExpediente'] ?? '',
     fTextoAvanzar: '',
     fAsuntoAvanzar: query.subject,

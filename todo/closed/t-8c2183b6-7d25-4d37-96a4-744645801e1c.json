@@ -6,9 +6,7 @@
   "category": "future-ideas",
   "type": "untriaged",
   "priority": "untriaged",
-  "notes": [
-    "    data and padrón status."
-  ],
+  "notes": ["    data and padrón status."],
   "closed": "2026-10-16",
   "result": "`caceres datos-personales` and `junta datos-personales` read `PAGE_CODE=DATOS_PERSONALES` (phone, e-mail, confirmed or not, identity and addresses when shown); `caceres padron` reads `DATOS_HABITANTE`. The Junta sede keeps no padrón: its page answers \"Se ha producido un error al buscar los datos del padrón\", so no `junta padron` was built.",
   "evidence": [

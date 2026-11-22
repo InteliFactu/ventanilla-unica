@@ -6,12 +6,8 @@
   "category": "infrastructure",
   "type": "untriaged",
   "priority": "untriaged",
-  "notes": [
-    "    `InteliFactu/sedes`, Spanish README added."
-  ],
+  "notes": ["    `InteliFactu/sedes`, Spanish README added."],
   "closed": "2026-09-25",
   "result": "Repository moved from BusiRocket to",
-  "evidence": [
-    "commit `b4412e1`; GitHub redirects the old URL."
-  ]
+  "evidence": ["commit `b4412e1`; GitHub redirects the old URL."]
 }

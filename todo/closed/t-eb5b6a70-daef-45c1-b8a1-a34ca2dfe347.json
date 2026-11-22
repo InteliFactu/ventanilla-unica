@@ -8,7 +8,5 @@
   "priority": "untriaged",
   "closed": "2026-09-25",
   "result": "179 files moved, API and CLI unchanged.",
-  "evidence": [
-    "commit `9ebb1a4`, `pnpm check:ci` green."
-  ]
+  "evidence": ["commit `9ebb1a4`, `pnpm check:ci` green."]
 }

@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 
 import { readFilingDocuments } from './readFilingDocuments'
 import { validateDocumentFilingOptions } from './validateDocumentFilingOptions'
+import { validateProcedureFilingOptions } from './validateProcedureFilingOptions'
 
 const valid = {
   csv: 'abcdefgh12345678',
@@ -63,5 +64,36 @@ describe('documentFiling validators', () => {
     await expect(
       readFilingDocuments([{ path: text, type: '200' }]),
     ).rejects.toThrow('is not a PDF')
+  })
+})
+
+describe('aeat escrito validators', () => {
+  const escrito = {
+    tramite: 'gz285',
+    nif: '11111111h',
+    asunto: 'Solicitud',
+    telefono: '600000000',
+    documentos: 'a.pdf',
+    tipos: '231',
+  }
+
+  it('builds the query with the trámite and the interesado NIF', () => {
+    expect(validateProcedureFilingOptions(escrito)).toMatchObject({
+      tramite: 'GZ285',
+      nif: '11111111H',
+      files: [{ path: 'a.pdf', type: '231' }],
+    })
+    expect(
+      validateProcedureFilingOptions({ ...escrito, nif: undefined }).nif,
+    ).toBeUndefined()
+  })
+
+  it.each([
+    [{ tramite: 'GZ' }, '--tramite'],
+    [{ nif: '11111111A' }, '--nif 11111111A is not valid'],
+  ])('refuses %j', (patch, message) => {
+    expect(() =>
+      validateProcedureFilingOptions({ ...escrito, ...patch }),
+    ).toThrow(message)
   })
 })

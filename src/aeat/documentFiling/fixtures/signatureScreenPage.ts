@@ -1,6 +1,10 @@
-/** A synthetic step-2 "Firma y Envío" screen listing the given file names. */
-export const signatureScreenPage = (names: readonly string[]): string => `
+/** A synthetic step-2 "Firma y Envío" screen listing the given file names and, when given, the interesado. */
+export const signatureScreenPage = (
+  names: readonly string[],
+  interesado?: string,
+): string => `
 <title>Registro Telemático - Firma y Envío de la solicitud</title>
+${interesado === undefined ? '' : `<h2>Datos del Interesado</h2><strong>NIF:</strong>&nbsp;<span>${interesado}</span><strong>Nombre / Razón Social:</strong>&nbsp;<span>LOPEZ LOPEZ LUIS</span>`}
 <script>
   var _fbNombre="GOMEZ GOMEZ ANA";
   var _fbNif="99999999R";

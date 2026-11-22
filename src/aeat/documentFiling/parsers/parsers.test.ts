@@ -28,6 +28,13 @@ describe('documentFiling parsers', () => {
     expect(form.titular?.nombre).toBe('EJEMPLO ESPJ')
   })
 
+  it('ends the procedure at the subject caption of a trámite form without CSV', () => {
+    const html = `<li>Trámite: GZ285 - Presentación de recurso o solicitud</li><li>Procedimiento: GZ28 - Rectificación de Autoliquidaciones</li><p>Asunto</p><p>Tipo de presentación</p><h2>Datos del Interesado</h2>NIF: 00000000T Nombre / Razón Social: PEREZ PEREZ JUAN<form id='Form'></form>`
+    expect(parseFilingForm({ url, html }).procedimiento).toBe(
+      'GZ28 - Rectificación de Autoliquidaciones',
+    )
+  })
+
   it('throws with the registry alert when the CSV opened no form', () => {
     const html = `<div id='idDivAlertas' class='x'>Ha eligido una identificación como Interesado, sin embargo, usted no es el interesado del documento introducido.  ( Ir a error ) </div>`
     expect(() => parseFilingForm({ url, html })).toThrow(
