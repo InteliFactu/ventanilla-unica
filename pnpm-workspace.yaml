@@ -6,5 +6,11 @@ allowBuilds:
   lefthook: true
   unrs-resolver: true
 overrides:
+  'minimatch@>=10.0.0 <11.0.1': 11.0.9 # GHSA-g3hv-75wg-m249
   # GHSA-68fv-2mgg-jv7q: postcss still allows the vulnerable range.
   source-map-js: ^1.2.2
+
+minimumReleaseAgeExclude:
+  - '@syntopica/eslint-config'
+  - '@syntopica/quality-config'
+  - 'eslint-plugin-code-policy'

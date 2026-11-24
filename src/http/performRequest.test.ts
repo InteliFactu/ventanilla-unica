@@ -4,7 +4,7 @@ import { createServer, type Server } from 'node:https'
 import type { AddressInfo } from 'node:net'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import type { TLSSocket } from 'node:tls'
+import { TLSSocket } from 'node:tls'
 import { promisify } from 'node:util'
 
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
@@ -39,7 +39,10 @@ beforeAll(async () => {
   server = createServer(
     { ...identity, ca: [identity.cert], requestCert: true },
     (req, res) => {
-      const peer = (req.socket as TLSSocket).getPeerCertificate()
+      if (!(req.socket instanceof TLSSocket)) {
+        throw new Error('Expected an HTTPS socket')
+      }
+      const peer = req.socket.getPeerCertificate()
       seenSubject = String(peer.subject.CN)
       seenCookie = req.headers.cookie ?? ''
       let body = ''

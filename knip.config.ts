@@ -6,7 +6,6 @@ export default createKnipConfig({
   // than by this repository; checking its exports would report the whole
   // surface as dead.
   includeEntryExports: false,
-  // Spawned by the `secrets:check` script; installed on the machine, not as
-  // a dependency.
-  ignoreBinaries: ['gitleaks'],
+  // External binaries used by the secret check and the signature fixtures.
+  ignoreBinaries: ['gitleaks', 'xmlsec1'],
 })

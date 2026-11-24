@@ -1,6 +1,6 @@
-import { EventEmitter } from 'node:events'
-import type { ClientRequest } from 'node:http'
+import { ClientRequest } from 'node:http'
 import { request as httpsRequest } from 'node:https'
+import { Socket } from 'node:net'
 import { PassThrough } from 'node:stream'
 
 import { expect, it, vi } from 'vitest'
@@ -12,7 +12,10 @@ vi.mock('node:https', () => ({ request: vi.fn() }))
 it('omits TLS certificate fields for password sessions without opening a socket', async () => {
   const mocked = vi.mocked(httpsRequest)
   mocked.mockImplementation(() => {
-    const request = new EventEmitter() as ClientRequest
+    const request = new ClientRequest({
+      host: 'portal.invalid',
+      createConnection: () => new Socket(),
+    })
     request.end = vi.fn(() => {
       queueMicrotask(() => {
         const response = Object.assign(new PassThrough(), {
