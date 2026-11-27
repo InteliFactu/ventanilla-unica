@@ -11,8 +11,8 @@
     "t-7588aabf-ac22-401b-947a-3eff0eea7d17",
     "t-c49d3582-dbdc-445f-a7f8-664bd912ff39"
   ],
-  "blocker": "The attachment flag is supported. No verified read-only attachment route is available in the current evidence.",
-  "unblock": "Provide a sanitized attachment response from a read-only path or separately authorize opening the specified source message.",
+  "blocker": "The authenticated inbox and sent lists expose attachment flags but no download identifiers or attachment controls. Known attachment controls are reached through message detail, which may mark it read.",
+  "unblock": "Provide a redacted attachment response from a path that preserves read status or separately authorize opening one specified source message.",
   "notes": [
     "    `rayuela hijos|mensajes|horario|faltas|profesorado` read live on",
     "    2026-10-16. Not done: grades (no menu code mapped), inbox pages after the",
@@ -21,6 +21,7 @@
     "    timetable, teachers and inbox pages, which were only seen populated. Next",
     "    step: capture the grades menu entry for one child during an evaluation",
     "    period. Flow notes: `~/p/wiki/brain/topics/rayuela-headless.md`.",
-    "2026-11-27: The CLI now reads verified numbered pages and current or historical grades. The live attachment flow and the previously noted empty timetable, teachers and inbox layouts remain unverified."
+    "2026-11-27: The CLI now reads verified numbered pages and current or historical grades. The live attachment flow and the previously noted empty timetable, teachers and inbox layouts remain unverified.",
+    "2026-11-27: Checked all three inbox pages and the complete sent tray with a transport that refused message detail and download endpoints. The 443 inbox rows flagged 119 messages with attachments. None of those pages exposed a DOCADJMEN or X_FICMENUSU identifier, download locator, or attachment handler. The sent tray contained three rows and no attachments."
   ]
 }
