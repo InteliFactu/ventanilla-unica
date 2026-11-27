@@ -11,8 +11,7 @@ import type { AutoScriptMultisigning } from './types/AutoScriptMultisigning'
  * AutoFirma's `coSign` and `counterSign`. CAdES and XAdES do both; a PAdES
  * cosignature is one more signature on the signed PDF, as in AutoFirma, which
  * also refuses to countersign a PDF; FacturaE admits a single signature.
- * shortcut: the `target` parameter is ignored and every top-level signer is
- * countersigned, which is AutoFirma's `leafs` until one is already nested.
+ * CAdES and XAdES recognize `target=tree` and default to `target=leafs`.
  */
 export const multisignAutoScript = async (
   identity: CertificateIdentity,

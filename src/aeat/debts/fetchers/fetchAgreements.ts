@@ -3,6 +3,7 @@ import { aeatBaseUrl } from '../../session/aeatBaseUrl'
 import { parseAgreementDetail } from '../parsers/parseAgreementDetail'
 import { parseAgreementList } from '../parsers/parseAgreementList'
 import type { Agreement } from '../types/Agreement'
+import { fetchAgreementCalendar } from './fetchAgreementCalendar'
 
 /** Every SRAF deferral/instalment agreement on the certificate's NIF, read-only. */
 export const fetchAgreements = async (
@@ -14,10 +15,25 @@ export const fetchAgreements = async (
   const listings = parseAgreementList(listingResponse.text, aeatBaseUrl)
   const agreements: Agreement[] = []
   for (const listing of listings) {
-    const detailResponse = await client.request(listing.detailUrl)
+    const detailResponse = await client.request(listing.detailUrl, {
+      followRedirects: false,
+    })
+    const detail = parseAgreementDetail(
+      detailResponse.status === 200 ? detailResponse.text : '',
+    )
+    const calendar =
+      detailResponse.status === 200
+        ? await fetchAgreementCalendar(
+            client,
+            detailResponse.text,
+            listing.acuerdo,
+            detail.deudas,
+          )
+        : {}
     agreements.push({
       acuerdo: listing.acuerdo,
-      ...parseAgreementDetail(detailResponse.text),
+      ...detail,
+      ...calendar,
     })
   }
   return agreements

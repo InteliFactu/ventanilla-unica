@@ -188,6 +188,14 @@ as an error, and an answer with neither an NRC nor an error (or none) is
 reported as unknown: check `aeat pagos` before trying again, since a second run
 would charge twice.
 
+### AEAT deferral instalments
+
+`aeat deudas` reads the current calendar advertised for each SRAF agreement.
+`currentInstalments` contains the debt key, sequence number, due date, phase and
+current amounts. The portal may report zero balances for settled instalments.
+The signed decision holds their original amounts. If the calendar cannot be
+verified, `currentInstalmentsNote` records why.
+
 ## Cáceres catalogue filings
 
 `caceres tramite` files a catalogue procedure in the certificate holder's own
@@ -453,6 +461,11 @@ AutoFirma does for a page's `AutoScript.sign` call (NONE, CAdES, XAdES, FacturaE
 and PAdES, with AutoFirma's defaults; `operation: 'cosign'` or `'countersign'`
 with `signature` does `coSign` and `counterSign` for CAdES and XAdES, and a
 PAdES `coSign`) and returns the signature and certificate the page posts.
+
+For CAdES and XAdES AutoScript countersignatures, `target=tree` applies to every
+original signer in the tree. `target=leafs` applies to the original leaves and
+is the default. Explicit target values other than `tree` and `leafs` are
+rejected. The operation refuses signature trees with archival timestamps.
 
 ## Offline tools
 

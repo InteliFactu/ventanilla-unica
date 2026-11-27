@@ -2,10 +2,17 @@
   "tadu": 2,
   "id": "t-0a2debc4-9f3c-44c3-9cd8-b57ea48f202f",
   "title": "`aeat deudas` agreements carry no instalment calendar (2026-11-17)",
-  "state": "pending",
+  "state": "blocked",
   "category": "bugs",
-  "type": "untriaged",
-  "priority": "untriaged",
+  "type": "bug",
+  "priority": "normal",
+  "kind": "waiting",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "blocker": "The read-only current calendar matches the archived SRAF structure and verifies debt keys and exact cent totals. The reported agreement has no fresh redacted response.",
+  "unblock": "Provide redacted detail and calendar responses for that agreement, or authorize one read-only verification. The original signed schedule is a separate source.",
   "notes": [
     "    Live run for B22903801 returned four granted agreements with `acuerdo`,",
     "    `importe`, `notificado` and `primerPlazo`, but `plazos` is empty and",

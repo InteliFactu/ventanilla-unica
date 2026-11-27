@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { parseAgreementList } from './parseAgreementList'
 
 const baseUrl = 'https://www1.agenciatributaria.gob.es'
+const detailPath = '/wlpl/inwinvoc/es.aeat.dit.adu.sraf.acuerdo.AcuAccDeta'
 
 const listingFixture = `
 <table class='celdasConBorde ancho_98' id='TablaSolicitudes'>
@@ -39,13 +40,25 @@ describe('parseAgreementList', () => {
 
   it('deduplicates a code linked twice from the same row', () => {
     const html = `
-      <a href='/x/AcuAccDeta?fAccion=deta&amp;cacuerdo=ABC123&amp;fFigura=obli'>1</a>
-      <a href='/x/AcuAccDeta?fAccion=deta&amp;cacuerdo=ABC123&amp;fFigura=obli'>2</a>
+      <a href='${detailPath}?fAccion=deta&amp;cacuerdo=100000000001A&amp;fFigura=obli'>100000000001A</a>
+      <a href='${detailPath}?fAccion=deta&amp;cacuerdo=100000000001A&amp;fFigura=obli'>100000000001A</a>
     `
     expect(parseAgreementList(html, baseUrl)).toHaveLength(1)
   })
 
   it('returns nothing for a page with no agreement links', () => {
     expect(parseAgreementList('<a href="/other">x</a>', baseUrl)).toEqual([])
+  })
+
+  it.each([
+    `https://example.invalid${detailPath}?fAccion=deta&cacuerdo=100000000001A`,
+    `http://www1.agenciatributaria.gob.es${detailPath}?fAccion=deta&cacuerdo=100000000001A`,
+    `/x/AcuAccDeta?fAccion=deta&cacuerdo=100000000001A`,
+    `${detailPath}?fAccion=otro&cacuerdo=100000000001A`,
+    `${detailPath}?fAccion=deta&cacuerdo=100000000001A&cacuerdo=100000000002B`,
+  ])('rejects an unexpected detail link %s', (href) => {
+    expect(
+      parseAgreementList(`<a href="${href}">100000000001A</a>`, baseUrl),
+    ).toEqual([])
   })
 })

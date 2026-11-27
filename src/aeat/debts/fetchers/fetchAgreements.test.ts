@@ -57,6 +57,7 @@ describe('fetchAgreements', () => {
     expect(request.mock.calls[1]?.[0]).toBe(
       'https://www1.agenciatributaria.gob.es/wlpl/inwinvoc/es.aeat.dit.adu.sraf.acuerdo.AcuAccDeta?fAccion=deta&cacuerdo=101440306486W&fFigura=obli',
     )
+    expect(request.mock.calls[1]?.[1]).toEqual({ followRedirects: false })
   })
 
   it('returns an empty list when the listing page carries no agreement', async () => {

@@ -1,15 +1,15 @@
 import type { CertificateIdentity } from '../../certificate/types/CertificateIdentity'
+import { baseNamespaceScope } from '../xml/mappers/baseNamespaceScope'
 import { parseXmlDocument } from '../xml/parsers/parseXmlDocument'
 import { formatSignedXml } from './formatters/formatSignedXml'
-import { selectTopLevelSignatures } from './selectors/selectTopLevelSignatures'
+import { selectTopLevelXadesPaths } from './selectors/selectTopLevelXadesPaths'
+import { selectXadesCountersignTargets } from './selectors/selectXadesCountersignTargets'
 import type { XadesMultisignOptions } from './types/XadesMultisignOptions'
 import { attachCounterSignature } from './writers/attachCounterSignature'
 
 /**
- * Countersign every top-level XAdES signature (AutoFirma's `countersign`):
- * each gains a xades:CounterSignature over its SignatureValue; nothing
- * signed changes. shortcut: countersignatures already nested are not
- * countersigned in turn; walk them when a sede asks for it.
+ * Countersign the selected original XAdES signatures over their SignatureValue.
+ * Direct calls without a target retain the top-level selection.
  */
 export const countersignXadesSignature = (
   identity: CertificateIdentity,
@@ -17,7 +17,11 @@ export const countersignXadesSignature = (
   options: XadesMultisignOptions = {},
 ): Buffer => {
   const document = parseXmlDocument(xml)
-  const targets = selectTopLevelSignatures(document.root)
+  const targets = selectTopLevelXadesPaths(
+    document.root,
+    [],
+    baseNamespaceScope(),
+  ).flatMap((path) => selectXadesCountersignTargets(path, options.target))
   if (targets.length === 0) throw new Error('the XML carries no signature')
   for (const target of targets)
     attachCounterSignature(identity, document, target, options)

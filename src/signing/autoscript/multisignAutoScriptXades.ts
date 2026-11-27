@@ -2,6 +2,7 @@ import type { CertificateIdentity } from '../../certificate/types/CertificateIde
 import { cosignXadesSignature } from '../xades/cosignXadesSignature'
 import { countersignXadesSignature } from '../xades/countersignXadesSignature'
 import { xadesOptionsOf } from './mappers/xadesOptionsOf'
+import { selectCountersignTarget } from './selectors/selectCountersignTarget'
 import type { AutoScriptMultisigning } from './types/AutoScriptMultisigning'
 
 /** XAdES `coSign` or `counterSign` with the same AutoFirma defaults as a first signature; where it goes follows the existing one. */
@@ -16,6 +17,9 @@ export const multisignAutoScriptXades = (
     ...options
   } = xadesOptionsOf(signing.format, signing.params, signing.digest)
   return signing.operation === 'countersign'
-    ? countersignXadesSignature(identity, signing.data, options)
+    ? countersignXadesSignature(identity, signing.data, {
+        ...options,
+        target: selectCountersignTarget(signing.params),
+      })
     : cosignXadesSignature(identity, signing.data, options)
 }

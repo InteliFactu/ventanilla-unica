@@ -22,7 +22,9 @@ describe('countersignXadesSignature', () => {
         { url: 'https://tsa.example.test/tsr' },
         answerTestTimestamp,
       )
-      const countersigned = countersignXadesSignature(counter, stamped)
+      const countersigned = countersignXadesSignature(counter, stamped, {
+        target: 'tree',
+      })
       expect(countersigned.toString()).toMatch(
         /<\/xades:SignatureTimeStamp><xades:CounterSignature><ds:Signature [^>]*>/,
       )

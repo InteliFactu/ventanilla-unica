@@ -1,25 +1,32 @@
 import type { XmlElement } from '../../xml/types/XmlElement'
 import { buildElement } from '../builders/buildElement'
 import { qualifiedNameLike } from '../mappers/qualifiedNameLike'
+import { requiredNamespaceOfPath } from '../mappers/requiredNamespaceOfPath'
+import { ensureXadesUnsignedElement } from './ensureXadesUnsignedElement'
 
-/** Put `property` last in QualifyingProperties' UnsignedProperties/UnsignedSignatureProperties, creating either when missing. */
+/** Place a countersignature beside the target's existing unsigned signature properties. */
 export const appendUnsignedSignatureProperty = (
-  qualifying: XmlElement,
-  property: XmlElement,
+  qualifying: readonly XmlElement[],
+  signature: XmlElement,
 ): void => {
-  const child = (parent: XmlElement, local: string): XmlElement => {
-    const name = qualifiedNameLike(qualifying, local)
-    const found = parent.children.find(
-      (node): node is XmlElement =>
-        node.kind === 'element' && node.name === name,
-    )
-    if (found) return found
-    const created = buildElement(name, {}, [])
-    parent.children.push(created)
-    return created
-  }
-  child(
-    child(qualifying, 'UnsignedProperties'),
+  const namespace = requiredNamespaceOfPath(qualifying)
+  const unsigned = ensureXadesUnsignedElement(
+    qualifying,
+    'UnsignedProperties',
+    namespace,
+  )
+  const signatureProperties = ensureXadesUnsignedElement(
+    unsigned,
     'UnsignedSignatureProperties',
-  ).children.push(property)
+    namespace,
+  ).at(-1)
+  if (signatureProperties === undefined)
+    throw new Error('the signature has no UnsignedSignatureProperties')
+  signatureProperties.children.push(
+    buildElement(
+      qualifiedNameLike(signatureProperties, 'CounterSignature'),
+      {},
+      [signature],
+    ),
+  )
 }

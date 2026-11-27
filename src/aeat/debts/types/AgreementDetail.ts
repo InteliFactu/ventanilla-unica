@@ -2,8 +2,8 @@ import type { MoneyAmount } from '../../money/types/MoneyAmount'
 
 /**
  * Fields read from one AcuAccDeta page: the named ones the notes pin down, plus
- * every liquidation key it mentions and the raw cells of its plazos table,
- * kept for whatever the named fields did not capture.
+ * every liquidation key it mentions and the legacy raw table cells. These
+ * cells may describe agreement debts instead of individual instalments.
  */
 export type AgreementDetail = {
   readonly estado?: string | undefined

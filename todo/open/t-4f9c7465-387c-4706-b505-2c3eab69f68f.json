@@ -1,0 +1,22 @@
+{
+  "tadu": 2,
+  "id": "t-4f9c7465-387c-4706-b505-2c3eab69f68f",
+  "title": "Support detached and internally detached XAdES cosigning",
+  "state": "blocked",
+  "category": "multisignature-limits",
+  "type": "feature",
+  "priority": "low",
+  "kind": "waiting",
+  "created": "2026-11-27",
+  "related": [
+    "t-cb4ccfab-7108-4d76-a1de-8edd97a5038f"
+  ],
+  "blocker": "The supported cosigning implementation needs the reference identifiers and digest transform used by a detached portal signature.",
+  "unblock": "Provide a sanitized detached or internally detached XAdES file and original data accepted by AutoFirma.",
+  "notes": [
+    "The signer requires a verified reference profile for detached and internally detached cosignatures."
+  ],
+  "done_when": [
+    "A sanitized AutoFirma reference signature and matching data verify both original and new signatures after cosigning."
+  ]
+}

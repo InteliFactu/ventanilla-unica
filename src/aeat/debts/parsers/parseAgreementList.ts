@@ -1,6 +1,8 @@
-import { readAttribute } from '../../../html/readAttribute'
-import { unescapeHtml } from '../../../html/unescapeHtml'
+import { aeatBaseUrl } from '../../session/aeatBaseUrl'
 import type { AgreementListing } from '../types/AgreementListing'
+import { readAgreementAnchorTargets } from './readAgreementAnchorTargets'
+import { readAgreementDetailCode } from './readAgreementDetailCode'
+import { readAgreementPortalUrl } from './readAgreementPortalUrl'
 
 /**
  * Every agreement (`cacuerdo=`) linked from the SRAF request listing,
@@ -10,17 +12,19 @@ export const parseAgreementList = (
   html: string,
   baseUrl: string,
 ): readonly AgreementListing[] => {
+  if (baseUrl !== aeatBaseUrl) return []
+  const path = '/wlpl/inwinvoc/es.aeat.dit.adu.sraf.acuerdo.AcuAccDeta'
   const seen = new Set<string>()
   const listings: AgreementListing[] = []
-  for (const [tag] of html.matchAll(/<a\b[^>]*>/gi)) {
-    const href = readAttribute(tag, 'href')
-    if (!href || !href.includes('AcuAccDeta')) continue
-    const acuerdo = /cacuerdo=(\w+)/.exec(href)?.[1]
+  for (const target of readAgreementAnchorTargets(html)) {
+    const url = readAgreementPortalUrl(target, path)
+    if (!url) continue
+    const acuerdo = readAgreementDetailCode(url.searchParams)
     if (!acuerdo || seen.has(acuerdo)) continue
     seen.add(acuerdo)
     listings.push({
       acuerdo,
-      detailUrl: new URL(unescapeHtml(href), baseUrl).toString(),
+      detailUrl: url.href,
     })
   }
   return listings

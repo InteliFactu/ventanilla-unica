@@ -2,6 +2,7 @@ import type { CertificateIdentity } from '../../certificate/types/CertificateIde
 import { cosignCadesSignedData } from '../cms/cosignCadesSignedData'
 import { countersignCadesSignedData } from '../cms/countersignCadesSignedData'
 import { cmsPolicyOf } from './mappers/cmsPolicyOf'
+import { selectCountersignTarget } from './selectors/selectCountersignTarget'
 import type { AutoScriptMultisigning } from './types/AutoScriptMultisigning'
 
 /** CAdES `coSign` (a signer over the same content) or `counterSign` (every signer's signature value). */
@@ -11,7 +12,10 @@ export const multisignAutoScriptCades = (
 ): Buffer => {
   const { data, content, digest } = signing
   if (signing.operation === 'countersign')
-    return countersignCadesSignedData(identity, data, { digest })
+    return countersignCadesSignedData(identity, data, {
+      digest,
+      target: selectCountersignTarget(signing.params),
+    })
   return cosignCadesSignedData(identity, data, {
     digest,
     content: content.length > 0 ? content : undefined,

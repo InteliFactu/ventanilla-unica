@@ -1,0 +1,23 @@
+{
+  "tadu": 2,
+  "id": "t-cb4ccfab-7108-4d76-a1de-8edd97a5038f",
+  "title": "countersignatures ignore AutoFirma's `target`",
+  "state": "done",
+  "category": "multisignature-limits",
+  "type": "bug",
+  "priority": "normal",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "notes": [
+    "    and countersign every top-level signer (nested ones are not",
+    "    countersigned); detached and internally detached XAdES cannot be cosigned.",
+    "    Next: when a sede sends one."
+  ],
+  "closed": "2026-11-27",
+  "result": "AutoScript routes CAdES and XAdES countersignatures to the original whole tree or original leaves and rejects unsupported or archived targets.",
+  "evidence": [
+    "pnpm exec vitest run src/signing/cms src/signing/xades src/signing/autoscript: 220 passed. Local CMS verification and xmlsec1 validated the old and new signatures; mixed subtrees, signed payload isolation and refusal of archive timestamps were covered."
+  ]
+}
