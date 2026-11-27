@@ -1,21 +1,21 @@
 import { mkdir, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
-import { safeFileStem } from '../../../dehu/documents/mappers/safeFileStem'
+import type { VisorSession } from '../../session/types/VisorSession'
+import { mapJusticiaDocumentFilename } from '../mappers/mapJusticiaDocumentFilename'
+import type { JusticiaDocument } from '../types/JusticiaDocument'
 import type { VisorFile } from '../types/VisorFile'
 
-/** Save one document as `justicia-<procedimiento>-<numero><ext>` under `outDir` and return its path. */
+/** Save a document under its stable filename in the chosen output directory. */
 export const writeJusticiaDocument = async (
   outDir: string,
-  procedimiento: string,
-  numero: string,
+  session: VisorSession,
+  document: JusticiaDocument,
   file: VisorFile,
 ): Promise<string> => {
   const path = join(
     outDir,
-    safeFileStem(
-      `justicia-${procedimiento}-${numero.padStart(3, '0')}${file.extension}`,
-    ),
+    mapJusticiaDocumentFilename(session, document, file.extension),
   )
   // outDir is the holder's own --out choice; the name is reduced to a safe stem.
   // eslint-disable-next-line security/detect-non-literal-fs-filename

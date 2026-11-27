@@ -1,0 +1,25 @@
+{
+  "tadu": 2,
+  "id": "t-682d86f7-f1e6-473c-98ae-7a486d7b21f6",
+  "title": "Registradores nota fails when its output directory does not exist",
+  "state": "done",
+  "category": "bugs",
+  "type": "bug",
+  "priority": "normal",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "notes": [
+    "    (2026-11-10).** Confirmed run for B22903801 created the order (3,58 EUR,",
+    "    checkout URL printed), then the notes said",
+    "    `ENOENT: no such file or directory, open '<dir>/registradores-nota-B22903801-2026-11-10-pago.html'`.",
+    "    The order is fine; only the payment page file is lost. Smallest next step:",
+    "    create the `--out` directory recursively before writing."
+  ],
+  "closed": "2026-11-27",
+  "result": "The filing artifact writer creates missing output directories before writing the checkout page.",
+  "evidence": [
+    "pnpm exec vitest run src/registradores/nota src/rolece/filing: the synthetic confirmed order writes its checkout page under a previously missing nested directory without requesting the payment URL."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "tadu": 2,
+  "id": "t-4c973803-6bad-4c9c-9a80-afd8c79e3330",
+  "title": "Project recall unavailable for Garantía Juvenil implementation",
+  "state": "done",
+  "category": "blocked-tasks",
+  "type": "chore",
+  "priority": "normal",
+  "blocker": "Observed 2026-11-04: `atrium context` for the project returned `context_service_timeout`, `index_status: unavailable` and no evidence. Current source and live GET/login evidence were used. Next: restore the context service and reconcile any earlier project-specific access decisions before relying on historical assumptions.",
+  "closed": "2026-11-27",
+  "result": "Project recall is available again and surfaced the earlier introduction, safeguards and manual enrollment observations.",
+  "evidence": [
+    "atrium context \"Garantía Juvenil implementation earlier project-specific access decisions\" --project . --json returned a ready index and relevant evidence. The index is stale; the current code was checked separately. Live record and PDF verification remain tracked in their own tasks."
+  ]
+}

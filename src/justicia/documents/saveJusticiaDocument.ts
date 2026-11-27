@@ -25,11 +25,6 @@ export const saveJusticiaDocument = async (
       error: error instanceof Error ? error.message : String(error),
     }
   }
-  const path = await writeJusticiaDocument(
-    outDir,
-    session.procedimiento,
-    document.numero,
-    file,
-  )
+  const path = await writeJusticiaDocument(outDir, session, document, file)
   return { ...document, path, bytes: file.bytes.length }
 }

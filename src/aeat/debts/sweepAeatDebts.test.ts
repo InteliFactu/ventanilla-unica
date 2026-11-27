@@ -110,6 +110,20 @@ describe('sweepAeatDebts', () => {
     )
   })
 
+  it('refuses an identification form that has a holder and unrelated notices', async () => {
+    const request = vi.fn<HttpClient['request']>().mockResolvedValue(
+      page(`
+        <p>Titular del certificado NIF: 00000000T Nombre: EXAMPLE PERSON</p>
+        <form><input name="fnif"><input name="ACEPTAR"></form>
+        <h2>Avisos</h2><p>Error en la consulta</p>
+        <footer>Agencia Tributaria</footer>
+      `),
+    )
+    await expect(
+      sweepAeatDebts({ request, cookie: () => undefined }, '00000000T'),
+    ).rejects.toThrow('unexpected page instead of the debt list')
+  })
+
   it('skips the SRAF agreements when told to, saying why', async () => {
     const client = buildClient({
       'https://www1.agenciatributaria.gob.es/wlpl/BUGC-JDIT/MdcAcceso': () =>

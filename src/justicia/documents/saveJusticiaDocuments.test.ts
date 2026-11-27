@@ -29,10 +29,12 @@ const document = {
 const refused = { ...document, id: 'p-31', numero: '31', codigoBarras: '' }
 const saved = { ...document, id: 'd-32', numero: '32' }
 const inaccessible = { ...document, id: 'd-33', numero: '33', accesible: false }
+const outputPrefix = join(tmpdir(), 'justicia-out-')
+const accepted = htmlResponse(justiciaUrls.visorAjax, '{"result":true}')
 
 describe('saveJusticiaDocuments', () => {
   it('keeps a refused document as an error and saves the ones after it', async () => {
-    const dir = mkdtempSync(join(tmpdir(), 'justicia-out-'))
+    const dir = mkdtempSync(outputPrefix)
     const client = scriptedClient(
       htmlResponse(justiciaUrls.visorAjax, '{"result":false}'),
       htmlResponse(
@@ -63,11 +65,11 @@ describe('saveJusticiaDocuments', () => {
   })
 
   it('keeps a failed download as an error and goes on', async () => {
-    const dir = mkdtempSync(join(tmpdir(), 'justicia-out-'))
+    const dir = mkdtempSync(outputPrefix)
     const client = scriptedClient(
-      htmlResponse(justiciaUrls.visorAjax, '{"result":true}'),
+      accepted,
       { ...htmlResponse(justiciaUrls.visorDocument, ''), status: 500 },
-      htmlResponse(justiciaUrls.visorAjax, '{"result":true}'),
+      accepted,
       htmlResponse(justiciaUrls.visorDocument, '%PDF-1.4'),
     )
     const result = await saveJusticiaDocuments(
@@ -83,15 +85,47 @@ describe('saveJusticiaDocuments', () => {
   })
 
   it('still stops when the output folder cannot be written', async () => {
-    const file = join(mkdtempSync(join(tmpdir(), 'justicia-out-')), 'taken')
+    const file = join(mkdtempSync(outputPrefix), 'taken')
     // eslint-disable-next-line security/detect-non-literal-fs-filename
     writeFileSync(file, '')
     const client = scriptedClient(
-      htmlResponse(justiciaUrls.visorAjax, '{"result":true}'),
+      accepted,
       htmlResponse(justiciaUrls.visorDocument, '%PDF-1.4'),
     )
     await expect(
       saveJusticiaDocuments(client, session, [saved], file),
     ).rejects.toThrow()
+  })
+
+  it('keeps repeated event numbers in separate files across tree branches and retries', async () => {
+    const dir = mkdtempSync(outputPrefix)
+    const original = { ...saved, id: 'd/32' }
+    const attached = { ...saved, id: 'd_32', carpeta: 'ANEXOS' }
+    const first = htmlResponse(justiciaUrls.visorDocument, '%PDF-1.4 original')
+    const second = htmlResponse(
+      justiciaUrls.visorDocument,
+      '%PDF-1.4 attachment',
+    )
+    const result = await saveJusticiaDocuments(
+      scriptedClient(accepted, first, accepted, second),
+      session,
+      [original, attached],
+      dir,
+    )
+    const firstPath = result[0]?.path ?? ''
+    const secondPath = result[1]?.path ?? ''
+    expect(firstPath).not.toBe(secondPath)
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
+    expect(readFileSync(firstPath, 'utf8')).toBe(first.text)
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
+    expect(readFileSync(secondPath, 'utf8')).toBe(second.text)
+
+    const retried = await saveJusticiaDocuments(
+      scriptedClient(accepted, second, accepted, first),
+      session,
+      [attached, original],
+      dir,
+    )
+    expect(retried.map((entry) => entry.path)).toEqual([secondPath, firstPath])
   })
 })

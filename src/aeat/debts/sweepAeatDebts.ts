@@ -28,9 +28,8 @@ export const sweepAeatDebts = async (
   const rows = parseDebtRows(listHtml)
   const entity = parseEntityName(listHtml)
   const hint = rows.length === 0 ? parseNoDebtsHint(listHtml) : undefined
-  // A page with neither a holder nor the portal's own "no debts" notice is
-  // not the debt list: an error page must not read as a clean position.
-  if (entity === undefined && rows.length === 0 && hint === undefined)
+  // The identification form and error pages can show the holder's name.
+  if (rows.length === 0 && hint === undefined)
     throw new Error('AEAT: unexpected page instead of the debt list')
   const debts: Debt[] = []
   for (const row of rows) {

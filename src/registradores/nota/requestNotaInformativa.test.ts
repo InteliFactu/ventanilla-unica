@@ -49,8 +49,8 @@ describe('requestNotaInformativa', () => {
     })
   })
 
-  it('orders, polls and writes the checkout page without paying', async () => {
-    const outDir = await mkdtemp(join(tmpdir(), 'nota-'))
+  it('orders, polls and writes the checkout page under a new directory without paying', async () => {
+    const outDir = join(await mkdtemp(join(tmpdir(), 'nota-')), 'nested', 'out')
     const client = scriptedClient(
       ...registradoresPlanPages(),
       ...registradoresOrderPages(),
