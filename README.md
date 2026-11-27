@@ -480,10 +480,16 @@ default. Pass `'sandbox'` as the fourth argument to use the test namespace in
 the signed SOAP body and the test SOAP action. It prepares one invoice without
 annexes. The supplier profile uses an X.509 binary token and SHA-256 for the
 body digest. `prepareLegacyFaceRequest` retains the `facturasspp2` format. Local
-verification uses `xmlsec1`. A signed receipt from the FACe test environment is
-still needed before enabling submission.
+verification uses `xmlsec1`.
 [Production WSDL](https://ws.face.gob.es/proveedores/v1/factura?wsdl) and
 [test WSDL](https://se-ws-face.redsara.es/proveedores/v1/factura?wsdl).
+
+Before enabling submission, verify the signature on an accepted test SOAP
+response and match its `factura.registro.codigo` to the REGAGE number on the
+supplier portal's receipt PDF. The portal can verify that PDF by CSV. The test
+request needs a signing certificate associated with a supplier platform in the
+test integrator portal.
+[FACe integration and supplier manuals](https://administracionelectronica.gob.es/ctt/face/descargas).
 
 ## Signing
 
