@@ -12,8 +12,8 @@
   "assignees": [
     "agent:codex"
   ],
-  "blocker": "All eight DEHU pending lists and the Junta pending views for the targeted holder returned zero. The verified AEAT listings contain one historical unread communication and one holder was refused. The Garantia Juvenil enrollment resolution was opened with specific authority; the remaining unread entry is the acknowledgement of receipt.",
-  "unblock": "Resolve the refused AEAT holder lookup and authorize any additionally needed notice or communication access individually.",
+  "blocker": "All eight DEHU pending lists and the Junta pending views for the targeted holder returned zero. A fresh AEAT sweep found six empty lists and one historical unread communication. The remaining valid holder certificate was refused with HTTP 403 at session setup and on both official notification listing routes. The permitted Garantia Juvenil enrollment resolution was opened; the acknowledgment remains unread.",
+  "unblock": "Use an AEAT-accepted identity or an authorized representative for the refused holder. Obtain authorization for the identified historical communication only if its contents are needed.",
   "notes": [
     "    around 2026-11-20).** AEAT \"Aviso de notificación de la Agencia",
     "    Tributaria\", 2026-11-10: 2 on [redacted], 4 on",
@@ -32,6 +32,7 @@
     "The holder authorized a pending-only DEHU listing for the remaining seven configured certificate identities. No notice access was authorized.",
     "Verified DEHU pending pages for all eight configured holders, checking the authenticated holder and the unfiltered items array. All were empty including the holder refused by AEAT. Junta Carpeta Ciudadana and the associated STA sede returned zero pending for the authorized holder. No details were opened.",
     "The Garantia Juvenil inbox listing showed two unread entries dated 2026-11-04 and 2026-11-07. No notice details or attachments were opened.",
-    "The holder specifically authorized opening the Garantia Juvenil enrollment resolution. The official PDF was read and the selected row was marked as read. The separate acknowledgment was left unread."
+    "The holder specifically authorized opening the Garantia Juvenil enrollment resolution. The official PDF was read and the selected row was marked as read. The separate acknowledgment was left unread.",
+    "Verified the other seven AEAT pending lists again without opening entries. The official summary and search routes independently reproduced HTTP 403 for the remaining matching holder certificate."
   ]
 }

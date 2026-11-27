@@ -12,14 +12,15 @@
   "assignees": [
     "agent:codex"
   ],
-  "blocker": "The built reader reports the effective date matching the authenticated beneficiary page and official resolution. The CLI still lacks an inbox PDF flow, and a certificate offered for download independently of generation has not been identified.",
+  "blocker": "The built CLI completed a live authenticated beneficiary read and reported the same effective date as the official resolution. The CLI still lacks the inbox PDF download and the authenticated status read offered no existing certificate download.",
   "unblock": "Use the captured inbox interaction to implement and verify a PDF read for the already-read enrollment resolution. Verify any offered certificate download independently of document issuance.",
   "notes": [
     "2026-11-27: holder [redacted] filed the SNGJ inscription on 2026-11-04 (ingreso [redacted]) and a resolution was notified on 2026-11-07, but 'sepe garantia-juvenil --out' returns inscribed null, state unknown, evidence 'The authenticated page did not establish registration status.', no documents. Next: capture the authenticated landing page for a holder with a resolved inscription and extend the parser to read the status, the inscription date and the resolution PDF.",
     "This task also carries the earlier enrolled-record and offered PDF verification. Existing synthetic tests alone do not establish live behavior.",
     "Live read-only verification found the explicit beneficiary banner and two unread inbox entries. The profile exposes certificate-generation controls rather than a confirmed existing certificate download.",
     "In the holder-authorized browser session, the enrollment resolution was downloaded and its text confirmed the effective date. The inbox then showed that exact row as read and the receipt row still unread. The original PDF remains private.",
-    "The official inbox uses the direct download branch only for an already-read row in the holder session; an unread row displays a formal access confirmation. The resolution row was observed as read and the acknowledgment as unread in a fresh list."
+    "The official inbox uses the direct download branch only for an already-read row in the holder session; an unread row displays a formal access confirmation. The resolution row was observed as read and the acknowledgment as unread in a fresh list.",
+    "The normal built sepe garantia-juvenil command authenticated with the matching holder certificate and returned alta with the date confirmed by the resolution. It reported zero offered certificate documents and made no inbox request."
   ],
   "done_when": [
     "A real resolved-inscription capture confirms the CLI reports enrolled status and the effective date.",
