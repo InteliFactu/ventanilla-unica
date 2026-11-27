@@ -1,0 +1,32 @@
+{
+  "tadu": 2,
+  "id": "t-59107923-ec41-47aa-ab17-a9083cd5a60d",
+  "title": "Recognize activated DEHU email contact statuses",
+  "state": "done",
+  "category": "integrations",
+  "type": "bug",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "related": [
+    "t-71ebc7a7-2af9-4655-93fb-2cf686b03c7f"
+  ],
+  "notes": [
+    "The public DEHU contact frontend shows status 1 as verified and status 2 as activated. The read-only CLI currently marks only status 1 as confirmed."
+  ],
+  "done_when": [
+    "The reader reports verified and activated addresses as confirmed and preserves unverified, deactivated and unlinked statuses as false."
+  ],
+  "links": [
+    "https://dehu.redsara.es/"
+  ],
+  "closed": "2026-11-27",
+  "result": "Recognize activated DEHU email contact statuses",
+  "evidence": [
+    "The current DEHU frontend maps status 1 to verified and 2 to activated, and both count as active addresses. Focused Vitest validation passed 27 tests covering confirmation statuses, the contact reader, the CLI, and the email removal path."
+  ]
+}

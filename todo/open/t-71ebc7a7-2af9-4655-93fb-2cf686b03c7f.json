@@ -7,14 +7,15 @@
   "type": "untriaged",
   "priority": "untriaged",
   "kind": "waiting",
-  "blocker": "The current contact reader exposes telefono. The captured DEHU interface exposes e-mail and push controls, with no verified telephone update.",
-  "unblock": "Provide a supported telephone update control and its redacted request before building a write path.",
+  "blocker": "The DEHU contact response includes a stored telephone field. The current contact editor and official help describe email and push devices, with no telephone or SMS editor.",
+  "unblock": "Provide a documented DEHU telephone update control and a redacted request before building a write path.",
   "notes": [
     "`dehu contacto` reads `telefono`, but the DEHU",
     "",
     "    front offers no field for it (e-mails and push only), so no write is",
     "    built. `dehu quitar-email` uses the front's PUT",
     "    `v1/contact/<base64     NIF>`, which answers a Cl@ve form that applies the",
-    "    change; adding an e-mail (and its `verify-email` code) is not built yet."
+    "    change; adding an e-mail (and its `verify-email` code) is not built yet.",
+    "The current public contact view uses email and push controls. Its transport mapper carries telefono through the contact record, while the current view has no telephone input. The help documents email management and mobile push registration through Notifica App. The CLI describes phone as a stored data field. Source: https://sede.agenciatributaria.gob.es/Sede/ayuda/consultas-informaticas/notificaciones-electronicas-ayuda-tecnica/recibir-avisos-nuevas-notificaciones-comunicaciones-dehu.html"
   ]
 }

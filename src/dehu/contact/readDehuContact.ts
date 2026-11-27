@@ -5,7 +5,7 @@ import { fetchDehuContact } from './fetchers/fetchDehuContact'
 import { mapDehuContact } from './mappers/mapDehuContact'
 import type { DehuContact } from './types/DehuContact'
 
-/** `dehu contacto`: the emails and phone DEHU sends its notices of new notifications to. Read-only. */
+/** Read DEHU notice emails and the other fields in the holder's contact record. */
 export const readDehuContact = async (
   client: HttpClient,
 ): Promise<DehuContact> => {

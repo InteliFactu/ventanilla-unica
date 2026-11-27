@@ -1,4 +1,4 @@
-/** The contact data DEHU mails its notices to: up to five emails (each confirmed or not), a phone, the notice schedule. */
+/** DEHU contact fields and the confirmation status reported for each notice email. */
 export type DehuContact = {
   readonly nif: string
   readonly emails: readonly {

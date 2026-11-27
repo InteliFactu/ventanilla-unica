@@ -1,6 +1,7 @@
 import { asRecord } from '../../api/asRecord'
 import { readTextOrNull } from '../../api/readTextOrNull'
 import type { DehuContact } from '../types/DehuContact'
+import { isDehuEmailConfirmed } from './isDehuEmailConfirmed'
 
 /** Map DEHU's flat `email1..email5` / `emailN_confirmacion` record into a list. */
 export const mapDehuContact = (body: unknown, nif: string): DehuContact => {
@@ -12,7 +13,9 @@ export const mapDehuContact = (body: unknown, nif: string): DehuContact => {
       : [
           {
             email,
-            confirmed: record[`email${String(slot)}_confirmacion`] === 1,
+            confirmed: isDehuEmailConfirmed(
+              record[`email${String(slot)}_confirmacion`],
+            ),
           },
         ]
   })
