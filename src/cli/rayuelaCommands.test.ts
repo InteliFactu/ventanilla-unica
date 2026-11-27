@@ -14,6 +14,11 @@ it('registers the password commands and accepts no credential arguments', async 
     'faltas',
     'profesorado',
     'calificaciones',
+    'examenes',
+    'trabajos',
+    'notas-clase',
+    'comportamiento',
+    'conductas',
     'responder',
   ])
   vi.stubEnv('VENTANILLA_UNICA_RAYUELA_USUARIO', '')

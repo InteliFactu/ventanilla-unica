@@ -1,0 +1,28 @@
+{
+  "tadu": 2,
+  "id": "t-bb7ff1a3-d0e0-4524-a195-fd00929611db",
+  "title": "Read Rayuela exams, homework, class marks and conduct",
+  "state": "done",
+  "category": "future-ideas",
+  "type": "feature",
+  "priority": "normal",
+  "kind": "task",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "notes": [
+    "    and Conductas contrarias.** On 2026-11-09 upcoming exams, homework and",
+    "    marks were only visible as platform notices in the inbox",
+    "    (`Leia: tiene un examen`, `calificación de un examen`), duplicated when a",
+    "    teacher re-announces (Maths of 12 Nov came twice). The per-child pages",
+    "    exist (see the flow notes) but have no command. Next step: map their menu",
+    "    codes from the menu HTML and add `rayuela examenes|trabajos` first.",
+    "2026-11-27: An authorized read verified all five menu entries and explicit empty layouts for Trabajos and Conductas contrarias on both pupils. Populated Examenes, Notas de clase and Comportamiento tables were observed, including grouped rows with rowspan attributes."
+  ],
+  "closed": "2026-11-27",
+  "result": "Read Rayuela exams, homework, class marks and conduct",
+  "evidence": [
+    "After pnpm build, the five Rayuela commands read ten authenticated portal tables across both pupils. Exams returned 10 and 2 rows, class marks 3 each, behaviour 0 and 9, and both homework and disciplinary sections returned the explicit no-data marker for each pupil. The CLI preserved subject and group cells across rowspans and matched the displayed counts. Synthetic coverage rejects malformed tracking tables."
+  ]
+}

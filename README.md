@@ -703,6 +703,11 @@ that crosses Madrid midnight without the HTTP date leaves relative dates as
 `--curso 2025-2026` and `--curso 2025` select the same year. `--hijo` selects
 the pupil using the same rules as the timetable.
 
+`rayuela examenes`, `rayuela trabajos`, `rayuela notas-clase`,
+`rayuela comportamiento` and `rayuela conductas` read the corresponding
+per-pupil tables. Each accepts `--hijo` and returns the displayed rows with
+their portal column names.
+
 ## Justice document downloads
 
 `justicia documentos --out <dir>` includes the event number and a stable

@@ -1,0 +1,22 @@
+{
+  "tadu": 2,
+  "id": "t-6ec6bfd2-e31f-45ee-9c4a-1c138301ac1a",
+  "title": "Verify populated Rayuela homework and disciplinary tables",
+  "state": "blocked",
+  "category": "testing",
+  "type": "test",
+  "priority": "low",
+  "kind": "waiting",
+  "created": "2026-11-27",
+  "related": [
+    "t-bb7ff1a3-d0e0-4524-a195-fd00929611db"
+  ],
+  "blocker": "No populated live table was present for either section in the two authorized pupil views.",
+  "unblock": "Provide a redacted populated table from each section or verify when the portal shows entries.",
+  "notes": [
+    "Both authorized pupils returned the explicit No existen datos layout for Trabajos and Conductas contrarias. The CLI reads their live menu entries and rejects an unrecognized table."
+  ],
+  "done_when": [
+    "A sanitized populated response for each section verifies that displayed rows and headings are retained."
+  ]
+}
