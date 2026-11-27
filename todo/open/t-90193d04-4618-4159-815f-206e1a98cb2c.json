@@ -12,8 +12,8 @@
   "assignees": [
     "agent:codex"
   ],
-  "blocker": "The authorized personal DEHU pending listing returned zero items. The older AEAT, Junta, and SEPE notices and any other holder remain outside this listing.",
-  "unblock": "Authorize the next holder and exact portal for a current pending-only list. Handle any specific notice separately.",
+  "blocker": "AEAT verified all accessible configured identities. One identity received HTTP 403 on both the usual session and the official notification list entry, and one verified listing shows an unread communication. The authorized personal DEHU listing returned zero.",
+  "unblock": "Decide the next exact scope, starting with pending-only DEHU listing for the remaining configured identities. Obtain separate authority before opening a specific notice.",
   "notes": [
     "    around 2026-11-20).** AEAT \"Aviso de notificación de la Agencia",
     "    Tributaria\", 2026-11-10: 2 on djcristiandeluxe@gmail.com, 4 on",
@@ -26,6 +26,8 @@
     "    through `~/p/ventanilla-unica`.",
     "- Routed 2026-11-15 from `~/p/TODO.md`.",
     "The holder authorized a current DEHU pending-only listing for the personal certificate. Notification access is outside this authorization.",
-    "Live DEHU pending-only listing on 2026-11-27 verified one page and zero pending entries. No notice was opened."
+    "Live DEHU pending-only listing on 2026-11-27 verified one page and zero pending entries. No notice was opened.",
+    "The holder authorized AEAT pending-list queries for all configured certificate holders. Notice access remains a separate decision.",
+    "The 2026-11-27 AEAT sweep verified seven of eight configured identities. Six authenticated responses explicitly reported no results and one showed a historical unread communication. No detail links were followed."
   ]
 }

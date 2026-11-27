@@ -1,0 +1,27 @@
+{
+  "tadu": 2,
+  "id": "t-307e52a5-957e-479b-a2e8-eb5a9db30031",
+  "title": "Reject unrecognized AEAT notification listing responses",
+  "state": "done",
+  "category": "integrations",
+  "type": "bug",
+  "priority": "high",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "discovered_from": "t-90193d04-4618-4159-815f-206e1a98cb2c",
+  "notes": [
+    "The existing reader returns zero rows for unexpected HTML. The live authenticated search returns an explicit no-results message on an empty list."
+  ],
+  "done_when": [
+    "Confirmed empty lists still return zero and HTML without rows or the official empty marker fails closed through the pending listing."
+  ],
+  "closed": "2026-11-27",
+  "result": "Reject unrecognized AEAT notification listing responses",
+  "evidence": [
+    "Unexpected HTTP 200 HTML now fails instead of reading as an empty listing. Regression tests prove known empty and positive results, and no payment call follows an unknown response. The built client verified authentic empty and populated AEAT results without opening notices. pnpm check:ci passed."
+  ]
+}

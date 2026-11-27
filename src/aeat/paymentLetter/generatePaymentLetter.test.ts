@@ -6,7 +6,10 @@ import { generatePaymentLetter } from './generatePaymentLetter'
 const clave = 'A0000000000000001'
 const token = (value: string): string => `jQuery('#pUV').val('${value}');`
 
-const portal = (finalPage: string, unread = '') =>
+const portal = (
+  finalPage: string,
+  unread = '<strong>No se han obtenido resultados para estos datos</strong>',
+) =>
   vi.fn<HttpClient['request']>(async (url) => {
     const pages: Readonly<Record<string, string>> = {
       ConsultaDdas: `<tr><td>${clave}</td><td>IRPF</td><td>2025</td><td>1.000,00</td></tr>${token('D0')}`,
@@ -56,6 +59,20 @@ describe('generatePaymentLetter', () => {
     )
     expect(result.executed).toBe(false)
     expect(result.notes[0]).toMatch(/comparecer/)
+  })
+
+  it('stops before the payment chain on an unrecognized notification response', async () => {
+    const client = portal(final, '<main>Error de identificaci&oacute;n</main>')
+    await expect(
+      generatePaymentLetter(
+        { request: client, cookie: () => undefined },
+        { ...request, confirm: true },
+        today,
+      ),
+    ).rejects.toThrow('unrecognized notification list')
+    expect(client.mock.calls.map(([url]) => url).join(' ')).not.toMatch(
+      /PagarParcial|FinalPago/,
+    )
   })
 
   it('generates when confirmed and notes a missing PDF reference', async () => {
