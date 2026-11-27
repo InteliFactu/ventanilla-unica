@@ -1,0 +1,27 @@
+{
+  "tadu": 2,
+  "id": "t-d4f0fe78-80c2-4c89-a2cb-50c9c24206b3",
+  "title": "Validate that both OARGT liquidation widgets explicitly report an empty list",
+  "state": "done",
+  "category": "integrations",
+  "type": "bug",
+  "priority": "high",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "discovered_from": "t-9868b270-ea92-4e93-8465-478781f0ebad",
+  "notes": [
+    "The reader searched the whole page for both empty notices and required only the own widget ID. A missing widget or a notice from a different section could be accepted as a confirmed empty list."
+  ],
+  "done_when": [
+    "Only unambiguous empty notices scoped to both present widgets establish that both lists are empty. Offline tests reject missing, inactive and contradictory markup. Populated rows still need their documented response contract."
+  ],
+  "closed": "2026-11-27",
+  "result": "Validate that both OARGT liquidation widgets explicitly report an empty list",
+  "evidence": [
+    "The built reader still verifies both empty lists in every one of four archived replay responses. The focused tests reject missing widgets, duplicate widget IDs, inactive notices and notice-plus-table conflicts. pnpm build, pnpm check:ci and pnpm check:quality passed. Populated row mapping remains on the originating task."
+  ]
+}

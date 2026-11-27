@@ -20,6 +20,7 @@
     "[redacted]). [redacted] (AJN, dissolved) stays at the gate by owner",
     "decision. Next: when a holder has a liquidation, save the page and parse its",
     "rows.",
-    "Authorized live read in November found no own or representative LISTALIQ rows for seven holders. The holder previously excluded at the confirmation gate was not changed."
+    "Authorized live read in November found no own or representative LISTALIQ rows for seven holders. The holder previously excluded at the confirmation gate was not changed.",
+    "2026-11-27: Replayed four previously archived responses through the built OARGT liquidation reader. Every response contained explicit empty notices scoped to both official widgets. The reader now refuses missing or duplicate widgets, hidden notices and conflicting table rows instead of treating page-wide messages as proof. A populated widget response and its field contract are still needed."
   ]
 }

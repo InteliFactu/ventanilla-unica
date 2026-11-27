@@ -1,4 +1,7 @@
+import { stripInactiveAgreementMarkup } from '../../../aeat/debts/parsers/stripInactiveAgreementMarkup'
 import type { OargtLiquidationsResult } from '../types/OargtLiquidationsResult'
+import { isEmptyOargtLiquidationWidget } from '../validators/isEmptyOargtLiquidationWidget'
+import { readOargtLiquidationWidget } from './readOargtLiquidationWidget'
 
 /**
  * The "Mis liquidaciones" page (`PAGE_CODE=LISTALIQ`): its two widgets,
@@ -9,13 +12,23 @@ import type { OargtLiquidationsResult } from '../types/OargtLiquidationsResult'
 export const parseOargtLiquidations = (
   html: string,
 ): OargtLiquidationsResult => {
-  if (!html.includes('id="LISTALIQ_TODAS"'))
-    throw new Error('OARGT: the page carries no "Mis liquidaciones" list')
-  const own = !html.includes('No tiene ninguna liquidación')
-  const represented = !html.includes(
-    'No tiene liquidaciones como representante',
+  const active = stripInactiveAgreementMarkup(html)
+  const own = readOargtLiquidationWidget(active, 'LISTALIQ_TODAS')
+  const represented = readOargtLiquidationWidget(
+    active,
+    'LISTALIQ_REPRESENTANTE',
   )
-  if (own || represented)
+  if (own === undefined || represented === undefined)
+    throw new Error(
+      'OARGT: the page carries no "Mis liquidaciones" list with both expected widgets',
+    )
+  if (
+    !isEmptyOargtLiquidationWidget(own, 'No tiene ninguna liquidación') ||
+    !isEmptyOargtLiquidationWidget(
+      represented,
+      'No tiene liquidaciones como representante',
+    )
+  )
     throw new Error(
       'OARGT: "Mis liquidaciones" lists liquidations, whose layout has not been captured yet; nothing was read',
     )
