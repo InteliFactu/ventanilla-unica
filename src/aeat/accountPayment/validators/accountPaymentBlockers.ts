@@ -17,7 +17,7 @@ export const accountPaymentBlockers = (
   const alerts = context.alerts.map((alert) => `AEAT: ${alert}`)
   const summary = context.summary
     ? summaryMismatches(context.summary, request)
-    : alerts.length > 0
+    : alerts.length > 0 || context.paidNrc
       ? []
       : ['The first step answered neither the summary page nor an error.']
   const paid = context.paidNrc

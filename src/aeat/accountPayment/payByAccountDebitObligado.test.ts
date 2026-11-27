@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 
-import type { AccountPaymentPages } from './fixtures/AccountPaymentPages'
 import { accountPaymentFixture as fx } from './fixtures/accountPaymentFixture'
 import { accountPaymentOtherNifSummaryHtml } from './fixtures/accountPaymentOtherNifSummaryHtml'
 import { accountPaymentPortal } from './fixtures/accountPaymentPortal'
@@ -10,25 +9,8 @@ import { countFinalAccountPaymentPosts } from './fixtures/countFinalAccountPayme
 import { misPagosHeaderHtml } from './fixtures/misPagosHeaderHtml'
 import { misPagosHistoryHtml } from './fixtures/misPagosHistoryHtml'
 import { misPagosPaidRowHtml } from './fixtures/misPagosPaidRowHtml'
+import { runForObligado } from './fixtures/runForObligado'
 import { payByAccountDebit } from './payByAccountDebit'
-
-/** The payer's certificate pays for fx.otherNif; the obligado's reads MisPagos. */
-const runForObligado = (obligadoPages: AccountPaymentPages) => {
-  const payer = accountPaymentPortal({
-    step1: accountPaymentOtherNifSummaryHtml,
-    final: accountPaymentSuccessHtml,
-  })
-  const obligado = accountPaymentPortal({
-    certificateNif: fx.otherNif,
-    ...obligadoPages,
-  })
-  const pending = payByAccountDebit(
-    { request: payer, cookie: () => undefined },
-    { ...accountPaymentRequest, nif: fx.otherNif, confirm: true },
-    { request: obligado, cookie: () => undefined },
-  )
-  return { pending, payer, obligado }
-}
 
 describe('payByAccountDebit with the obligado certificate', () => {
   it("reads MisPagos with the obligado's certificate when the payer is another NIF", async () => {
@@ -40,7 +22,9 @@ describe('payByAccountDebit with the obligado certificate', () => {
     expect(result.notes).toEqual([
       expect.stringMatching(/^MisPagos already lists NRC/),
     ])
-    expect(countFinalAccountPaymentPosts(payer)).toBe(0)
+    expect(
+      payer.mock.calls.filter(([, options]) => options?.method === 'POST'),
+    ).toHaveLength(0)
     expect(payer.mock.calls.some(([url]) => url.includes('MisPagos'))).toBe(
       false,
     )
@@ -87,7 +71,9 @@ describe('payByAccountDebit with the obligado certificate', () => {
         paymentsHtml: `${misPagosHeaderHtml}<p>Se ha producido un error</p>`,
       })
       await expect(pending).rejects.toThrow(error)
-      expect(countFinalAccountPaymentPosts(payer)).toBe(0)
+      expect(
+        payer.mock.calls.filter(([, options]) => options?.method === 'POST'),
+      ).toHaveLength(0)
     },
   )
 
@@ -96,7 +82,9 @@ describe('payByAccountDebit with the obligado certificate', () => {
       certificateNif: fx.nif,
     })
     await expect(pending).rejects.toThrow('does not match the obligado')
-    expect(countFinalAccountPaymentPosts(payer)).toBe(0)
+    expect(
+      payer.mock.calls.filter(([, options]) => options?.method === 'POST'),
+    ).toHaveLength(0)
     expect(obligado.mock.calls.some(([url]) => url.includes('MisPagos'))).toBe(
       false,
     )
@@ -133,6 +121,32 @@ describe('payByAccountDebit with the obligado certificate', () => {
       payments: misPagosPaidRowHtml.replace(/<a.*?<\/a>/, 'Transferencia'),
     })
     await expect(pending).rejects.toThrow('MisPagos lists justificante')
+    expect(countFinalAccountPaymentPosts(payer)).toBe(0)
+  })
+
+  it('keeps the first receipt when MisPagos omits the header row opening tag', async () => {
+    const { pending, payer } = runForObligado({
+      paymentsHtml: misPagosHistoryHtml(misPagosPaidRowHtml).replace(
+        '<thead><tr>',
+        '<thead>',
+      ),
+    })
+    expect((await pending).notes).toEqual([
+      expect.stringMatching(/^MisPagos already lists NRC/),
+    ])
+    expect(
+      payer.mock.calls.filter(([, options]) => options?.method === 'POST'),
+    ).toHaveLength(0)
+  })
+
+  it('recognizes a verified Predeclaración row in the same history as a paid liquidation', async () => {
+    const paymentsHtml = misPagosHistoryHtml()
+      .replace('Liquidación</td><td>010', 'Predeclaración</td><td>303')
+      .replace('</tbody>', `${misPagosPaidRowHtml}</tbody>`)
+    const { pending, payer } = runForObligado({ paymentsHtml })
+    expect((await pending).notes).toEqual([
+      expect.stringMatching(/^MisPagos already lists NRC/),
+    ])
     expect(countFinalAccountPaymentPosts(payer)).toBe(0)
   })
 

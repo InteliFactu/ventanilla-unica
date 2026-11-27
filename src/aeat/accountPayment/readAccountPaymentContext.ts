@@ -1,15 +1,12 @@
-import { parseFirstForm } from '../../html/parsers/parseFirstForm'
 import type { HttpClient } from '../../http/types/HttpClient'
-import { accountPaymentUrl } from './accountPaymentUrl'
 import { fetchAccountPaymentForm } from './fetchers/fetchAccountPaymentForm'
 import { fetchCollaboratingEntities } from './fetchers/fetchCollaboratingEntities'
-import { postAccountPaymentForm } from './fetchers/postAccountPaymentForm'
 import { findPaidNrc } from './findPaidNrc'
 import { accountPaymentFirstForm } from './mappers/accountPaymentFirstForm'
 import { openObligadoPaymentSession } from './openObligadoPaymentSession'
-import { parseCertificateHolder } from './parsers/parseCertificateHolder'
 import { parseCollaboratingEntities } from './parsers/parseCollaboratingEntities'
-import { parsePaymentAlerts } from './parsers/parsePaymentAlerts'
+import { parseInitialAccountPaymentForm } from './parsers/parseInitialAccountPaymentForm'
+import { readAccountPaymentStep } from './readAccountPaymentStep'
 import type { AccountPaymentContext } from './types/AccountPaymentContext'
 import type { AccountPaymentRequest } from './types/AccountPaymentRequest'
 
@@ -27,35 +24,29 @@ export const readAccountPaymentContext = async (
   const entities = parseCollaboratingEntities(
     await fetchCollaboratingEntities(client),
   )
-  const page = await fetchAccountPaymentForm(client)
-  const holder = parseCertificateHolder(page)
-  const blank = parseFirstForm(page, accountPaymentUrl)
-  if (
-    !holder ||
-    blank?.action !== accountPaymentUrl ||
-    blank.fields['fAccion'] !== '1'
+  const { holder, blank } = parseInitialAccountPaymentForm(
+    await fetchAccountPaymentForm(client),
   )
-    throw new Error(
-      'AEAT: expected the initial payment form; no payment was sent',
-    )
-  const step = await postAccountPaymentForm(
+  const ownPayment = holder.nif === request.nif
+  const otherClient = ownPayment ? undefined : obligadoClient
+  const paidNrc = otherClient
+    ? await findPaidNrc(
+        await openObligadoPaymentSession(otherClient, request.nif),
+        request.justificante,
+      )
+    : undefined
+  if (paidNrc) return { entities, alerts: [], paidNrc, paymentsChecked: true }
+
+  const step = await readAccountPaymentStep(
     client,
     accountPaymentFirstForm(blank, request, request.nombre ?? holder.nombre),
   )
-  const alerts = parsePaymentAlerts(step)
-  const paymentsClient =
-    holder.nif === request.nif
-      ? client
-      : obligadoClient &&
-        (await openObligadoPaymentSession(obligadoClient, request.nif))
   return {
     entities,
-    alerts,
-    summary:
-      alerts.length > 0 ? undefined : parseFirstForm(step, accountPaymentUrl),
-    paidNrc: paymentsClient
-      ? await findPaidNrc(paymentsClient, request.justificante)
+    ...step,
+    paidNrc: ownPayment
+      ? await findPaidNrc(client, request.justificante)
       : undefined,
-    paymentsChecked: paymentsClient !== undefined,
+    paymentsChecked: ownPayment || otherClient !== undefined,
   }
 }

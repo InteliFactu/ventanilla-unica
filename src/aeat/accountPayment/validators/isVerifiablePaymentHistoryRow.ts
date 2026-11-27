@@ -16,7 +16,9 @@ export const isVerifiablePaymentHistoryRow = (
     string,
   ]
   return (
-    /^(?:liquidaci[oó]n|autoliquid(?:\.|aci[oó]n)|tasa)$/i.test(type) &&
+    /^(?:liquidaci[oó]n|autoliquid(?:\.|aci[oó]n)|predeclaraci[oó]n|tasa)$/i.test(
+      type,
+    ) &&
     /^\d{3}(?:\s*\/\s*\d{4}\s*\/\s*[\dA-Z]{1,2})?$/i.test(model) &&
     isPaymentHistoryReference(type, reference) &&
     isEuroAmountText(amount.replace(/[\s€\u0080]+$/, '')) &&

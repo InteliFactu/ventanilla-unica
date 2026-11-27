@@ -176,7 +176,9 @@ name the AEAT put on the payment (`titular`).
 
 The debit requires a verifiable MisPagos history for the taxpayer. For a
 different NIF, pass both `--cert-obligado <pem>` and `--key-obligado <pem>` for
-the separate history session. An encrypted secondary key uses
+the separate history session. That session is checked before submitting the
+initial validation form. A prior payment or an unverifiable history stops the
+attempt before any payment form is sent. An encrypted secondary key uses
 `VENTANILLA_UNICA_OBLIGADO_KEY_PASSPHRASE`. You can run a plan without this
 second identity. The confirmed run stops if the history cannot be verified or
 already contains the justificante.

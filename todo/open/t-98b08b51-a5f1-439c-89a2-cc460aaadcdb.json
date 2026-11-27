@@ -11,14 +11,16 @@
   "assignees": [
     "agent:codex"
   ],
-  "blocker": "The isolated taxpayer session and fail-closed checks are implemented and covered using synthetic responses. A real two-certificate read-only plan and a definitive empty-history sample remain unverified.",
-  "unblock": "Provide a redacted verified empty-history response and authorize one read-only plan for a known paid receipt using the payer and taxpayer certificates.",
+  "blocker": "The rebuilt two-certificate plan verified a real previously paid receipt against the taxpayer history without any payment POST. The inspected histories were populated or explicitly refused. A definitive empty-history layout remains unverified and is still rejected.",
+  "unblock": "Provide a redacted authenticated MisPagos response that definitively shows no payments or repeat the read for an authorized taxpayer known to have an empty history.",
   "notes": [
     "    differs from the obligado.** Debiting the account needs the account",
     "    holder's certificate, but the already-paid guard reads MisPagos for the",
     "    certificate holder only. Verified 2026-11-06: an entity's paid 010 is",
     "    detected when the plan runs with that entity's certificate, and is",
     "    invisible with the payer's. Smallest step: an optional second certificate",
-    "    (`--cert-obligado/--key-obligado`) used only for the MisPagos check."
+    "    (`--cert-obligado/--key-obligado`) used only for the MisPagos check.",
+    "2026-11-27 checkpoint: Paused before any source edit or live AEAT request. Inspected readAccountPaymentContext and the existing dual-certificate regressions. The payer currently posts fAccion=1 before the separate taxpayer history check. On resume, use payByAccountDebitObligado.test.ts to assert zero payer POSTs for a known-paid or unverifiable secondary history, then move the secondary lookup ahead of the payer POST while preserving the unchanged plan and successful-payment paths. The live two-certificate read-only plan and definitive empty-history response are still unverified.",
+    "2026-11-27: In a GET-only plan, the payer made three scoped reads and no MisPagos request. The different taxpayers certificate matched the requested NIF and made three scoped reads including one MisPagos request. The returned duplicate warning matched the real NRC. No form was transmitted. The visible table had a missing opening header row tag and valid Predeclaracion payment rows. Synthetic tests cover both formats and confirm invalid histories still stop before the payer POST."
   ]
 }

@@ -1,3 +1,4 @@
+import { normalizePaymentHistoryHeaderRow } from '../parsers/normalizePaymentHistoryHeaderRow'
 import { readPaymentHistoryHeader } from '../parsers/readPaymentHistoryHeader'
 import { isPaymentHistoryHeader } from '../validators/isPaymentHistoryHeader'
 
@@ -17,7 +18,7 @@ export const selectPaymentHistoryTable = (html: string): string | undefined => {
       throw new Error(
         'AEAT: MisPagos history has incomplete table markup; debit blocked',
       )
-    found = fragment + closing
+    found = normalizePaymentHistoryHeaderRow(fragment + closing)
   }
   return found
 }
