@@ -1,14 +1,10 @@
-import { execFileSync } from 'node:child_process'
-import { mkdtempSync, writeFileSync } from 'node:fs'
-import { tmpdir } from 'node:os'
-import { join } from 'node:path'
-
 import { describe, expect, it } from 'vitest'
 
 import { buildTestIdentity } from '../signing/fixtures/buildTestIdentity'
 import { hasXmlsec } from '../signing/xades/fixtures/hasXmlsec'
 import { xmlsecVerifies } from '../signing/xades/fixtures/xmlsecVerifies'
 import { syntheticFacturae322 as invoice } from './fixtures/syntheticFacturae322'
+import { verifyFaceSoapWithXmlsec } from './fixtures/verifyFaceSoapWithXmlsec'
 import { prepareLegacyFaceRequest } from './prepareLegacyFaceRequest'
 
 const identity = buildTestIdentity()
@@ -35,40 +31,18 @@ describe('offline legacy FACe SOAP', () => {
     'signs the SOAP Body and detects a change to the recipient',
     () => {
       const result = prepareLegacyFaceRequest(identity, invoice, fields)
-      const cwd = mkdtempSync(join(tmpdir(), 'ventanilla-unica-face-'))
-      const verify = (soap: Buffer): string => {
-        // eslint-disable-next-line security/detect-non-literal-fs-filename -- based on this test's temporary directory
-        writeFileSync(join(cwd, 'request.xml'), soap)
-        const supportsLaxKeySearch = execFileSync(
-          'xmlsec1',
-          ['--help-verify'],
-          { encoding: 'utf8' },
-        ).includes('--lax-key-search')
-        return execFileSync(
-          'xmlsec1',
-          [
-            '--verify',
-            ...(supportsLaxKeySearch ? ['--lax-key-search'] : []),
-            '--pubkey-cert-pem',
-            'test.pem',
-            '--id-attr:Id',
-            'http://schemas.xmlsoap.org/soap/envelope/:Body',
-            'request.xml',
-          ],
-          { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] },
-        )
-      }
-      // eslint-disable-next-line security/detect-non-literal-fs-filename -- based on this test's temporary directory
-      writeFileSync(join(cwd, 'test.pem'), identity.cert)
       expect(() => xmlsecVerifies(result.invoice)).not.toThrow()
-      expect(() => verify(result.soap)).not.toThrow()
-      expect(() =>
-        verify(
+      expect(() => {
+        verifyFaceSoapWithXmlsec(result.soap, identity.cert)
+      }).not.toThrow()
+      expect(() => {
+        verifyFaceSoapWithXmlsec(
           Buffer.from(
             result.soap.toString().replace(fields.email, 'other@example.test'),
           ),
-        ),
-      ).toThrow()
+          identity.cert,
+        )
+      }).toThrow()
     },
   )
 

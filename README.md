@@ -456,12 +456,13 @@ Facturae 3.2.2 invoice. It creates a new `.xsig` file and leaves any existing
 output intact. It does not validate the invoice against the full Facturae schema
 or submit it to FACe.
 
-The library also exposes `prepareFaceInvoice` and `prepareLegacyFaceRequest`.
-The latter builds a signed invoice and the archived `facturasspp2` WS-Security
-SOAP request bytes for local comparison. The current supplier WSDL uses a
-different namespace and a `FacturaFile` with `factura` and `nombre` fields. The
-current WS-Security policy and the signed sandbox receipt still need
-verification.
+The library exposes `prepareFaceRequest(identity, invoice, {filename, email})`
+for offline supplier v1 preparation. It returns the signed invoice, the
+WS-Security SOAP bytes, and the SOAP action. It prepares one invoice without
+annexes. The supplier profile uses an X.509 binary token and SHA-256 for the
+body digest. `prepareLegacyFaceRequest` retains the `facturasspp2` format. Local
+verification uses `xmlsec1`. A signed receipt from the FACe test environment is
+still needed before enabling submission.
 [FACe supplier WSDL](https://ws.face.gob.es/proveedores/v1/factura?wsdl)
 
 ## Signing

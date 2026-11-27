@@ -1,9 +1,7 @@
-import type { LegacyFaceDelivery } from '../LegacyFaceDelivery'
+import type { FaceDelivery } from '../FaceDelivery'
 
 /** Accept one simple email address and a portable, path-free signed filename. */
-export const assertLegacyFaceDelivery = (
-  delivery: LegacyFaceDelivery,
-): void => {
+export const assertFaceDelivery = (delivery: FaceDelivery): void => {
   if (
     !/^[\p{L}\p{N}][\p{L}\p{N} ._-]*\.xsig$/iu.test(delivery.filename) ||
     delivery.filename.length > 255
