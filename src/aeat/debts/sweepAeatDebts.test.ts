@@ -33,6 +33,7 @@ const detalleHtml = `
 <p>Fecha de liquidación: 03-05-2025</p>
 <p>Importe de la deuda: 639,26</p>
 <p>Total a ingresar: 639,26</p>
+<p>Fecha límite ingreso en voluntaria: 20-06-2025</p>
 `
 
 const sinAgreementsHtml = ''
@@ -73,7 +74,10 @@ describe('sweepAeatDebts', () => {
       ejercicio: '2024',
       modelo: '100',
       estado: 'voluntaria',
-      detail: { fechaLiquidacion: '03-05-2025' },
+      detail: {
+        fechaLiquidacion: '03-05-2025',
+        fechaLimiteVoluntaria: '2025-06-20',
+      },
     })
     expect(report.agreements).toEqual([])
     expect(report.totals).toEqual({ pendiente: 639.26, aIngresar: 0 })

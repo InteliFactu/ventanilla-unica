@@ -38,4 +38,37 @@ describe('parseDebtDetail', () => {
   it('returns undefined when Datos generales is absent, carrying no information', () => {
     expect(parseDebtDetail(detalleDdaAbsentFixture)).toBeUndefined()
   })
+
+  it.each([':', ''])(
+    'returns the visible voluntary deadline with the label suffix "%s"',
+    (suffix) => {
+      const detail = parseDebtDetail(`
+      <h2>Datos generales</h2>
+      <table>
+        <tr hidden><td>Fecha límite ingreso en voluntaria:</td><td>20-11-2026</td></tr>
+        <tr><td>Fecha l&iacute;mite ingreso en voluntaria${suffix}</td><td>20-08-2026</td></tr>
+        <tr><td>Fecha límite de ingreso en apremio:</td><td>05-09-2026</td></tr>
+      </table>
+    `)
+      expect(detail?.fechaLimiteVoluntaria).toBe('2026-08-20')
+    },
+  )
+
+  it.each([
+    ['missing', ''],
+    ['not a calendar date', '30-02-2026'],
+    [
+      'contradictory',
+      '20-08-2026 Fecha límite ingreso en voluntaria: 21-08-2026',
+    ],
+  ])('omits a voluntary deadline that is %s', (_example, voluntary) => {
+    const detail = parseDebtDetail(`
+      <h2>Datos generales</h2>
+      <table>
+        <tr><td>Fecha límite ingreso en voluntaria:</td><td>${voluntary}</td></tr>
+        <tr><td>Fecha límite de ingreso en apremio:</td><td>05-09-2026</td></tr>
+      </table>
+    `)
+    expect(detail).not.toHaveProperty('fechaLimiteVoluntaria')
+  })
 })

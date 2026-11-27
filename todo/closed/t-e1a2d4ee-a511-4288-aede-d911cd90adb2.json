@@ -1,0 +1,27 @@
+{
+  "tadu": 2,
+  "id": "t-e1a2d4ee-a511-4288-aede-d911cd90adb2",
+  "title": "Expose the AEAT voluntary-payment deadline in debt detail",
+  "state": "done",
+  "category": "integrations",
+  "type": "feature",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "discovered_from": "t-f9fd9156-55f2-42dc-abea-05c75ca9f437",
+  "notes": [
+    "DetalleDda documents and archived captures show a distinct Fecha límite ingreso en voluntaria field, separate from notice, liquidation and enforcement dates."
+  ],
+  "done_when": [
+    "The debt sweep exposes the explicitly reported voluntary deadline as an ISO calendar date while omitting absent, invalid or ambiguous dates. Synthetic tests cover the read path and distinguish the voluntary deadline from the enforcement deadline."
+  ],
+  "closed": "2026-11-27",
+  "result": "Expose the AEAT voluntary-payment deadline in debt detail",
+  "evidence": [
+    "The built debt sweep exposes detail.fechaLimiteVoluntaria as YYYY-MM-DD from the explicit active label. Focused AEAT debt tests passed 61 cases. A mocked replay of archived fields preserved all 20 unambiguous dates and omitted all three conflicting details. pnpm build and pnpm check:ci passed. The downstream importer decision remains on the originating task."
+  ]
+}

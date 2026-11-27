@@ -193,7 +193,11 @@ as an error, and an answer with neither an NRC nor an error (or none) is
 reported as unknown: check `aeat pagos` before trying again, since a second run
 would charge twice.
 
-### AEAT deferral instalments
+### AEAT debt deadlines and deferral instalments
+
+`aeat deudas` returns the voluntary-payment deadline reported by AEAT in
+`detail.fechaLimiteVoluntaria`, as `YYYY-MM-DD`. The field is omitted when the
+debt detail supplies no valid, unambiguous deadline.
 
 `aeat deudas` reads the current calendar advertised for each SRAF agreement.
 `currentInstalments` contains the debt key, sequence number, due date, phase and
