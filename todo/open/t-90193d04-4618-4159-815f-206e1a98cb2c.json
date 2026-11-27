@@ -12,8 +12,8 @@
   "assignees": [
     "agent:codex"
   ],
-  "blocker": "All eight DEHU pending lists and the Junta pending views for the targeted holder returned zero. The verified AEAT listings contain one historical unread communication, one holder was refused, and Garantia Juvenil lists two unread inbox entries. Opening individual notices has separate effects.",
-  "unblock": "Decide whether to open the registration resolution visible in the Garantia Juvenil inbox, then verify the rest under the appropriate authority.",
+  "blocker": "All eight DEHU pending lists and the Junta pending views for the targeted holder returned zero. The verified AEAT listings contain one historical unread communication and one holder was refused. The Garantia Juvenil enrollment resolution was opened with specific authority; the remaining unread entry is the acknowledgement of receipt.",
+  "unblock": "Resolve the refused AEAT holder lookup and authorize any additionally needed notice or communication access individually.",
   "notes": [
     "    around 2026-11-20).** AEAT \"Aviso de notificación de la Agencia",
     "    Tributaria\", 2026-11-10: 2 on [redacted], 4 on",
@@ -31,6 +31,7 @@
     "The 2026-11-27 AEAT sweep verified seven of eight configured identities. Six authenticated responses explicitly reported no results and one showed a historical unread communication. No detail links were followed.",
     "The holder authorized a pending-only DEHU listing for the remaining seven configured certificate identities. No notice access was authorized.",
     "Verified DEHU pending pages for all eight configured holders, checking the authenticated holder and the unfiltered items array. All were empty including the holder refused by AEAT. Junta Carpeta Ciudadana and the associated STA sede returned zero pending for the authorized holder. No details were opened.",
-    "The Garantia Juvenil inbox listing showed two unread entries dated 2026-11-04 and 2026-11-07. No notice details or attachments were opened."
+    "The Garantia Juvenil inbox listing showed two unread entries dated 2026-11-04 and 2026-11-07. No notice details or attachments were opened.",
+    "The holder specifically authorized opening the Garantia Juvenil enrollment resolution. The official PDF was read and the selected row was marked as read. The separate acknowledgment was left unread."
   ]
 }
