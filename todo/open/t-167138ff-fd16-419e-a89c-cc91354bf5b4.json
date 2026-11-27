@@ -7,8 +7,8 @@
   "type": "feature",
   "priority": "normal",
   "kind": "waiting",
-  "blocker": "SES and INSS reads had live acceptance. Cl@ve needs the holder support number and Catastro contact availability still lacks current evidence.",
-  "unblock": "Authorize the Cl@ve verification using the holder-provided support number and provide a read-only Catastro contact capture if such a page exists.",
+  "blocker": "SES and INSS reads passed live. Cl@ve requires the holder support number. The current Catastro official routes cover property, cases and notifications, and Catastro directs email notification alerts to DEHU. A separate holder contact page has not been identified.",
+  "unblock": "Provide the verified holder support number through approved credential storage for Cl@ve, or a specific Catastro contact route or sanitized response if it becomes available.",
   "notes": [
     "Cl@ve",
     "",
@@ -31,6 +31,7 @@
     "  no evidence kept) reported no contact data of its own at sedecatastro: its",
     "  avisos going to the DEHU e-mail `dehu contacto` already reads, and the",
     "  titular area listing only properties and procedures. Re-check live before",
-    "  relying on that conclusion or building a reader."
+    "  relying on that conclusion or building a reader.",
+    "2026-11-27: Recovered the prior authenticated Catastro probe via Atrium. The current official menu lists Inmuebles, Expedientes and Notificaciones (https://www.sedecatastro.gob.es/). The notification page explicitly directs holders to DEHU to set the alert email (https://www.sedecatastro.gob.es/Notificaciones/SECMisNotificaciones.aspx). No notification, filing, or property action was executed in this review."
   ]
 }
