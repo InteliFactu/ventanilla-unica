@@ -244,10 +244,12 @@ propia sede cualquier dato del que dependa algo importante.
 
 Set `VENTANILLA_UNICA_RAYUELA_USUARIO` and `VENTANILLA_UNICA_RAYUELA_CLAVE` in
 the environment. Credentials are never accepted as command arguments. `--hijo`
-selects an offered child by id or an unambiguous case-insensitive name fragment;
-the current child is not in the switcher. Messages include only the first inbox
-page, its total and embedded previews, which may be truncated. Nothing opens a
-message or marks it read. Grades are not supported.
+accepts a NIA, a switcher ID or an unambiguous case-insensitive name fragment.
+Selecting the active child keeps the current context.
+`rayuela mensajes --desde-id <id>` keeps messages with a greater numeric ID on
+the first page of the selected tray. `date` uses the Europe/Madrid calendar and
+is `null` when the raw `dateText` cannot be resolved. The total is for the whole
+tray.
 
 ## Licencia
 

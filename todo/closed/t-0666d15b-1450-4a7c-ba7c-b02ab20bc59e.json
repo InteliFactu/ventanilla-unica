@@ -2,10 +2,14 @@
   "tadu": 2,
   "id": "t-0666d15b-1450-4a7c-ba7c-b02ab20bc59e",
   "title": "Rayuela: `--hijo` cannot select the child the session starts on",
-  "state": "pending",
+  "state": "done",
   "category": "future-ideas",
-  "type": "untriaged",
-  "priority": "untriaged",
+  "type": "bug",
+  "priority": "normal",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
   "notes": [
     "On",
     "",
@@ -15,5 +19,10 @@
     "    omitting `--hijo`, and after a switch to Mía there is no way back in the",
     "    same run. Next step: resolve `--hijo` against `rayuela hijos` (NIA and",
     "    name) and treat the current child as a no-op selection."
+  ],
+  "closed": "2026-11-27",
+  "result": "Resolve the explicitly requested pupil against the roster, keep the active pupil, and verify any real switch before reading.",
+  "evidence": [
+    "TZ=UTC pnpm exec vitest run src/rayuela src/cli/commands/rayuelaMensajes.test.ts src/cli/commands/rayuelaResponder.test.ts src/cli/rayuelaCommands.test.ts: 77 passing tests, including current NIA/name, ambiguous mappings, and a successful HTTP response that leaves the wrong pupil active."
   ]
 }

@@ -1,11 +1,14 @@
 {
   "tadu": 2,
   "id": "t-e3d3ed78-7c69-4863-8cb0-f95d2cc682f4",
-  "title": "An owner-authorized retry",
-  "state": "in_progress",
+  "title": "Diagnose the intermittent Junta P5145 attachment persistence error",
+  "state": "blocked",
   "category": "junta-p5145-intermittent-error-40090",
-  "type": "untriaged",
-  "priority": "untriaged",
+  "type": "bug",
+  "priority": "normal",
+  "kind": "waiting",
+  "blocker": "The authorized retry was registered successfully. The original attachment error has not recurred and no response capture is available.",
+  "unblock": "Capture a naturally recurring failed response privately before retrying the submission.",
   "notes": [
     "registered successfully and the live expediente reached \"Operación tramitada\".",
     "The original \"Error al guardar los documentos adjuntos\" failure remains",

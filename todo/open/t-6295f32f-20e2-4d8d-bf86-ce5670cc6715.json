@@ -2,12 +2,14 @@
   "tadu": 2,
   "id": "t-6295f32f-20e2-4d8d-bf86-ce5670cc6715",
   "title": "sepe garantia-juvenil returns state unknown after the inscription was filed",
-  "state": "pending",
+  "state": "blocked",
   "category": "sepe",
   "type": "bug",
   "priority": "normal",
-  "kind": "task",
+  "kind": "waiting",
   "created": "2026-11-27",
+  "blocker": "The current resolved-inscription landing markup, registration date and offered resolution link have not been captured in a sanitized fixture.",
+  "unblock": "Provide a redacted successful read-only capture of a resolved inscription, or authorize a capture for the eligible holder.",
   "notes": [
     "2026-11-27: holder 78117074N filed the SNGJ inscription on 2026-11-04 (ingreso 202604969568) and a resolution was notified on 2026-11-07, but 'sepe garantia-juvenil --out' returns inscribed null, state unknown, evidence 'The authenticated page did not establish registration status.', no documents. Next: capture the authenticated landing page for a holder with a resolved inscription and extend the parser to read the status, the inscription date and the resolution PDF."
   ]

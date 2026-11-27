@@ -1,0 +1,24 @@
+{
+  "tadu": 2,
+  "id": "t-84f584d1-f0e1-4f53-9d76-89c53060aa7f",
+  "title": "Rayuela: absolute message dates and a \"since\" filter",
+  "state": "done",
+  "category": "future-ideas",
+  "type": "feature",
+  "priority": "normal",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "notes": [
+    "    `rayuela mensajes` returns `dateText` as shown in the list (\"Jueves\",",
+    "    \"Martes\", \"30 Oct\"), so a refresh has to infer the date, and there is no",
+    "    way to ask for messages after a known id. Next step: resolve the relative",
+    "    text to an ISO date and add `--desde-id <X_IDENTIFICADOR>`."
+  ],
+  "closed": "2026-11-27",
+  "result": "Expose ISO dates and filter the first page of the chosen tray by an exact decimal message ID.",
+  "evidence": [
+    "TZ=UTC pnpm exec vitest run src/rayuela src/cli/commands/rayuelaMensajes.test.ts src/cli/commands/rayuelaResponder.test.ts src/cli/rayuelaCommands.test.ts: 77 passing tests, including precise IDs, both trays, dates before and after Madrid midnight, and ambiguous dates left unset."
+  ]
+}

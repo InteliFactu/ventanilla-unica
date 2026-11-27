@@ -1,11 +1,14 @@
 {
   "tadu": 2,
   "id": "t-bb7ff1a3-d0e0-4524-a195-fd00929611db",
-  "title": "**Rayuela: readers for Exámenes, Trabajos, Notas de clase, Comportamiento",
-  "state": "pending",
+  "title": "Read Rayuela exams, homework, class marks and conduct",
+  "state": "blocked",
   "category": "future-ideas",
-  "type": "untriaged",
-  "priority": "untriaged",
+  "type": "feature",
+  "priority": "normal",
+  "kind": "waiting",
+  "blocker": "The per-child menu codes and response markup are missing from the available captures.",
+  "unblock": "Provide a sanitized menu and upcoming exams or homework response for an authorized pupil.",
   "notes": [
     "    and Conductas contrarias.** On 2026-11-09 upcoming exams, homework and",
     "    marks were only visible as platform notices in the inbox",

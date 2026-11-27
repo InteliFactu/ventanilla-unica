@@ -11,6 +11,7 @@ const sent = {
       subject: 'RE: Tutoría',
       body: 'Hola  Jorge',
       dateText: '',
+      date: null,
       hasAttachments: false,
     },
   ],

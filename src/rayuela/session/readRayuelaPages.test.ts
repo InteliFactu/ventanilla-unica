@@ -1,12 +1,13 @@
 import { afterEach, expect, it, vi } from 'vitest'
 
-import type { HttpClient } from '../../http/types/HttpClient'
 import { listRayuelaAbsences } from '../absences/listRayuelaAbsences'
 import { listRayuelaChildren } from '../children/listRayuelaChildren'
 import { listRayuelaMessages } from '../messages/listRayuelaMessages'
 import { listRayuelaTeachers } from '../teachers/listRayuelaTeachers'
 import { readRayuelaTimetable } from '../timetable/readRayuelaTimetable'
 import { fetchRayuelaPage } from './fetchers/fetchRayuelaPage'
+import { rayuelaChildSelectionPages } from './fixtures/rayuelaChildSelectionPages'
+import { scriptedRayuelaSession } from './fixtures/scriptedRayuelaSession'
 
 afterEach(() => {
   vi.unstubAllEnvs()
@@ -30,6 +31,7 @@ it.each([
           subject: 'News',
           body: 'Hello',
           dateText: 'Jueves',
+          date: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/) as string,
           hasAttachments: true,
         },
       ],
@@ -60,82 +62,63 @@ it.each([
   async ({ name, read, html, expected }) => {
     vi.stubEnv('VENTANILLA_UNICA_RAYUELA_USUARIO', 'synthetic-user')
     vi.stubEnv('VENTANILLA_UNICA_RAYUELA_CLAVE', 'synthetic-password')
-    const texts = [
-      '<form action="controlador.rayuela;jsessionid=fake"></form>',
-      'preparar-acceso-aplicacion SEGUIMIENTO_EDUCATIVO',
-      `<input value='https://rayuela.educarex.es/segedu/jsp/EntradaDirectaUsuario.jsp?token=fake'>`,
-      JSON.stringify({
-        nombreVentana: 'w1',
-        menu: 'Menu.jsp',
-        barraNavegacion: 'Barra.jsp',
-      }),
+    const client = scriptedRayuelaSession(
       `var c_${name}= 456; <div accion="('${name}','789','x')">`,
       html,
-    ]
-    const request = vi.fn<HttpClient['request']>().mockImplementation(
-      async (url) =>
-        await Promise.resolve({
-          url:
-            url === 'https://rayuela.educarex.es/'
-              ? 'https://rayuela.educarex.es/modulo_acceso/'
-              : url,
-          status: 200,
-          headers: {},
-          body: Buffer.alloc(0),
-          text: texts.shift() ?? '',
-        }),
     )
-    const client: HttpClient = { request, cookie: () => undefined }
     const result = await read(client)
     expect(result).toBeDefined()
     expect(result).toMatchObject(expected)
-    expect(request).toHaveBeenCalledTimes(6)
+    expect(client.request.mock.calls).toHaveLength(6)
     expect(
-      request.mock.calls.every(
+      client.request.mock.calls.every(
         ([url]) => !/detalleMensaje|PrincipalPPL|cambiaAlumnoDirecto/.test(url),
       ),
     ).toBe(true)
-    expect(request.mock.calls[5]?.[0]).toContain('Principal.jsp?COD_PAGINA=456')
+    expect(client.request.mock.calls[5]?.[0]).toContain(
+      'Principal.jsp?COD_PAGINA=456',
+    )
   },
 )
 
-it('does not switch or read a page for an unknown pupil', async () => {
-  vi.stubEnv('VENTANILLA_UNICA_RAYUELA_USUARIO', 'synthetic-user')
-  vi.stubEnv('VENTANILLA_UNICA_RAYUELA_CLAVE', 'synthetic-password')
-  const texts = [
-    '<form action="controlador.rayuela"></form>',
-    'preparar-acceso-aplicacion SEGUIMIENTO_EDUCATIVO',
-    `<input value='https://rayuela.educarex.es/segedu/jsp/EntradaDirectaUsuario.jsp?token=fake'>`,
-    JSON.stringify({
-      nombreVentana: 'w1',
-      menu: 'Menu.jsp',
-      barraNavegacion: 'Barra.jsp',
-    }),
-    `var c_HoraAlumno= 456; <div accion="('HoraAlumno','789','x')">`,
-    `new PopUp('X_ALUMNO_123', 'Example, Dana', '123', cambioHijo)`,
-  ]
-  const request = vi.fn<HttpClient['request']>().mockImplementation(
-    async (url) =>
-      await Promise.resolve({
-        url:
-          url === 'https://rayuela.educarex.es/'
-            ? 'https://rayuela.educarex.es/modulo_acceso/'
-            : url,
-        status: 200,
-        headers: {},
-        body: Buffer.alloc(0),
-        text: texts.shift() ?? '',
-      }),
-  )
-  await expect(
-    fetchRayuelaPage(
-      { request, cookie: () => undefined },
-      'HoraAlumno',
-      'missing',
-    ),
-  ).rejects.toThrow('123: Example, Dana')
-  expect(request).toHaveBeenCalledTimes(6)
-  expect(
-    request.mock.calls.every(([url]) => !url.includes('cambiaAlumnoDirecto')),
-  ).toBe(true)
-})
+it.each([
+  {
+    query: 'missing',
+    switcher: `new PopUp('X_ALUMNO_123', 'Example, Dana', '123', cambioHijo)`,
+    reason: '543: Example, Dana',
+  },
+  {
+    query: 'Dana',
+    switcher: `new PopUp('X_ALUMNO_123', 'Example, Dana', '123', cambioHijo)
+      new PopUp('X_ALUMNO_123', 'Example, River', '123', cambioHijo)`,
+    reason: 'duplicate switcher id 123',
+  },
+  {
+    query: 'River',
+    switcher: `new PopUp('X_ALUMNO_123', 'Other, Pupil', '123', cambioHijo)`,
+    reason: 'does not map to a distinct child',
+  },
+  {
+    query: 'River',
+    switcher: '',
+    reason: 'current child cannot be identified',
+  },
+])(
+  'refuses $reason before switching or reading a page',
+  async ({ query, switcher, reason }) => {
+    vi.stubEnv('VENTANILLA_UNICA_RAYUELA_USUARIO', 'synthetic-user')
+    vi.stubEnv('VENTANILLA_UNICA_RAYUELA_CLAVE', 'synthetic-password')
+    const client = scriptedRayuelaSession(
+      ...rayuelaChildSelectionPages(switcher),
+    )
+    await expect(fetchRayuelaPage(client, 'HoraAlumno', query)).rejects.toThrow(
+      reason,
+    )
+    expect(client.request.mock.calls).toHaveLength(7)
+    expect(
+      client.request.mock.calls.every(
+        ([url]) => !/cambiaAlumnoDirecto|COD_PAGINA=456/.test(url),
+      ),
+    ).toBe(true)
+  },
+)

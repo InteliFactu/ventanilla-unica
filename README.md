@@ -630,10 +630,25 @@ Then run the command through `op run`:
 op run --env-file rayuela.env -- ventanilla-unica rayuela hijos
 ```
 
-`--hijo` selects an offered child by id or an unambiguous case-insensitive name
-fragment; the current child is not in the switcher. Messages include only the
-first inbox page, its total and embedded previews, which may be truncated.
-Nothing opens a message or marks it read. Grades are not supported.
+`--hijo` accepts a NIA, a switcher ID or an unambiguous case-insensitive name
+fragment. Selecting the active child keeps the current context. When the roster
+and switcher disagree or the portal does not apply a switch, the command stops
+before reading the pupil's page.
+
+`rayuela mensajes --desde-id <id>` keeps messages with a greater numeric ID on
+the first page of the selected tray. The reported `total` is for the whole tray.
+Each item includes the portal's `dateText` and a `date` in `YYYY-MM-DD` format
+when it can be resolved using the Europe/Madrid calendar. The command uses the
+response's HTTP date when available. A request that crosses Madrid midnight
+without it leaves `date` as `null`. The command reads embedded previews, which
+may be truncated.
+
+## Justice document downloads
+
+`justicia documentos --out <dir>` includes the event number and a stable
+document fingerprint in each filename. Documents from different tree branches
+with the same event number are saved separately. Use the returned `path` to
+locate each file.
 
 ## License
 
