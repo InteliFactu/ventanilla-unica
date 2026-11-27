@@ -25,6 +25,9 @@ export const buildRelecTramitePairs = (
     SELECTED_PERSON: form.fields['DBOIDPERS'] ?? '',
     OriginConsent: form.fields['OriginConsent'] || 'false',
     DinVarANNOT_TEXT_EXTRACT: plan.subject,
+    ...Object.fromEntries(
+      plan.variables.map(({ name, value }) => [`DinVar${name}`, value]),
+    ),
     modoNotificacion: 'E',
     contact21: plan.email ?? '',
     info21: 'on',

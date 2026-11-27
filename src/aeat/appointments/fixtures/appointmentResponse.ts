@@ -4,9 +4,10 @@ import type { HttpResponse } from '../../../http/types/HttpResponse'
 export const appointmentResponse = (
   text: string,
   status = 200,
+  step = 'cita',
 ): HttpResponse => ({
   status,
-  url: 'https://www2.agenciatributaria.gob.es/wlpl/TOCP-MUTE/internet/cita',
+  url: `https://www2.agenciatributaria.gob.es/wlpl/TOCP-MUTE/internet/${step}`,
   headers: {},
   text: 'TOCP-MUTE ' + text,
   body: Buffer.from(text),

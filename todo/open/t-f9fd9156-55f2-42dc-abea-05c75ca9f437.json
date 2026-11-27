@@ -2,13 +2,17 @@
   "tadu": 2,
   "id": "t-f9fd9156-55f2-42dc-abea-05c75ca9f437",
   "title": "Duplicate AEAT client in InteliFactu",
-  "state": "pending",
+  "state": "blocked",
   "category": "integrations",
-  "type": "untriaged",
-  "priority": "untriaged",
+  "type": "refactor",
+  "priority": "normal",
+  "kind": "decision",
+  "blocker": "The portal-client ownership is documented. The direct package dependency or existing import boundary for InteliFactu still needs a product decision and verified data parity.",
+  "unblock": "Approve the integration boundary and compare read and import results on synthetic debts, payments and official instalments before changing InteliFactu.",
   "notes": [
     "    `intelifactu/packages/core/src/aeat/` reimplements part of this package.",
     "    Decide whether InteliFactu depends on `ventanilla-unica` or keeps its own,",
-    "    and file the result in both backlogs."
+    "    and file the result in both backlogs.",
+    "Current source confirms duplicated AEAT session and payment parsing. InteliFactu also owns payment-to-instalment matching and downstream accounting. Its existing headless administration task already records the decision to keep portal clients in ventanilla-unica."
   ]
 }

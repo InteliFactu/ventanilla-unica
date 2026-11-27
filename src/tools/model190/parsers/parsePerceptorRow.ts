@@ -1,4 +1,4 @@
-import { plainUpperText } from '../mappers/plainUpperText'
+import { plainUpperText } from '../../boeFixedWidth/mappers/plainUpperText'
 import type { Model190Perceptor } from '../types/Model190Perceptor'
 import { readClave } from '../validators/readClave'
 import { readContract } from '../validators/readContract'

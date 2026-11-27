@@ -17,6 +17,7 @@ import { relecTramiteRoutes } from './fixtures/relecTramiteRoutes'
 const dir = mkdtempSync(join(tmpdir(), 'relec-tramite-errors-'))
 const pdf = join(dir, 'a.pdf')
 writeFileSync(pdf, buildClassicPdf())
+const sessionFramePath = '/sta/frame.jsp'
 const context = { identity: buildTestIdentity(), confirmed: true }
 const query = {
   dboid: '6269000000000000000001',
@@ -26,6 +27,23 @@ const query = {
 }
 
 describe('fileRelecTramite failures', () => {
+  it.each([
+    [{ MODEL: 'X' }, 'does not offer a writable field'],
+    [{ ANNOT_TEXT_EXTRACT: 'Override' }, 'Use --asunto'],
+    [{ DETAIL_TEST: 'Invalid \u{1f600}' }, 'has no ISO-8859-1 byte'],
+  ] as const)(
+    'rejects unsupported fields before uploading',
+    async (variables, message) => {
+      const client = fakeRegistryClient(relecTramiteRoutes)
+      await expect(
+        fileRelecTramite(client, { ...query, variables }, context),
+      ).rejects.toThrow(message)
+      expect(postsOf(client).map((call) => new URL(call.url).pathname)).toEqual(
+        [sessionFramePath],
+      )
+    },
+  )
+
   it('rejects ambiguous slot names', async () => {
     const client = fakeRegistryClient([
       [
@@ -42,7 +60,7 @@ describe('fileRelecTramite failures', () => {
       fileRelecTramite(client, { ...query, rows: ['Application'] }, context),
     ).rejects.toThrow('ambiguous')
     expect(postsOf(client).map((call) => new URL(call.url).pathname)).toEqual([
-      '/sta/frame.jsp',
+      sessionFramePath,
     ])
   })
 
@@ -74,7 +92,7 @@ describe('fileRelecTramite failures', () => {
       'nothing was uploaded',
     )
     expect(
-      postsOf(client).every((call) => call.url.endsWith('/sta/frame.jsp')),
+      postsOf(client).every((call) => call.url.endsWith(sessionFramePath)),
     ).toBe(true)
   })
 
@@ -101,7 +119,7 @@ describe('fileRelecTramite failures', () => {
         error,
       )
       expect(postsOf(client).map((call) => new URL(call.url).pathname)).toEqual(
-        ['/sta/frame.jsp'],
+        [sessionFramePath],
       )
     },
   )

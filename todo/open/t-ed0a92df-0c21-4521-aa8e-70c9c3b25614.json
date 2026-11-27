@@ -2,11 +2,14 @@
   "tadu": 2,
   "id": "t-ed0a92df-0c21-4521-aa8e-70c9c3b25614",
   "title": "aeat: MisPagos and SRAF agreements ignore the representation switch",
-  "state": "pending",
+  "state": "blocked",
   "category": "integrations",
   "type": "bug",
   "priority": "normal",
+  "kind": "waiting",
   "created": "2026-11-18",
+  "blocker": "The general representation switch is verified for other AEAT reads, but MisPagos and SRAF can still return the certificate holder's data. The existing commands refuse or omit that mismatched context.",
+  "unblock": "Provide a redacted represented MisPagos or SRAF response showing the requested taxpayer and its verified selector.",
   "notes": [
     "Observed 2026-11-18 with Christian 76048463K acting for AJN E67686287 (census representative): after OVCT-CXEW/DialogoRepresentacion the session header shows AJN, and Mis Expedientes, SCEJ declarations and SCGI informativas answer for AJN, but MisPagos and SRAF SolAccionW?fAccion=petic&fFigura=obli still list Christian's own payments and agreements (fnif ignored too). aeat pagos now refuses a non-holder NIF; aeat deudas skips agreements with agreementsNote. Smallest next step: find the SRAF/MisPagos parameter for a represented obligado, or keep the refusal."
   ]

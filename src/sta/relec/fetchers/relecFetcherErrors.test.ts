@@ -85,7 +85,7 @@ describe('Relec fetchers refuse unexpected answers', () => {
       submitTramitaSign(
         answering('', 500),
         `${origin}/sta/Relec/TramitaForm`,
-        [],
+        '',
       ),
     ).rejects.toThrow('TramitaSign answered 500')
     await expect(

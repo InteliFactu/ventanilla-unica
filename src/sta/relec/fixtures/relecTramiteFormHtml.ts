@@ -10,6 +10,17 @@ export const relecTramiteFormHtml = relecFormHtml
     `<input type="checkbox" name="hasRepresentative"/>
     <input name="DinTitANNOT_TEXT_EXTRACT" value="Asunto:"/>
     <textarea name="DinVarANNOT_TEXT_EXTRACT"></textarea>
+    <input name="DinTitDETAIL_TEST" value="Additional detail:"/>
+    <textarea name="DinVarDETAIL_TEST"></textarea>
+    <input name=DinTitTEXT_TEST value="Additional text:"/>
+    <input type=text name=DinVarTEXT_TEST data-note="disabled > readonly" value="Amend this" />
+    <input name="DinTitDEFAULT_DETAIL" value="Existing detail:"/>
+    <textarea name=DinVarDEFAULT_DETAIL>
+Prefilled &amp; retained</textarea>
+    <input name="DinTitHIDDEN_DETAIL" value="Hidden metadata:"/>
+    <input name=DinVarHIDDEN_DETAIL type=hidden value="Keep this" />
+    <textarea name="DinVarOTHER_FORM" form=unrelated>Do not send</textarea>
+    <fieldset disabled><textarea name="DinVarDISABLED_DETAIL">Do not send</textarea></fieldset>
     ${['NEW', '2000400000000000000009']
       .flatMap((person) =>
         ['61', '62'].map(

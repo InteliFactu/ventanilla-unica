@@ -29,6 +29,7 @@ import { sepeGarantiaJuvenil } from './commands/sepeGarantiaJuvenil'
 import { sepePrestacion } from './commands/sepePrestacion'
 import { sesContacto } from './commands/sesContacto'
 import { teaExpedientes } from './commands/teaExpedientes'
+import { validarFicheroBoe } from './commands/validarFicheroBoe'
 import { validarNif } from './commands/validarNif'
 import { dehuCommands } from './dehuCommands'
 import { ineCommands } from './ineCommands'
@@ -75,6 +76,7 @@ export const commandRegistry: readonly Command[] = [
   ...rayuelaCommands,
   firmarPdf,
   firmarXml,
+  validarFicheroBoe,
   validarNif,
   calendarioFiscal,
 ]

@@ -1,5 +1,3 @@
-import { encodeLatin1Pairs } from '../../../http/encodeLatin1Pairs'
-import type { FormPair } from '../../../http/types/FormPair'
 import type { HttpClient } from '../../../http/types/HttpClient'
 import type { HttpResponse } from '../../../http/types/HttpResponse'
 
@@ -11,13 +9,13 @@ import type { HttpResponse } from '../../../http/types/HttpResponse'
 export const submitTramitaSign = async (
   client: HttpClient,
   formUrl: string,
-  pairs: readonly FormPair[],
+  body: string,
 ): Promise<HttpResponse> => {
   const response = await client.request(
     new URL('TramitaSign', formUrl).toString(),
     {
       method: 'POST',
-      body: encodeLatin1Pairs(pairs),
+      body,
       referer: formUrl,
       defaultCharset: 'iso-8859-1',
       timeoutMs: 180_000,

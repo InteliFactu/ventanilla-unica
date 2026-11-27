@@ -1,5 +1,5 @@
 import type { CliOptions } from '../../../cli/types/CliOptions'
-import { plainUpperText } from '../mappers/plainUpperText'
+import { plainUpperText } from '../../boeFixedWidth/mappers/plainUpperText'
 import type { Model190Query } from '../types/Model190Query'
 import { readDigitsColumn } from './readDigitsColumn'
 import { readNifColumn } from './readNifColumn'

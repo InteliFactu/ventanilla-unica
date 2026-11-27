@@ -15,6 +15,7 @@ vi.mock('../session/loginWithCertificate')
 const address = 'ana@example.org'
 const settings = {
   preferenciasUsuario: {
+    codigoRespuesta: { codRespuesta: 0 },
     prefEmail: address,
     prefEmailVerif: null,
     estadoPrefEmail: 'Pendiente de verificar',
@@ -32,6 +33,24 @@ describe('carpeta alerts', () => {
       verifiedEmail: null,
       emailState: 'Pendiente de verificar',
       activeAlerts: ['Citas previas'],
+      groups: [
+        {
+          level: null,
+          name: 'Citas previas',
+          email: true,
+          push: false,
+          firstNotice: null,
+          secondNotice: null,
+        },
+        {
+          level: null,
+          name: 'Hitos',
+          email: false,
+          push: false,
+          firstNotice: null,
+          secondNotice: null,
+        },
+      ],
     })
     expect(() => mapAlertSettings({})).toThrow('no preferenciasUsuario')
   })
@@ -80,6 +99,21 @@ describe('carpeta alerts', () => {
       status: 401,
     })
     await expect(readAlertSettings(failing)).rejects.toThrow('HTTP 401')
+  })
+
+  it('rejects an API failure under HTTP 200', async () => {
+    vi.mocked(loginWithCertificate).mockResolvedValue('cc')
+    const client = scriptedClient(
+      htmlResponse(
+        'https://carpetaciudadana.gob.es/a',
+        JSON.stringify({
+          preferenciasUsuario: { codigoRespuesta: { codRespuesta: 9 } },
+        }),
+      ),
+    )
+    await expect(readAlertSettings(client)).rejects.toThrow(
+      'does not report success',
+    )
   })
 
   it('sends nothing without confirmation and validates the address', async () => {

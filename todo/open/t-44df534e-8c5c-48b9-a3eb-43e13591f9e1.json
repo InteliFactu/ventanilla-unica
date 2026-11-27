@@ -2,10 +2,17 @@
   "tadu": 2,
   "id": "t-44df534e-8c5c-48b9-a3eb-43e13591f9e1",
   "title": "Carpeta Ciudadana: alert groups and address change (plan only)",
-  "state": "pending",
+  "state": "blocked",
   "category": "integrations",
-  "type": "untriaged",
-  "priority": "untriaged",
+  "type": "feature",
+  "priority": "normal",
+  "kind": "waiting",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "blocker": "The group reader and preview are implemented. The known write replaces the full calendar without an observed precondition, and the owner deferred address changes.",
+  "unblock": "Obtain a supported per-group or conditional save protocol and the owner's address decision before capturing the address plan.",
   "notes": [
     "The",
     "",
@@ -14,6 +21,7 @@
     "    `cambiodomicilio.redsara.es/pcd` is not built: the owner deferred any",
     "    address change at AEAT/DEHU/Carpeta on 2026-10-11 (it fixes where a future",
     "    self-employment counts as located for an aid); build it plan-only when",
-    "    that is decided."
+    "    that is decided.",
+    "Carpeta avisos lists group channels and lead times. Carpeta activar-avisos verifies the current configuration and produces a plan that preserves unrelated settings; confirmation is refused before login. The public frontend replaces all groups and provides no observed concurrency protection."
   ]
 }

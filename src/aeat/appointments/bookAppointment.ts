@@ -5,6 +5,7 @@ import { listAppointments } from './listAppointments'
 import type { AppointmentBooking } from './types/AppointmentBooking'
 import type { AppointmentBookingResult } from './types/AppointmentBookingResult'
 import type { AppointmentQuery } from './types/AppointmentQuery'
+import { isAppointmentResponseConfirmed } from './validators/isAppointmentResponseConfirmed'
 import { validateAppointmentConfirmation } from './validators/validateAppointmentConfirmation'
 import { validateAppointmentContact } from './validators/validateAppointmentContact'
 
@@ -33,5 +34,10 @@ export const bookAppointment = async (
   if (!booking.confirm) return { executed: false }
   const confirmation = await fetchAppointmentConfirmation(client, selected)
   validateAppointmentConfirmation(confirmation, query, selected)
-  return { executed: true, html: await submitAppointment(client, booking) }
+  const receipt = await submitAppointment(client, booking)
+  return {
+    executed: true,
+    html: receipt.text,
+    confirmed: isAppointmentResponseConfirmed(receipt, query, selected),
+  }
 }

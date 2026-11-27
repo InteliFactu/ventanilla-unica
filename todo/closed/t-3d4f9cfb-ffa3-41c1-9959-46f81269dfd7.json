@@ -2,7 +2,7 @@
   "tadu": 2,
   "id": "t-3d4f9cfb-ffa3-41c1-9959-46f81269dfd7",
   "title": "Validate the final receipt from a confirmed AEAT appointment",
-  "state": "blocked",
+  "state": "done",
   "category": "aeat-appointments",
   "type": "test",
   "priority": "normal",
@@ -22,5 +22,10 @@
     "request merely because its response was lost. 2026-10-28: first live booking",
     "confirmed (Aplazamientos, Caceres centre 10600, 12:30); the portal answered",
     "\"Su cita ha sido confirmada\" and `gestioncita` lists it under \"Sus Citas\"."
+  ],
+  "closed": "2026-11-27",
+  "result": "Recognize and bind the archived AEAT appointment confirmation panel to the requested holder, date, time and place. Preserve ambiguous receipts for inspection.",
+  "evidence": [
+    "Replayed the private AEAT final receipt dated 2026-10-28 offline: matched the appointment and rejected changed time and partial location. pnpm exec vitest run src/aeat/appointments passed 36 tests, including stale, hidden, error and unmatched responses with no final POST redirects."
   ]
 }

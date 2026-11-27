@@ -8,8 +8,16 @@ export const caceresTramite: Command = {
   portal: 'caceres',
   action: 'tramite',
   description:
-    "File a Cáceres catalogue Relec procedure in the certificate holder's OWN name: --dboid, --asunto, --documentos a.pdf,b.pdf, --slots slotDboid,slotName (one PDF per slot; required slots must be covered), optional --correo, --telefono, --out. Without --confirmar si only checks PDFs, logs in, opens the form and prints the plan. Confirmation uploads and PAdES-signs each PDF, XAdES-signs the form and registers it; --out saves the justificante and JSON receipt",
-  options: ['dboid', 'asunto', 'documentos', 'slots', 'correo', 'telefono'],
+    "File a Cáceres catalogue Relec procedure in the certificate holder's OWN name: --dboid, --asunto, --documentos a.pdf,b.pdf, --slots slotDboid,slotName (one PDF per slot; required slots must be covered), optional --campos JSON, --correo, --telefono, --out. Without --confirmar si only checks PDFs, logs in, opens the form and prints the plan. Confirmation uploads and PAdES-signs each PDF, XAdES-signs the form and registers it; --out saves the justificante and JSON receipt",
+  options: [
+    'dboid',
+    'asunto',
+    'documentos',
+    'slots',
+    'correo',
+    'telefono',
+    'campos',
+  ],
   effect: 'write',
   run: async (client, options, identity): Promise<unknown> => {
     if (identity === undefined)

@@ -2,9 +2,10 @@ import type { HttpClient } from '../../http/types/HttpClient'
 import { openStaSession } from '../session/openStaSession'
 import { staOrigins } from '../session/staOrigins'
 import { openRelecForm } from './fetchers/openRelecForm'
-import { parseRelecForm } from './parsers/parseRelecForm'
 import { parseRelecSlots } from './parsers/parseRelecSlots'
 import { parseRelecVariables } from './parsers/parseRelecVariables'
+import { readRelecTramitaFields } from './parsers/readRelecTramitaFields'
+import { readRelecTramitaFormControls } from './parsers/readRelecTramitaFormControls'
 import type { RelecProcedureForm } from './types/RelecProcedureForm'
 
 /**
@@ -19,7 +20,9 @@ export const readRelecProcedure = async (
   const origin = staOrigins.caceres
   await openStaSession(client, origin)
   const page = await openRelecForm(client, origin, dboid)
-  const { fields } = parseRelecForm(page.text, page.url)
+  const fields = readRelecTramitaFields(
+    readRelecTramitaFormControls(page.text, page.url),
+  )
   return {
     host: new URL(origin).hostname,
     dboid,

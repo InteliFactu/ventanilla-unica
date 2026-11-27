@@ -8,6 +8,7 @@ export const fetchAlertSettings = async (
 ): Promise<string> => {
   const response = await client.request(carpetaUrls.alertSettings, {
     headers: { Authorization: token, Accept: 'application/json' },
+    followRedirects: false,
   })
   if (response.status !== 200)
     throw new Error(

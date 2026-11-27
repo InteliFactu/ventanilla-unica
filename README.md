@@ -212,6 +212,11 @@ the defaults; confirmation requires an email for electronic notification. The
 Asunto is limited to 2500 characters and goes in `DinVarANNOT_TEXT_EXTRACT`. A
 procedure must expose that field and signed PDF upload slots.
 
+Use `caceres procedimiento --dboid <id>` to find the field names. To fill
+additional editable text fields, pass `--campos '{"DETAIL":"Example text"}'`
+with names from that procedure. The plan shows the supplied values. Asunto uses
+`--asunto`, and non-text or missing controls are refused before upload.
+
 Without `--confirmar si`, the command returns `executed: false` and prints the
 filing plan. Even with `--out`, it uploads nothing, sends no signing or
 registration request, and creates no output directory. Adding
@@ -451,6 +456,14 @@ PAdES `coSign`) and returns the signature and certificate the page posts.
 
 ## Offline tools
 
+`ventanilla-unica validar fichero-boe --fichero file.txt` checks a local file
+without contacting the AEAT. `validation: layout` applies the implemented AEAT
+record checks for models 190 and 347 (2025) and the tagged page rules for model
+303 (2025 and 2026). `validation: structure` checks the framing of other TGVI
+model/year pairs. The model 190 generator emits ISO-8859-1 bytes. The library
+also exposes the 347 layouts and the `buildModel303Page` and `buildModel303File`
+writers. AEAT runs its fiscal checks when the file is presented.
+
 | Command                                                                                                                                        | What it does                                                                                            |
 | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | `ventanilla-unica validar nif --nif X`                                                                                                         | Validates a DNI, NIE, special NIF or legal-entity NIF and names its type                                |
@@ -667,6 +680,18 @@ ventanilla-unica carpeta registros --registro REGAGE26e00000000000 \
   --desde 01/11/2026 --hasta 30/11/2026
 ```
 
+## Carpeta Ciudadana alert groups
+
+`carpeta avisos` lists calendar groups, enabled channels and notice days. Use
+their levels in a plan for enabling email alerts on selected groups.
+
+```sh
+ventanilla-unica carpeta activar-avisos --grupos 1,3 --primer-aviso 15 --segundo-aviso 2
+```
+
+The plan preserves the other groups' settings. The command accepts plans only
+and rejects `--confirmar si` before signing in.
+
 ## License
 
 MIT, see `LICENSE`.
@@ -699,10 +724,12 @@ confirmar" and hides it from later searches. Confirmed reservations also require
 `--detalle` (250 characters maximum), all checked before any portal request. The
 CLI rechecks the selected centre, date and time against current offers. It
 submits the final request once and saves the response with owner-only
-permissions, including an error response from that final step. Verify the
-booking in the saved receipt and the appointment-management page before
-retrying. A booking does not apply for a deferral, change a payment plan, accept
-notifications or pay a debt.
+permissions, including an error response from that final step. The CLI marks an
+appointment confirmed when it recognizes the success panel in the final receipt
+and its holder, date, time and place match the request. For an unrecognized
+response, check the saved receipt and management page before retrying. A booking
+does not apply for a deferral, change a payment plan, accept notifications or
+pay a debt.
 
 The captured protocol is the public `TOCP-MUTE/internet` flow: GET
 `identificacion`, POST holder identification, POST `procedimiento` with an

@@ -2,14 +2,17 @@
   "tadu": 2,
   "id": "t-17706d5f-bd69-4431-8709-910344baca9d",
   "title": "AEAT debt listing returns an empty result for holders with enforced debts",
-  "state": "in_progress",
+  "state": "blocked",
   "category": "bugs",
   "type": "bug",
   "priority": "high",
+  "kind": "waiting",
   "started": "2026-11-27",
   "assignees": [
     "agent:codex"
   ],
+  "blocker": "The local reader now rejects invalid empty responses and opens ConsultaDdas before the query. Recovery of the intermittent live case remains unverified.",
+  "unblock": "Provide a sanitized current response for a holder with known enforceable debts or authorize a read-only verification.",
   "notes": [
     "    (2026-11-10).** Live run for 76048463K and 08885194H: `debts` empty and",
     "    `entity` swallows the whole sede footer (\"... Otros enlaces de interés\"),",

@@ -7,8 +7,10 @@ export const requestAppointmentPage = async (
   client: HttpClient,
   step: string,
   fields?: Readonly<Record<string, string>>,
+  followRedirects?: boolean,
 ): Promise<HttpResponse> =>
   client.request(appointmentOrigin + step, {
     ...(fields === undefined ? {} : { method: 'POST', form: fields }),
     referer: appointmentOrigin + step,
+    ...(followRedirects === undefined ? {} : { followRedirects }),
   })

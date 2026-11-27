@@ -1,4 +1,5 @@
 export { confirmEmail } from './alerts/confirmEmail'
+export { planAlertGroups } from './alerts/planAlertGroups'
 export { readAlertSettings } from './alerts/readAlertSettings'
 export { requestEmailVerification } from './alerts/requestEmailVerification'
 export type { AlertSettings } from './alerts/types/AlertSettings'

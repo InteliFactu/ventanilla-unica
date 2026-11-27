@@ -1,0 +1,21 @@
+{
+  "tadu": 2,
+  "id": "t-5711d2d9-39c1-4fdb-98b5-ada0ca4b9b17",
+  "title": "BOE fixed-width modelo writer and validator",
+  "state": "done",
+  "category": "future-ideas",
+  "type": "feature",
+  "priority": "normal",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "notes": [
+    "The fixed-width library, offline validar fichero-boe CLI, and official 190 and 347 layouts for 2025 are implemented. The AEAT model 190 generator preserves the previous Latin-1 output byte for byte. The tagged model 303 layout remains in progress."
+  ],
+  "closed": "2026-11-27",
+  "result": "Provide a reusable BOE record writer, offline validation for the published 190, 347 and 303 layouts, and preserve the 190 writer output.",
+  "evidence": [
+    "pnpm exec vitest run src/tools/boeFixedWidth src/tools/model190 src/tools/model303 src/aeat/selfAssessmentDraft src/cli/commands/aeatPresentarAutoliquidacion.test.ts: 85 passed. Golden 190 bytes preserved; official 2025/2026 303 synthetic files validated through validar fichero-boe; 190/347 totals, identifiers and conditional fields have regressions."
+  ]
+}

@@ -1,11 +1,18 @@
 {
   "tadu": 2,
   "id": "t-150e0b0b-abe8-4d3e-9307-54aaa624cb98",
-  "title": "Cáceres catalogue filing needs live submission acceptance",
-  "state": "in_progress",
+  "title": "Support additional fields in Cáceres catalogue filings",
+  "state": "blocked",
   "category": "testing",
-  "type": "untriaged",
-  "priority": "untriaged",
+  "type": "feature",
+  "priority": "normal",
+  "kind": "waiting",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "blocker": "The original own-name filing was accepted. Additional text fields now pass synthetic upload and signing tests; the updated form has no live acceptance evidence.",
+  "unblock": "Provide a redacted form with editable extra fields and, for end-to-end acceptance, authorize one needed filing that uses them.",
   "notes": [
     "Observed",
     "",

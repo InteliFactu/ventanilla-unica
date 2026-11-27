@@ -5,6 +5,7 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 import { appointmentClient } from './fixtures/appointmentClient'
+import { appointmentConfirmedReceipt } from './fixtures/appointmentConfirmedReceipt'
 import { appointmentErrorPage } from './fixtures/appointmentErrorPage'
 import { appointmentResponse } from './fixtures/appointmentResponse'
 import { runAppointmentCommand } from './runAppointmentCommand'
@@ -79,10 +80,24 @@ describe('runAppointmentCommand', () => {
     ).toBe(false)
   })
 
-  it.each([200, 299])(
-    'preserves the final response for verification after HTTP %s',
-    async (status) => {
-      const receipt = appointmentResponse(appointmentErrorPage, status)
+  it.each([
+    [appointmentConfirmedReceipt, 200, true],
+    [appointmentConfirmedReceipt, 299, false],
+    [appointmentConfirmedReceipt.replace('00000000T', '99999999R'), 200, false],
+    [appointmentConfirmedReceipt.replace('11:30', '12:00'), 200, false],
+    [
+      appointmentConfirmedReceipt.replace('Test City', 'Test City County'),
+      200,
+      false,
+    ],
+    [appointmentConfirmedReceipt.replace('</h2>', '</h2></div>'), 200, false],
+    [`<template>${appointmentConfirmedReceipt}</template>`, 200, false],
+    [`<section hidden>${appointmentConfirmedReceipt}</section>`, 200, false],
+    [appointmentErrorPage, 299, false],
+  ])(
+    'preserves the response and only confirms the requested appointment',
+    async (body, status, confirmed) => {
+      const receipt = appointmentResponse(body, status, 'confirmacion')
       const client = appointmentClient(undefined, undefined, receipt, true)
       const out = await mkdtemp(join(tmpdir(), 'aeat-appointment-'))
       const result = await runAppointmentCommand(client, {
@@ -95,7 +110,7 @@ describe('runAppointmentCommand', () => {
       })
       expect(result).toMatchObject({
         executed: true,
-        confirmed: false,
+        confirmed,
       })
       expect(result).toHaveProperty('receiptPath', expect.stringContaining(out))
       expect(
@@ -103,6 +118,7 @@ describe('runAppointmentCommand', () => {
           url.endsWith('/confirmacion'),
         ),
       ).toHaveLength(1)
+      expect(client.request.mock.calls.at(-1)?.[1]?.followRedirects).toBe(false)
     },
   )
 })

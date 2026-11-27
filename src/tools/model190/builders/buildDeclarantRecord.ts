@@ -1,6 +1,6 @@
-import { alphaField } from '../mappers/alphaField'
+import { buildFixedWidthRecord } from '../../boeFixedWidth/builders/buildFixedWidthRecord'
+import { model190DeclarantLayout } from '../layouts/model190DeclarantLayout'
 import { declarationNumber } from '../mappers/declarationNumber'
-import { numberField } from '../mappers/numberField'
 import type { Model190Declarant } from '../types/Model190Declarant'
 import type { Model190Perceptor } from '../types/Model190Perceptor'
 
@@ -11,20 +11,14 @@ export const buildDeclarantRecord = (
 ): string => {
   const percepciones = perceptors.reduce((sum, row) => sum + row.percepcion, 0)
   const retenciones = perceptors.reduce((sum, row) => sum + row.retencion, 0)
-  return [
-    `1190${declarant.ejercicio}${declarant.nif}`,
-    alphaField(declarant.nombre.slice(0, 40), 40),
-    'T',
-    numberField(declarant.telefono, 9),
-    alphaField(declarant.contacto.slice(0, 40), 40),
-    declarationNumber(declarant.ejercicio),
-    // 121: neither complementaria nor sustitutiva, no previous declaration
-    `  ${'0'.repeat(13)}`,
-    numberField(perceptors.length, 9),
-    ` ${numberField(percepciones, 15)}`,
-    numberField(retenciones, 15),
-    alphaField(declarant.correo.toUpperCase(), 50),
-  ]
-    .join('')
-    .padEnd(500, ' ')
+  return buildFixedWidthRecord(model190DeclarantLayout, {
+    ...declarant,
+    nombre: declarant.nombre.slice(0, 40),
+    contacto: declarant.contacto.slice(0, 40),
+    declaracion: declarationNumber(declarant.ejercicio),
+    registros: perceptors.length,
+    percepciones,
+    retenciones,
+    correo: declarant.correo.toUpperCase(),
+  })
 }

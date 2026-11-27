@@ -1,4 +1,5 @@
 import type { CliOptions } from '../../../cli/types/CliOptions'
+import { parseRelecTramiteVariablesOption } from '../parsers/parseRelecTramiteVariablesOption'
 import type { RelecTramiteQuery } from '../types/RelecTramiteQuery'
 import { readRelecInstanceOptions } from './readRelecInstanceOptions'
 
@@ -13,4 +14,5 @@ export const readRelecTramiteOptions = (
   }),
   dboid: options['dboid']?.trim() ?? '',
   rows: options['slots']?.split(',').map((row) => row.trim()) ?? [],
+  variables: parseRelecTramiteVariablesOption(options['campos']),
 })

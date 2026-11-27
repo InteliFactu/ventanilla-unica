@@ -19,6 +19,7 @@ const dir = mkdtempSync(join(tmpdir(), 'relec-tramite-'))
 const pdf = join(dir, 'application.pdf')
 writeFileSync(pdf, buildClassicPdf())
 const identity = buildTestIdentity()
+const additionalDetail = 'Detalle adicional'
 const query = {
   dboid: '6269000000000000000001',
   subject: 'Test catalogue filing',
@@ -67,11 +68,18 @@ describe('fileRelecTramite', () => {
 
   it('plans in the holder name with no upload, signing POST or registration', async () => {
     const client = fakeRegistryClient(relecTramiteRoutes)
-    const result = await fileRelecTramite(client, query, {
-      identity,
-      confirmed: false,
-      outDir: join(dir, 'must-not-exist'),
-    })
+    const result = await fileRelecTramite(
+      client,
+      {
+        ...query,
+        variables: { DETAIL_TEST: additionalDetail },
+      },
+      {
+        identity,
+        confirmed: false,
+        outDir: join(dir, 'must-not-exist'),
+      },
+    )
     expect(result).toMatchObject({
       action: 'caceres tramite',
       executed: false,
@@ -80,6 +88,13 @@ describe('fileRelecTramite', () => {
         filer: { name: 'ANA LOPEZ RUIZ', nif: '12345678Z' },
         represented: undefined,
         missingRequired: [],
+        variables: [
+          {
+            name: 'DETAIL_TEST',
+            label: 'Additional detail',
+            value: additionalDetail,
+          },
+        ],
         documents: [{ slot: { dboid: '61', required: true } }],
       },
     })
@@ -115,11 +130,18 @@ describe('fileRelecTramite', () => {
   it('reuses local PDF/XML signing and saves a receipt after confirmed registration', async () => {
     const client = fakeRegistryClient(relecTramiteRoutes)
     const outDir = mkdtempSync(join(tmpdir(), 'relec-tramite-out-'))
-    const result = await fileRelecTramite(client, query, {
-      identity,
-      confirmed: true,
-      outDir,
-    })
+    const result = await fileRelecTramite(
+      client,
+      {
+        ...query,
+        variables: { DETAIL_TEST: additionalDetail },
+      },
+      {
+        identity,
+        confirmed: true,
+        outDir,
+      },
+    )
     expect(result.executed).toBe(true)
     expect(result.receipt?.csv).toBe('11112222333344445555')
     // eslint-disable-next-line @typescript-eslint/unbound-method -- the synthetic request is a vi.fn
@@ -146,6 +168,7 @@ describe('fileRelecTramite', () => {
     ).toContain('/ByteRange')
     const body = new URLSearchParams(String(posts[4]?.body))
     expect(Object.fromEntries(body)).toMatchObject({
+      DinVarDETAIL_TEST: additionalDetail,
       tipoActuacion: 'I',
       SELECTED_PERSON: '2000400000000000000009',
       DinVarANNOT_TEXT_EXTRACT: 'Test catalogue filing',

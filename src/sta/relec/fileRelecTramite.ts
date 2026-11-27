@@ -1,7 +1,7 @@
 import type { HttpClient } from '../../http/types/HttpClient'
 import type { StaRegistryFilingContext } from '../registry/types/StaRegistryFilingContext'
 import { buildRelecTramitePairs } from './builders/buildRelecTramitePairs'
-import { mapRelecInstancePlanLines } from './mappers/mapRelecInstancePlanLines'
+import { mapRelecTramitePlanLines } from './mappers/mapRelecTramitePlanLines'
 import { prepareRelecTramite } from './prepareRelecTramite'
 import { submitRelecFiling } from './submitRelecFiling'
 import { trySaveRelecOutput } from './trySaveRelecOutput'
@@ -18,7 +18,7 @@ export const fileRelecTramite = async (
   const base = {
     action: 'caceres tramite',
     filing: prepared.plan,
-    plan: mapRelecInstancePlanLines(prepared.plan),
+    plan: mapRelecTramitePlanLines(prepared.plan),
   }
   if (!context.confirmed)
     return {

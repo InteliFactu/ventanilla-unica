@@ -2,7 +2,7 @@
   "tadu": 2,
   "id": "t-0b4c30ed-914c-493f-8050-0945c5209f74",
   "title": "TGSS debt report PDF path with a real debt",
-  "state": "pending",
+  "state": "cancelled",
   "category": "testing",
   "type": "untriaged",
   "priority": "untriaged",
@@ -13,5 +13,8 @@
     "    E10501278 and B22903801 answered \"NO SE HA ENCONTRADO DEUDA\", and",
     "    E10484822 \"SIN DATOS O NO EXISTE CCC/NAF PRINCIPAL\": no holder has a TGSS",
     "    debt today. Run it when one does."
-  ]
+  ],
+  "closed": "2026-11-27",
+  "resolution": "Duplicate of t-68ba0d50-f287-42b1-b2de-c186f3fad8a1.",
+  "duplicate_of": "t-68ba0d50-f287-42b1-b2de-c186f3fad8a1"
 }

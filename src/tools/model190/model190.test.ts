@@ -1,12 +1,12 @@
+import { createHash } from 'node:crypto'
+
 import { describe, expect, it } from 'vitest'
 
+import { plainUpperText } from '../boeFixedWidth/mappers/plainUpperText'
 import { buildModel190File } from './builders/buildModel190File'
 import { declarant } from './fixtures/declarant'
 import { perceptorCsv } from './fixtures/perceptorCsv'
-import { alphaField } from './mappers/alphaField'
 import { centsToEuros } from './mappers/centsToEuros'
-import { numberField } from './mappers/numberField'
-import { plainUpperText } from './mappers/plainUpperText'
 import { parseAmountCents } from './parsers/parseAmountCents'
 import { parsePerceptorRow } from './parsers/parsePerceptorRow'
 import { parsePerceptorRows } from './parsers/parsePerceptorRows'
@@ -32,12 +32,7 @@ describe('modelo 190 fields', () => {
     expect(plainUpperText('Peña,  José  Çà')).toBe('PEÑA JOSE ÇA')
   })
 
-  it('pads and refuses what does not fit', () => {
-    expect(alphaField('AB', 4)).toBe('AB  ')
-    expect(() => alphaField('ABCDE', 4)).toThrow(/does not fit/)
-    expect(numberField(42, 5)).toBe('00042')
-    expect(() => numberField('4a', 5)).toThrow(/5-digit/)
-    expect(() => numberField(123456, 5)).toThrow(/5-digit/)
+  it('renders cents in euros', () => {
     expect(centsToEuros(492210)).toBe('4922.10')
   })
 
@@ -87,6 +82,12 @@ describe('buildModel190File', () => {
 
   it('writes one type 1 and one type 2 record per row, 500 characters each', () => {
     expect(file).toHaveLength(2000)
+  })
+
+  it('preserves every byte of the previous ISO-8859-1 writer', () => {
+    expect(createHash('sha256').update(file, 'latin1').digest('hex')).toBe(
+      '90b51e8ba14aec3c0c1132173346e4e2426c01321912fc3e80725fa21e4cebba',
+    )
   })
 
   it('totals the type 1 record', () => {

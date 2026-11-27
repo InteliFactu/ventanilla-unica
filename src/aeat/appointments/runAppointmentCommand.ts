@@ -50,9 +50,11 @@ export const runAppointmentCommand = async (
       : undefined
   return {
     executed: result.executed,
-    confirmed: false,
+    confirmed: result.confirmed === true,
     slot,
     receiptPath,
-    note: 'Check the saved receipt and appointment-management page before retrying.',
+    note: result.confirmed
+      ? 'The final receipt confirms the requested appointment.'
+      : 'Check the saved receipt and appointment-management page before retrying.',
   }
 }

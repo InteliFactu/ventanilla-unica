@@ -4,9 +4,13 @@ import { openStaSession } from '../session/openStaSession'
 import { staOrigins } from '../session/staOrigins'
 import { fetchRelecHolderContact } from './fetchers/fetchRelecHolderContact'
 import { openRelecForm } from './fetchers/openRelecForm'
+import { mapRelecForm } from './mappers/mapRelecForm'
 import { mapRelecInstancePlan } from './mappers/mapRelecInstancePlan'
 import { mapRelecTramiteTarget } from './mappers/mapRelecTramiteTarget'
-import { parseRelecForm } from './parsers/parseRelecForm'
+import { mapRelecTramiteVariables } from './mappers/mapRelecTramiteVariables'
+import { readRelecTramitaFields } from './parsers/readRelecTramitaFields'
+import { readRelecTramitaFormControls } from './parsers/readRelecTramitaFormControls'
+import { readRelecTramiteTextFields } from './parsers/readRelecTramiteTextFields'
 import type { RelecTramitePreparation } from './types/RelecTramitePreparation'
 import type { RelecTramiteQuery } from './types/RelecTramiteQuery'
 import { assertPdfSignable } from './validators/assertPdfSignable'
@@ -26,8 +30,12 @@ export const prepareRelecTramite = async (
   const origin = staOrigins.caceres
   await openStaSession(client, origin)
   const page = await openRelecForm(client, origin, query.dboid)
-  const parsed = parseRelecForm(page.text, page.url)
+  const controls = readRelecTramitaFormControls(page.text, page.url)
+  const parsed = mapRelecForm(page.text, readRelecTramitaFields(controls))
+  const writable = readRelecTramiteTextFields(controls)
   assertRelecTramiteForm(parsed, query.dboid)
+  if (!writable.has('ANNOT_TEXT_EXTRACT'))
+    throw new Error('The procedure does not offer a writable Asunto field')
   const form = {
     ...parsed,
     contact: await fetchRelecHolderContact(client, origin, page.text),
@@ -41,6 +49,9 @@ export const prepareRelecTramite = async (
     ),
     dboid: query.dboid,
     represented: undefined,
+    variables: query.variables
+      ? mapRelecTramiteVariables(form.fields, query.variables, writable)
+      : [],
   }
   assertRelecTramitePlan(plan)
   const person = form.fields['DBOIDPERS'] ?? ''
