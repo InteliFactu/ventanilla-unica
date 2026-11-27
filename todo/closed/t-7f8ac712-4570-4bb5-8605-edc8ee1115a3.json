@@ -1,0 +1,27 @@
+{
+  "tadu": 2,
+  "id": "t-7f8ac712-4570-4bb5-8605-edc8ee1115a3",
+  "title": "Read back DGSFP filings from the general registry",
+  "state": "done",
+  "category": "integrations",
+  "type": "feature",
+  "priority": "normal",
+  "kind": "task",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "notes": [
+    "`dgsfp reclamacion` files but nothing reads",
+    "",
+    "    back: no listing of the holder's presentations or drafts was found in the",
+    "    sede bundles. Next step: capture Carpeta/Mis presentaciones (if any) or",
+    "    read the registry entry through Carpeta Ciudadana by its REGAGE number.",
+    "2026-11-27: Confirmed the certificate holder in the DGSFP native consultation. Mis Expedientes returned an empty JSON array, while the separate Acuse de Recibo service returned one entry whose registry reference and year matched the existing filing. Its document download returned HTTP 500 both before and after replaying the exact year and registry fields used by the page. Add the working receipt-list read to the CLI and keep the failing PDF recovery separately visible. No notice was opened."
+  ],
+  "closed": "2026-11-27",
+  "result": "Read existing DGSFP filing registrations through the native receipt list",
+  "evidence": [
+    "The built ventanilla-unica dgsfp acuses command ran against the official DGSFP service under the verified original certificate and returned exactly one receipt matching the existing registry reference, with the expected year and recorded date. Carpeta Ciudadana and the native case list returned zero rows for the filing. An independent task records the live HTTP 500 on receipt PDF recovery. pnpm check:ci passed, including the exact match, malformed row and wrong certificate checks."
+  ]
+}

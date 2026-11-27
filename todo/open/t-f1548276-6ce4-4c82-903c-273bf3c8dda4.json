@@ -1,0 +1,22 @@
+{
+  "tadu": 2,
+  "id": "t-f1548276-6ce4-4c82-903c-273bf3c8dda4",
+  "title": "Recover the PDF of an existing DGSFP registration receipt",
+  "state": "blocked",
+  "category": "integrations",
+  "type": "bug",
+  "priority": "normal",
+  "kind": "waiting",
+  "created": "2026-11-27",
+  "related": [
+    "t-7f8ac712-4570-4bb5-8605-edc8ee1115a3"
+  ],
+  "blocker": "The official download refuses the exact listed receipt with HTTP 500. The delegated verification service returned HTTP 503.",
+  "unblock": "Obtain a successful official download response for the already listed receipt or a redacted equivalent that proves the returned PDF and its registry reference.",
+  "notes": [
+    "The authenticated Acuse de Recibo list returned the exact existing registration. Its getDocumentoAcuseRecibo download returned HTTP 500 with the exact registry number and year fields used by the page. The validation service linked by the DGSFP returned HTTP 503 during the same check."
+  ],
+  "done_when": [
+    "Recover an already issued receipt PDF through an official read route and verify the registration reference against the listed receipt."
+  ]
+}

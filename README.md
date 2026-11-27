@@ -727,6 +727,15 @@ locate each file.
 
 ## DGSFP filing lookup
 
+`dgsfp acuses` lists existing registrations from the DGSFP's own receipt service
+using the holder certificate. The optional `--registro` filter matches one exact
+registry number. The command returns the registration number, year and date. It
+queries the receipt list without opening a notification.
+
+```sh
+ventanilla-unica dgsfp acuses --registro REGAGE26e00000000000
+```
+
 `carpeta registros` reads general-registry entries from Carpeta Ciudadana. Use
 the REGAGE number from the DGSFP receipt and a date range that includes the
 filing date. Dates use the Europe/Madrid calendar. The default range covers the

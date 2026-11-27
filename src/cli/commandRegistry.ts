@@ -4,6 +4,7 @@ import { carpetaCommands } from './carpetaCommands'
 import { calendarioFiscal } from './commands/calendarioFiscal'
 import { cirbeEstado } from './commands/cirbeEstado'
 import { cirbeInforme } from './commands/cirbeInforme'
+import { dgsfpAcuses } from './commands/dgsfpAcuses'
 import { dgsfpReclamacion } from './commands/dgsfpReclamacion'
 import { dgtContacto } from './commands/dgtContacto'
 import { dgtDatos } from './commands/dgtDatos'
@@ -65,6 +66,7 @@ export const commandRegistry: readonly Command[] = [
   roleceSolicitud,
   placspEstado,
   placspPregunta,
+  dgsfpAcuses,
   dgsfpReclamacion,
   dgtDatos,
   dgtSanciones,

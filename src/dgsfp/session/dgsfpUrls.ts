@@ -11,6 +11,7 @@ export const dgsfpUrls = {
     'https://www.sededgsfp.gob.es/es/Paginas/Procedimiento.aspx?pr=14',
   formPage:
     'https://www.sededgsfp.gob.es/es/Auth/Paginas/FormularioProcedimiento.aspx?pr=14',
+  receiptsPage: 'https://www.sededgsfp.gob.es/es/Auth/Paginas/AcuseRecibo.aspx',
   claveRequest:
     'https://www.sededgsfp.gob.es/_vti_bin/DGSFP.SedeElectronica/RestService.svc/createClave2Request?u=',
   authServices:
