@@ -1,0 +1,32 @@
+{
+  "tadu": 2,
+  "id": "t-7cce32a5-bb05-46d3-a959-675dbe33100e",
+  "title": "Correct the PLACSP question deadline shown in planning mode",
+  "state": "done",
+  "category": "integrations",
+  "type": "bug",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "related": [
+    "t-b370c345-d51f-4645-b0c7-5fc91fdb4450"
+  ],
+  "notes": [
+    "The plan presented the ordinary Article 138.3 timing as definitive. Tender documents can set a different period and the response period is shorter in specified urgent procedures. An invalid tender date also normalized to a different date."
+  ],
+  "done_when": [
+    "Planning labels the statutory calculation as a reference, calls out the tender deadline and legal exceptions, and omits the calculation for an invalid date."
+  ],
+  "links": [
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2017-12902#a138"
+  ],
+  "closed": "2026-11-27",
+  "result": "Correct the PLACSP question deadline shown in planning mode",
+  "evidence": [
+    "Read the current consolidated Article 138.3 and official operator guide. pnpm exec vitest run src/placsp src/cli/commands/placspPregunta.test.ts passed all 22 tests, including leap-day, invalid dates, the tender-specific cutoff, legal qualifications and refusal to send in confirmed mode."
+  ]
+}

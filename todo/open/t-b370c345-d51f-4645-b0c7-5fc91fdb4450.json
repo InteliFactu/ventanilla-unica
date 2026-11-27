@@ -49,6 +49,11 @@
     "the bank charge the same day, so the nota is paid. Next: confirm ROLECE",
     "accepts the subsanación (the nota goes only to notasregistrales@), and make",
     "`registradores nota --confirmar si` hand the payment to the real Chrome",
-    "(Orca's embedded browser failed the card payment twice)."
+    "(Orca's embedded browser failed the card payment twice).",
+    "The official operator guide documents the specific question cutoff in Solicitar Información. Nueva Pregunta opens the editor and the separate Enviar action creates a pending row. The read-only planner now labels the Article 138.3 calculation as an ordinary reference, with the tender-specific cutoff, the tender-document exception and the restricted urgent rule. The authenticated JSF form and a submitted-question receipt remain unverified."
+  ],
+  "links": [
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2017-12902#a138",
+    "https://contrataciondelestado.es/wps/wcm/connect/a3d371cc-4d49-4fbc-9427-d1e3ea181829/GuiaOperadorEconomico_v5.2.pdf?CACHEID=ROOTWORKSPACE-a3d371cc-4d49-4fbc-9427-d1e3ea181829-pE5ZTti&MOD=AJPERES"
   ]
 }

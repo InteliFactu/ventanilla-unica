@@ -18,4 +18,18 @@ describe('mapQuestionDeadline', () => {
     expect(mapQuestionDeadline(undefined)).toBeUndefined()
     expect(mapQuestionDeadline('Pendiente')).toBeUndefined()
   })
+
+  it('retains a valid leap day from the published date', () => {
+    expect(mapQuestionDeadline('29/02/2028 12:00')).toEqual({
+      submissionEnd: '2028-02-29',
+      askBy: '2028-02-17',
+    })
+  })
+
+  it.each(['29/02/2026', '31/04/2026', '00/10/2026', '19/10/20260'])(
+    'omits the calculation for an invalid published date %s',
+    (date) => {
+      expect(mapQuestionDeadline(date)).toBeUndefined()
+    },
+  )
 })
