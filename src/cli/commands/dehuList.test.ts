@@ -12,7 +12,7 @@ describe('dehuList', () => {
   it('describes itself as a listing-only command', () => {
     expect(dehuList.portal).toBe('dehu')
     expect(dehuList.action).toBe('list')
-    expect(dehuList.options).toEqual(['state', 'year'])
+    expect(dehuList.options).toEqual(['state', 'year', 'nif'])
     expect(dehuList.description).toContain('without opening any')
   })
 
@@ -47,6 +47,18 @@ describe('dehuList', () => {
   it('rejects an unknown state', async () => {
     await expect(dehuList.run(client, { state: 'bogus' })).rejects.toThrow(
       '--state must be one of pending, realized, all',
+    )
+  })
+
+  it('forwards a normalized expected NIF and refuses an invalid option', async () => {
+    await dehuList.run(client, { nif: ' 00000000t ' })
+    expect(listNotifications).toHaveBeenLastCalledWith(client, {
+      state: 'pending',
+      year: new Date().getFullYear(),
+      expectedNif: '00000000T',
+    })
+    await expect(dehuList.run(client, { nif: 'incorrect' })).rejects.toThrow(
+      '--nif must be',
     )
   })
 

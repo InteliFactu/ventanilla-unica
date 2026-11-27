@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { htmlResponse } from '../../http/fixtures/htmlResponse'
 import { scriptedClient } from '../../http/fixtures/scriptedClient'
 import { loginWithCertificate } from '../session/loginWithCertificate'
-import { readJwtUsername } from './parsers/readJwtUsername'
+import { readJwtUsername } from '../session/readJwtUsername'
 import { readDehuContact } from './readDehuContact'
 
 vi.mock('../session/loginWithCertificate')

@@ -1,5 +1,6 @@
 import type { HttpClient } from '../../http/types/HttpClient'
 import { loginWithCertificate } from '../session/loginWithCertificate'
+import { readJwtUsername } from '../session/readJwtUsername'
 import { fetchPendingNotifications } from './fetchers/fetchPendingNotifications'
 import { fetchRealizedNotifications } from './fetchers/fetchRealizedNotifications'
 import type { ListQuery } from './types/ListQuery'
@@ -14,10 +15,15 @@ export const listNotifications = async (
   client: HttpClient,
   query: ListQuery,
 ): Promise<NotificationListing> => {
-  const { state, year } = query
+  const { state, year, expectedNif } = query
   if (state !== 'pending' && year === undefined)
     throw new Error('--year is required for state=realized or state=all')
   const authData = await loginWithCertificate(client)
+  if (
+    expectedNif !== undefined &&
+    readJwtUsername(authData).toUpperCase() !== expectedNif.toUpperCase()
+  )
+    throw new Error('DEHU: the session belongs to a different holder')
   let notifications: readonly Notification[] = []
   let pages = 0
   if (state === 'pending' || state === 'all') {

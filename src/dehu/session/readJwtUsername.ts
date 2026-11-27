@@ -1,7 +1,7 @@
-import { asRecord } from '../../api/asRecord'
-import { readTextOrNull } from '../../api/readTextOrNull'
+import { asRecord } from '../api/asRecord'
+import { readTextOrNull } from '../api/readTextOrNull'
 
-/** The `username` claim of DEHU's session JWT: the holder's NIF, which the contact API wants base64-encoded in its path. */
+/** Read DEHU's authenticated holder NIF from the session token. */
 export const readJwtUsername = (jwt: string): string => {
   const payload = jwt.split('.')[1] ?? ''
   let claims: unknown

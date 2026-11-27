@@ -2,7 +2,7 @@
   "tadu": 2,
   "id": "t-0a2debc4-9f3c-44c3-9cd8-b57ea48f202f",
   "title": "`aeat deudas` agreements carry no instalment calendar (2026-11-17)",
-  "state": "blocked",
+  "state": "done",
   "category": "bugs",
   "type": "bug",
   "priority": "normal",
@@ -25,5 +25,10 @@
     "    Next: capture the AcuAccDeta HTML of 102640313692X (or the plazos page it",
     "    links to) and parse number of plazos, dates and amounts.",
     "The private 2026-09-03 archival extract contains dated schedules for both exact agreements from the report. Each has the declared number of complete instalments: six and four. Use it as a historical comparison baseline. The 2026-11-17 current SRAF calendar response is still absent."
+  ],
+  "closed": "2026-11-27",
+  "result": "`aeat deudas` agreements carry no instalment calendar (2026-11-17)",
+  "evidence": [
+    "Authorized read-only aeat deudas verified the two exact agreements on 2026-11-27. The report returned six and four dated instalments, two paid on each, complete ordinal/date fields, and no calendar validation warnings. Both current schedules have their next instalment on 2026-12-09."
   ]
 }

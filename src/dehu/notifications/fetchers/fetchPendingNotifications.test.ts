@@ -62,4 +62,20 @@ describe('fetchPendingNotifications', () => {
     expect(result.pages).toBe(2)
     expect(result.notifications).toHaveLength(50)
   })
+
+  it('fails on a repeated full page instead of paging indefinitely', async () => {
+    const items = Array.from({ length: 50 }, (_unused, index) => ({
+      ...item,
+      identifier: `N${String(index)}`,
+    }))
+    const request = vi
+      .fn<HttpClient['request']>()
+      .mockResolvedValueOnce(jsonPage({ items }))
+      .mockResolvedValueOnce(jsonPage({ items }))
+      .mockResolvedValueOnce(jsonPage({ items: [] }))
+    await expect(
+      fetchPendingNotifications({ request, cookie: () => undefined }, 'TOKEN'),
+    ).rejects.toThrow('repeated notification')
+    expect(request).toHaveBeenCalledTimes(2)
+  })
 })

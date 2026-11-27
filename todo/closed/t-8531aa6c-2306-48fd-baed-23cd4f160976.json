@@ -1,0 +1,27 @@
+{
+  "tadu": 2,
+  "id": "t-8531aa6c-2306-48fd-baed-23cd4f160976",
+  "title": "Verify DEHU listing holder and reject malformed pending responses",
+  "state": "done",
+  "category": "integrations",
+  "type": "bug",
+  "priority": "high",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "discovered_from": "t-90193d04-4618-4159-815f-206e1a98cb2c",
+  "notes": [
+    "The authorized sweep verified the JSON items array and the authenticated username explicitly because the built-in pending reader accepts missing or discarded items as empty and the CLI does not bind the session to the requested holder."
+  ],
+  "done_when": [
+    "The CLI checks a requested or certificate-derived holder before listing and does not treat malformed pending pages as empty."
+  ],
+  "closed": "2026-11-27",
+  "result": "Verify DEHU listing holder and reject malformed pending responses",
+  "evidence": [
+    "Focused tests reject a mismatched authenticated holder, missing or invalid items, and a repeated full page. The built dehu list verified a real representative certificate via its default entity NIF and a personal certificate via --nif; both returned explicitly empty pending lists without opening anything."
+  ]
+}

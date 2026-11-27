@@ -12,8 +12,8 @@
   "assignees": [
     "agent:codex"
   ],
-  "blocker": "AEAT verified all accessible configured identities. One identity received HTTP 403 on both the usual session and the official notification list entry, and one verified listing shows an unread communication. The authorized personal DEHU listing returned zero.",
-  "unblock": "Decide the next exact scope, starting with pending-only DEHU listing for the remaining configured identities. Obtain separate authority before opening a specific notice.",
+  "blocker": "All eight DEHU pending lists and the Junta pending views for the targeted holder returned zero. The verified AEAT listings contain one historical unread communication, one holder was refused, and Garantia Juvenil lists two unread inbox entries. Opening individual notices has separate effects.",
+  "unblock": "Decide whether to open the registration resolution visible in the Garantia Juvenil inbox, then verify the rest under the appropriate authority.",
   "notes": [
     "    around 2026-11-20).** AEAT \"Aviso de notificación de la Agencia",
     "    Tributaria\", 2026-11-10: 2 on djcristiandeluxe@gmail.com, 4 on",
@@ -28,6 +28,9 @@
     "The holder authorized a current DEHU pending-only listing for the personal certificate. Notification access is outside this authorization.",
     "Live DEHU pending-only listing on 2026-11-27 verified one page and zero pending entries. No notice was opened.",
     "The holder authorized AEAT pending-list queries for all configured certificate holders. Notice access remains a separate decision.",
-    "The 2026-11-27 AEAT sweep verified seven of eight configured identities. Six authenticated responses explicitly reported no results and one showed a historical unread communication. No detail links were followed."
+    "The 2026-11-27 AEAT sweep verified seven of eight configured identities. Six authenticated responses explicitly reported no results and one showed a historical unread communication. No detail links were followed.",
+    "The holder authorized a pending-only DEHU listing for the remaining seven configured certificate identities. No notice access was authorized.",
+    "Verified DEHU pending pages for all eight configured holders, checking the authenticated holder and the unfiltered items array. All were empty including the holder refused by AEAT. Junta Carpeta Ciudadana and the associated STA sede returned zero pending for the authorized holder. No details were opened.",
+    "The Garantia Juvenil inbox listing showed two unread entries dated 2026-11-04 and 2026-11-07. No notice details or attachments were opened."
   ]
 }

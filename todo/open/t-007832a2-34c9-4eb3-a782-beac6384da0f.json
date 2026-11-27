@@ -6,8 +6,13 @@
   "category": "integrations",
   "type": "untriaged",
   "priority": "untriaged",
-  "blocker": "The authenticated MisPagos search returned HTTP 500 with an empty response for one holder on 2026-10-15 and 2026-10-16.",
-  "unblock": "Recheck the same holder and exercise through the official read-only MisPagos search and record whether the portal itself returns the error.",
+  "kind": "waiting",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "blocker": "The official 2026 MisPagos lookup still returned HTTP 500 after the holder login on 2026-11-27.",
+  "unblock": "Recheck when the official service accepts this holder or a response with a recoverable cause is available.",
   "notes": [
     "returns 500 with an empty body for that holder only, every year tried; the",
     "other five certificates answer. Still 500 on 2026-10-15 and 2026-10-16.",

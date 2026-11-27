@@ -1,6 +1,7 @@
 import { htmlToText } from '../../../html/htmlToText'
 import type { YouthGuaranteeStatus } from '../types/YouthGuaranteeStatus'
 import { isInitialYouthGuaranteeDraft } from '../validators/isInitialYouthGuaranteeDraft'
+import { readYouthGuaranteeBeneficiaryBanner } from './readYouthGuaranteeBeneficiaryBanner'
 import { readYouthGuaranteeState } from './readYouthGuaranteeState'
 
 /** Missing dates or links alone never establish that the holder is unregistered. */
@@ -18,6 +19,14 @@ export const readYouthGuaranteeStatus = (
       state,
       registrationDate: date,
       evidence: [text.match(/Estado[^.]{0,100}/i)?.[0] ?? state],
+    }
+  const beneficiary = readYouthGuaranteeBeneficiaryBanner(text)
+  if (beneficiary !== undefined)
+    return {
+      inscribed: true,
+      state: 'alta',
+      registrationDate: date,
+      evidence: [beneficiary],
     }
   if (isInitialYouthGuaranteeDraft(html))
     return {

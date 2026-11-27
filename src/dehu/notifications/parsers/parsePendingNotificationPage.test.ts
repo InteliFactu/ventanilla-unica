@@ -32,7 +32,14 @@ describe('parsePendingNotificationPage', () => {
     ])
   })
 
-  it('returns an empty list for a response with no items', () => {
-    expect(parsePendingNotificationPage({})).toEqual([])
+  it('returns an empty list only for an explicit empty array', () => {
+    expect(parsePendingNotificationPage({ items: [] })).toEqual([])
+    expect(() => parsePendingNotificationPage({})).toThrow('items array')
+  })
+
+  it('refuses a page that contains an invalid notification', () => {
+    expect(() => parsePendingNotificationPage({ items: [{}] })).toThrow(
+      'invalid notification',
+    )
   })
 })

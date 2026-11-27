@@ -1,7 +1,7 @@
 import type { HttpClient } from '../../http/types/HttpClient'
 import { fetchDehuContact } from '../contact/fetchers/fetchDehuContact'
-import { readJwtUsername } from '../contact/parsers/readJwtUsername'
 import { loginWithCertificate } from '../session/loginWithCertificate'
+import { readJwtUsername } from '../session/readJwtUsername'
 import { confirmContactUpdate } from './confirmContactUpdate'
 import { fetchContactLegalTextId } from './fetchers/fetchContactLegalTextId'
 import { putDehuContact } from './fetchers/putDehuContact'

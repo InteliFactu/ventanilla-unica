@@ -42,6 +42,23 @@ beforeEach(() => {
 })
 
 describe('listNotifications', () => {
+  it('checks the requested holder before querying a list', async () => {
+    const payload = Buffer.from(
+      JSON.stringify({ username: '00000000T' }),
+    ).toString('base64url')
+    vi.mocked(loginWithCertificate).mockResolvedValue(
+      `header.${payload}.signature`,
+    )
+    await expect(
+      listNotifications(client, { state: 'pending', expectedNif: '00000001R' }),
+    ).rejects.toThrow('different holder')
+    expect(fetchPendingNotifications).not.toHaveBeenCalled()
+    expect(fetchRealizedNotifications).not.toHaveBeenCalled()
+    await expect(
+      listNotifications(client, { state: 'pending', expectedNif: '00000000T' }),
+    ).resolves.toMatchObject({ count: 1 })
+  })
+
   it('reads only pending notifications by default', async () => {
     const result = await listNotifications(client, { state: 'pending' })
     expect(result).toEqual({

@@ -24,6 +24,21 @@ describe('registration evidence', () => {
       state: 'not-inscribed',
     })
   })
+
+  it('recognizes the authenticated beneficiary banner without inventing a date', () => {
+    const banner =
+      'Actualmente se encuentra como beneficiario del sistema de Garantía Juvenil.'
+    expect(
+      readYouthGuaranteeStatus(
+        `<h2>Garantía Juvenil - Beneficiario</h2><p>${banner}</p>`,
+      ),
+    ).toEqual({
+      inscribed: true,
+      state: 'alta',
+      registrationDate: null,
+      evidence: [banner],
+    })
+  })
   it('does not infer absence from a generic form or a missing certificate', () => {
     expect(
       readYouthGuaranteeStatus('<h1>DECLARACIÓN RESPONSABLE</h1>'),
