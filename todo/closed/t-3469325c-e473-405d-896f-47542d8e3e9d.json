@@ -1,0 +1,32 @@
+{
+  "tadu": 2,
+  "id": "t-3469325c-e473-405d-896f-47542d8e3e9d",
+  "title": "Prepare signed FACe supplier SOAP v1 requests for the test environment",
+  "state": "done",
+  "category": "future-ideas",
+  "type": "bug",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "related": [
+    "t-420cdc4f-6af1-4d38-ae32-7166dfb14d6c"
+  ],
+  "notes": [
+    "The public production and test WSDLs publish different operation namespaces and SOAPAction URLs. Use the selected binding in both places before signing."
+  ],
+  "done_when": [
+    "Generate a locally verifiable test request with the namespace and action declared by the official test WSDL, while maintaining production as the default."
+  ],
+  "links": [
+    "https://se-ws-face.redsara.es/proveedores/v1/factura?wsdl"
+  ],
+  "closed": "2026-11-27",
+  "result": "Prepare signed FACe supplier SOAP v1 requests for the test environment",
+  "evidence": [
+    "The official sandbox WSDL and local request use the same namespace and SOAPAction. pnpm exec vitest run src/face src/cli/commands/facePreparar.test.ts passed all 28 tests, including independent xmlsec1 checks of both bindings and rejection of modified SOAP bodies."
+  ]
+}

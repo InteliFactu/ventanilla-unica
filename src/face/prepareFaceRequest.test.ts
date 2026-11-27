@@ -30,6 +30,27 @@ describe('FACe supplier SOAP v1 preparation', () => {
     )
   })
 
+  it('uses the test WSDL binding in both the operation and SOAP action', () => {
+    const prepared = prepareFaceRequest(identity, invoice, delivery, 'sandbox')
+    const testBinding = 'https://se-ws-face.redsara.es/proveedores/v1/factura'
+
+    expect(prepared.soapAction).toBe(`${testBinding}#enviarFactura`)
+    expect(prepared.soap.toString()).toContain(
+      `<face:enviarFactura xmlns:face="${testBinding}">`,
+    )
+  })
+
+  it('rejects an unsupported FACe environment at runtime', () => {
+    expect(() => {
+      Reflect.apply(prepareFaceRequest, undefined, [
+        identity,
+        invoice,
+        delivery,
+        'constructor',
+      ])
+    }).toThrow('FACe environment must be production or sandbox')
+  })
+
   it('references the binary certificate and uses the documented body digest', () => {
     const soap = prepareFaceRequest(identity, invoice, delivery).soap.toString()
     const token =
@@ -49,10 +70,15 @@ describe('FACe supplier SOAP v1 preparation', () => {
     )
   })
 
-  it.skipIf(!hasXmlsec)(
-    'verifies the invoice and rejects a modified signed SOAP body',
-    () => {
-      const prepared = prepareFaceRequest(identity, invoice, delivery)
+  it.skipIf(!hasXmlsec).each(['production', 'sandbox'] as const)(
+    'verifies the %s invoice and rejects a modified signed SOAP body',
+    (environment) => {
+      const prepared = prepareFaceRequest(
+        identity,
+        invoice,
+        delivery,
+        environment,
+      )
       expect(() => xmlsecVerifies(prepared.invoice)).not.toThrow()
       expect(() => {
         verifyFaceSoapWithXmlsec(prepared.soap, identity.cert)

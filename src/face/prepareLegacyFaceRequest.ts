@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto'
 import type { CertificateIdentity } from '../certificate/types/CertificateIdentity'
 import { buildFaceBody } from './buildFaceBody'
 import type { FaceDelivery } from './FaceDelivery'
+import { faceSoapUris } from './faceSoapUris'
 import type { LegacyFaceRequest } from './LegacyFaceRequest'
 import { prepareFaceInvoice } from './prepareFaceInvoice'
 import { signFaceSoap } from './signFaceSoap'
@@ -16,6 +17,11 @@ export const prepareLegacyFaceRequest = (
 ): LegacyFaceRequest => {
   assertFaceDelivery(delivery)
   const { xml } = prepareFaceInvoice(identity, invoice)
-  const body = buildFaceBody(`id-${randomUUID()}`, xml, delivery, 'legacy')
+  const body = buildFaceBody(
+    `id-${randomUUID()}`,
+    xml,
+    delivery,
+    faceSoapUris.legacy,
+  )
   return { invoice: xml, soap: signFaceSoap(identity, body, 'legacy') }
 }

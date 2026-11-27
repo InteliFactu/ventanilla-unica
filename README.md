@@ -475,12 +475,15 @@ or submit it to FACe.
 
 The library exposes `prepareFaceRequest(identity, invoice, {filename, email})`
 for offline supplier v1 preparation. It returns the signed invoice, the
-WS-Security SOAP bytes, and the SOAP action. It prepares one invoice without
+WS-Security SOAP bytes, and the SOAP action. It uses the production binding by
+default. Pass `'sandbox'` as the fourth argument to use the test namespace in
+the signed SOAP body and the test SOAP action. It prepares one invoice without
 annexes. The supplier profile uses an X.509 binary token and SHA-256 for the
 body digest. `prepareLegacyFaceRequest` retains the `facturasspp2` format. Local
 verification uses `xmlsec1`. A signed receipt from the FACe test environment is
 still needed before enabling submission.
-[FACe supplier WSDL](https://ws.face.gob.es/proveedores/v1/factura?wsdl)
+[Production WSDL](https://ws.face.gob.es/proveedores/v1/factura?wsdl) and
+[test WSDL](https://se-ws-face.redsara.es/proveedores/v1/factura?wsdl).
 
 ## Signing
 
