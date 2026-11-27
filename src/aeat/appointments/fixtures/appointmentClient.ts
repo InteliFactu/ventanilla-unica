@@ -8,12 +8,19 @@ import { appointmentResponse } from './appointmentResponse'
 export const appointmentClient = (
   offers = appointmentOffers,
   confirmation = 'onSubmitConfirmaCita() femail1 00000000T 23 de octubre de 2026 a las 11:30 Test Street 10000 Test City',
-): HttpClient & ScriptedClientExtras =>
-  scriptedClient(
+  receipt = appointmentResponse('Cita confirmada'),
+  repeatSearch = false,
+): HttpClient & ScriptedClientExtras => {
+  const search = [
     appointmentResponse('identificacion'),
     appointmentResponse("'valueProcedimiento':'C324163'"),
     appointmentResponse('cita'),
     appointmentResponse(offers),
+  ]
+  return scriptedClient(
+    ...(repeatSearch ? search : []),
+    ...search,
     appointmentResponse(confirmation),
-    appointmentResponse('Cita confirmada'),
+    receipt,
   )
+}

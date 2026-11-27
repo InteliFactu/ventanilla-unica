@@ -17,6 +17,7 @@ export const carpetaUrls = {
     'https://carpetaciudadana.gob.es/api/v2/configuracionAvisos?lang=es',
   verifyEmail: 'https://carpetaciudadana.gob.es/api/verificar-email',
   confirmEmail: 'https://carpetaciudadana.gob.es/api/confirmar-email',
+  registries: 'https://carpetaciudadana.gob.es/api/consultaRegistros?lang=es',
   claveOrigin: 'https://pasarela.clave.gob.es',
   certificateIdp: 'AFIRMA',
 } as const

@@ -1,3 +1,4 @@
+import { appointmentManagementUrl } from '../appointmentManagementUrl'
 import type { AppointmentSlot } from '../types/AppointmentSlot'
 import { parseAppointmentSlot } from './parseAppointmentSlot'
 
@@ -7,7 +8,11 @@ export const parseAppointmentSlots = (html: string): AppointmentSlot[] => {
     !html.includes('Citas sugeridas') ||
     html.includes('provincia indicada no')
   )
-    throw new Error('AEAT appointment search did not return a valid offer page')
+    // A holder with an existing booking got this page on 2026-10-28; its
+    // layout was not captured, so only the management page is suggested.
+    throw new Error(
+      `AEAT appointment search did not return a valid offer page; if the holder already has an appointment, review it at ${appointmentManagementUrl}`,
+    )
   const slots = [
     ...html.matchAll(/onClickMarcarDiaHora\(this,(\{[\s\S]*?\})\)/gu),
   ].map((match) => parseAppointmentSlot(match[1] ?? ''))

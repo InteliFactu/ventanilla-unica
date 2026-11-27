@@ -2,10 +2,17 @@
   "tadu": 2,
   "id": "t-cb27cf30-0103-4646-aebc-25f97703a88e",
   "title": "Search fails once the holder has a booking",
-  "state": "pending",
+  "state": "blocked",
   "category": "aeat-appointments",
-  "type": "untriaged",
-  "priority": "untriaged",
+  "type": "bug",
+  "priority": "normal",
+  "kind": "waiting",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "blocker": "The CLI reports the known internal-error response with the incident and management link. A distinct response containing an existing booking has not been captured.",
+  "unblock": "Provide a redacted read-only search response for a holder with an active appointment.",
   "notes": [
     "After the 12:30 booking,",
     "",

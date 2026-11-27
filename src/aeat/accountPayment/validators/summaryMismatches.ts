@@ -1,4 +1,5 @@
 import type { HtmlForm } from '../../../html/types/HtmlForm'
+import { accountPaymentUrl } from '../accountPaymentUrl'
 import type { AccountPaymentRequest } from '../types/AccountPaymentRequest'
 
 /** Every summary field that does not echo the request: a reason never to press "Firmar y Enviar". */
@@ -6,6 +7,8 @@ export const summaryMismatches = (
   summary: HtmlForm,
   request: AccountPaymentRequest,
 ): readonly string[] => {
+  if (summary.action !== accountPaymentUrl)
+    return ['The summary page points to an unexpected payment endpoint.']
   const expected: Readonly<Record<string, string>> = {
     fAccion: '4',
     idmod: request.modelo,

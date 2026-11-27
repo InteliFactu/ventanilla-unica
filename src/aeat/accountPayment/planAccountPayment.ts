@@ -9,11 +9,6 @@ export const planAccountPayment = (
   request: AccountPaymentRequest,
 ): AccountPaymentOutcome => {
   const blockers = accountPaymentBlockers(context, request)
-  const warnings = context.paymentsChecked
-    ? []
-    : [
-        `MisPagos was not checked: it answers only for the certificate's NIF (${context.holder.nif}). Make sure justificante ${request.justificante} is not paid yet; the form would charge it again.`,
-      ]
   const plan = [
     'GET OVPP-PAGO/LiquidacionesCuenta and POST its first step: the AEAT validates modelo, justificante, importe and IBAN and shows the summary. Nothing is charged.',
     `POST "Firmar y Enviar": the AEAT orders the bank to debit ${request.importe} EUR from ${request.iban} for modelo ${request.modelo} justificante ${request.justificante} and returns the NRC. The debt is then paid; this cannot be undone.`,
@@ -24,7 +19,7 @@ export const planAccountPayment = (
   ]
   return {
     plan,
-    notes: [...blockers, ...warnings],
+    notes: blockers,
     ready: blockers.length === 0,
   }
 }

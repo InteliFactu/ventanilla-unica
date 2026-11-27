@@ -1,0 +1,8 @@
+export { bookAppointment } from './bookAppointment'
+export { listAppointments } from './listAppointments'
+export { searchAppointments } from './searchAppointments'
+export type { AppointmentBooking } from './types/AppointmentBooking'
+export type { AppointmentQuery } from './types/AppointmentQuery'
+export type { AppointmentSearch } from './types/AppointmentSearch'
+export type { AppointmentSearchRefusal } from './types/AppointmentSearchRefusal'
+export type { AppointmentSlot } from './types/AppointmentSlot'

@@ -1,10 +1,15 @@
 import type { HttpClient } from '../../../http/types/HttpClient'
 import { appointmentSearchTime } from '../mappers/appointmentSearchTime'
 import type { AppointmentQuery } from '../types/AppointmentQuery'
-import { fetchAppointmentPage } from './fetchAppointmentPage'
+import { isAppointmentErrorPage } from '../validators/isAppointmentErrorPage'
+import { fetchAppointmentSearchPage } from './fetchAppointmentSearchPage'
 import { fetchAppointmentServices } from './fetchAppointmentServices'
 
-/** Search in-person appointments only, using a postal code to avoid charset ambiguity. */
+/**
+ * Search in-person appointments only, using a postal code to avoid charset
+ * ambiguity. An error page at `procedimiento` is returned without the `cita`
+ * step: the portal answered that way for a holder who already had a booking.
+ */
 export const fetchAppointmentOffers = async (
   client: HttpClient,
   query: AppointmentQuery,
@@ -12,14 +17,15 @@ export const fetchAppointmentOffers = async (
   const services = await fetchAppointmentServices(client, query)
   if (!services.includes(`'valueProcedimiento':'${query.service}'`))
     throw new Error('AEAT did not offer the requested appointment service')
-  await fetchAppointmentPage(client, 'procedimiento', {
+  const procedure = await fetchAppointmentSearchPage(client, 'procedimiento', {
     faccion: 'V',
     fmodoParaQue: 'SERVICIOS',
     fcsv: '',
     fsrv: query.service,
     fcatalogo: '',
   })
-  return fetchAppointmentPage(client, 'cita', {
+  if (isAppointmentErrorPage(procedure)) return procedure
+  return fetchAppointmentSearchPage(client, 'cita', {
     filpre: 'S',
     filtel: 'N',
     filvid: 'N',

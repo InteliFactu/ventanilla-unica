@@ -1,6 +1,8 @@
 /** Invented identifiers with the exact shapes the LiquidacionesCuenta pages print. */
 export const accountPaymentFixture = {
   nif: '00000000T',
+  /** An obligado other than the certificate holder. */
+  otherNif: 'B00000000',
   nombre: 'PEREZ GIL ANA',
   modelo: '010',
   justificante: '010000000001A',

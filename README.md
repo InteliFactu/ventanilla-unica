@@ -169,10 +169,15 @@ the options offline (NIF, modelo, a 13-character justificante, an amount above
 zero, the IBAN checksum and its CCC control digits), reads the list of adhered
 banks, and posts the form's first step, which only validates: the AEAT answers
 the summary page or its errors (a justificante whose control letter does not
-match the amount, a bank field in a wrong format). For the certificate's own NIF
-it also reads MisPagos, because the form does not refuse a justificante that is
-already paid; for any other NIF it says it could not check. The plan shows the
-census name the AEAT put on the payment (`titular`).
+match the amount, a bank field in a wrong format). The plan shows the census
+name the AEAT put on the payment (`titular`).
+
+The debit requires a verifiable MisPagos history for the taxpayer. For a
+different NIF, pass both `--cert-obligado <pem>` and `--key-obligado <pem>` for
+the separate history session. An encrypted secondary key uses
+`VENTANILLA_UNICA_OBLIGADO_KEY_PASSPHRASE`. You can run a plan without this
+second identity. The confirmed run stops if the history cannot be verified or
+already contains the justificante.
 
 With `--confirmar si` it presses "Firmar y Enviar": the AEAT orders the bank to
 debit the amount, the debt is paid, and the answer carries the NRC, which the
@@ -650,6 +655,18 @@ document fingerprint in each filename. Documents from different tree branches
 with the same event number are saved separately. Use the returned `path` to
 locate each file.
 
+## DGSFP filing lookup
+
+`carpeta registros` reads general-registry entries from Carpeta Ciudadana. Use
+the REGAGE number from the DGSFP receipt and a date range that includes the
+filing date. Dates use the Europe/Madrid calendar. The default range covers the
+last 30 days.
+
+```sh
+ventanilla-unica carpeta registros --registro REGAGE26e00000000000 \
+  --desde 01/11/2026 --hasta 30/11/2026
+```
+
 ## License
 
 MIT, see `LICENSE`.
@@ -663,6 +680,12 @@ actually offered for that holder. Province names are not accepted: the captured
 form's handling of accented names was ambiguous, while postal codes were
 verified against the live source.
 
+If AEAT returns its recognized internal error during a search, the CLI reports
+`refusal` with the incident ID when present and the appointment-management link.
+The error has occurred for a holder with an existing booking. Check the
+management page for the actual booking status. Library callers can use
+`searchAppointments` to receive `{ slots, refusal }`.
+
 ```sh
 ventanilla-unica aeat cita --nif 00000000T --nombre "TEST HOLDER" \
   --postal 10000 --fecha 2026-10-23 --hora 11:00
@@ -675,11 +698,11 @@ confirmar" and hides it from later searches. Confirmed reservations also require
 `--email`, `--telefono` (digits, Spanish +34 prefix), `--out` and optionally
 `--detalle` (250 characters maximum), all checked before any portal request. The
 CLI rechecks the selected centre, date and time against current offers. It
-submits the final request once, saves its HTML response with owner-only
-permissions and reports transmission separately from confirmation. Inspect that
-receipt before retrying: a timeout or an unrecognized result must not cause a
-duplicate reservation. Booking does not apply for a deferral, change a payment
-plan, accept notifications or pay a debt.
+submits the final request once and saves the response with owner-only
+permissions, including an error response from that final step. Verify the
+booking in the saved receipt and the appointment-management page before
+retrying. A booking does not apply for a deferral, change a payment plan, accept
+notifications or pay a debt.
 
 The captured protocol is the public `TOCP-MUTE/internet` flow: GET
 `identificacion`, POST holder identification, POST `procedimiento` with an

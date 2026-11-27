@@ -9,14 +9,20 @@ import type { AccountPaymentRequest } from './types/AccountPaymentRequest'
 /**
  * `aeat pagar`: validate the payment with the AEAT up to its summary page and
  * plan; only with `confirm` press "Firmar y Enviar", which debits the account
- * and pays the debt.
+ * and pays the debt. When payer and obligado differ, the separate client is
+ * used for verified read-only payment history, never to submit the payment.
  */
 export const payByAccountDebit = async (
   client: HttpClient,
   request: AccountPaymentRequest,
+  obligadoClient?: HttpClient,
 ): Promise<AccountPaymentPlan> => {
   await openAeatSession(client)
-  const context = await readAccountPaymentContext(client, request)
+  const context = await readAccountPaymentContext(
+    client,
+    request,
+    obligadoClient,
+  )
   const { plan, notes, ready } = planAccountPayment(context, request)
   const action = `pay AEAT modelo ${request.modelo} justificante ${request.justificante} (${request.importe} EUR) by debit to ${request.iban}`
   const titular = context.summary?.fields['idape']

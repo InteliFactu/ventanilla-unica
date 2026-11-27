@@ -6,6 +6,7 @@ import { fetchCollaboratingEntities } from './fetchers/fetchCollaboratingEntitie
 import { postAccountPaymentForm } from './fetchers/postAccountPaymentForm'
 import { findPaidNrc } from './findPaidNrc'
 import { accountPaymentFirstForm } from './mappers/accountPaymentFirstForm'
+import { openObligadoPaymentSession } from './openObligadoPaymentSession'
 import { parseCertificateHolder } from './parsers/parseCertificateHolder'
 import { parseCollaboratingEntities } from './parsers/parseCollaboratingEntities'
 import { parsePaymentAlerts } from './parsers/parsePaymentAlerts'
@@ -14,13 +15,14 @@ import type { AccountPaymentRequest } from './types/AccountPaymentRequest'
 
 /**
  * Everything before the money moves: the adhered banks, the blank form, its
- * first step (which only validates and answers a summary or errors) and, for
- * the certificate's own NIF, MisPagos. A wrong name is replaced by the census
+ * first step (which only validates and answers a summary or errors) and the
+ * obligado's own MisPagos history. A wrong name is replaced by the census
  * name of the NIF in the summary, so the holder's name is a safe default.
  */
 export const readAccountPaymentContext = async (
   client: HttpClient,
   request: AccountPaymentRequest,
+  obligadoClient?: HttpClient,
 ): Promise<AccountPaymentContext> => {
   const entities = parseCollaboratingEntities(
     await fetchCollaboratingEntities(client),
@@ -28,23 +30,32 @@ export const readAccountPaymentContext = async (
   const page = await fetchAccountPaymentForm(client)
   const holder = parseCertificateHolder(page)
   const blank = parseFirstForm(page, accountPaymentUrl)
-  if (!holder || !blank)
-    throw new Error('AEAT: LiquidacionesCuenta printed no payment form')
+  if (
+    !holder ||
+    blank?.action !== accountPaymentUrl ||
+    blank.fields['fAccion'] !== '1'
+  )
+    throw new Error(
+      'AEAT: expected the initial payment form; no payment was sent',
+    )
   const step = await postAccountPaymentForm(
     client,
     accountPaymentFirstForm(blank, request, request.nombre ?? holder.nombre),
   )
   const alerts = parsePaymentAlerts(step)
-  const paymentsChecked = holder.nif === request.nif
+  const paymentsClient =
+    holder.nif === request.nif
+      ? client
+      : obligadoClient &&
+        (await openObligadoPaymentSession(obligadoClient, request.nif))
   return {
-    holder,
     entities,
     alerts,
     summary:
       alerts.length > 0 ? undefined : parseFirstForm(step, accountPaymentUrl),
-    paidNrc: paymentsChecked
-      ? await findPaidNrc(client, request.justificante)
+    paidNrc: paymentsClient
+      ? await findPaidNrc(paymentsClient, request.justificante)
       : undefined,
-    paymentsChecked,
+    paymentsChecked: paymentsClient !== undefined,
   }
 }

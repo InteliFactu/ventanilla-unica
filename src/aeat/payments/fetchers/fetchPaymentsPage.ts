@@ -14,5 +14,7 @@ export const fetchPaymentsPage = async (
     `${aeatBaseUrl}/wlpl/OVPP-PAGO/MisPagos`,
     { defaultCharset: 'windows-1252' },
   )
+  if (response.status !== 200)
+    throw new Error(`AEAT: MisPagos answered HTTP ${String(response.status)}`)
   return response.text
 }

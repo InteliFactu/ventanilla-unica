@@ -1,17 +1,20 @@
 import type { HttpClient } from '../../../http/types/HttpClient'
-import { appointmentOrigin } from '../appointmentOrigin'
+import { readAppointmentErrorId } from '../parsers/readAppointmentErrorId'
+import { isAppointmentErrorPage } from '../validators/isAppointmentErrorPage'
+import { validateAppointmentResponse } from '../validators/validateAppointmentResponse'
+import { requestAppointmentPage } from './requestAppointmentPage'
 
-/** Request an observed appointment step, retaining the same client's cookies. */
+/** Request an appointment step that must answer a regular page. */
 export const fetchAppointmentPage = async (
   client: HttpClient,
   step: string,
   fields?: Readonly<Record<string, string>>,
 ): Promise<string> => {
-  const response = await client.request(appointmentOrigin + step, {
-    ...(fields === undefined ? {} : { method: 'POST', form: fields }),
-    referer: appointmentOrigin + step,
-  })
-  if (response.status !== 200 || !response.text.includes('TOCP-MUTE'))
-    throw new Error('AEAT appointment session or page unavailable')
+  const response = await requestAppointmentPage(client, step, fields)
+  if (isAppointmentErrorPage(response.text))
+    throw new Error(
+      `AEAT appointment step ${step} answered its internal error page (error ${readAppointmentErrorId(response.text) ?? 'unnumbered'})`,
+    )
+  validateAppointmentResponse(response)
   return response.text
 }

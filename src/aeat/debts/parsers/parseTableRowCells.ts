@@ -4,8 +4,8 @@ import { htmlToText } from '../../../html/htmlToText'
 export const parseTableRowCells = (
   html: string,
 ): readonly (readonly string[])[] =>
-  [...html.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)].map(([, inner = '']) =>
-    [...inner.matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi)].map(
+  [...html.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr\s*>/gi)].map(([, inner = '']) =>
+    [...inner.matchAll(/<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]\s*>/gi)].map(
       ([, cell = '']) => htmlToText(cell),
     ),
   )

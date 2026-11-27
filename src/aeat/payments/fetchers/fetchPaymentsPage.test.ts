@@ -20,4 +20,17 @@ describe('fetchPaymentsPage', () => {
       { defaultCharset: 'windows-1252' },
     )
   })
+
+  it('refuses any status but 200', async () => {
+    const request = vi.fn<HttpClient['request']>().mockResolvedValue({
+      status: 500,
+      url: '',
+      headers: {},
+      body: Buffer.alloc(0),
+      text: '<table></table>',
+    })
+    await expect(
+      fetchPaymentsPage({ request, cookie: () => undefined }),
+    ).rejects.toThrow('AEAT: MisPagos answered HTTP 500')
+  })
 })

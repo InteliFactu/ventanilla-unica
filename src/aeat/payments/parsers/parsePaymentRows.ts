@@ -11,7 +11,7 @@ export const parsePaymentRows = (html: string): readonly AeatPayment[] => {
   const dataCells = 6
   const seen = new Set<string>()
   const payments: AeatPayment[] = []
-  for (const [row = ''] of html.matchAll(/<tr[^>]*>[\s\S]*?<\/tr>/gi)) {
+  for (const [row = ''] of html.matchAll(/<tr\b[^>]*>[\s\S]*?<\/tr\s*>/gi)) {
     const nrc = /[?&]nrc=(\w+)/.exec(row)?.[1]
     const cells = parseTableRowCells(row)[0] ?? []
     if (!nrc || seen.has(nrc) || cells.length < dataCells) continue

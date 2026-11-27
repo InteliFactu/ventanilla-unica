@@ -1,11 +1,18 @@
 {
   "tadu": 2,
   "id": "t-98b08b51-a5f1-439c-89a2-cc460aaadcdb",
-  "title": "**aeat: `aeat pagar` cannot check a third party's MisPagos when the payer",
-  "state": "pending",
+  "title": "Check the taxpayer own MisPagos history when the payer uses a different certificate",
+  "state": "blocked",
   "category": "integrations",
-  "type": "untriaged",
-  "priority": "untriaged",
+  "type": "bug",
+  "priority": "high",
+  "kind": "waiting",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "blocker": "The isolated taxpayer session and fail-closed checks are implemented and covered using synthetic responses. A real two-certificate read-only plan and a definitive empty-history sample remain unverified.",
+  "unblock": "Provide a redacted verified empty-history response and authorize one read-only plan for a known paid receipt using the payer and taxpayer certificates.",
   "notes": [
     "    differs from the obligado.** Debiting the account needs the account",
     "    holder's certificate, but the already-paid guard reads MisPagos for the",

@@ -1,11 +1,14 @@
 {
   "tadu": 2,
   "id": "t-3d4f9cfb-ffa3-41c1-9959-46f81269dfd7",
-  "title": "**Validate the final appointment receipt with a confirmed live",
-  "state": "in_progress",
+  "title": "Validate the final receipt from a confirmed AEAT appointment",
+  "state": "blocked",
   "category": "aeat-appointments",
-  "type": "untriaged",
-  "priority": "untriaged",
+  "type": "test",
+  "priority": "normal",
+  "kind": "waiting",
+  "blocker": "The CLI now preserves even an error response after the final request. A trustworthy success marker cannot be verified without the original redacted live receipt.",
+  "unblock": "Provide a redacted receipt from an already confirmed booking to verify the parser without making a new reservation.",
   "notes": [
     "reservation.** `aeat cita` now lists in-person offers, rechecks an exact slot",
     "and prepares the confirmation page through the public TOCP-MUTE HTTP flow. The",

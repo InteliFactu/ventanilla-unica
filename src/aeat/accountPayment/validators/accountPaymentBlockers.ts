@@ -25,5 +25,10 @@ export const accountPaymentBlockers = (
         `MisPagos already lists NRC ${context.paidNrc} for justificante ${request.justificante}: it is paid. The form does not refuse a paid justificante, so a second payment would be charged.`,
       ]
     : []
-  return [...entity, ...alerts, ...summary, ...paid]
+  const unchecked = context.paymentsChecked
+    ? []
+    : [
+        'MisPagos was not checked for the obligado. Provide --cert-obligado and --key-obligado before confirming the debit.',
+      ]
+  return [...entity, ...alerts, ...summary, ...paid, ...unchecked]
 }

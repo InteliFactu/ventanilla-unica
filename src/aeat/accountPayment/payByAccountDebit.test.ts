@@ -2,91 +2,65 @@ import { mkdtemp } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
-import type { HttpClient } from '../../http/types/HttpClient'
-import type { HttpRequestOptions } from '../../http/types/HttpRequestOptions'
+import type { AccountPaymentPages } from './fixtures/AccountPaymentPages'
 import { accountPaymentErrorHtml } from './fixtures/accountPaymentErrorHtml'
 import { accountPaymentFixture as fx } from './fixtures/accountPaymentFixture'
 import { accountPaymentFormHtml } from './fixtures/accountPaymentFormHtml'
+import { accountPaymentOtherNifSummaryHtml } from './fixtures/accountPaymentOtherNifSummaryHtml'
+import { accountPaymentPortal } from './fixtures/accountPaymentPortal'
+import { accountPaymentRequest } from './fixtures/accountPaymentRequest'
 import { accountPaymentSuccessHtml } from './fixtures/accountPaymentSuccessHtml'
-import { accountPaymentSummaryHtml } from './fixtures/accountPaymentSummaryHtml'
-import { collaboratingEntitiesHtml } from './fixtures/collaboratingEntitiesHtml'
+import { countFinalAccountPaymentPosts } from './fixtures/countFinalAccountPaymentPosts'
+import { misPagosHeaderHtml } from './fixtures/misPagosHeaderHtml'
+import { misPagosPaidRowHtml } from './fixtures/misPagosPaidRowHtml'
 import { payByAccountDebit } from './payByAccountDebit'
 import type { AccountPaymentRequest } from './types/AccountPaymentRequest'
 
-type Pages = {
-  readonly step1?: string
-  readonly final?: string | Error
-  readonly payments?: string
-  readonly pdf?: string
-}
-
-const isFinalStep = (options: HttpRequestOptions | undefined): boolean =>
-  String(options?.body ?? '').includes('fAccion=4')
-
-const answer = (text: string): Awaited<ReturnType<HttpClient['request']>> => ({
-  status: 200,
-  url: '',
-  headers: {},
-  body: Buffer.from(text),
-  text,
-})
-
-const pageFor = (url: string, pages: Pages): string => {
-  const routes: readonly (readonly [string, string])[] = [
-    ['VerEntidadesAdheridas', collaboratingEntitiesHtml],
-    ['MisPagos', pages.payments ?? ''],
-    ['ImpresionPDF', pages.pdf ?? '%PDF-1.4'],
-    ['LiquidacionesCuenta', accountPaymentFormHtml],
-  ]
-  return routes.find(([fragment]) => url.includes(fragment))?.[1] ?? 'session'
-}
-
-const finalAnswer = async (
-  final: string | Error | undefined,
-): Promise<Awaited<ReturnType<HttpClient['request']>>> => {
-  if (final instanceof Error) throw final
-  return Promise.resolve(answer(final ?? ''))
-}
-
-const portal = (pages: Pages) =>
-  vi.fn<HttpClient['request']>(async (url, options) => {
-    if (isFinalStep(options)) return finalAnswer(pages.final)
-    return Promise.resolve(
-      answer(
-        options?.method === 'POST'
-          ? (pages.step1 ?? accountPaymentSummaryHtml)
-          : pageFor(url, pages),
-      ),
-    )
-  })
-
-const request: AccountPaymentRequest = {
-  nif: fx.nif,
-  modelo: fx.modelo,
-  justificante: fx.justificante,
-  importe: fx.importe,
-  iban: fx.iban,
-  confirm: false,
-}
-
 const run = async (
-  pages: Pages,
+  pages: AccountPaymentPages,
   patch: Partial<AccountPaymentRequest> = {},
 ) => {
-  const request_ = portal(pages)
+  const request_ = accountPaymentPortal(pages)
   const result = await payByAccountDebit(
     { request: request_, cookie: () => undefined },
-    { ...request, ...patch },
+    { ...accountPaymentRequest, ...patch },
   )
-  return {
-    result,
-    finalPosts: request_.mock.calls.filter(([, o]) => isFinalStep(o)).length,
-  }
+  return { result, finalPosts: countFinalAccountPaymentPosts(request_) }
 }
 
 describe('payByAccountDebit', () => {
+  it('stops an unexpected starting form before any payment POST in plan mode', async () => {
+    const payer = accountPaymentPortal({
+      blank: accountPaymentFormHtml.replace("value='1'/>", "value='4'/>"),
+      final: accountPaymentSuccessHtml,
+    })
+    await expect(
+      payByAccountDebit(
+        { request: payer, cookie: () => undefined },
+        accountPaymentRequest,
+      ),
+    ).rejects.toThrow('expected the initial payment form')
+    expect(
+      payer.mock.calls.filter(([, options]) => options?.method === 'POST'),
+    ).toHaveLength(0)
+  })
+
+  it('does not debit when the authenticated payer receives a generic error page', async () => {
+    const payer = accountPaymentPortal({
+      paymentsHtml: `${misPagosHeaderHtml}<p>Error interno</p>`,
+      final: accountPaymentSuccessHtml,
+    })
+    await expect(
+      payByAccountDebit(
+        { request: payer, cookie: () => undefined },
+        { ...accountPaymentRequest, confirm: true },
+      ),
+    ).rejects.toThrow('MisPagos printed no payment history page')
+    expect(countFinalAccountPaymentPosts(payer)).toBe(0)
+  })
+
   it('plans up to the summary and never presses "Firmar y Enviar" without confirmation', async () => {
     const { result, finalPosts } = await run({
       final: accountPaymentSuccessHtml,
@@ -108,9 +82,8 @@ describe('payByAccountDebit', () => {
   })
 
   it('does not pay a justificante MisPagos already lists', async () => {
-    const payments = `<tr><td>010</td><td>x</td><td>${fx.justificante}</td><td>50,00</td><td>1583</td><td>06/11/2026</td><td><a href='ImpresionPDF?nrc=${fx.nrc}'>Descargar</a></td></tr>`
     const { result, finalPosts } = await run(
-      { payments, final: accountPaymentSuccessHtml },
+      { payments: misPagosPaidRowHtml, final: accountPaymentSuccessHtml },
       { confirm: true },
     )
     expect(result.notes[0]).toMatch(/already lists NRC/)
@@ -118,7 +91,10 @@ describe('payByAccountDebit', () => {
   })
 
   it('warns that MisPagos is not checked for another NIF', async () => {
-    const { result } = await run({}, { nif: 'B00000000' })
+    const { result } = await run(
+      { step1: accountPaymentOtherNifSummaryHtml },
+      { nif: fx.otherNif },
+    )
     expect(result.notes.join(' ')).toMatch(/MisPagos was not checked/)
   })
 

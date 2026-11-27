@@ -1,11 +1,18 @@
 {
   "tadu": 2,
   "id": "t-7f8ac712-4570-4bb5-8605-edc8ee1115a3",
-  "title": "dgsfp: read commands",
-  "state": "pending",
+  "title": "Read back DGSFP filings from the general registry",
+  "state": "blocked",
   "category": "integrations",
-  "type": "untriaged",
-  "priority": "untriaged",
+  "type": "feature",
+  "priority": "normal",
+  "kind": "waiting",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "blocker": "The Carpeta Ciudadana registry reader passes synthetic tests, but a real DGSFP REGAGE readback has not been verified.",
+  "unblock": "Provide a redacted registry response for an existing DGSFP filing or authorize one read-only lookup of its REGAGE number.",
   "notes": [
     "`dgsfp reclamacion` files but nothing reads",
     "",

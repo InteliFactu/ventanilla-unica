@@ -1,6 +1,12 @@
+import { mkdtemp } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+
 import { describe, expect, it } from 'vitest'
 
 import { appointmentClient } from './fixtures/appointmentClient'
+import { appointmentErrorPage } from './fixtures/appointmentErrorPage'
+import { appointmentResponse } from './fixtures/appointmentResponse'
 import { runAppointmentCommand } from './runAppointmentCommand'
 
 const holder = {
@@ -72,4 +78,31 @@ describe('runAppointmentCommand', () => {
       ),
     ).toBe(false)
   })
+
+  it.each([200, 299])(
+    'preserves the final response for verification after HTTP %s',
+    async (status) => {
+      const receipt = appointmentResponse(appointmentErrorPage, status)
+      const client = appointmentClient(undefined, undefined, receipt, true)
+      const out = await mkdtemp(join(tmpdir(), 'aeat-appointment-'))
+      const result = await runAppointmentCommand(client, {
+        ...holder,
+        centro: '99001',
+        confirmar: 'si',
+        email: 'holder@example.test',
+        telefono: '600000000',
+        out,
+      })
+      expect(result).toMatchObject({
+        executed: true,
+        confirmed: false,
+      })
+      expect(result).toHaveProperty('receiptPath', expect.stringContaining(out))
+      expect(
+        client.request.mock.calls.filter(([url]) =>
+          url.endsWith('/confirmacion'),
+        ),
+      ).toHaveLength(1)
+    },
+  )
 })
