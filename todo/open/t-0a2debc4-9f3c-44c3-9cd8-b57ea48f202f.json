@@ -11,7 +11,7 @@
   "assignees": [
     "agent:codex"
   ],
-  "blocker": "The read-only current calendar matches the archived SRAF structure and verifies debt keys and exact cent totals. The reported agreement has no fresh redacted response.",
+  "blocker": "The current calendar reader has synthetic and structural checks. A September archival extract verifies the two named original schedules, but the November current calendar for those agreements has not been verified.",
   "unblock": "Provide redacted detail and calendar responses for that agreement, or authorize one read-only verification. The original signed schedule is a separate source.",
   "notes": [
     "    Live run for B22903801 returned four granted agreements with `acuerdo`,",
@@ -23,6 +23,7 @@
     "    charges are monthly on day 5 (05-10 124,62 and 59,86; 05-11 125,05 and",
     "    60,06), so 102640313675Q looks like 6 plazos and 102640313692X like 4.",
     "    Next: capture the AcuAccDeta HTML of 102640313692X (or the plazos page it",
-    "    links to) and parse number of plazos, dates and amounts."
+    "    links to) and parse number of plazos, dates and amounts.",
+    "The private 2026-09-03 archival extract contains dated schedules for both exact agreements from the report. Each has the declared number of complete instalments: six and four. Use it as a historical comparison baseline. The 2026-11-17 current SRAF calendar response is still absent."
   ]
 }
