@@ -12,6 +12,6 @@
   "closed": "2026-10-16",
   "result": "one certificate GET to `www1.tea.hacienda.gob.es/wlpl/TEWV-CORE/ResumenVlt`; answers `hasExpedientes: false` on \"No existen expedientes que mostrar\", checks the holder shown, refuses rows it cannot map and reports \"Contribuyente no autorizado\".",
   "evidence": [
-    "live run: 76048463K, [redacted], B22903801, B22903793, E10501278, 08885194H and E10484822 hold no TEA case; E67686287 is refused by the sede (HTTP 403, \"acuda a su oficina de la Agencia Tributaria\"); `pnpm check:ci` green."
+    "live run: [redacted], [redacted], [redacted], [redacted], [redacted], [redacted] and [redacted] hold no TEA case; [redacted] is refused by the sede (HTTP 403, \"acuda a su oficina de la Agencia Tributaria\"); `pnpm check:ci` green."
   ]
 }

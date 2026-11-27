@@ -2,7 +2,7 @@ import type { StaPortal } from '../types/StaPortal'
 
 /**
  * The "Aporte documentación" procedure id of each sede, which files documents
- * into an open expediente of the holder (AÑO/NUMERO, e.g. 2026/25777D) and
+ * into an open expediente of the holder (AÑO/NUMERO, e.g. 2099/00002D) and
  * registers them as "Presentación de documentación complementaria" addressed
  * to the unit handling it. Only the Junta's is known.
  */

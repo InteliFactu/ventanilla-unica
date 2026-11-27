@@ -19,7 +19,7 @@ export const validateContributionQuery = (
   const problems = [
     /^\d{4}\/\w+$/.test(expediente)
       ? ''
-      : '--expediente must be the AÑO/NUMERO of an open file, e.g. 2026/25777D',
+      : '--expediente must be the AÑO/NUMERO of an open file, e.g. 2099/00002D',
     documents.length === 0
       ? '--documentos is required: one or more PDFs, comma-separated'
       : '',

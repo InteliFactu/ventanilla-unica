@@ -1,4 +1,5 @@
 dist/
 coverage/
+.codegraph/
 pnpm-lock.yaml
 todo/

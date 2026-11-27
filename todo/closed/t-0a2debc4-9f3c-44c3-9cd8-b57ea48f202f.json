@@ -14,7 +14,7 @@
   "blocker": "The current calendar reader has synthetic and structural checks. A September archival extract verifies the two named original schedules, but the November current calendar for those agreements has not been verified.",
   "unblock": "Provide redacted detail and calendar responses for that agreement, or authorize one read-only verification. The original signed schedule is a separate source.",
   "notes": [
-    "    Live run for B22903801 returned four granted agreements with `acuerdo`,",
+    "    Live run for [redacted] returned four granted agreements with `acuerdo`,",
     "    `importe`, `notificado` and `primerPlazo`, but `plazos` is empty and",
     "    `instalments` holds the debts table (Deuda / Solicitud / Importe deuda),",
     "    not the per-plazo dates and amounts. InteliFactu needs the calendar to",

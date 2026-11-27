@@ -13,7 +13,7 @@ export const validateRelecQuery = (options: CliOptions): RelecQuery => {
   const problems = [
     /^(?:\d{4}\/\w+|[A-Z]{3}\d{6,})$/.test(query.reference)
       ? ''
-      : '--referencia must be an expediente (AÑO/NUMERO, e.g. 2026/00032519N) or a registry number (e.g. ENT2026039187)',
+      : '--referencia must be an expediente (AÑO/NUMERO, e.g. 2099/00000001N) or a registry number (e.g. ENT2026039187)',
     count === 0
       ? '--documentos is required: one or more PDFs, comma-separated'
       : '',

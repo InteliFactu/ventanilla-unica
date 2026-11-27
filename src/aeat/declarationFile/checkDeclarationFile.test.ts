@@ -19,7 +19,7 @@ const page = [
   String.raw`['zul.wgt.Button','pag',{id:'btnPagarModal',$onClick:true},{},[]]`,
   String.raw`['zul.wgt.Button','fir',{id:'boton',sclass:'cmd__firmarEnviar'},{},[]]`,
 ].join(' ')
-const summary = String.raw`['zul.wgt.Label','a',{id:'SPNIF',value:'E67686287'},{},[]],['zul.wgt.Label','b',{id:'SPNOM',value:'EMPRESA ESPJ'},{},[]]`
+const summary = String.raw`['zul.wgt.Label','a',{id:'SPNIF',value:'E00000059'},{},[]],['zul.wgt.Label','b',{id:'SPNOM',value:'EMPRESA ESPJ'},{},[]]`
 const notice = (tooltip: string, code: string): string =>
   String.raw`zclass:'lineasTablaErrores'},{},[['zul.wgt.Image','i',{tooltiptext:'${tooltip}'},{},[]],['zul.wgt.Label','a',{value:'1'},{},[]],['zul.wgt.Label','b',{value:'${code}'},{},[]],['zul.wgt.Label','c',{value:'text'},{},[]]]`
 const file = Buffer.from('<T390020250A0000><AUX>', 'latin1')
@@ -48,7 +48,7 @@ describe('checkDeclarationFile', () => {
       modelo: '390',
       ejercicio: '2025',
       periodo: '0A',
-      holder: { nif: 'E67686287', nombre: 'EMPRESA ESPJ' },
+      holder: { nif: 'E00000059', nombre: 'EMPRESA ESPJ' },
       notices: [],
       valid: true,
     })

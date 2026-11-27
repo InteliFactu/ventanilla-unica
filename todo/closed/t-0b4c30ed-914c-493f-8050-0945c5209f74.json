@@ -9,9 +9,9 @@
   "notes": [
     "Unexercised through the",
     "",
-    "    package. 2026-10-15 `tgss deuda --tipo detallado --out` for 76048463K,",
-    "    E10501278 and B22903801 answered \"NO SE HA ENCONTRADO DEUDA\", and",
-    "    E10484822 \"SIN DATOS O NO EXISTE CCC/NAF PRINCIPAL\": no holder has a TGSS",
+    "    package. 2026-10-15 `tgss deuda --tipo detallado --out` for [redacted],",
+    "    [redacted] and [redacted] answered \"NO SE HA ENCONTRADO DEUDA\", and",
+    "    [redacted] \"SIN DATOS O NO EXISTE CCC/NAF PRINCIPAL\": no holder has a TGSS",
     "    debt today. Run it when one does."
   ],
   "closed": "2026-11-27",

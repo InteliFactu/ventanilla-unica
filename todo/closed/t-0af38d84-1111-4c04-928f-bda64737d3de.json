@@ -1,0 +1,26 @@
+{
+  "tadu": 2,
+  "id": "t-0af38d84-1111-4c04-928f-bda64737d3de",
+  "title": "Keep Prettier out of the local CodeGraph cache",
+  "state": "done",
+  "category": "testing",
+  "type": "bug",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "notes": [
+    "The repository format check failed twice during authorized backlog work when the generated local CodeGraph lock vanished between file discovery and reading. Git already ignores the cache through the owner global configuration. The repository has no tracked files under that directory."
+  ],
+  "done_when": [
+    "The formatter classifies the CodeGraph lock as ignored and pnpm check:ci passes."
+  ],
+  "closed": "2026-11-27",
+  "result": "Keep Prettier out of the local CodeGraph cache",
+  "evidence": [
+    "Before the change, Prettier file-info reported the generated CodeGraph lock as not ignored and the format gate failed with ENOENT. With the directory ignored, file-info reports ignored true and the full pnpm check:ci passed with 2462 tests in 911 files."
+  ]
+}

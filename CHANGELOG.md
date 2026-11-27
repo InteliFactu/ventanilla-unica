@@ -241,7 +241,7 @@ All notable changes to this project are documented here. The format follows
   the alert e-mail (the Carpeta mails a verification link) and opening that
   link. Both writes are plan-only without `--confirmar si`.
 
-- `caceres aportar --referencia 2026/00032519N --documentos a.pdf,b.pdf --tipos DECL,ALTER --descripciones 'd1|d2' [--informacion t] [--correo m] [--telefono t]`:
+- `caceres aportar --referencia 2099/00000001N --documentos a.pdf,b.pdf --tipos DECL,ALTER --descripciones 'd1|d2' [--informacion t] [--correo m] [--telefono t]`:
   contributes documents at the Ayuntamiento de Cáceres sede through its old
   Relec form ("Aportación de documentación"), as representative of the entity
   the certificate represents, over plain HTTP: `frame.jsp` and
@@ -254,19 +254,16 @@ All notable changes to this project are documented here. The format follows
   SHA-256; it also trial-signs each PDF locally. The result's CSV, justificante
   link and server time are parsed, and `--out` saves the justificante PDF and an
   `aportacion-<CSV>.json` receipt. Plan only without `--confirmar si`; the
-  confirmed path is verified against captured pages until the first real filing.
-  Confirmed path verified live on 2026-10-09: registro ENT2026041263 (CSV
-  16336616641771423311, four PDFs to expediente 2026/00032519N); the sede
-  accepted the XAdES form signature and the PAdES documents. The registry number
-  is only on the justificante, as expected.
+  confirmed path was verified in a live filing with four PDF attachments. The
+  sede accepted the XAdES form signature and the PAdES documents. The registry
+  number appears on the justificante.
 - `caceres datos-contacto --correo m [--telefono t]`: answers the Cáceres sede's
-  contact-data gate, which blocked every command for a certificate that never
-  logged in there (the Vibra Lab representative one did). It presses the gate's
-  own confirming buttons in turn (`PERSCONTACT_ADD` with the data, then
-  `PERSCONTACT_YES`, then the identification "SÍ"/"Aceptar"; never "NO" or
-  "Modificar") and checks the session then opens. Plan only without
-  `--confirmar si`.
-- `junta aportar --expediente 2026/25777D --documentos a.pdf [--descripciones 'd1|d2'] [--informacion t]`:
+  contact-data gate, which blocked commands for a certificate without a prior
+  login. It presses the gate's own confirming buttons in turn (`PERSCONTACT_ADD`
+  with the data, then `PERSCONTACT_YES`, then the identification "SÍ"/"Aceptar";
+  never "NO" or "Modificar") and checks the session then opens. Plan only
+  without `--confirmar si`.
+- `junta aportar --expediente 2099/00002D --documentos a.pdf [--descripciones 'd1|d2'] [--informacion t]`:
   contributes documents to an open expediente through the Junta's "Aporte
   documentación" procedure (6269000000810119707984), registered as documentación
   complementaria to the unit handling the file. The expediente is looked up
@@ -274,8 +271,7 @@ All notable changes to this project are documented here. The format follows
   `apordoc.expId`. With a representative certificate (first `represented` entry
   `onlyagent`) the entity is the `subject` and the holder the `representedBy`
   agent, the parties the sede's own form sends (captured 2026-10-09). Plan only
-  without `--confirmar si`. Confirmed path verified live on 2026-10-09: registro
-  ENT20260859077 (expediente 2026/25777D).
+  without `--confirmar si`. A live filing returned a registry receipt.
 - `nic correo --identificador H-ESNIC-F5 --email m`: asks Red.es (nic.es) to
   change an ES-NIC contact's email, signed with the certificate as implicit
   CAdES over the form's token (what @firma's `AutoScript.sign` returns). Without

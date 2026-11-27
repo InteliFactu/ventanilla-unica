@@ -68,13 +68,13 @@ const sent = (request: ReturnType<typeof fakeClient>['request']): unknown[] =>
 
 describe('presentDeclarationFile', () => {
   it('reads the file, opens the signature dialog and files nothing without confirmation', async () => {
-    const { client, request } = fakeClient(summary('E67686287'), 'E67686287')
+    const { client, request } = fakeClient(summary('E00000059'), 'E00000059')
     const result = await presentDeclarationFile(client, file, false)
     expect(result).toMatchObject({
-      action: 'file AEAT modelo 390 2025 of E67686287 EMPRESA ESPJ',
+      action: 'file AEAT modelo 390 2025 of E00000059 EMPRESA ESPJ',
       executed: false,
       plan: [
-        'signed by 00000000T PERSONA DE PRUEBA on behalf of E67686287 EMPRESA ESPJ',
+        'signed by 00000000T PERSONA DE PRUEBA on behalf of E00000059 EMPRESA ESPJ',
       ],
     })
     expect(sent(request)).toContain('fe')
@@ -85,7 +85,7 @@ describe('presentDeclarationFile', () => {
   })
 
   it('ticks Conforme, sends once and echoes onPresenvali when confirmed', async () => {
-    const { client, request } = fakeClient(summary('E67686287'), 'E67686287')
+    const { client, request } = fakeClient(summary('E00000059'), 'E00000059')
     const result = await presentDeclarationFile(client, file, true)
     expect(result.executed).toBe(true)
     expect(sent(request).filter((uuid) => uuid === 'env')).toHaveLength(1)
@@ -96,8 +96,8 @@ describe('presentDeclarationFile', () => {
 
   it('stops before the signature dialog when the AEAT lists an error', async () => {
     const { client, request } = fakeClient(
-      summary('E67686287') + errorNotice,
-      'E67686287',
+      summary('E00000059') + errorNotice,
+      'E00000059',
     )
     const result = await presentDeclarationFile(client, file, true)
     expect(result).toMatchObject({ executed: false, plan: [] })
@@ -106,7 +106,7 @@ describe('presentDeclarationFile', () => {
   })
 
   it('refuses to sign a dialog for another declarant', async () => {
-    const { client, request } = fakeClient(summary('E67686287'), 'A87654321')
+    const { client, request } = fakeClient(summary('E00000059'), 'A87654321')
     await expect(presentDeclarationFile(client, file, true)).rejects.toThrow(
       'signature dialog is for A87654321',
     )

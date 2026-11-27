@@ -15,7 +15,7 @@ const dir = mkdtempSync(join(tmpdir(), 'contribution-'))
 const pdf = join(dir, 'a.pdf')
 writeFileSync(pdf, '%PDF-1.4 test')
 const query = {
-  expediente: '2026/25777D',
+  expediente: '2099/00002D',
   documents: [pdf],
   descriptions: ['Declaración responsable'],
 }
@@ -30,7 +30,7 @@ describe('fileStaContribution', () => {
     })
     expect(result.executed).toBe(false)
     expect(result.plan).toEqual([
-      'Contribute documents at tramites.juntaex.es to expediente 2026/25777D (Ayuda IA)',
+      'Contribute documents at tramites.juntaex.es to expediente 2099/00002D (Ayuda IA)',
       'As ANA LOPEZ RUIZ, representing EJEMPLO SL (B12345678)',
       'Attach 1: a.pdf (13 bytes), described as "Declaración responsable"',
       'Electronic notifications, notice to ana@example.es',
@@ -86,7 +86,7 @@ describe('fileStaContribution', () => {
         { identity, confirmed: false },
       ),
     ).rejects.toThrow(
-      'no open expediente 2026/1X for this party (open: 2026/25777D)',
+      'no open expediente 2026/1X for this party (open: 2099/00002D)',
     )
   })
 })

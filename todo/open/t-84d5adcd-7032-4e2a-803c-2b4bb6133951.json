@@ -11,8 +11,8 @@
   "blocker": "The command and a live plan exist; the acceptance criterion requires a real confirmed filing and no currently authorized filing was provided.",
   "unblock": "Provide the reviewed procedure, signer, representation and documents and explicitly authorize one filing.",
   "notes": [
-    "2026-11-22: the AJN refund request (8,392.22 EUR, successors of E67686287) must go to the AEAT Registro electrónico as a free writing; aeat aportar only files against a notification CSV, so there is no command for it.",
+    "2026-11-22: the AJN refund request (8,392.22 EUR, successors of [redacted]) must go to the AEAT Registro electrónico as a free writing; aeat aportar only files against a notification CSV, so there is no command for it.",
     "Smallest next step: capture the AEAT 'Presentación de escritos, solicitudes y comunicaciones' (registro general) flow with a dry run, then add aeat escrito --asunto --documentos [--como representante --nif] behind --confirmar si, reusing aportar's signing and receipt code.",
-    "2026-11-22: aeat escrito added (GZ285 form opened read-only with the certificate, dry run planned Interesado 09208758H / Representante 76048463K). Close after the first confirmed filing proves the step-2 interesado guard on the live page."
+    "2026-11-22: aeat escrito added (GZ285 form opened read-only with the certificate, dry run planned Interesado [redacted] / Representante [redacted]). Close after the first confirmed filing proves the step-2 interesado guard on the live page."
   ]
 }

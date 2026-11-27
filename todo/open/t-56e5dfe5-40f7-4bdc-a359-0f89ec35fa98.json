@@ -12,7 +12,9 @@
   "unblock": "Obtain owner authorization for a coordinated history cleanup and agree on handling affected release references before rewriting or force-pushing.",
   "notes": [
     "Personal administrative identifiers and mailbox addresses were found in published operational notes. Redacted confirmed values in the current task records. Previous commits and any copies may still carry them.",
-    "Do not record the values or link to affected commits in public artifacts. Use a private inventory for any cleanup."
+    "Do not record the values or link to affected commits in public artifacts. Use a private inventory for any cleanup.",
+    "The follow-up sweep found additional live personal and case identifiers, including document-verification codes, in public task records, examples and fixtures. The current copies were sanitized and fixture data was replaced by synthetic values where a real format was needed. Historical references still require coordinated authorization.",
+    "The read-only revision scan found matching values in the ancestry of published Git tags. All published npm archives were checked against the same values after verifying their registry integrity hashes and passed the exact-value scan."
   ],
   "done_when": [
     "Review all affected refs privately, agree on the repository-history and release impact, and verify the approved cleanup without republishing personal data."

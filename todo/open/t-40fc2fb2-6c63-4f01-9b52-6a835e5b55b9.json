@@ -10,8 +10,8 @@
   "unblock": "Capture a sanitized CEUS request flow within an authorized session. Capture the deferral submit requests only when the holder authorizes a specific filing.",
   "notes": [
     "optimizada\" is implemented and tested. The protocol is no longer uncaptured:",
-    "on 2026-09-22 a real deferral (registro 20265990000981409) and a CEUS",
-    "attachment (justificante 20265990000982555) were filed from",
+    "on 2026-09-22 a real deferral (registro [redacted]) and a CEUS",
+    "attachment (justificante [redacted]) were filed from",
     "`~/p/wiki/tools/tgss/` (`xv207a01-aplazamiento.mjs`, `ceus-adjuntar.mjs`,",
     "`expose-node-signer.mjs`, `patch-autoscript.browser.mjs`), and",
     "`~/p/wiki/brain/topics/tgss-headless.md` section \"XV207A01\" documents the",

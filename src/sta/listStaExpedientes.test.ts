@@ -6,7 +6,7 @@ import { listStaExpedientes } from './listStaExpedientes'
 const session = '<a href="/sta/CarpetaPrivate/Logout?EXIT=true">Salir</a>'
 
 const openRow =
-  '{"numeroFormateado":"2026/25777D","fechaAlta":"20260318","fechaRegistro":"20260317","numAnnotacion":"ENT1","procedimientoDesc":"Ayuda IA","tipoSolicitudDesc":"Solicitud","faseDesc":"Iniciación","estadoDesc":"En tramitación","descripcion":"Copiloto","nombreCompleto":"VIBRA LAB SL"}'
+  '{"numeroFormateado":"2099/00002D","fechaAlta":"20260318","fechaRegistro":"20260317","numAnnotacion":"ENT1","procedimientoDesc":"Ayuda IA","tipoSolicitudDesc":"Solicitud","faseDesc":"Iniciación","estadoDesc":"En tramitación","descripcion":"Copiloto","nombreCompleto":"VIBRA LAB SL"}'
 
 const archivedRow = '{"numeroFormateado":"2019/1A","fechaAlta":"20190101"}'
 
@@ -38,7 +38,7 @@ describe('listStaExpedientes', () => {
     expect(result.host).toBe('tramites.juntaex.es')
     expect(result.expedientes).toEqual([
       {
-        number: '2026/25777D',
+        number: '2099/00002D',
         archived: false,
         openedOn: '2026-03-18',
         registeredOn: '2026-03-17',

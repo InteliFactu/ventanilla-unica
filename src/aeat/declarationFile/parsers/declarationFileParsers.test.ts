@@ -16,9 +16,9 @@ describe('Envío Fichero parsers', () => {
   })
 
   it('reads the holder off the summary, unescaping its name', () => {
-    const answer = String.raw`{id:'SPNIF',value:'E67686287'},{},[]],['zul.wgt.Label','x',{id:'SPNOM',value:'PE\xD1A ESPJ'}`
+    const answer = String.raw`{id:'SPNIF',value:'E00000059'},{},[]],['zul.wgt.Label','x',{id:'SPNOM',value:'PE\xD1A ESPJ'}`
     expect(parseDeclarationFileHolder(answer)).toEqual({
-      nif: 'E67686287',
+      nif: 'E00000059',
       nombre: 'PEÑA ESPJ',
     })
     expect(parseDeclarationFileHolder(String.raw`{id:'SPNIF'}`)).toBeUndefined()

@@ -14,13 +14,13 @@
   "blocker": "The local reader now rejects invalid empty responses and opens ConsultaDdas before the query. Recovery of the intermittent live case remains unverified.",
   "unblock": "Provide a sanitized current response for a holder with known enforceable debts or authorize a read-only verification.",
   "notes": [
-    "    (2026-11-10).** Live run for 76048463K and 08885194H: `debts` empty and",
+    "    (2026-11-10).** Live run for [redacted] and [redacted]: `debts` empty and",
     "    `entity` swallows the whole sede footer (\"... Otros enlaces de interés\"),",
     "    while on 2026-10-31 the same command listed 11 keys / 11.316,81 and 14",
     "    keys / 20.156,46 and no payment was made since. `agreements` still parse.",
     "    Likely the ConsultaDdas page layout changed. Also `aeat expedientes` fails",
     "    for both with \"AEAT: expediente row has no detail link\". Next: capture the",
-    "    current ConsultaDdas HTML for 76048463K and fix the parser against it.",
+    "    current ConsultaDdas HTML for [redacted] and fix the parser against it.",
     "Local regression now rejects a holder form or generic warning instead of reporting zero debts, and the reader opens ConsultaDdas before posting the holder. A fresh authenticated capture is still required to verify that the intermittently failing session returns the expected enforced debts."
   ],
   "closed": "2026-11-27",

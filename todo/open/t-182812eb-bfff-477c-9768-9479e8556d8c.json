@@ -15,7 +15,7 @@
     "`6269000000342016807935`): PDFs checked, form opened, each PDF mapped to its",
     "row by name or `DocReq` dboid, required rows left empty named. Live the same",
     "day with the persona física certificate (own name) and the Vibra Lab one",
-    "(`--representado B22903801`, prefilled contact read). `--confirmar si` refuses",
+    "(`--representado [redacted]`, prefilled contact read). `--confirmar si` refuses",
     "before any request. Not built: the submission, whose rows are keyed by their",
     "`DocReq` dboid with `pid` and `CUD` inputs and a fixed type each, so",
     "`buildDocumentPairs` does not fit; the asunto goes in",

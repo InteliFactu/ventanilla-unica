@@ -76,7 +76,7 @@ describe('emitUpToDateCertificate', () => {
     const client: HttpClient = { request, cookie: () => 'S1' }
 
     await expect(
-      emitUpToDateCertificate(client, 'B22903801', 'licitacion'),
+      emitUpToDateCertificate(client, 'B00000026', 'licitacion'),
     ).rejects.toThrow(/contracting entity NIF/)
     expect(request).not.toHaveBeenCalled()
   })

@@ -8,13 +8,13 @@ describe('mapRegistryAnswer', () => {
       mapRegistryAnswer('ref', {
         id: '20260840512',
         date: '2026-10-03T17:36:24.955Z',
-        document: { cud: 'A11002926LMYLAE6JZLK' },
+        document: { cud: 'TEST0000000000000000' },
       }),
     ).toEqual({
       reference: 'ref',
       registryNumber: '20260840512',
       registeredAt: '2026-10-03T17:36:24.955Z',
-      csv: 'A11002926LMYLAE6JZLK',
+      csv: 'TEST0000000000000000',
     })
   })
 

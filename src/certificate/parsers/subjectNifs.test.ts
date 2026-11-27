@@ -6,14 +6,14 @@ describe('subjectNifs', () => {
   it('reads the holder and the represented entity', () => {
     expect(
       subjectNifs(
-        'serialNumber=IDCES-76048463K\nGN=CHRISTIAN\norganizationIdentifier=VATES-E67686287\nO=AJN HOSTELERIA E.S.P.J.',
+        'serialNumber=IDCES-00000003A\nGN=CHRISTIAN\norganizationIdentifier=VATES-E00000059\nO=AJN HOSTELERIA E.S.P.J.',
       ),
-    ).toEqual(['76048463K', 'E67686287'])
+    ).toEqual(['00000003A', 'E00000059'])
   })
 
   it('reads a natural person alone', () => {
-    expect(subjectNifs('C=ES\nserialNumber=IDCES-08885194H\nCN=X')).toEqual([
-      '08885194H',
+    expect(subjectNifs('C=ES\nserialNumber=IDCES-00000001R\nCN=X')).toEqual([
+      '00000001R',
     ])
   })
 })

@@ -12,6 +12,6 @@
   "closed": "2026-10-16",
   "result": "`caceres datos-personales` and `junta datos-personales` read `PAGE_CODE=DATOS_PERSONALES` (phone, e-mail, confirmed or not, identity and addresses when shown); `caceres padron` reads `DATOS_HABITANTE`. The Junta sede keeps no padrón: its page answers \"Se ha producido un error al buscar los datos del padrón\", so no `junta padron` was built.",
   "evidence": [
-    "live runs 2026-10-16 with 76048463K at both sedes (Cáceres confirmed, Junta still asking \"¿Los medios de contacto son correctos?\") and `caceres padron` for 76048463K (registered, two cohabitants) and [redacted] (`registered: false`); `pnpm check:ci` green."
+    "live runs 2026-10-16 with [redacted] at both sedes (Cáceres confirmed, Junta still asking \"¿Los medios de contacto son correctos?\") and `caceres padron` for [redacted] (registered, two cohabitants) and [redacted] (`registered: false`); `pnpm check:ci` green."
   ]
 }

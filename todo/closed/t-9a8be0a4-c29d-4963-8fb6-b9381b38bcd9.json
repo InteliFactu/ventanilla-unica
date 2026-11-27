@@ -9,9 +9,9 @@
   "notes": [
     "locally.** The browser renders it with react-pdf; the CLI writes an equivalent",
     "text PDF (same sections, values, hashes and HMAC) and signs it PAdES. The sede",
-    "accepted it on 2026-10-05 (REGAGE26e00086595724). Revisit only if the DGSFP",
+    "accepted it on 2026-10-05 ([redacted]). Revisit only if the DGSFP",
     "objects."
   ],
   "closed": "2026-11-01",
-  "resolution": "Not a defect but a standing design note: the sede accepted the locally rendered, PAdES-signed request document on 2026-10-05 (REGAGE26e00086595724) and no DGSFP objection has been recorded since. The equivalence claim (title, visible sections and fields, attachment names and SHA-256 hashes, HMAC HUELLA, header, footer, page numbers; hidden sections and ocultarInformeFinal fields left out) is now pinned by src/dgsfp/builders/buildRequestDocument.test.ts. Open a new item if the DGSFP objects."
+  "resolution": "Not a defect but a standing design note: the sede accepted the locally rendered, PAdES-signed request document on 2026-10-05 ([redacted]) and no DGSFP objection has been recorded since. The equivalence claim (title, visible sections and fields, attachment names and SHA-256 hashes, HMAC HUELLA, header, footer, page numbers; hidden sections and ocultarInformeFinal fields left out) is now pinned by src/dgsfp/builders/buildRequestDocument.test.ts. Open a new item if the DGSFP objects."
 }
