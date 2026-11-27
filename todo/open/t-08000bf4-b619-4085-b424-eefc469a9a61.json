@@ -10,7 +10,7 @@
   "blocker": "The credit-file workflows require holder-specific account access and MFA, and their access request files an external act.",
   "unblock": "Identify the holder and provider, then authorize the precise access request or provide a redacted earlier run for implementation.",
   "notes": [
-    "    (BADEXCUG, ASNEF).** Mapped live 2026-10-09 for Alba (78117074N). Neither",
+    "    (BADEXCUG, ASNEF).** Mapped live 2026-10-09 for Alba ([redacted]). Neither",
     "    takes a certificate or Cl@ve; both are an account per person with an email",
     "    code as second factor (read it from Vexa). Experian",
     "    (`portaldelconsumidor.experian.es`): Blazor Server behind Incapsula, so",

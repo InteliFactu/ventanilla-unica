@@ -11,7 +11,7 @@
   "unblock": "Provide sanitized sub-flow forms, intermediate replies and the successful receipt from an authorized filing before automating the remaining steps.",
   "notes": [
     "signature are still manual.** Observed 2026-11-04 on the owner-authorized live",
-    "inscription of 78117074N (número de ingreso 202604969568, 04/11/2026 20:16:57,",
+    "inscription of [redacted] (número de ingreso [redacted], 04/11/2026 20:16:57,",
     "\"SOLICITUD ACEPTADA\", then \"pendiente de validación por el tramitador\"): SMS",
     "and email verification, municipio resolution and steps 1-6 now run live",
     "(41ac226). The SMS arrived 25 minutes late and its code is alphanumeric",

@@ -1,0 +1,20 @@
+{
+  "tadu": 2,
+  "id": "t-56e5dfe5-40f7-4bdc-a359-0f89ec35fa98",
+  "title": "Remove private administrative data from public repository history",
+  "state": "blocked",
+  "category": "security",
+  "type": "chore",
+  "priority": "high",
+  "kind": "decision",
+  "created": "2026-11-27",
+  "blocker": "Historical cleanup changes published commit and release references and may require coordination with GitHub Support and anyone holding copies.",
+  "unblock": "Obtain owner authorization for a coordinated history cleanup and agree on handling affected release references before rewriting or force-pushing.",
+  "notes": [
+    "Personal administrative identifiers and mailbox addresses were found in published operational notes. Redacted confirmed values in the current task records. Previous commits and any copies may still carry them.",
+    "Do not record the values or link to affected commits in public artifacts. Use a private inventory for any cleanup."
+  ],
+  "done_when": [
+    "Review all affected refs privately, agree on the repository-history and release impact, and verify the approved cleanup without republishing personal data."
+  ]
+}

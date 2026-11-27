@@ -16,7 +16,7 @@
   "notes": [
     "Captured",
     "",
-    "2026-10-11 (Alba, 78117074N) with the owner solving the CAPTCHA in Orca.",
+    "2026-10-11 (Alba, [redacted]) with the owner solving the CAPTCHA in Orca.",
     "Protocol: the SNE citizen catalogue",
     "`https://www.sistemanacionalempleo.es/CartaServiciosCiudadanoWEB/jsp/principal.jsp?CA=11`",
     "posts `cartaServicios.do` (`itemPrefijoNif=D (DNI)`, `nif`, `claveimagen`,",
@@ -29,7 +29,7 @@
     "`JSESSIONID_empleo_cl`, `TS*`) goes 302 to",
     "`:444/SeguridadWEB_EMPLEO/seguridadWEB.do?modo=...`, then 302 to",
     "`:444/ConsultaDemandaWEB/jsp/principal.jsp`, which holds a hidden",
-    "`idDemanda=\"D  78117074N\"` (two spaces); POST",
+    "`idDemanda=\"D  [redacted]\"` (two spaces); POST",
     "`:444/ConsultaDemandaWEB/consultaDemanda.do` `idDemanda` +",
     "`modo=consultaDatos` returns the demand (name, address, occupations,",
     "situación, causa, colectivo). Without the CAPTCHA session the W4 link answers",

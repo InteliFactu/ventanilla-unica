@@ -1,0 +1,31 @@
+{
+  "tadu": 2,
+  "id": "t-68ba0d50-f287-42b1-b2de-c186f3fad8a1",
+  "title": "Verify the TGSS debt-PDF path with a fresh eligible response",
+  "state": "done",
+  "category": "owner-requests",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "kind": "task",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "notes": [
+    "from the general September launch reminder on 2026-10-21. The old task",
+    "requested a holder/day for which a debt document had not already been emitted;",
+    "no completed verification was found in the owning log. First reconcile",
+    "existing evidence so an already completed run is not repeated, then capture a",
+    "redacted fixture through the supported read path when the owner provides a",
+    "suitable case. No filing, deferral or attachment may be submitted merely to",
+    "obtain a trace; do not publish holder data.",
+    "2026-11-27: The official service N201856 documents a separate consultation of already-issued compliance certificates and debt reports, with a type and period filter. Its public launcher identifies application 2266, but the unauthenticated redirect did not expose a direct read endpoint. A suitable report may be supplied from this service without emitting a new one. The current tgss deuda path still calls AECPSED1 emission. Source: https://sede.seg-social.gob.es/wps/portal/sede/sede/Ciudadanos/Informes%2By%2BCertificados/N201856.",
+    "2026-11-27: Replayed the current readTgssDebt detailed workflow offline with two genuine TGSS PDFs from the private 2026-09-25 archive. The captured bytes survived both writes unchanged by SHA-256. PDF-derived CDATA produced 12 and 13 debt rows and both sums reconciled exactly. The auth and response wrapper was synthetic; no new issuance occurred. Independently tried the official N201856/2266 consultation launcher and its actual login relay. HTTP 200 returned IBM WebSphere EJPFD0097E before any report list or Prosa ticket, including a retry with the same-origin form headers. TGSS user guide: https://sede.seg-social.gob.es/binarios/es/1608ConCiu.",
+    "2026-11-27: Reached the official AECPSED2 consultation through the normal certificate flow after recovering the service entry. Searched only for an existing detailed debt report on 25 September 2026, bound the sole finalized result to the authenticated subject and archived verification code, and read its advertised PDF from ViewDocUtf8 with the production downloader. HTTP 200 returned identical bytes to the archived PDF. Independent text extraction confirmed the verification code, 13 debt rows, and exact reconciliation to the printed total. The AECPSED1 issuance flow was exercised only through offline replay."
+  ],
+  "closed": "2026-11-27",
+  "result": "Verify the TGSS debt-PDF path with a fresh eligible response",
+  "evidence": [
+    "Live official AECPSED2 read of the existing 25 September 2026 report. The production fetchProsaDocument downloader returned HTTP 200 and a valid PDF identical by SHA-256 to the archived original. Its verification code and 13 rows matched and the total reconciled. Offline replay through readTgssDebt also preserved both genuine archived PDFs and reconciled 12 and 13 rows. No document was newly issued."
+  ]
+}
