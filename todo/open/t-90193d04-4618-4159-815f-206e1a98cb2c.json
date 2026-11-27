@@ -12,8 +12,8 @@
   "assignees": [
     "agent:codex"
   ],
-  "blocker": "All eight DEHU pending lists and the Junta pending views for the targeted holder returned zero. A fresh AEAT sweep found six empty lists and one historical unread communication. The remaining valid holder certificate was refused with HTTP 403 at session setup and on both official notification listing routes. The permitted Garantia Juvenil enrollment resolution was opened; the acknowledgment remains unread.",
-  "unblock": "Use an AEAT-accepted identity or an authorized representative for the refused holder. Obtain authorization for the identified historical communication only if its contents are needed.",
+  "blocker": "All eight DEHU pending lists and the Junta pending views for the targeted holder returned zero. The seven accessible AEAT lists had no unread entries after the specifically authorized historical communication was opened. The remaining valid holder certificate was refused with HTTP 403 at session setup and on both official notification listing routes. The permitted Garantia Juvenil enrollment resolution was opened; the separate acknowledgment remains unread.",
+  "unblock": "Use an AEAT-accepted identity or a specifically authorized representative for the remaining refused holder.",
   "notes": [
     "    around 2026-11-20).** AEAT \"Aviso de notificación de la Agencia",
     "    Tributaria\", 2026-11-10: 2 on [redacted], 4 on",
@@ -33,6 +33,7 @@
     "Verified DEHU pending pages for all eight configured holders, checking the authenticated holder and the unfiltered items array. All were empty including the holder refused by AEAT. Junta Carpeta Ciudadana and the associated STA sede returned zero pending for the authorized holder. No details were opened.",
     "The Garantia Juvenil inbox listing showed two unread entries dated 2026-11-04 and 2026-11-07. No notice details or attachments were opened.",
     "The holder specifically authorized opening the Garantia Juvenil enrollment resolution. The official PDF was read and the selected row was marked as read. The separate acknowledgment was left unread.",
-    "Verified the other seven AEAT pending lists again without opening entries. The official summary and search routes independently reproduced HTTP 403 for the remaining matching holder certificate."
+    "Verified the other seven AEAT pending lists again without opening entries. The official summary and search routes independently reproduced HTTP 403 for the remaining matching holder certificate.",
+    "The specifically authorized historical AEAT communication was opened through its own document-view action. Verified the PDF and independently refreshed the pending list to confirm that the selected row was no longer unread. The PDF and case details remain private."
   ]
 }
