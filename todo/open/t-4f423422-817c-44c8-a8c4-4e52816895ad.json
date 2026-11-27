@@ -6,7 +6,9 @@
   "category": "integrations",
   "type": "untriaged",
   "priority": "untriaged",
-  "blocker": "GeiserX/awesome-spain#45 was closed on",
+  "kind": "waiting",
+  "blocker": "The maintainer closed the first proposal and invited resubmission once there is visible use and the portal write flows are mature. The repository still has zero GitHub stars.",
+  "unblock": "Collect evidence of actual usage and write flow maturity, then obtain approval to submit a new proposal.",
   "notes": [
     "2026-09-26 by the maintainer, kindly: too new (no stars or visible use,",
     "versions still shipping), it asks for the holder's certificate and acts on",

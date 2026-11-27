@@ -6,7 +6,8 @@
   "category": "blocked-tasks",
   "type": "untriaged",
   "priority": "untriaged",
-  "blocker": "The \"firma",
+  "blocker": "The optimized signing flow is tested locally. The TGSS portal still constructs the CEUS attachment and deferral signing requests in the browser.",
+  "unblock": "Capture a sanitized CEUS request flow within an authorized session. Capture the deferral submit requests only when the holder authorizes a specific filing.",
   "notes": [
     "optimizada\" is implemented and tested. The protocol is no longer uncaptured:",
     "on 2026-09-22 a real deferral (registro 20265990000981409) and a CEUS",

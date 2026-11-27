@@ -6,7 +6,9 @@
   "category": "owner-requests",
   "type": "untriaged",
   "priority": "untriaged",
-  "blocker": "Requests a",
+  "kind": "decision",
+  "blocker": "The holder deferred requesting payment by instalments through OARGT.",
+  "unblock": "Wait for the holder to decide to request an instalment plan, then capture the live form without submitting it.",
   "notes": [
     "fraccionamiento in ejecutiva (ordinance: up to 6 months from 100,01 to 600, no",
     "guarantee below 30.000). The owner wants it once he has a job; blocked until",

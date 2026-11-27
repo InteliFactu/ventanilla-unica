@@ -10,6 +10,7 @@ import { dgtDatos } from './commands/dgtDatos'
 import { dgtDomicilio } from './commands/dgtDomicilio'
 import { dgtSanciones } from './commands/dgtSanciones'
 import { dgtVehiculos } from './commands/dgtVehiculos'
+import { facePreparar } from './commands/facePreparar'
 import { firmarPdf } from './commands/firmarPdf'
 import { firmarXml } from './commands/firmarXml'
 import { inssContacto } from './commands/inssContacto'
@@ -28,6 +29,7 @@ import { sepeCertificado } from './commands/sepeCertificado'
 import { sepeGarantiaJuvenil } from './commands/sepeGarantiaJuvenil'
 import { sepePrestacion } from './commands/sepePrestacion'
 import { sesContacto } from './commands/sesContacto'
+import { sexpeDemanda } from './commands/sexpeDemanda'
 import { teaExpedientes } from './commands/teaExpedientes'
 import { validarFicheroBoe } from './commands/validarFicheroBoe'
 import { validarNif } from './commands/validarNif'
@@ -56,6 +58,7 @@ export const commandRegistry: readonly Command[] = [
   sepeCertificado,
   sepeGarantiaJuvenil,
   sesContacto,
+  sexpeDemanda,
   cirbeInforme,
   cirbeEstado,
   roleceEstado,
@@ -74,6 +77,7 @@ export const commandRegistry: readonly Command[] = [
   registradoresNota,
   ...regCommands,
   ...rayuelaCommands,
+  facePreparar,
   firmarPdf,
   firmarXml,
   validarFicheroBoe,

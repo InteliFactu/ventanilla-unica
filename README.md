@@ -75,6 +75,7 @@ administrations' side of its customers' books up to date.
 | `ventanilla-unica sepe prestacion`                                                                                               | Servicio Público de Empleo Estatal (SEPE)                          | The last unemployment benefit: dates, days of right, consumed and remaining                                                                                                                                                                                                                                       |
 | `ventanilla-unica sepe certificado --out d`                                                                                      | SEPE                                                               | The "certificado de situacion" of benefits as PDF (emits it)                                                                                                                                                                                                                                                      |
 | `ventanilla-unica sepe garantia-juvenil [--out d]`                                                                               | SEPE, Sistema Nacional de Garantía Juvenil                         | Registration status and date, offered certificate PDFs, or the inscription form fields and options                                                                                                                                                                                                                |
+| `ventanilla-unica sexpe demanda --captura result.html`                                                                           | SEXPE, Sistema Nacional de Empleo (SNE)                            | Reads administrative employment demand fields from saved Latin-1 HTML on the local machine                                                                                                                                                                                                                        |
 | `ventanilla-unica dgt datos --nif <NIF>`                                                                                         | Dirección General de Tráfico (DGT)                                 | What the DGT holds about the holder: identity, the postal address it notifies to (taken from the INE padrón unless changed), the email and phone it has, and the Mi DGT counters (vehicles, sanctions, points, licences, registry entries, appointments)                                                          |
 | `ventanilla-unica dgt sanciones [--out d]`                                                                                       | DGT                                                                | The holder's fines in "Mis sanciones" (finished ones stay listed six months): expediente, state, date, province, amount, and the detail page (offence, article, paid); `--out` saves each "Datos de Expediente" PDF                                                                                               |
 | `ventanilla-unica dgt vehiculos`                                                                                                 | DGT                                                                | The vehicles registered to the holder in Mi DGT ("Mis vehículos"): plate, first registration, make, model and fuel                                                                                                                                                                                                |
@@ -446,6 +447,22 @@ synthetic fixtures with the current control names and page structure. Login
 relay POSTs are authentication; inscription `Token.action` requests are writes
 and require explicit confirmation. Never log cookies, private keys or SAML
 payloads.
+
+## FACe invoice preparation
+
+`ventanilla-unica face preparar --in invoice.xml --out invoice.xsig` uses the
+holder's signing certificate to apply the Facturae policy to a local unsigned
+Facturae 3.2.2 invoice. It creates a new `.xsig` file and leaves any existing
+output intact. It does not validate the invoice against the full Facturae schema
+or submit it to FACe.
+
+The library also exposes `prepareFaceInvoice` and `prepareLegacyFaceRequest`.
+The latter builds a signed invoice and the archived `facturasspp2` WS-Security
+SOAP request bytes for local comparison. The current supplier WSDL uses a
+different namespace and a `FacturaFile` with `factura` and `nombre` fields. The
+current WS-Security policy and the signed sandbox receipt still need
+verification.
+[FACe supplier WSDL](https://ws.face.gob.es/proveedores/v1/factura?wsdl)
 
 ## Signing
 

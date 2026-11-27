@@ -1,11 +1,18 @@
 {
   "tadu": 2,
   "id": "t-7b3ed2dd-73ea-4e66-ae66-fa8064f8a297",
-  "title": "sexpe: demanda de empleo (consulta, informes, alta/baja)",
-  "state": "in_progress",
+  "title": "Read SEXPE employment demand, reports and registration status",
+  "state": "blocked",
   "category": "integrations",
-  "type": "untriaged",
-  "priority": "untriaged",
+  "type": "feature",
+  "priority": "normal",
+  "kind": "waiting",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "blocker": "The saved SNE consultation can be read offline. Live consultation and reports depend on a holder-completed CAPTCHA and authenticated portal session, and registration changes require approval for the specific action.",
+  "unblock": "Capture the current consultation and report responses from a holder-completed session and specify any registration change separately.",
   "notes": [
     "Captured",
     "",
@@ -49,6 +56,7 @@
     "form showed the change saved: verify by re-reading, never by the answer. Next:",
     "`sexpe demanda|alta-demanda|contacto --sesion <cookie header>` commands taking",
     "the cookies of a CAPTCHA the holder solved. `extremaduratrabaja.juntaex.es`",
-    "and `www.sexpe.es` did not answer on 2026-10-11."
+    "and `www.sexpe.es` did not answer on 2026-10-11.",
+    "Seven synthetic parser and CLI tests passed. Verified the parser against a sealed archived SNE response while emitting only a pass flag."
   ]
 }

@@ -6,7 +6,8 @@
   "category": "blocked-tasks",
   "type": "untriaged",
   "priority": "untriaged",
-  "blocker": "The plan reads the public",
+  "blocker": "The operator account existed in the last verified session. The current authenticated question form has not been captured.",
+  "unblock": "Capture the current authenticated Nueva Pregunta form with an authorized operator session, independently of sending any question.",
   "notes": [
     "tender detail (expediente, órgano, estado, deadline, art. 138.3 date). The",
     "\"Solicitar Información\" tab, \"Nueva Pregunta\" and \"Enviar\" exist only with a",

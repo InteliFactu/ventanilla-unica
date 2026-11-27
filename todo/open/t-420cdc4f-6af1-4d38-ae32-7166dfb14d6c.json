@@ -1,16 +1,25 @@
 {
   "tadu": 2,
   "id": "t-420cdc4f-6af1-4d38-ae32-7166dfb14d6c",
-  "title": "FACe invoice submission. A production pipeline already exists in",
-  "state": "pending",
+  "title": "Port FACe invoice submission to the TypeScript client",
+  "state": "blocked",
   "category": "future-ideas",
-  "type": "untriaged",
-  "priority": "untriaged",
+  "type": "feature",
+  "priority": "normal",
+  "kind": "waiting",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "blocker": "Facturae 3.2.2 signing and the archived WS-Security envelope are implemented offline. The live supplier WSDL was retrieved, but does not declare a WS-Security policy. The current request signature and signed sandbox receipt remain unverified.",
+  "unblock": "Confirm the current SOAP security profile and response signing seal using the official integration guide and a sanitized accepted sandbox exchange, then verify the envelope and receipt handling.",
   "notes": [
     "    `~/p/wiki/tools/face/` (`face_client.py` SOAP with WS-Security,",
     "    `facturae.py`, XAdES SHA-512 byte-compatible with AutoFirma through",
     "    `afirma_bridge.py`). Port it here with the local XAdES signer rather than",
     "    the AutoFirma bridge. Needs the Facturae profile and digest items under",
-    "    Signing, plus a WS-Security envelope signer."
+    "    Signing, plus a WS-Security envelope signer.",
+    "Verified the offline invoice and legacy SOAP with xmlsec1 and synthetic data. No invoice was transmitted.",
+    "The public supplier WSDL at https://ws.face.gob.es/proveedores/v1/factura?wsdl responded HTTP 200. It contains an inline RPC-literal SOAP 1.1 contract with FacturaFile.factura and FacturaFile.nombre, without the legacy mime field."
   ]
 }
