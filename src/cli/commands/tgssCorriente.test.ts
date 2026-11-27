@@ -16,7 +16,7 @@ describe('tgssCorriente', () => {
   it('describes itself as a tgss command', () => {
     expect(tgssCorriente.portal).toBe('tgss')
     expect(tgssCorriente.action).toBe('corriente')
-    expect(tgssCorriente.options).toEqual(['nif', 'tipo', 'entidad'])
+    expect(tgssCorriente.options).toContain('fecha')
   })
 
   it('requires --nif and a valid --tipo', async () => {
@@ -28,18 +28,23 @@ describe('tgssCorriente', () => {
     ).rejects.toThrow(/--tipo is required and must be one of/)
   })
 
-  it('passes the resolved kind, --out and --entidad through', async () => {
+  it('passes the resolved kind, --out, --entidad and --fecha through', async () => {
     const result = await tgssCorriente.run(client, {
       nif: '12345678Z',
-      tipo: '2',
+      tipo: '8',
       out: '/tmp/x',
       entidad: 'S2817035E',
+      fecha: '29/02/2024',
     })
 
     expect(result).toEqual({
       nif: '12345678Z',
-      kind: 'licitacion',
-      options: { outDir: '/tmp/x', contractingEntityNif: 'S2817035E' },
+      kind: 'licitacion-fecha',
+      options: {
+        outDir: '/tmp/x',
+        contractingEntityNif: 'S2817035E',
+        referenceDate: '29/02/2024',
+      },
     })
   })
 })

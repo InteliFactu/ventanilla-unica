@@ -7,11 +7,16 @@
   "type": "untriaged",
   "priority": "untriaged",
   "kind": "waiting",
-  "blocker": "The dated certificate request field for AECPSED1 types 4, 8 and 9 has not been captured.",
-  "unblock": "Provide a redacted dated-certificate form and request without creating a certificate just for the trace.",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "blocker": "All three dated options are mapped to the current TGSS form fields, with offline coverage of the resulting requests. Acceptance of an actual dated issuance is still unverified.",
+  "unblock": "When a dated certificate is genuinely needed, provide the holder, kind, reference date and any contracting entity, and authorize that issuance so the response and PDF can be verified.",
   "notes": [
     "are refused until the date",
     "",
-    "    field of the request is captured."
+    "    field of the request is captured.",
+    "2026-11-27: An authorized login stopped at the AECPSED1 entry. The official active XSL and toggle script exposed option 4 as fechaNegativo, option 8 as fechaLicitacionSinDeuda plus nifLicitacionSinDeuda, and option 9 as fechaSubvencionSinDeuda. These controls use DD/MM/YYYY from 01/01/1980 through yesterday. The CLI and library now map and validate the inputs before authentication. No certificate was requested or issued in the live check. TGSS manual: https://sede.seg-social.gob.es/binarios/es/1608CerEmp."
   ]
 }

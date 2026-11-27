@@ -200,6 +200,14 @@ current amounts. The portal may report zero balances for settled instalments.
 The signed decision holds their original amounts. If the calendar cannot be
 verified, `currentInstalmentsNote` records why.
 
+### TGSS certificates at an earlier date
+
+`tgss corriente --tipo sin-deuda-fecha`, `licitacion-fecha`, and
+`subvenciones-fecha` require `--fecha DD/MM/YYYY`. The accepted range is
+01/01/1980 through yesterday on the Madrid calendar. Both `licitacion` and
+`licitacion-fecha` also require `--entidad <NIF>`. The command issues a
+certificate and counts toward the holder's daily limit.
+
 ## Cáceres catalogue filings
 
 `caceres tramite` files a catalogue procedure in the certificate holder's own

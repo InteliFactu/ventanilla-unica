@@ -23,6 +23,7 @@ export const certificateKinds: Readonly<
       'up-to-date certificate for public-sector tenders (art. 71.1.d Ley 9/2017)',
     needsDate: false,
     needsContractingEntity: true,
+    contractingEntityField: 'nifEntidadContratante',
   },
   subvenciones: {
     value: '3',
@@ -45,6 +46,7 @@ export const certificateKinds: Readonly<
     label: 'Sin deuda a una fecha',
     purpose: 'up-to-date certificate at an earlier date, no specific purpose',
     needsDate: true,
+    dateField: 'fechaNegativo',
     needsContractingEntity: false,
   },
   'licitacion-fecha': {
@@ -52,13 +54,16 @@ export const certificateKinds: Readonly<
     label: 'Licitación contratos del Sector Público sin deuda a una fecha',
     purpose: 'tender certificate at an earlier date',
     needsDate: true,
+    dateField: 'fechaLicitacionSinDeuda',
     needsContractingEntity: true,
+    contractingEntityField: 'nifLicitacionSinDeuda',
   },
   'subvenciones-fecha': {
     value: '9',
     label: 'Subvenciones sin deuda a una fecha',
     purpose: 'grants certificate at an earlier date',
     needsDate: true,
+    dateField: 'fechaSubvencionSinDeuda',
     needsContractingEntity: false,
   },
 }

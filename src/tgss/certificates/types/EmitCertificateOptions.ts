@@ -4,4 +4,6 @@ export type EmitCertificateOptions = {
   readonly outDir?: string | undefined
   /** NIF of the contracting entity, required by the tender kinds. */
   readonly contractingEntityNif?: string | undefined
+  /** Earlier reference date as DD/MM/YYYY for a dated certificate. */
+  readonly referenceDate?: string | undefined
 }

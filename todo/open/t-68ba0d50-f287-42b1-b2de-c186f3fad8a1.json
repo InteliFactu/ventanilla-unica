@@ -16,6 +16,7 @@
     "existing evidence so an already completed run is not repeated, then capture a",
     "redacted fixture through the supported read path when the owner provides a",
     "suitable case. No filing, deferral or attachment may be submitted merely to",
-    "obtain a trace; do not publish holder data."
+    "obtain a trace; do not publish holder data.",
+    "2026-11-27: The official service N201856 documents a separate consultation of already-issued compliance certificates and debt reports, with a type and period filter. Its public launcher identifies application 2266, but the unauthenticated redirect did not expose a direct read endpoint. A suitable report may be supplied from this service without emitting a new one. The current tgss deuda path still calls AECPSED1 emission. Source: https://sede.seg-social.gob.es/wps/portal/sede/sede/Ciudadanos/Informes%2By%2BCertificados/N201856."
   ]
 }

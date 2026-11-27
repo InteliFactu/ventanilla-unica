@@ -2,13 +2,13 @@ import { emitUpToDateCertificate } from '../../tgss/certificates/emitUpToDateCer
 import { validateCertificateKind } from '../../tgss/certificates/validators/validateCertificateKind'
 import type { Command } from '../types/Command'
 
-/** `ventanilla-unica tgss corriente --nif <NIF> --tipo <kind> [--entidad <NIF>] [--out <dir>]`: emit a "certificado de estar al corriente". */
+/** Emit and download a TGSS certificate of being up to date. */
 export const tgssCorriente: Command = {
   portal: 'tgss',
   action: 'corriente',
   description:
-    "Emit and download a 'certificado de estar al corriente' at the Seguridad Social (--tipo generico|licitacion|subvenciones|articulo-42; licitacion needs --entidad <NIF of the contracting entity>; each emission counts against the daily cap)",
-  options: ['nif', 'tipo', 'entidad'],
+    "Emit and download a TGSS 'certificado de estar al corriente' (dated kinds need --fecha DD/MM/YYYY; both tender kinds need --entidad <NIF>; each emission counts against the daily cap)",
+  options: ['nif', 'tipo', 'entidad', 'fecha'],
   run: async (client, options): Promise<unknown> => {
     const nif = options['nif']
     if (!nif) throw new Error('--nif is required')
@@ -16,6 +16,7 @@ export const tgssCorriente: Command = {
     return emitUpToDateCertificate(client, nif, kind, {
       outDir: options['out'],
       contractingEntityNif: options['entidad'],
+      referenceDate: options['fecha'],
     })
   },
 }
