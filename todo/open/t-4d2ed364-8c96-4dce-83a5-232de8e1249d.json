@@ -15,6 +15,7 @@
     "    `guardarBorradorPresentacion` draft before registering; a failed register",
     "    leaves it on the sede. Next step: find the draft delete call if one",
     "    exists.",
-    "2026-11-27: The current official GestorFormularios bundle uses the procedure metadata numTelematico for the b query parameter on both recuperarBorradorPresentacion and eliminarBorradorPresentacion. The read returned HTTP 200 with an empty JSON string after holder and procedure verification. The delete operation changes state even though its HTTP method is GET. The delete and save calls were excluded from the lookup."
+    "2026-11-27: The current official GestorFormularios bundle uses the procedure metadata numTelematico for the b query parameter on both recuperarBorradorPresentacion and eliminarBorradorPresentacion. The read returned HTTP 200 with an empty JSON string after holder and procedure verification. The delete operation changes state even though its HTTP method is GET. The delete and save calls were excluded from the lookup.",
+    "The CLI now exposes dgsfp borrador to check presence for the certificate holder and current TEL43 procedure. It reuses the official form metadata and calls only the draft GET. The known exact empty response is covered by the registered command tests. The populated fixture follows the official frontend serialization and is synthetic. No saved draft or deletion receipt was observed in this pass. Source: https://www.sededgsfp.gob.es/es/Documents/MU_Sede_PresentacionesTelematicas.pdf"
   ]
 }

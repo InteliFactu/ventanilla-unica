@@ -742,6 +742,9 @@ locate each file.
 
 ## DGSFP filing lookup
 
+`dgsfp borrador` checks whether the certificate holder has a saved TEL43
+complaint draft. It returns `hasDraft` without returning the draft contents.
+
 `dgsfp acuses` lists existing registrations from the DGSFP's own receipt service
 using the holder certificate. The optional `--registro` filter matches one exact
 registry number. The command returns the registration number, year and date. It

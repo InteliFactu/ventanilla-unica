@@ -1,0 +1,32 @@
+{
+  "tadu": 2,
+  "id": "t-07f8331b-3fef-4df1-93e5-a12c03460b8c",
+  "title": "Read whether a DGSFP complaint draft exists",
+  "state": "done",
+  "category": "integrations",
+  "type": "feature",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "related": [
+    "t-4d2ed364-8c96-4dce-83a5-232de8e1249d"
+  ],
+  "notes": [
+    "Use the previously observed read-only draft lookup for the verified holder and TEL43 procedure. Report presence only, refuse unknown replies and never reach save or delete."
+  ],
+  "done_when": [
+    "The CLI uses the registered read command to query only the authenticated TEL43 draft and report presence without draft contents. Tests cover the exact empty reply, expected draft envelope and refusals."
+  ],
+  "links": [
+    "https://www.sededgsfp.gob.es/es/Documents/MU_Sede_PresentacionesTelematicas.pdf"
+  ],
+  "closed": "2026-11-27",
+  "result": "Read whether a DGSFP complaint draft exists",
+  "evidence": [
+    "The prior authorized draft observation bound the certificate holder and verified TEL43, then returned HTTP 200 with an empty JSON string. The 38 focused tests reproduce that answer and verify form serialization, holder binding, strict endpoints for the metadata and draft reads, and the absence of save or delete calls."
+  ]
+}

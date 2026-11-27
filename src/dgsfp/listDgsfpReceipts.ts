@@ -1,9 +1,9 @@
-import { certificateNifs } from '../certificate/certificateNifs'
 import type { CertificateIdentity } from '../certificate/types/CertificateIdentity'
 import type { HttpClient } from '../http/types/HttpClient'
 import { fetchDgsfpReceiptList } from './fetchers/fetchDgsfpReceiptList'
 import { openDgsfpSession } from './session/openDgsfpSession'
 import type { DgsfpReceiptEntry } from './types/DgsfpReceiptEntry'
+import { assertDgsfpCertificateHolder } from './validators/assertDgsfpCertificateHolder'
 
 export const listDgsfpReceipts = async (
   client: HttpClient,
@@ -11,11 +11,7 @@ export const listDgsfpReceipts = async (
   registryNumber?: string,
 ): Promise<readonly DgsfpReceiptEntry[]> => {
   const { holder } = await openDgsfpSession(client)
-  const holderNif = holder.identificador.trim().toUpperCase()
-  if (!certificateNifs(identity).includes(holderNif))
-    throw new Error(
-      'DGSFP: the authenticated holder does not match the certificate',
-    )
+  assertDgsfpCertificateHolder(identity, holder)
 
   const receipts = await fetchDgsfpReceiptList(client)
   const expected = registryNumber?.trim().toUpperCase()
