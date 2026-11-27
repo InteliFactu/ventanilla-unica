@@ -11,6 +11,7 @@ import { writeTestPdf } from '../../tgss/attachments/fixtures/writeTestPdf'
 import { applicationDocumentXml } from '../fixtures/applicationDocumentXml'
 import { filingReceiptHtml } from '../fixtures/filingReceiptHtml'
 import { roleceLoginPages } from '../fixtures/roleceLoginPages'
+import { roleceReceiptZip } from '../fixtures/roleceReceiptZip'
 import { signingFixtures } from '../fixtures/signingFixtures'
 import { signingScreenHtml } from '../fixtures/signingScreenHtml'
 import { simplifiedApplicationPages } from '../fixtures/simplifiedApplicationPages'
@@ -69,8 +70,8 @@ describe('planRoleceRegistration', () => {
   it('files once, in ISO-8859-1, and keeps the acuse de recibo', async () => {
     const outDir = mkdtempSync(join(tmpdir(), 'ventanilla-unica-rolece-'))
     const zip = {
-      ...htmlResponse(`${base}x`, ''),
-      body: Buffer.from('PK\u0003\u0004'),
+      ...htmlResponse(`${base}descargarJustificante.action`, ''),
+      body: roleceReceiptZip,
     }
     const client = scriptedClient(
       ...walk(),

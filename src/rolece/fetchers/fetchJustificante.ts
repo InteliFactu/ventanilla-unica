@@ -2,6 +2,8 @@ import { encodeLatin1Form } from '../../http/encodeLatin1Form'
 import type { HttpClient } from '../../http/types/HttpClient'
 import type { HttpResponse } from '../../http/types/HttpResponse'
 import { selectFormByName } from '../../sepe/certificates/selectors/selectFormByName'
+import { roleceUrls } from '../session/roleceUrls'
+import { isRoleceReceiptZip } from '../validators/isRoleceReceiptZip'
 
 /**
  * Press "Descargar el Justificante Electrónico" on the acuse de recibo. The
@@ -20,19 +22,31 @@ export const fetchJustificante = async (
   const html = receipt.text.replaceAll(/<!--[\s\S]*?-->/g, '')
   const form = selectFormByName(html, 'descargarJustificante', receipt.url)
   const label = form?.fields[button]
-  if (!form || label === undefined) return undefined
+  const action = roleceUrls.receiptDownload
+  if (
+    !form ||
+    label === undefined ||
+    receipt.status !== 200 ||
+    form.action !== action ||
+    new URL(receipt.url).origin !== new URL(action).origin
+  ) {
+    return undefined
+  }
   const fields = Object.fromEntries(
     Object.entries(form.fields).filter(
       ([name]) => !name.startsWith('method:') || name === button,
     ),
   )
-  const answer = await client.request(form.action, {
+  const answer = await client.request(action, {
     method: 'POST',
+    followRedirects: false,
     referer: receipt.url,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: encodeLatin1Form(fields),
   })
-  return answer.body.subarray(0, 2).toString('latin1') === 'PK'
+  return answer.status === 200 &&
+    answer.url === action &&
+    isRoleceReceiptZip(answer.body)
     ? answer.body
     : undefined
 }

@@ -1,0 +1,32 @@
+{
+  "tadu": 2,
+  "id": "t-74ad5e39-c193-4a5f-b164-9240b4cf2601",
+  "title": "Validate ROLECE electronic receipt downloads",
+  "state": "done",
+  "category": "integrations",
+  "type": "bug",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "related": [
+    "t-66cb76c1-6949-4632-9399-b999fab6fac0"
+  ],
+  "notes": [
+    "The observed receipt form posts to the registered ROLECE justification action. Bind that action and its response before retaining an electronic receipt archive."
+  ],
+  "done_when": [
+    "The known receipt form still saves its ZIP, while unexpected endpoints, failed or redirected HTTP responses and truncated ZIPs never produce a saved receipt archive."
+  ],
+  "links": [
+    "https://registrodelicitadores.gob.es/rolece/public/accesoRapido.action"
+  ],
+  "closed": "2026-11-27",
+  "result": "Validate ROLECE electronic receipt downloads",
+  "evidence": [
+    "pnpm exec vitest run src/rolece passed all 51 tests. The observed action accepts ordinary stored and deflated archives, including data descriptors and comments, and refuses unexpected paths, failed or redirected reads, truncated payloads, and malformed directory bounds. unzip -t verified both synthetic archives. The signing and filing flow tests still save the expected files."
+  ]
+}

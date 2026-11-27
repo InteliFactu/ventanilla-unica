@@ -12,6 +12,8 @@ export const roleceUrls = {
     'https://registrodelicitadores.gob.es/rolece/comun/inscripcionPersonaF.action',
   certificateSearch:
     'https://registrodelicitadores.gob.es/rolece/public/visualizarCertificados.action',
+  receiptDownload:
+    'https://registrodelicitadores.gob.es/rolece/comun/descargarJustificante.action',
   claveOrigin: 'https://pasarela.clave.gob.es',
   certificateIdp: 'AFIRMA',
 } as const

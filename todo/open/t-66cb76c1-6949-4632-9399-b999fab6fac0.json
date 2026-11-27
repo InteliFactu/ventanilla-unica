@@ -15,6 +15,7 @@
     "STA registry and Relec sign with `signXml` enveloped, which since e3a3197",
     "emits AutoFirma's layout (XPath transform, DataObjectFormat fields). Unit",
     "tests and xmlsec1 pass; no live act was repeated. Next: the next real ROLECE",
-    "or STA filing confirms it, or revert that flow's shape."
+    "or STA filing confirms it, or revert that flow's shape.",
+    "The ROLECE client now only downloads an electronic receipt from the recorded ROLECE justification action and keeps a ZIP only after a direct HTTP 200 from that endpoint and basic ZIP structure checks. The approved filing and original receipt are still needed to prove the current XAdES shape against the live registry."
   ]
 }
