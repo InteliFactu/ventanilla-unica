@@ -8,13 +8,16 @@
   "priority": "high",
   "kind": "decision",
   "created": "2026-11-27",
-  "blocker": "Historical cleanup changes published commit and release references and may require coordination with GitHub Support and anyone holding copies.",
-  "unblock": "Obtain owner authorization for a coordinated history cleanup and agree on handling affected release references before rewriting or force-pushing.",
+  "blocker": "An offline rewrite passed on the exact published refs. Applying it would move main and three release tags whose published npm versions still record the original source commits in provenance statements. Owner authorization for the shared history rewrite and release-reference handling is pending.",
+  "unblock": "Authorize the coordinated shared history rewrite and decide how to handle the three existing npm provenance links. Repeat the private rehearsal on the exact current refs before any approved force push. Coordinate retained references or cached views separately if needed.",
   "notes": [
     "Personal administrative identifiers and mailbox addresses were found in published operational notes. Redacted confirmed values in the current task records. Previous commits and any copies may still carry them.",
     "Do not record the values or link to affected commits in public artifacts. Use a private inventory for any cleanup.",
     "The follow-up sweep found additional live personal and case identifiers, including document-verification codes, in public task records, examples and fixtures. The current copies were sanitized and fixture data was replaced by synthetic values where a real format was needed. Historical references still require coordinated authorization.",
-    "The read-only revision scan found matching values in the ancestry of published Git tags. All published npm archives were checked against the same values after verifying their registry integrity hashes and passed the exact-value scan."
+    "The read-only revision scan found matching values in the ancestry of published Git tags. All published npm archives were checked against the same values after verifying their registry integrity hashes and passed the exact-value scan.",
+    "2026-11-27: Rehearsed git filter-repo with replacement rules for file contents and commit or tag messages in a fresh disposable mirror of the six public refs. The exact 32-value scan found matches before the trial in 277 reachable blobs and one commit object and found none afterward. Git fsck passed, all 251 revisions and six ref names remained, and the current main tree hash matched byte for byte. Three tag targets would move. The real local and remote refs were checked before and after and matched exactly.",
+    "Registry metadata confirmed that all five published npm packages point to the original Git tag commits. Three would retain provenance for commits whose tag targets move in the trial. GitHub reported zero pull requests, forks and release objects at the time of the rehearsal. No remote refs or packages were changed by the rehearsal.",
+    "A second rehearsal verified every changed tag blob against the intended substitutions. Across the three affected tag snapshots, four changed file entries were documentation or task records and two were test files or fixtures. All tracked paths and file modes were preserved."
   ],
   "done_when": [
     "Review all affected refs privately, agree on the repository-history and release impact, and verify the approved cleanup without republishing personal data."
