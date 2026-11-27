@@ -11,11 +11,12 @@
   "related": [
     "t-7f8ac712-4570-4bb5-8605-edc8ee1115a3"
   ],
-  "blocker": "The official download refuses the exact listed receipt with HTTP 500. The delegated verification service returned HTTP 503.",
-  "unblock": "Obtain a successful official download response for the already listed receipt or a redacted equivalent that proves the returned PDF and its registry reference.",
+  "blocker": "The DGSFP download returned HTTP 500 for the exact listed receipt. The public Ministry of Economy registry portal responds, but the available Orca session stopped at identification and coverage of this DGSFP entry remains unverified.",
+  "unblock": "With an authenticated session for the same holder, look up the exact registration in the Ministry intake book for the filing year and verify any signed PDF against the DGSFP list. A successful download from the DGSFP itself would also resolve the task.",
   "notes": [
     "The authenticated Acuse de Recibo list returned the exact existing registration. Its getDocumentoAcuseRecibo download returned HTTP 500 with the exact registry number and year fields used by the page. The validation service linked by the DGSFP returned HTTP 503 during the same check.",
-    "A fresh authenticated retry reproduced HTTP 500 with a generic JSON error for the exact receipt. A bounded search of the identified private archive candidates did not find an existing copy matching the recorded reference. The receipt list still returned the exact recorded entry."
+    "A fresh authenticated retry reproduced HTTP 500 with a generic JSON error for the exact receipt. A bounded search of the identified private archive candidates did not find an existing copy matching the recorded reference. The receipt list still returned the exact recorded entry.",
+    "The Ministry of Economy links to https://serviciosede.mineco.gob.es/RegElectronico/ from its common services page. The landing page returned HTTP 200 and its official manual documents the annual intake books and the signed receipt download. Orca reached the identification page without an authenticated registry view. The public verifier at https://serviciosede.mineco.gob.es/csv/ also returned HTTP 200 and requires the document verification code."
   ],
   "done_when": [
     "Recover an already issued receipt PDF through an official read route and verify the registration reference against the listed receipt."
