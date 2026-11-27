@@ -7,12 +7,13 @@
   "type": "refactor",
   "priority": "normal",
   "kind": "decision",
-  "blocker": "The portal-client ownership is documented. The direct package dependency or existing import boundary for InteliFactu still needs a product decision and verified data parity.",
-  "unblock": "Approve the integration boundary and compare read and import results on synthetic debts, payments and official instalments before changing InteliFactu.",
+  "blocker": "A comparison of the current Ventanilla Única readers and both InteliFactu mapping paths matched the sampled debt identity and balance and the standard payment identity, amount and date. The current file adapter omits the voluntary deadline and the unique payment-to-debt link produced from signed resolution amounts. The published npm 0.3.0 also lacks the current SRAF calendar. A product boundary and parity over those fields are still pending.",
+  "unblock": "Approve the distribution boundary. Before replacing the legacy path, prove that the chosen flow retains voluntary deadlines and signed-resolution instalment amounts, preserves unique versus unresolved payment links, and provides the required data in the version InteliFactu will consume.",
   "notes": [
     "    `intelifactu/packages/core/src/aeat/` reimplements part of this package.",
     "    Decide whether InteliFactu depends on `ventanilla-unica` or keeps its own,",
     "    and file the result in both backlogs.",
-    "Current source confirms duplicated AEAT session and payment parsing. InteliFactu also owns payment-to-instalment matching and downstream accounting. Its existing headless administration task already records the decision to keep portal clients in ventanilla-unica."
+    "Current source confirms duplicated AEAT session and payment parsing. InteliFactu also owns payment-to-instalment matching and downstream accounting. Its existing headless administration task already records the decision to keep portal clients in ventanilla-unica.",
+    "2026-11-27: Replayed one synthetic debt and two standard MisPagos rows through the built Ventanilla Única readers and actual InteliFactu mapping functions. Identity, balance, date, amount and classification agreed on the compared fields. The file adapter kept the receipt metadata, formatted the payment concept differently, and omitted the legacy voluntary deadline and unique receipt linkage. The paid instalment was zero in the current calendar and still carried the original charge in the resolution parser. The integrity-checked npm 0.3.0 bundle exports both readers but does not contain the typed current calendar or the signed-resolution read. The comparison used only stubbed portal responses and pure storage mappers."
   ]
 }

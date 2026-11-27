@@ -42,4 +42,27 @@ describe('parsePaymentRows', () => {
       [],
     )
   })
+
+  it.each([
+    [
+      'reordered amount and date',
+      '<td>21/04/2025</td><td>2100</td><td>1.224,54 €</td>',
+    ],
+    [
+      'unparseable amount',
+      '<td>1.224,54 unknown</td><td>2100</td><td>21/04/2025</td>',
+    ],
+    [
+      'nonexistent payment date',
+      '<td>1.224,54 €</td><td>2100</td><td>29/02/2025</td>',
+    ],
+  ])('refuses a payment row with %s', (_reason, cells) => {
+    const changed = html.replace(
+      '<td>1.224,54 €</td><td>2100</td><td>21/04/2025</td>',
+      cells,
+    )
+    expect(() => parsePaymentRows(changed)).toThrow(
+      'AEAT: MisPagos returned a payment with an invalid amount or date',
+    )
+  })
 })

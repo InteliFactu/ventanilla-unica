@@ -1,0 +1,27 @@
+{
+  "tadu": 2,
+  "id": "t-31e2dd8f-432c-41f1-96be-87a22025a5f0",
+  "title": "Reject invalid amounts and dates in MisPagos rows",
+  "state": "done",
+  "category": "integrations",
+  "type": "bug",
+  "priority": "high",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "discovered_from": "t-f9fd9156-55f2-42dc-abea-05c75ca9f437",
+  "notes": [
+    "A synthetic MisPagos row with the amount and date cells exchanged yielded an incorrect payment amount or date in the CLI report and existing JSON import path."
+  ],
+  "done_when": [
+    "The payment reader refuses a row with an invalid amount or date before emitting a report. The standard Spanish amount and date layout continues to work."
+  ],
+  "closed": "2026-11-27",
+  "result": "Reject invalid amounts and dates in MisPagos rows",
+  "evidence": [
+    "MisPagos now rejects invalid Spanish amounts and impossible calendar dates before returning payment rows. The cross-project synthetic replay confirmed that the swapped amount/date row is rejected while both standard payments retain their NRC, amount and date. pnpm exec vitest run src/aeat/payments src/aeat/accountPayment src/aeat/debts passed 114 tests. pnpm check:ci passed all 2,473 tests."
+  ]
+}

@@ -1,5 +1,7 @@
 import { toMoneyAmount } from '../../money/mappers/toMoneyAmount'
+import { isEuroAmountText } from '../../paymentLetter/validators/isEuroAmountText'
 import type { AeatPayment } from '../types/AeatPayment'
+import { isMisPagosCalendarDate } from '../validators/isMisPagosCalendarDate'
 import { isoDateFromSpanish } from './isoDateFromSpanish'
 import { splitModeloField } from './splitModeloField'
 
@@ -20,6 +22,12 @@ export const paymentFromCells = (
     entidad = '',
     fecha = '',
   ] = cells
+  const amountText = importe.replace(/[\s€\u0080]+$/, '')
+  const date = isoDateFromSpanish(fecha)
+  if (!isEuroAmountText(amountText) || !isMisPagosCalendarDate(date))
+    throw new Error(
+      'AEAT: MisPagos returned a payment with an invalid amount or date',
+    )
   const justificanteLength = 13
   return {
     tipo,
@@ -28,8 +36,8 @@ export const paymentFromCells = (
       ? justificante
       : nrc.slice(0, justificanteLength),
     nrc,
-    importe: toMoneyAmount(importe.replace(/[\s€\u0080]+$/, '')),
+    importe: toMoneyAmount(amountText),
     entidad,
-    fecha: isoDateFromSpanish(fecha),
+    fecha: date,
   }
 }
