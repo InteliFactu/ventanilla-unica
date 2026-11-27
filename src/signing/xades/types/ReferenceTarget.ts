@@ -1,3 +1,5 @@
+import type { XmlElement } from '../../xml/types/XmlElement'
+
 /** What a ds:Reference digests. */
 export type ReferenceTarget =
   | {
@@ -7,4 +9,5 @@ export type ReferenceTarget =
       readonly allSignatures?: boolean | undefined
     }
   | { readonly kind: 'id'; readonly id: string }
+  | { readonly kind: 'subtree'; readonly path: readonly XmlElement[] }
   | { readonly kind: 'bytes'; readonly data: Buffer }

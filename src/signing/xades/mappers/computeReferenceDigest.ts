@@ -46,9 +46,14 @@ export const computeReferenceDigest = (
     )
   return digestBase64(
     digest,
-    canonicalizeSubtree(selectPathById(document.root, target.id), {
-      withComments: false,
-      exclusive: false,
-    }),
+    canonicalizeSubtree(
+      target.kind === 'subtree'
+        ? target.path
+        : selectPathById(document.root, target.id),
+      {
+        withComments: false,
+        exclusive: false,
+      },
+    ),
   )
 }

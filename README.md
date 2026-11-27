@@ -477,7 +477,12 @@ machine. For portal flows, the library's
 AutoFirma does for a page's `AutoScript.sign` call (NONE, CAdES, XAdES, FacturaE
 and PAdES, with AutoFirma's defaults; `operation: 'cosign'` or `'countersign'`
 with `signature` does `coSign` and `counterSign` for CAdES and XAdES, and a
-PAdES `coSign`) and returns the signature and certificate the page posts.
+PAdES `coSign`) and returns the signature and certificate the page posts. For
+XAdES `coSign`, an internal detached reference reuses the original XML or base64
+content. For an external reference, pass the original bytes in `data` and the
+existing XAdES in `signature`. The signer checks the bytes against the original
+digest and keeps the original URI without fetching it. AutoFirma 1.9 external
+and internal examples are verified with `xmlsec1` in the test suite.
 
 For CAdES and XAdES AutoScript countersignatures, `target=tree` applies to every
 original signer in the tree. `target=leafs` applies to the original leaves and

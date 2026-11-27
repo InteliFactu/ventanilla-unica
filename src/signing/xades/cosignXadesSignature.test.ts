@@ -30,13 +30,7 @@ describe('cosignXadesSignature', () => {
     },
   )
 
-  it('refuses detached signatures and unsigned XML', () => {
-    const detached = signXml(first, document, {
-      mode: 'internally-detached',
-    }).xml
-    expect(() => cosignXadesSignature(second, detached)).toThrow(
-      'only enveloped and enveloping',
-    )
+  it('refuses unsigned XML', () => {
     expect(() => cosignXadesSignature(second, document)).toThrow(
       'carries no signature',
     )

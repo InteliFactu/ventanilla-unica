@@ -8,8 +8,12 @@
   "priority": "high",
   "kind": "decision",
   "created": "2026-11-11",
-  "blocker": "Accessing a specific electronic notification can constitute formal service; current items and authority to open each are unverified.",
-  "unblock": "Confirm the holder and authorize opening the exact notification after checking its status through a listing.",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "blocker": "The authorized personal DEHU pending listing returned zero items. The older AEAT, Junta, and SEPE notices and any other holder remain outside this listing.",
+  "unblock": "Authorize the next holder and exact portal for a current pending-only list. Handle any specific notice separately.",
   "notes": [
     "    around 2026-11-20).** AEAT \"Aviso de notificación de la Agencia",
     "    Tributaria\", 2026-11-10: 2 on djcristiandeluxe@gmail.com, 4 on",
@@ -20,6 +24,8 @@
     "    (\"Solicitud de alta y modificación de datos personales\"); SEPE Garantía",
     "    Juvenil \"Tiene notificaciones pendientes\", 2026-11-07. Next: read them",
     "    through `~/p/ventanilla-unica`.",
-    "- Routed 2026-11-15 from `~/p/TODO.md`."
+    "- Routed 2026-11-15 from `~/p/TODO.md`.",
+    "The holder authorized a current DEHU pending-only listing for the personal certificate. Notification access is outside this authorization.",
+    "Live DEHU pending-only listing on 2026-11-27 verified one page and zero pending entries. No notice was opened."
   ]
 }

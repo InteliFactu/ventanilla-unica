@@ -1,0 +1,23 @@
+{
+  "tadu": 2,
+  "id": "t-fea68535-abaa-45d3-bceb-334a225053a9",
+  "title": "Restore DEHU certificate login for list and document reads",
+  "state": "done",
+  "category": "blocked-tasks",
+  "type": "untriaged",
+  "priority": "untriaged",
+  "kind": "task",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "blocker": "retrieval.** Reproduced 2026-10-22 with `dehu list --year 2026` and `dehu documentos --year 2026 --id <already-served-ids> --out <directory>`: `login-clave-form did not return JSON (status 200)`. Next: inspect the supported login response and repair parsing without accepting a notification.",
+  "notes": [
+    "The public login endpoint returned a JSON string containing the expected form, and a live certified pending-only list completed."
+  ],
+  "closed": "2026-11-27",
+  "result": "Restore DEHU certificate login for list and document reads",
+  "evidence": [
+    "The public login-clave-form returned HTTP 200 with the expected JSON form on 2026-11-27. The authorized pending-only CLI listing completed live in one page, confirming the shared certificate login succeeds. Document retrieval uses that same login function and was outside this authorization."
+  ]
+}

@@ -9,6 +9,7 @@ export const xmlsecVerifies = (
   xml: Buffer,
   detached?: Buffer,
   nodeId?: string,
+  contentIdNodes: readonly string[] = [],
 ): string => {
   const dir = mkdtempSync(join(tmpdir(), 'ventanilla-unica-xades-'))
   if (detached) writeFileSync(join(dir, 'invoice.xml'), detached)
@@ -19,7 +20,10 @@ export const xmlsecVerifies = (
       '--verify',
       '--insecure',
       '--enabled-reference-uris',
-      'empty,same-doc,local,remote',
+      detached === undefined ? 'empty,same-doc' : 'empty,same-doc,remote',
+      ...(detached === undefined
+        ? []
+        : ['--url-map:invoice.xml', 'invoice.xml']),
       ...[
         'http://uri.etsi.org/01903/v1.3.2#:SignedProperties',
         'http://www.w3.org/2000/09/xmldsig#:KeyInfo',
@@ -27,6 +31,7 @@ export const xmlsecVerifies = (
         'http://www.w3.org/2000/09/xmldsig#:Signature',
         'http://www.w3.org/2000/09/xmldsig#:SignatureValue',
         'CONTENT',
+        ...contentIdNodes,
       ].flatMap((node) => ['--id-attr:Id', node]),
       ...(nodeId === undefined ? [] : ['--node-id', nodeId]),
       'signed.xml',

@@ -1,0 +1,30 @@
+{
+  "tadu": 2,
+  "id": "t-4f9c7465-387c-4706-b505-2c3eab69f68f",
+  "title": "Support detached and internally detached XAdES cosigning",
+  "state": "done",
+  "category": "multisignature-limits",
+  "type": "feature",
+  "priority": "low",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "related": [
+    "t-cb4ccfab-7108-4d76-a1de-8edd97a5038f"
+  ],
+  "notes": [
+    "The signer requires a verified reference profile for detached and internally detached cosignatures.",
+    "Official AutoFirma fixtures establish the reference profiles, and the installed AutoFirma 1.9 CLI can generate matching synthetic inputs."
+  ],
+  "done_when": [
+    "A sanitized AutoFirma reference signature and matching data verify both original and new signatures after cosigning."
+  ],
+  "closed": "2026-11-27",
+  "result": "Support detached and internally detached XAdES cosigning",
+  "evidence": [
+    "AutoFirma 1.9 created four synthetic originals: an external reference, wrapped XML, wrapped base64, and a referenced XML sibling. xmlsec1 independently verified the original and new signature for all four. The regression suite tests shipping AutoScript entry points and refuses mismatched external data. pnpm check:ci passed 2418 tests."
+  ]
+}

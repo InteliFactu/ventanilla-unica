@@ -21,5 +21,8 @@ export const multisignAutoScriptXades = (
         ...options,
         target: selectCountersignTarget(signing.params),
       })
-    : cosignXadesSignature(identity, signing.data, options)
+    : cosignXadesSignature(identity, signing.data, {
+        ...options,
+        detachedContent: signing.content,
+      })
 }

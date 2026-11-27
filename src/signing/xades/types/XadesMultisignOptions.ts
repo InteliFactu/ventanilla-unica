@@ -6,6 +6,8 @@ export type XadesMultisignOptions = Omit<
   SignXmlOptions,
   'mode' | 'detachedUri' | 'signedNodeId'
 > & {
+  /** Original bytes for an external data reference, supplied without dereferencing its URI. */
+  readonly detachedContent?: Buffer | undefined
   /** Counter-sign all original signature nodes or their leaves. */
   readonly target?: CountersignTarget | undefined
 }
