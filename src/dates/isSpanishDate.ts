@@ -1,4 +1,4 @@
-/** True for a calendar date written DD/MM/AAAA, as the Prosa forms expect. */
+/** True for a calendar date written DD/MM/YYYY. */
 export const isSpanishDate = (value: string): boolean => {
   const match = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(value)
   if (!match) return false

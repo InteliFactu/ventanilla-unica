@@ -1,7 +1,7 @@
+import { isSpanishDate } from '../../dates/isSpanishDate'
 import type { HttpClient } from '../../http/types/HttpClient'
 import { emitAffiliationReport } from './emitAffiliationReport'
 import type { EmploymentAtDateResult } from './types/EmploymentAtDateResult'
-import { isSpanishDate } from './validators/isSpanishDate'
 
 /**
  * Emit the "informe de alta laboral a fecha concreta" (service INAF0009) for

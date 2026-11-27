@@ -1,3 +1,4 @@
+import { isSpanishDate } from '../../dates/isSpanishDate'
 import type { HttpClient } from '../../http/types/HttpClient'
 import { fetchProsaDocument } from '../prosa/fetchers/fetchProsaDocument'
 import { readXmlField } from '../prosa/parsers/readXmlField'
@@ -7,7 +8,6 @@ import { fetchGeneratedInforme } from './fetchers/fetchGeneratedInforme'
 import { parsePreviewSecuencial } from './parsers/parsePreviewSecuencial'
 import type { VidaLaboralQuery } from './types/VidaLaboralQuery'
 import type { VidaLaboralResult } from './types/VidaLaboralResult'
-import { isSpanishDate } from './validators/isSpanishDate'
 import { writeVidaLaboralPdf } from './writeVidaLaboralPdf'
 
 /**

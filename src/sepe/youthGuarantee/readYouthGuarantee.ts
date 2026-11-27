@@ -4,6 +4,7 @@ import { fetchYouthGuaranteeHistory } from './fetchers/fetchYouthGuaranteeHistor
 import { fetchYouthGuaranteePages } from './fetchers/fetchYouthGuaranteePages'
 import { loginYouthGuarantee } from './loginYouthGuarantee'
 import { readYouthGuaranteeDocuments } from './parsers/readYouthGuaranteeDocuments'
+import { readYouthGuaranteeLandingDate } from './parsers/readYouthGuaranteeLandingDate'
 import { readYouthGuaranteeStatus } from './parsers/readYouthGuaranteeStatus'
 import type { YouthGuaranteeResult } from './types/YouthGuaranteeResult'
 import { isResumedYouthGuaranteeDraft } from './validators/isResumedYouthGuaranteeDraft'
@@ -28,6 +29,9 @@ export const readYouthGuarantee = async (
   const documents = readYouthGuaranteeDocuments(page.text)
   return {
     ...status,
+    registrationDate:
+      status.registrationDate ??
+      readYouthGuaranteeLandingDate(page.url, status.state),
     ...(history === undefined
       ? {}
       : {

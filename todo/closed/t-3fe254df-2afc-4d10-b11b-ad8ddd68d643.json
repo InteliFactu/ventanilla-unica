@@ -1,0 +1,27 @@
+{
+  "tadu": 2,
+  "id": "t-3fe254df-2afc-4d10-b11b-ad8ddd68d643",
+  "title": "Read the effective enrollment date from the Garantía Juvenil beneficiary landing",
+  "state": "done",
+  "category": "sepe",
+  "type": "bug",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "discovered_from": "t-6295f32f-20e2-4d8d-bf86-ce5670cc6715",
+  "notes": [
+    "The authenticated beneficiary landing includes a date in fechaEstadoInscripcion. Its value was independently verified against the official enrollment resolution. The CLI currently drops the landing URL when parsing registration status."
+  ],
+  "done_when": [
+    "The ordinary read reports the confirmed date for the beneficiary landing, preserves explicit registration evidence, and rejects misleading or invalid URL dates."
+  ],
+  "closed": "2026-11-27",
+  "result": "Read the effective enrollment date from the Garantía Juvenil beneficiary landing",
+  "evidence": [
+    "A fresh authenticated beneficiary landing carried the date independently confirmed by the official enrollment PDF. Replaying its redacted status evidence through the built readYouthGuarantee entry returned the exact date without inbox requests. pnpm exec vitest run src/dates src/sepe/youthGuarantee src/tgss/affiliation passed 139 tests, pnpm check:ci passed 2,552 tests, and pnpm build succeeded."
+  ]
+}
