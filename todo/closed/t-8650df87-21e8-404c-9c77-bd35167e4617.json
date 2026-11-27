@@ -1,0 +1,32 @@
+{
+  "tadu": 2,
+  "id": "t-8650df87-21e8-404c-9c77-bd35167e4617",
+  "title": "Reject TEA identification redirects before parsing case lists",
+  "state": "done",
+  "category": "integrations",
+  "type": "bug",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "related": [
+    "t-2455866d-3e87-4d5e-a58e-8ce22fc5ad22"
+  ],
+  "notes": [
+    "An anonymous GET to Mis expedientes redirected to the AEAT identification error page, whose HTTP response status is 200. The client must reject that page and failed or unexpected responses before inspecting holder and case markup."
+  ],
+  "done_when": [
+    "Report the observed certificate identification error, refuse unexpected final locations and non-success HTTP statuses, and keep the known empty-list reader working."
+  ],
+  "links": [
+    "https://sede.tea.hacienda.gob.es/TEA/reclamaciones.html"
+  ],
+  "closed": "2026-11-27",
+  "result": "Reject TEA identification redirects before parsing case lists",
+  "evidence": [
+    "pnpm exec vitest run src/tea/expedientes passed all 9 tests. After pnpm build, the packaged reader called the public endpoint without a certificate and classified the observed HTTP 200 identification error correctly. Test cases also reject failed and unexpected responses before reading the body."
+  ]
+}

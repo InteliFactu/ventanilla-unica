@@ -14,6 +14,7 @@
     "",
     "    expedientes\" page has been seen live. Next step: capture the page of a",
     "    holder with an open reclamación and map its rows and detail.",
-    "Authorized live read in November found no cases for seven accessible holders and one explicit authorization refusal. No populated list sample was available."
+    "Authorized live read in November found no cases for seven accessible holders and one explicit authorization refusal. No populated list sample was available.",
+    "The official Mis expedientes route redirected an anonymous request to the AEAT certificate identification error, which rendered with HTTP 200. The built reader reproduced and reported the identification error separately. It now checks the HTTP status and final endpoint before reading holder or case markup. This still leaves the populated list and detail to verify. Sources: https://sede.tea.hacienda.gob.es/TEA/reclamaciones.html and https://sede.agenciatributaria.gob.es/Sede/errores/erro4033.html"
   ]
 }
