@@ -7,13 +7,14 @@
   "type": "untriaged",
   "priority": "untriaged",
   "kind": "waiting",
-  "blocker": "The portal code provides a candidate deletion operation. The authenticated request and result are inferred, with no captured draft deletion.",
-  "unblock": "Capture a redacted request for one explicitly authorized draft deletion before implementing automatic cleanup.",
+  "blocker": "The current DGSFP form identifies the draft retrieval and deletion calls. The authenticated TEL43 draft lookup returned an explicit empty result for the verified holder. A deletion response for an existing draft is still unverified.",
+  "unblock": "Identify an existing TEL43 draft through the read-only lookup and capture one explicitly authorized deletion for that holder before implementing cleanup.",
   "notes": [
     "Each confirmed run saves a",
     "",
     "    `guardarBorradorPresentacion` draft before registering; a failed register",
     "    leaves it on the sede. Next step: find the draft delete call if one",
-    "    exists."
+    "    exists.",
+    "2026-11-27: The current official GestorFormularios bundle uses the procedure metadata numTelematico for the b query parameter on both recuperarBorradorPresentacion and eliminarBorradorPresentacion. The read returned HTTP 200 with an empty JSON string after holder and procedure verification. The delete operation changes state even though its HTTP method is GET. The delete and save calls were excluded from the lookup."
   ]
 }

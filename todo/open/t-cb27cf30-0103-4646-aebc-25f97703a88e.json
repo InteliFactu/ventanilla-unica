@@ -11,8 +11,8 @@
   "assignees": [
     "agent:codex"
   ],
-  "blocker": "The CLI reports the known internal-error response with the incident and management link. A distinct response containing an existing booking has not been captured.",
-  "unblock": "Provide a redacted read-only search response for a holder with an active appointment.",
+  "blocker": "The search handles the portal generic error and provides its management link. The official authenticated Mis citas pages for three authorized personal identities rendered their Citas pasadas panel without an upcoming appointment panel or modification controls. A booked-holder search response remains unavailable.",
+  "unblock": "Use the official Mis citas read to identify an independently booked upcoming appointment, then capture the pure availability search response for that same holder.",
   "notes": [
     "After the 12:30 booking,",
     "",
@@ -20,6 +20,7 @@
     "    manual replay of the `procedimiento` step answers \"Se ha producido un",
     "    error interno en el Sistema\". Next: capture the portal's",
     "    existing-appointment page and report it (with its `gestioncita` link)",
-    "    instead of failing."
+    "    instead of failing.",
+    "2026-11-27: Read the official ADN1-JDIT Mis citas entry with three authorized personal certificates. Each HTTP 200 response identified its expected holder. Every page showed the past panel and lacked an upcoming panel or actions to cancel or change a booking. This did not yield an eligible booked-holder example. Reference: https://sede.agenciatributaria.gob.es/Sede/ayuda/consultas-informaticas/otros-servicios-ayuda-tecnica/citas.html."
   ]
 }

@@ -14,7 +14,8 @@
   "blocker": "The official download refuses the exact listed receipt with HTTP 500. The delegated verification service returned HTTP 503.",
   "unblock": "Obtain a successful official download response for the already listed receipt or a redacted equivalent that proves the returned PDF and its registry reference.",
   "notes": [
-    "The authenticated Acuse de Recibo list returned the exact existing registration. Its getDocumentoAcuseRecibo download returned HTTP 500 with the exact registry number and year fields used by the page. The validation service linked by the DGSFP returned HTTP 503 during the same check."
+    "The authenticated Acuse de Recibo list returned the exact existing registration. Its getDocumentoAcuseRecibo download returned HTTP 500 with the exact registry number and year fields used by the page. The validation service linked by the DGSFP returned HTTP 503 during the same check.",
+    "A fresh authenticated retry reproduced HTTP 500 with a generic JSON error for the exact receipt. A bounded search of the identified private archive candidates did not find an existing copy matching the recorded reference. The receipt list still returned the exact recorded entry."
   ],
   "done_when": [
     "Recover an already issued receipt PDF through an official read route and verify the registration reference against the listed receipt."
