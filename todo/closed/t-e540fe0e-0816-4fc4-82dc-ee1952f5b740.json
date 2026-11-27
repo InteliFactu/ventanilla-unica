@@ -1,0 +1,27 @@
+{
+  "tadu": 2,
+  "id": "t-e540fe0e-0816-4fc4-82dc-ee1952f5b740",
+  "title": "Download an existing AEAT deferral resolution by agreement",
+  "state": "done",
+  "category": "integrations",
+  "type": "feature",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "discovered_from": "t-f9fd9156-55f2-42dc-abea-05c75ca9f437",
+  "notes": [
+    "The signed SRAF resolution supplies original instalment amounts that are zeroed for paid rows in the current calendar. Make the existing resolution available through the Ventanilla Unica library and CLI for holders with an advertised link."
+  ],
+  "done_when": [
+    "A selected agreement from the certificate holder list returns the exact advertised PDF without querying another agreement or following redirects. The CLI exports only this PDF to the requested directory. Synthetic responses verify the documented read path and reject ambiguous, mismatched, or non-PDF responses."
+  ],
+  "closed": "2026-11-27",
+  "result": "Download an existing AEAT deferral resolution by agreement",
+  "evidence": [
+    "Implemented and built the holder-bound library read and CLI download of one advertised SRAF resolution. The focused suite passed 61 tests, including ambiguous and mismatched links, non-PDF responses, private output and exclusive creation. A synthetic PDF round trip through pdftotext and the existing InteliFactu parser restored two original instalments and the expected unique payment match. pnpm check:ci passed. Live replay and integration choice remain on the originating task."
+  ]
+}

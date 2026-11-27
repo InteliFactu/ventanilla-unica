@@ -3,15 +3,14 @@ import { aeatBaseUrl } from '../../session/aeatBaseUrl'
 import { parseAgreementDetail } from '../parsers/parseAgreementDetail'
 import { parseAgreementList } from '../parsers/parseAgreementList'
 import type { Agreement } from '../types/Agreement'
+import { agreementListingUrl } from '../urls/agreementListingUrl'
 import { fetchAgreementCalendar } from './fetchAgreementCalendar'
 
 /** Every SRAF deferral/instalment agreement on the certificate's NIF, read-only. */
 export const fetchAgreements = async (
   client: HttpClient,
 ): Promise<readonly Agreement[]> => {
-  const listingResponse = await client.request(
-    `${aeatBaseUrl}/wlpl/inwinvoc/es.aeat.dit.adu.sraf.solicitud.SolAccionW?fAccion=petic&fFigura=obli`,
-  )
+  const listingResponse = await client.request(agreementListingUrl)
   const listings = parseAgreementList(listingResponse.text, aeatBaseUrl)
   const agreements: Agreement[] = []
   for (const listing of listings) {
