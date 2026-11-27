@@ -7,5 +7,6 @@ export type RelecProcedureForm = {
   readonly dboid: string
   readonly procedure: string
   readonly variables: readonly RelecVariable[]
+  readonly editableFields: readonly RelecVariable[]
   readonly slots: readonly RelecSlot[]
 }

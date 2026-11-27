@@ -232,10 +232,11 @@ the defaults; confirmation requires an email for electronic notification. The
 Asunto is limited to 2500 characters and goes in `DinVarANNOT_TEXT_EXTRACT`. A
 procedure must expose that field and signed PDF upload slots.
 
-Use `caceres procedimiento --dboid <id>` to find the field names. To fill
-additional editable text fields, pass `--campos '{"DETAIL":"Example text"}'`
-with names from that procedure. The plan shows the supplied values. Asunto uses
-`--asunto`, and non-text or missing controls are refused before upload.
+Read `editableFields` from `caceres procedimiento --dboid <id>` to find the
+additional fields accepted by `--campos`. Pass their names in
+`--campos '{"DETAIL":"Example text"}'`. The plan shows the supplied values.
+Asunto uses `--asunto`, and non-text or missing controls are refused before
+upload.
 
 Without `--confirmar si`, the command returns `executed: false` and prints the
 filing plan. Even with `--out`, it uploads nothing, sends no signing or

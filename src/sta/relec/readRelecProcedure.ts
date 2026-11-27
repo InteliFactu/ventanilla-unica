@@ -6,6 +6,8 @@ import { parseRelecSlots } from './parsers/parseRelecSlots'
 import { parseRelecVariables } from './parsers/parseRelecVariables'
 import { readRelecTramitaFields } from './parsers/readRelecTramitaFields'
 import { readRelecTramitaFormControls } from './parsers/readRelecTramitaFormControls'
+import { readRelecTramiteTextFields } from './parsers/readRelecTramiteTextFields'
+import { selectEditableRelecVariables } from './selectors/selectEditableRelecVariables'
 import type { RelecProcedureForm } from './types/RelecProcedureForm'
 
 /**
@@ -20,14 +22,18 @@ export const readRelecProcedure = async (
   const origin = staOrigins.caceres
   await openStaSession(client, origin)
   const page = await openRelecForm(client, origin, dboid)
-  const fields = readRelecTramitaFields(
-    readRelecTramitaFormControls(page.text, page.url),
-  )
+  const controls = readRelecTramitaFormControls(page.text, page.url)
+  const fields = readRelecTramitaFields(controls)
+  const variables = parseRelecVariables(fields)
   return {
     host: new URL(origin).hostname,
     dboid,
     procedure: fields['solicituddesc']?.trim() ?? '',
-    variables: parseRelecVariables(fields),
+    variables,
+    editableFields: selectEditableRelecVariables(
+      variables,
+      readRelecTramiteTextFields(controls),
+    ),
     slots: parseRelecSlots(fields),
   }
 }
