@@ -7,14 +7,15 @@
   "type": "untriaged",
   "priority": "untriaged",
   "kind": "waiting",
-  "blocker": "The maintainer closed the first proposal and invited resubmission once there is visible use and the portal write flows are mature. The repository still has zero GitHub stars.",
-  "unblock": "Collect evidence of actual usage and write flow maturity, then obtain approval to submit a new proposal.",
+  "blocker": "The original proposal remains closed. The repository still has no public stars or forks. npm shows download activity, while independent adoption and completion of the remaining plan-only write paths have yet to be verified.",
+  "unblock": "Collect attributable third-party usage and acceptance evidence for the remaining plan-only write paths, then obtain approval to submit a new proposal.",
   "notes": [
     "2026-09-26 by the maintainer, kindly: too new (no stars or visible use,",
     "versions still shipping), it asks for the holder's certificate and acts on",
     "AEAT/TGSS/DEHU with write paths still \"plan only\", and it is the engine of a",
     "paid closed product. He invited a new proposal once it has use and stars and",
     "the write side is closed. Unblock: a few months of use, then reopen with that",
-    "evidence."
+    "evidence.",
+    "2026-11-27: The original maintainer response remains at https://github.com/GeiserX/awesome-spain/pull/45. GitHub shows zero stars and forks. The public npm downloads API records 48 downloads from 2026-10-28 through 2026-11-26. This aggregate does not identify users. The Writing table still lists seven commands with a plan-only case, including the represented general registry and social security or address workflows."
   ]
 }

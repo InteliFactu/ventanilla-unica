@@ -6,5 +6,10 @@
   "category": "owner-requests",
   "type": "untriaged",
   "priority": "untriaged",
-  "blocker": "The old v0.1.0 launch task was superseded on 2026-10-06 and its log explicitly leaves the LinkedIn post unverified. Verify whether a post already exists; otherwise obtain owner content/send approval before publishing. This is separate from the awesome-spain re-proposal; no external post was sent by this reconciliation."
+  "kind": "decision",
+  "blocker": "The signed-in personal LinkedIn activity showed no matching launch post in the visible period. The old v0.1.0 launch task was superseded, and whether to publish an updated follow-up remains an owner decision.",
+  "unblock": "Decide whether to retire the old launch follow-up or approve current copy and the exact LinkedIn account for publication.",
+  "notes": [
+    "2026-11-27: Checked the signed-in personal activity page. It showed five recent own posts labeled two months old, followed by fifteen older entries labeled one year old. The visible entries contained neither the package name nor InteliFactu. Indexed searches found no matching post. This covers the visible personal activity and does not establish publication from a different account."
+  ]
 }
