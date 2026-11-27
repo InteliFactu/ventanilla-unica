@@ -17,8 +17,7 @@ export const parseRayuelaMessage = (
     from: cells.at(-3) ?? '',
     ...parseRayuelaMessagePreview(row),
     dateText,
-    date:
-      todayMs === null ? null : resolveRayuelaMessageDate(dateText, todayMs),
+    date: resolveRayuelaMessageDate(dateText, todayMs),
     hasAttachments: readRayuelaAttachmentFlag(row),
   }
 }

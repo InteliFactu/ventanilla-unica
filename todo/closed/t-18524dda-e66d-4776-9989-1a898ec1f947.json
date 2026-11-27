@@ -1,0 +1,29 @@
+{
+  "tadu": 2,
+  "id": "t-18524dda-e66d-4776-9989-1a898ec1f947",
+  "title": "Parse explicit calendar dates in the Rayuela inbox",
+  "state": "done",
+  "category": "integrations",
+  "type": "bug",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "related": [
+    "t-c63e9ffc-6909-4cea-944e-f418247c21b8"
+  ],
+  "notes": [
+    "An authorized first-page inbox comparison found 33 of 200 rows with a portal date in DD/MM/YYYY format and a missing ISO date in the CLI."
+  ],
+  "done_when": [
+    "The read-only inbox comparison reproduces the portal calendar dates for all rows on the first page, including explicit dates."
+  ],
+  "closed": "2026-11-27",
+  "result": "Parse explicit calendar dates in the Rayuela inbox",
+  "evidence": [
+    "After pnpm build, an authorized read on 2026-11-27 matched the ISO dates on all 200 first-page rows against raw portal labels. All 33 DD/MM/YYYY rows now resolve; the focused Rayuela suite also covers invalid dates, leap days and an ambiguous response day."
+  ]
+}

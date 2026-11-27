@@ -692,10 +692,11 @@ before reading the pupil's page.
 `rayuela mensajes --desde-id <id>` keeps messages with a greater numeric ID on
 the first page of the selected tray. The reported `total` is for the whole tray.
 Each item includes the portal's `dateText` and a `date` in `YYYY-MM-DD` format
-when it can be resolved using the Europe/Madrid calendar. The command uses the
-response's HTTP date when available. A request that crosses Madrid midnight
-without it leaves `date` as `null`. The command reads embedded previews, which
-may be truncated.
+when the label can be resolved. Dates shown as `DD/MM/YYYY` are used directly.
+Relative labels use the Europe/Madrid calendar and the response's HTTP date when
+available. A request that crosses Madrid midnight without the HTTP date leaves
+relative dates as `null`. The command reads embedded previews, which may be
+truncated.
 
 ## Justice document downloads
 

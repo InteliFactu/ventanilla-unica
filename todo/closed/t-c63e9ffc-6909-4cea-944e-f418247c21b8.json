@@ -2,12 +2,16 @@
   "tadu": 2,
   "id": "t-c63e9ffc-6909-4cea-944e-f418247c21b8",
   "title": "Verify Rayuela child selection and relative message dates on the live portal",
-  "state": "blocked",
+  "state": "done",
   "category": "testing",
   "type": "test",
   "priority": "low",
   "kind": "waiting",
   "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
   "related": [
     "t-0666d15b-1450-4a7c-ba7c-b02ab20bc59e",
     "t-84f584d1-f0e1-4f53-9d76-89c53060aa7f"
@@ -19,5 +23,10 @@
   ],
   "done_when": [
     "An authorized read-only session verifies the current and alternate pupil and compares first-page dates and IDs against the portal."
+  ],
+  "closed": "2026-11-27",
+  "result": "Verify Rayuela child selection and relative message dates on the live portal",
+  "evidence": [
+    "Authorized read on 2026-11-27 verified two roster entries, an applied per-child switch, distinct timetables with seven and six slots, and 200 of 200 first-page message IDs and portal calendar labels including 11 weekday labels. No message detail was requested."
   ]
 }
