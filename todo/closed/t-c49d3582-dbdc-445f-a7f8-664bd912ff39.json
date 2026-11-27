@@ -1,0 +1,29 @@
+{
+  "tadu": 2,
+  "id": "t-c49d3582-dbdc-445f-a7f8-664bd912ff39",
+  "title": "Read Rayuela grades by academic year",
+  "state": "done",
+  "category": "integrations",
+  "type": "feature",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "related": [
+    "t-a41d89a4-7bca-46b5-b81a-014f8d713dbe"
+  ],
+  "notes": [
+    "The live authenticated menu and selectors exposed a definitive empty current year and populated grade tables for two listed historical years. Prior work in 8d91c98 contains a reader and sanitized fixtures."
+  ],
+  "done_when": [
+    "The CLI reads the current and a selected historical academic year and checks that the portal applied the requested year."
+  ],
+  "closed": "2026-11-27",
+  "result": "Read Rayuela grades by academic year",
+  "evidence": [
+    "After pnpm build, rayuela calificaciones read the live default year and six advertised years. Two requested prior years matched the returned selection and had five subject rows each. The text-grade year matched all 15 nonempty grades in the source table; the other year had no grade text and displayed separate observation icons. Tests cover an ignored year selector."
+  ]
+}
