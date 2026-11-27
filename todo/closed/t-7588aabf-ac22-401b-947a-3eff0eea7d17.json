@@ -1,0 +1,29 @@
+{
+  "tadu": 2,
+  "id": "t-7588aabf-ac22-401b-947a-3eff0eea7d17",
+  "title": "Read later pages of Rayuela message trays",
+  "state": "done",
+  "category": "integrations",
+  "type": "feature",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "related": [
+    "t-a41d89a4-7bca-46b5-b81a-014f8d713dbe"
+  ],
+  "notes": [
+    "A read-only GET through the existing Rayuela menu returned records 201-400 and 401-443 with distinct row IDs using the portal offset. The bundled attachment request is tracked separately by the related task."
+  ],
+  "done_when": [
+    "The CLI can read a requested later page, rejects a mismatched or past-end response, and preserves the default and since-ID behavior."
+  ],
+  "closed": "2026-11-27",
+  "result": "Read later pages of Rayuela message trays",
+  "evidence": [
+    "After pnpm build, the live CLI read pages 1, 2 and 3 of the inbox as 200, 200 and 43 rows, all dated, with 443 unique IDs and the same total. The command refused page 4. Focused tests verify the since-ID filter on a later page, reject incorrect or incomplete ranges and preserve the first-page call."
+  ]
+}

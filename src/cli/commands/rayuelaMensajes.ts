@@ -6,13 +6,14 @@ export const rayuelaMensajes: Command = {
   portal: 'rayuela',
   action: 'mensajes',
   description:
-    'Read Rayuela messages (--bandeja ENV reads the sent box, --desde-id <id> keeps greater message ids)',
+    'Read Rayuela messages (--bandeja ENV reads the sent box, --pagina <number> selects a page, --desde-id <id> keeps greater message ids)',
   login: 'password',
-  options: ['bandeja', 'desde-id'],
+  options: ['bandeja', 'desde-id', 'pagina'],
   run: async (client, options) =>
     listRayuelaMessages(
       client,
       validateRayuelaTray(options['bandeja']),
       options['desde-id'],
+      options['pagina'],
     ),
 }

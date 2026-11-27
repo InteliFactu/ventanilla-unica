@@ -48,7 +48,7 @@ administrations' side of its customers' books up to date.
 | `ventanilla-unica oargt liquidaciones`                                                                                           | OARGT Cáceres                                                      | Whether the holder has liquidations ("Mis liquidaciones"), own or as representative; refuses, reading nothing, when the list has rows, whose layout is not captured yet                                                                                                                                           |
 | `ventanilla-unica tea expedientes --nif <nif>`                                                                                   | Tribunales Económico-Administrativos (sede.tea.hacienda.gob.es)    | Whether the Tribunales Económico-Administrativos hold a case for the certificate holder; refuses, reading nothing, when the list has rows, whose layout is not captured yet                                                                                                                                       |
 | `ventanilla-unica rayuela hijos`                                                                                                 | Rayuela (Educarex)                                                 | Read children using password login; no certificate                                                                                                                                                                                                                                                                |
-| `ventanilla-unica rayuela mensajes [--bandeja REC\|ENV]`                                                                         | Rayuela (Educarex)                                                 | Read the inbox (default) or the sent box using password login; no certificate                                                                                                                                                                                                                                     |
+| `ventanilla-unica rayuela mensajes [--bandeja REC\|ENV] [--pagina n]`                                                            | Rayuela (Educarex)                                                 | Read the inbox (default) or the sent box using password login; no certificate                                                                                                                                                                                                                                     |
 | `ventanilla-unica rayuela responder --id <message id> --texto <text> [--confirmar si]`                                           | Rayuela (Educarex)                                                 | Reply to an inbox message; dry run unless `--confirmar si`, refuses a reply already in the sent box                                                                                                                                                                                                               |
 | `ventanilla-unica rayuela horario [--hijo <name or id>]`                                                                         | Rayuela (Educarex)                                                 | Read timetable using password login; no certificate                                                                                                                                                                                                                                                               |
 | `ventanilla-unica rayuela faltas [--hijo <name or id>]`                                                                          | Rayuela (Educarex)                                                 | Read absences using password login; no certificate                                                                                                                                                                                                                                                                |
@@ -689,14 +689,14 @@ fragment. Selecting the active child keeps the current context. When the roster
 and switcher disagree or the portal does not apply a switch, the command stops
 before reading the pupil's page.
 
-`rayuela mensajes --desde-id <id>` keeps messages with a greater numeric ID on
-the first page of the selected tray. The reported `total` is for the whole tray.
-Each item includes the portal's `dateText` and a `date` in `YYYY-MM-DD` format
-when the label can be resolved. Dates shown as `DD/MM/YYYY` are used directly.
-Relative labels use the Europe/Madrid calendar and the response's HTTP date when
-available. A request that crosses Madrid midnight without the HTTP date leaves
-relative dates as `null`. The command reads embedded previews, which may be
-truncated.
+`rayuela mensajes --pagina <number>` selects one page, starting at 1 by default.
+`--desde-id <id>` keeps messages with a greater numeric ID on that page. The
+reported `total` is for the whole tray. Each item includes the portal's
+`dateText` and a `date` in `YYYY-MM-DD` format when the label can be resolved.
+Dates shown as `DD/MM/YYYY` are used directly. Relative labels use the
+Europe/Madrid calendar and the response's HTTP date when available. A request
+that crosses Madrid midnight without the HTTP date leaves relative dates as
+`null`. The command reads embedded previews, which may be truncated.
 
 ## Justice document downloads
 

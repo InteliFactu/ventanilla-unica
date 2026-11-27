@@ -48,6 +48,52 @@ it('rejects a non-decimal message id before fetching a tray', async () => {
   expect(fetchRayuelaPageResponse).not.toHaveBeenCalled()
 })
 
+it('reads the requested short last page before filtering by message id', async () => {
+  const client = {} as HttpClient
+  vi.mocked(fetchRayuelaPageResponse).mockResolvedValueOnce(
+    htmlResponse(
+      responseUrl,
+      `Registros: 201-202 de 202 <table>
+      <tr id="41">${preview}<TD>Jueves</TD></tr>
+      <tr id="42">${preview}<TD>Jueves</TD></tr></table>`,
+    ),
+  )
+  expect(rayuelaMensajes.options).toContain('pagina')
+  const result = await rayuelaMensajes.run(client, {
+    pagina: '2',
+    'desde-id': '41',
+  })
+  expect(fetchRayuelaPageResponse).toHaveBeenCalledWith(
+    client,
+    'RegMisMenPla',
+    undefined,
+    { BANDEJA: 'REC', N_REG_EMPIEZA_PAG: '200' },
+  )
+  expect(result).toMatchObject({ messages: [{ id: '42' }], total: 202 })
+})
+
+it.each([
+  'Registros: 1-200 de 400',
+  'Registros: 201-200 de 200',
+  'Registros: 400',
+  'Registros: 201-400 de 400',
+])('rejects an unverified later page with range %s', async (range) => {
+  vi.mocked(fetchRayuelaPageResponse).mockResolvedValueOnce(
+    htmlResponse(responseUrl, range),
+  )
+  await expect(
+    rayuelaMensajes.run({} as HttpClient, { pagina: '2' }),
+  ).rejects.toThrow('requested Rayuela message page')
+})
+
+it('rejects an unsafe page number before fetching a tray', async () => {
+  vi.mocked(fetchRayuelaPageResponse).mockClear()
+  await expect(
+    rayuelaMensajes.run({} as HttpClient, { pagina: '9007199254740991' }),
+  ).rejects.toThrow('--pagina')
+  expect(fetchRayuelaPageResponse).not.toHaveBeenCalled()
+})
+
 it.each([
   ['Fri, 13 Nov 2026 22:59:30 GMT', '23:59', '2026-11-13'],
   ['Fri, 13 Nov 2026 23:00:30 GMT', 'Viernes', '2026-11-13'],
