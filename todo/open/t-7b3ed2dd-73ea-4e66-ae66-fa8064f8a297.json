@@ -11,8 +11,8 @@
   "assignees": [
     "agent:codex"
   ],
-  "blocker": "The saved SNE consultation can be read offline. Live consultation and reports depend on a holder-completed CAPTCHA and authenticated portal session, and registration changes require approval for the specific action.",
-  "unblock": "Capture the current consultation and report responses from a holder-completed session and specify any registration change separately.",
+  "blocker": "Current and historical job-seeker registration are available through the verified Carpeta Ciudadana command. The detailed SEXPE demand and report downloads still need a holder-completed SNE CAPTCHA and authenticated session.",
+  "unblock": "Verify the native demand and report responses in a holder-completed SNE session. A registration change requires separate authorization for the specific action.",
   "notes": [
     "Captured",
     "",
@@ -57,6 +57,8 @@
     "`sexpe demanda|alta-demanda|contacto --sesion <cookie header>` commands taking",
     "the cookies of a CAPTCHA the holder solved. `extremaduratrabaja.juntaex.es`",
     "and `www.sexpe.es` did not answer on 2026-10-11.",
-    "Seven synthetic parser and CLI tests passed. Verified the parser against a sealed archived SNE response while emitting only a pass flag."
+    "Seven synthetic parser and CLI tests passed. Verified the parser against a sealed archived SNE response while emitting only a pass flag.",
+    "2026-11-27: The official Mi Carpeta Ciudadana employment lookup returned validated current and historical registration responses using the authorized personal certificate. The working read-only endpoints are GET /api/empleo and GET /api/empleo/fecha with fechaInscripcion. The native SEXPE report path still needs its own holder-completed SNE CAPTCHA. Source: https://masinformacioncarpeta.carpetaciudadana.gob.es/infocc/masInformacion/mis-datos.",
+    "The built carpeta demanda-empleo command passed both the current lookup and an explicit past-date lookup, returning the validated registration status and local registration date through the official service. It only returns the registration fields."
   ]
 }

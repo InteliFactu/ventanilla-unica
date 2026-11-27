@@ -6,13 +6,14 @@
   "category": "integrations",
   "type": "untriaged",
   "priority": "untriaged",
-  "kind": "waiting",
-  "blocker": "Current evidence covers browser-level navigation. Stable read requests and responses for FR101 and RETC remain uncaptured.",
-  "unblock": "Provide a redacted authorized HTTP capture for the relevant Sistema RED operation.",
+  "kind": "decision",
+  "blocker": "The RETC0001 and RETC0002 read flows are implemented and verified live. Opening FR101 creates a draft in the TGSS seat, and RETC0003 and RETC0004 change RED assignments. No specific authorization is recorded for these remaining operations.",
+  "unblock": "Use a redacted trace from an authorized FR101 draft, or authorize opening a specific FR101 case when an own RED authorization is needed. Confirming or rescinding a RETC assignment requires separate authorization for that assignment.",
   "notes": [
     "has Playwright-only walks in",
     "",
     "    `~/p/wiki/tools/tgss/` (`sede-red*.mjs`, `fr101-walk.mjs`). Capture at",
-    "    HTTP level before a port."
+    "    HTTP level before a port.",
+    "2026-11-27: Ran the built tgss autorizado-naf command against RETC0002 with an authorized personal certificate and tgss ccc against RETC0001 with two authorized company certificates. Each response matched the expected holder and returned one structured record. The only remaining capture or implementation work concerns FR101 and the two RETC write services. Official scope: https://sede.seg-social.gob.es/wps/portal/sede/sede/EmpresasyProfesionales/red/06red?changeLanguage=es."
   ]
 }

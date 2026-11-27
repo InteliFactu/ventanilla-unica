@@ -746,6 +746,18 @@ ventanilla-unica carpeta registros --registro REGAGE26e00000000000 \
   --desde 01/11/2026 --hasta 30/11/2026
 ```
 
+## Job-seeker registration
+
+`carpeta demanda-empleo` reads the certificate holder's current job-seeker
+registration from Mi Carpeta Ciudadana. Pass `--fecha DD/MM/YYYY` to check an
+earlier day. The output contains the registration status and, when provided by
+the service, the registration start date.
+
+```sh
+ventanilla-unica carpeta demanda-empleo
+ventanilla-unica carpeta demanda-empleo --fecha 11/10/2026
+```
+
 ## Carpeta Ciudadana alert groups
 
 `carpeta avisos` lists calendar groups, enabled channels and notice days. Use
