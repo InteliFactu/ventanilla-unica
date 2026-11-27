@@ -1,0 +1,27 @@
+{
+  "tadu": 2,
+  "id": "t-0eee571d-6697-4704-9ea0-2ad1bf4e32d8",
+  "title": "Require a download path in Garantía Juvenil document links",
+  "state": "done",
+  "category": "sepe",
+  "type": "bug",
+  "priority": "normal",
+  "kind": "task",
+  "created": "2026-11-27",
+  "started": "2026-11-27",
+  "assignees": [
+    "agent:codex"
+  ],
+  "discovered_from": "t-6295f32f-20e2-4d8d-bf86-ce5670cc6715",
+  "notes": [
+    "A same-origin action currently passes document discovery if only its query string or fragment mentions a PDF or download. The optional output directory causes discovered links to be requested."
+  ],
+  "done_when": [
+    "Reject query-only and fragment-only matches while preserving recognized PDF and download paths, including their query parameters."
+  ],
+  "closed": "2026-11-27",
+  "result": "Require a download path in Garantía Juvenil document links",
+  "evidence": [
+    "The selector tests only the parsed URL pathname for download markers. Three regression cases reproduced query and fragment false positives before the fix and passed afterward. pnpm exec vitest run src/sepe/youthGuarantee passed 108 tests, pnpm check:ci passed 2,544 tests, and pnpm build succeeded. No live document request was made."
+  ]
+}

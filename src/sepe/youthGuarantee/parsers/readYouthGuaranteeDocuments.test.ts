@@ -22,4 +22,23 @@ describe('offered certificate links', () => {
       ),
     ).toEqual([])
   })
+  it.each([
+    '/solicitudPaso6Token.action?operation=descargar',
+    '/emitirCertificado.action?filename=certificado.pdf',
+    '/emitirCertificado.action#download',
+  ])('ignores a download hint outside the path of %s', (href) => {
+    expect(
+      readYouthGuaranteeDocuments(`<a href="${href}">Certificado</a>`),
+    ).toEqual([])
+  })
+  it.each([
+    '/certificado.pdf?ref=example',
+    '/descargarJustificante.action?ref=example',
+  ])('preserves the parameters of an offered download at %s', (href) => {
+    expect(
+      readYouthGuaranteeDocuments(`<a href="${href}">Justificante</a>`),
+    ).toEqual([
+      { label: 'Justificante', url: `https://garantiajuvenil.sepe.es${href}` },
+    ])
+  })
 })
