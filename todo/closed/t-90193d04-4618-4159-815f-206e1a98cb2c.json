@@ -2,7 +2,7 @@
   "tadu": 2,
   "id": "t-90193d04-4618-4159-815f-206e1a98cb2c",
   "title": "Review time-sensitive public notifications",
-  "state": "blocked",
+  "state": "done",
   "category": "routed-from-p-todo-md-2026-11-15",
   "type": "chore",
   "priority": "high",
@@ -35,5 +35,10 @@
     "The holder specifically authorized opening the Garantia Juvenil enrollment resolution. The official PDF was read and the selected row was marked as read. The separate acknowledgment was left unread.",
     "Verified the other seven AEAT pending lists again without opening entries. The official summary and search routes independently reproduced HTTP 403 for the remaining matching holder certificate.",
     "The specifically authorized historical AEAT communication was opened through its own document-view action. Verified the PDF and independently refreshed the pending list to confirm that the selected row was no longer unread. The PDF and case details remain private."
+  ],
+  "closed": "2026-11-28",
+  "result": "Review time-sensitive public notifications",
+  "evidence": [
+    "All scoped pending listings were checked. DEHU and Junta returned zero. The AEAT historical communication was opened with specific authorization and its read status verified. For the remaining holder, the AEAT service listed the entity as a selectable successor relationship. The search using that holder in En nombre de and Leida=No returned HTTP 200 and the explicit no-results notice for the previous twelve months. No detail was opened during that search. The authorized Garantia Juvenil resolution was reviewed; its separate acknowledgment remained unread."
   ]
 }

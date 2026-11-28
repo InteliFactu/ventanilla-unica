@@ -1,0 +1,18 @@
+{
+  "tadu": 2,
+  "id": "t-573aa634-a9b9-4955-8452-7b1f74287faf",
+  "title": "Filter AEAT pending notifications for the represented holder",
+  "state": "pending",
+  "category": "integrations",
+  "type": "bug",
+  "priority": "high",
+  "kind": "task",
+  "created": "2026-11-28",
+  "discovered_from": "t-90193d04-4618-4159-815f-206e1a98cb2c",
+  "notes": [
+    "The current AEAT notification listing runs under the certificate session and does not submit the requested holder as En nombre de. A supported live lookup selected the entity in the service chooser, then sent F_EN_NOMBRE_DE to SvInteresadosQuery and received the explicit no-results response."
+  ],
+  "done_when": [
+    "A list-only invocation verifies the requested holder is available in the AEAT service chooser and submits its En nombre de filter. An unavailable relationship or unrecognized response is reported instead of an empty list. Own-holder listing and the separate confirmation path keep their current behavior."
+  ]
+}
